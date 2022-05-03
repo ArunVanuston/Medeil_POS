@@ -1,0 +1,88 @@
+<style>
+  .viewbtn{
+    border-radius:5px;
+    padding:3px 12px;
+    color:white;
+    background-color: gray;
+    outline:none;
+    margin:0px 5px;
+  }
+</style>
+<app-card>
+  <div class="container bform">
+    <div class="ml-3">
+      <input type="radio" class="ml-2" (change)="selecttype($event,1)" [checked]="selectedtype==1"/>
+      <label class="form-label">Free Edition</label>
+  
+      <input type="radio" class="ml-2" (change)="selecttype($event,2)" [checked]="selectedtype==2"/>
+      <label class="form-label">Trial Edition</label>
+  
+      <input type="radio" class="ml-2" (change)="selecttype($event,3)" [checked]="selectedtype==3"/>
+      <label class="form-label">Paid Edition</label>
+
+      <input type="radio" class="ml-2" (change)="selecttype($event,4)" [checked]="selectedtype==4"/>
+      <label class="form-label">All Edition</label><br>
+    </div>
+    <div class="" align="center" *ngIf="selectedtype==2||selectedtype==3">
+      <table aria-describedby="mydesc">
+        <tr>
+          <button class="viewbtn" (click)="selectedition(1)" [style.background-color]="selectededition==1 ? 'brown' : gray">Bronze</button>
+          <button class="viewbtn" (click)="selectedition(2)" [style.background-color]="selectededition==2 ? 'brown' : gray">Silver</button>
+          <button class="viewbtn" (click)="selectedition(3)" [style.background-color]="selectededition==3 ? 'brown' : gray">Gold</button>
+          <button class="viewbtn" (click)="selectedition(4)" [style.background-color]="selectededition==4 ? 'brown' : gray">Platinum</button>
+        </tr>
+      </table>
+    </div><br>
+    <div class="" align="center">
+      <input type="text" class="search mt-1"  style="width:80%;text-align: left;" placeholder="Search Customer Name/Mobile No"
+      (input)="searchcustomers($event.target.value)" autocomplete="off"/>
+    </div><br>
+    <div class="dt-responsive" style="overflow: auto;">
+      <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Email-id</th>
+            <th scope="col">Mobile No</th>
+            <th scope="col">Shop Name</th>
+            <th scope="col">Country</th>
+            <th scope="col">Plan Name</th>
+            <th scope="col">Product Name</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="customerlists.length == 0">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td style="color:red;font-size:21px">No matching Record(s) found</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let item of customerlists | paginate: { id: 'listing_pagination',
+          itemsPerPage: 10, currentPage: page }  let i=index">
+              <td>{{i+1}}</td>
+              <td>{{item[1]}}</td>
+              <td>{{item[2]}}</td>
+              <td>{{item[3]}}</td>
+              <td>{{item[4]}}</td>
+              <td>{{item[5]}}</td>
+              <td>{{item[6]}}</td>
+              <td>{{item[7]}}</td>
+          </tr>
+        </tbody>  
+        <tfoot>
+          <tr>
+            <td colspan="8">
+              <pagination-controls id="listing_pagination" directionLinks="true"
+              (pageChange)="page = $event" style="float: right;"></pagination-controls>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div><!--over all container close-->
+ </app-card>

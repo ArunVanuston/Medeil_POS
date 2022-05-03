@@ -1,0 +1,651 @@
+<style>
+    .heads{
+        padding:1em !important;
+    }
+    .canvasjs-chart-credit{
+        display:none
+    }
+
+    .roletype{
+    border:2px solid #ebebeb;
+    border-radius:10px;
+    background-color: #f7f4f4;
+    font-size: 16px;
+    width: 100%;
+    height:37px;
+    text-align:center;
+    outline:none;
+    }
+</style>
+<div class="container-fluid">
+    <div class="card-body-big card-visitor-block px-2 pt-1 pb-2" style="background-color:#799cdc;">
+        <div class="row">
+            <div class="col-lg-4">
+                <label class="form-label text-white">Branch</label><br>
+                <input type="text" class="roletype" [value]="shopname" readonly/>
+                <!-- <select name="select" class="roletype">
+                 <option value="opt1" selected disabled>---Select Branch---</option>
+                 <option value="chennai">Chennai</option>
+                 <option value="thirchy">Thirchy</option>
+                 <option value="other">Other</option>
+                </select><br> -->
+            </div>
+            <div class="col-lg-4">
+                <label class="form-label text-white">Location</label><br>
+                <input type="text" class="roletype" [value]="shopcityname" readonly/>
+            </div>
+            <div class="col-lg-4">
+                <label class="form-label text-white">Status</label><br>
+                <select name="select" class="roletype" (change)="statuschange($event.target.value)">
+                <option value="opt1" selected disabled>---Select Status---</option>
+                <option value="1">Today</option>
+                <option value="2">Weekly</option>
+                <option value="3">Monthly</option>
+                <option value="4">Total (Yearly)</option>
+                <!-- <option value="5">Total</option> -->
+                <!-- <option value="6">Specific Date</option> -->
+                </select><br>
+                <input type="date" id="calendardisp" *ngIf="calendarshow"/><!---->
+            </div>
+        </div>
+    </div>      
+</div><br>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Visitor Chart Start-->
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-body-big card-visitor-block" style="background-color: #002e86;">
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="fa fa-users text-secondary"></em></button>
+                                    <div class="card-contain" *ngIf="statusflag==1">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center" ><span class="counter px-3" [CountTo]="daycust" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==2">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center" ><span class="counter px-3" [CountTo]="weekcust" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==3">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center" ><span class="counter px-3" [CountTo]="monthcust" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==4">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center" ><span class="counter px-3" [CountTo]="yearcust" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==5">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center" ><span class="counter px-3" [CountTo]="totalcust" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                       
+                    </div>  
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==1">Today Customer </p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==2">Weekly Customer </p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==3">Monthly Customer </p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==4">Yearly Customer </p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==5">Total Customer </p>
+                </form>
+            </div>
+        </div>
+    
+        <!-- <div class="col-md-6 col-xl-2">
+            <div class="card-body-big card-visitor-block " style="background-color: #dccc77;">
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="ti-bar-chart text-danger"></em></button>
+                                    <div class="card-contain">
+                                        <h6 style="color:white" align = "center"><span class="counter" [CountTo]="totalpurchases" [from]="0"
+                                            [duration]="10"></span></h6>
+                                        <p class="text-white f-18 m-2">Total Purchase</p>
+                                    </div>
+                        </div>
+                      
+                    </div>
+                </form>
+            </div>
+        </div> -->
+    
+       
+    <!-- <div class="row mt-3"> -->
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-body-big card-visitor-block " style="background-color: #00d7b5;"> 
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="icofont icofont-shopping-cart text-secondary"></em></button>
+                                    <div class="card-contain" *ngIf="statusflag==1">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="daysale" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==2">
+                                    <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="weeksale" [from]="0"
+                                        [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==3">
+                                    <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="monthsale" [from]="0"
+                                        [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==4">
+                                    <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="yearsales" [from]="0"
+                                        [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==5">
+                                    <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="totalsales" [from]="0"
+                                        [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==1" (click)="Salesdata()">Today Sales</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==2">Weekly Sales</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==3">Monthly Sales</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==4">Yearly Sales</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==5">Total Sales</p>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-body-big card-visitor-block " style="background-color:#799cdc;">
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="icofont icofont-shopping-cart text-secondary"></em></button>
+                                    <div class="card-contain" *ngIf="statusflag==1">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="daypurchase" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==2">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="weekpurchase" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==3">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="monthpurchase" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==4">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="yearpurchase" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==5">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="totalpurchases" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align: center;" *ngIf="statusflag==1">Today Purchase</p>
+                    <p class="text-white f-18" style="text-align: center;" *ngIf="statusflag==2">Weekly Purchase</p>
+                    <p class="text-white f-18" style="text-align: center;" *ngIf="statusflag==3">Monthly Purchase</p>
+                    <p class="text-white f-18" style="text-align: center;" *ngIf="statusflag==4">Yearly Purchase</p>
+                    <p class="text-white f-18" style="text-align: center;" *ngIf="statusflag==5">Total Purchase</p>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-sm-6 col-md-6 col-lg-3">
+            <div class="card-body-big card-visitor-block " style="background-color: #89e5d6;">
+                <form [formGroup]="dashboard">
+                    <div class="row"><!-- #89e5d6; -->
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="ti-bar-chart text-secondary"></em></button>
+                                    <div class="card-contain" *ngIf="statusflag==1">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="daystock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==2">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="weekstock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==3">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="monthstock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==4">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="yearstocks" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==5">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="totalstocks" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==1">Today Stocks</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==2">Weekly Stocks</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==3">Monthly Stocks</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==4">Yearly Stocks</p>
+                    <p class="text-white f-18" style="text-align:center;" *ngIf="statusflag==5">Total Stocks</p>
+                </form>
+            </div>
+        </div>
+    <!--     
+        <div class="col-md-6 col-xl-2">
+            <div class="card-body-big card-visitor-block " style="background-color: #61b546;">
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white" ><em
+                                    class="icofont icofont-shopping-cart text-success"></em></button>
+                                    <div class="card-contain">
+                                        <h6 style="color:white" align = "center"><span class="counter" [CountTo]="profit" [from]="0"
+                                            [duration]="10"></span></h6>
+                                        <p class="text-white f-18 m-2">Total Profit</p>
+                                       
+                                    </div>
+                        </div>
+                       
+                    </div>
+                </form>
+            </div>-->
+        </div> 
+</div><br><br>
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-md-8 col-xl-8 pr-1">
+            <div class="card" style="height:400px">
+                <div class="card-body">
+                    <h5>Progress Report</h5>
+                </div>
+                <div class="morris px-2" id="bar-chart"></div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-4"> 
+            <div class="card" style="height:400px;width:100%" >  
+                <div class="card-body pr-2" style="padding:5px 2px;">
+                <h5 class="heads">Sales Indicator</h5>
+                <div class="px-2" align="center">
+                    <ngx-gauge
+                    size=250
+                    [type]="gaugeType" 
+                    [value]="gaugeValue" 
+                    [label]="gaugeLabel"
+                    [thick]="gaugeThick"
+                    [foregroundColor]="fcolor">
+                </ngx-gauge> 
+                    <!-- [append]="gaugeAppendText"> [thresholds]="gaugethresholds"-->
+                </div>
+                
+                 <!-- <dx-circular-gauge id="gauge" [value]="45">
+                    <dxo-scale
+                        [startValue]="0"
+                        [endValue]="100"
+                        [tickInterval]="5">
+                        <dxo-label [useRangeColors]="true"></dxo-label>
+                    </dxo-scale>
+                    <dxo-range-container palette="pastel">
+                        <dxi-range [startValue]="50" [endValue]="90"></dxi-range>
+                        <dxi-range [startValue]="90" [endValue]="130"></dxi-range>
+                        <dxi-range [startValue]="130" [endValue]="150"></dxi-range>
+                    </dxo-range-container>
+                    <!-- <dxo-export [enabled]="true"></dxo-export> -->
+                    <!-- <dxo-title text="Sales Indicater">
+                        <dxo-font [size]="28"></dxo-font>
+                    </dxo-title> --
+                </dx-circular-gauge> -->
+             
+                </div>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Product table Start -->
+        <!-- <div class="col-md-12 col-xl-4 pl-1"> 
+            [palette]="['#277145', '#3aa967', '#328055', '#68b38a', '#868e96']"
+            [palette]="['#0d3988', '#799cdc', '#2158be', '#c9d3e7', '#6892e1']"-->
+          <div class="col-md-4 col-xl-4">
+              <div class="card" style="height:410px">
+                  <div class="card-body" style="padding:5px 2px;">
+                      <h5 class="heads">Distributor Wise Purchase</h5><br><br>
+                      <dx-bar-gauge id="gauge"
+                        [startValue]="0"
+                        [endValue]="100"
+                        [values]="distvalues" 
+                        [palette]="['#002e86', '#00d7b5', '#799cdc', '#89e5d6', '#a5b9de']">
+                      <dxo-label
+                        [visible]="false"
+                      ></dxo-label>
+                      <dxo-tooltip
+                        [enabled]="true"
+                        [customizeTooltip]="customizeTooltip"
+                      ></dxo-tooltip>
+                      <dxo-legend
+                        [visible]="false"
+                        verticalAlignment="bottom"
+                        horizontalAlignment="center"
+                        [customizeText]="customizeText">
+                    </dxo-legend>
+                  </dx-bar-gauge>
+                  </div>
+                  <!-- <div class="mx-2 mb-3 text-center" id="distwisepurchase"></div> -->
+              </div>
+          </div>
+        
+          <div class="col-md-8  col-xl-8">
+            <div class="card" style="height:410px;border-top:3px solid #002e86">
+                <div class="card-body" style="padding:5px 2px;">
+                    <h5 class="heads">Recent Sales Invoice</h5><br>
+                    <div class="table-responsive dashsales mx-2" style="overflow: auto;">
+                        <table aria-describedby="mydesc" class="table" style="font-family:Montserrat">
+                            <thead>
+                                <tr class="text-uppercase">
+    
+                                    <th scope="col">Invoice No</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Total Qty</th>
+                                    <th scope="col" style="text-align:right;">Total Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+    
+                                <tr *ngFor="let item of lastsale">
+                                    <td>{{item.invno}} </td>
+                                    <td>{{item.invdate}} </td>
+                                    <td>{{item.cusname}} </td>
+                                    <td style="text-align:center;">{{item.invqty}} </td>
+                                    <td class="" style="font-weight:bold;font-size:17px;text-align:right;color:#002e86">{{item.invtotal}} </td>
+                                </tr>
+    
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <a [routerLink]="['/SalesInvoice/SalesMaintenance']" class="mr-5 mb-5"
+                    style="color:#002e86;font-size:18px;text-align:right;cursor:pointer">See More</a>
+            </div>
+        </div>
+         
+      </div>
+</div>
+
+<!-- Reset Order Start -->
+
+
+<!-- <div class="row mt-2"> -->
+
+    <!-- <div class="row mt-2" style="height:400px"> -->
+    <!-- <div class="col-md-12 col-xl-7 pr-1">
+        <div class="card" style="height:400px">
+            <div class="card-body">
+                <h5>Task Status</h5>
+            </div>
+            <div class="morris" id="bar-chart"></div>
+        </div>
+    </div> -->
+
+    <!-- </div> -->
+
+    <!-- <div class="row mt-2" style="height:400px"> -->
+    <!-- <div class="col-md-12 col-xl-5 pl-1">
+        <div class="card" style="height:400px">
+            <div class="card-body">
+                <h5>Task Priority</h5>
+            </div>
+            <div id="priority"></div>
+        </div>
+    </div> -->
+    <!-- </div> -->
+
+<!-- </div> -->
+
+
+<!-- <div class="row mt-2">
+    <div class="col-md-12 col-xl-12">
+      
+    <div class="card" style="height:400px">
+        <div class="card-body">
+            <h5>Minimum Stocks</h5>
+        </div>
+        <div class="card-body product-table pt-1" >
+            <div class="table-responsive">
+                <table aria-describedby="mydesc" class="table" style="font-family:Montserrat" >
+                    <thead>
+                        <tr class="text-uppercase">
+                            <th scope="col">Prod-Code</th>
+                            <th scope="col">Prod-Name</th>
+                            <th scope="col">Expiry Date</th>
+                            <th scope="col">Minimum Qty</th>
+                            <th scope="col">Current Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of minstock">
+
+                            <td>{{item[0]}}</td>
+                            <td>{{item[1]}}</td>
+                            <td>{{item[2]}}</td>
+                            <td>{{item[3]}}</td>
+                            <td class="text-danger" style="font-weight:bold;font-size:17px">{{item[4]}} </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="mr-5" align="right">
+                <a [routerLink]="['/SalesInvoice/SalesMaintenance']" style="color:#002e86;font-size:18px;cursor:pointer">See More</a>        
+            </div>
+        </div>
+      </div>
+    </div>
+<!-</div> -->
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-xl-3">
+            <div class="card-body-big card-visitor-block " style="background-color: #002e86;">
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="ti-bar-chart text-secondary"></em></button>
+                                    <div class="card-contain" *ngIf="statusflag==1">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="dayoutofstock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==2">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="weekoutofstock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==3">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="monthoutofstock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==4">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="yearoutofstocks" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==5">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="totaloutofstocks" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align:center;" (click) = "shortexp()" *ngIf="statusflag==1">Today Out of Stock</p>
+                    <p class="text-white f-18" style="text-align:center;" (click) = "shortexp()" *ngIf="statusflag==2">Weekly Out of Stock</p>
+                    <p class="text-white f-18" style="text-align:center;" (click) = "shortexp()" *ngIf="statusflag==3">Monthly Out of Stock</p>
+                    <p class="text-white f-18" style="text-align:center;" (click) = "shortexp()" *ngIf="statusflag==4">Yearly Out of Stock</p>
+                    <p class="text-white f-18" style="text-align:center;" (click) = "shortexp()" *ngIf="statusflag==5">Total Out of Stock</p>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-md-6 col-xl-3">
+            <div class="card-body-big card-visitor-block " style="background-color: #00d7b5;">
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white">
+                                <em class="ti-bar-chart text-secondary"></em></button>
+                                    <div class="card-contain">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="shortex" [from]="0" [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align: center;" (click) = "shortexp()">Short Expiry</p>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-md-6 col-xl-3">
+            <div class="card-body-big card-visitor-block " style="background-color:#799cdc"> 
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button">
+                            <button class="btn btn-icon bg-white"><em
+                                    class="icofont icofont-shopping-cart text-secondary"></em></button>
+                                    <div class="card-contain" *ngIf="statusflag==1">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="dayprod" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==2">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="weekprod" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==3">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="monthprod" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==4">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="yearprod" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                                    <div class="card-contain" *ngIf="statusflag==5">
+                                        <h6 style="color:white;padding-top: 12px;" align = "center"><span class="counter px-3" [CountTo]="totalprod" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align: center;" (click) = "minstocks()" *ngIf="statusflag==1">Today Minimum Stock</p>
+                    <p class="text-white f-18" style="text-align: center;" (click) = "minstocks()" *ngIf="statusflag==2">Weekly Minimum Stock</p>
+                    <p class="text-white f-18" style="text-align: center;" (click) = "minstocks()" *ngIf="statusflag==3">Monthly Minimum Stock</p>
+                    <p class="text-white f-18" style="text-align: center;" (click) = "minstocks()" *ngIf="statusflag==4">Yearly Minimum Stock</p>
+                    <p class="text-white f-18" style="text-align: center;" (click) = "minstocks()" *ngIf="statusflag==5">Total Minimum Stock</p>
+                </form>
+            </div>
+        </div>
+    
+        <div class="col-md-6 col-xl-3">
+            <div class="card-body-big card-visitor-block " style="background-color: #89e5d6;"> 
+                <form [formGroup]="dashboard">
+                    <div class="row">
+                        <div class="col-sm-10 card-visitor-button" >
+                            <button class="btn btn-icon bg-white" (click) = "expiredstock()">
+                                <em class="icofont icofont-shopping-cart text-secondary" >
+                                </em></button>
+                                    <div class="card-contain" >
+                                        <h6 style="color:white;padding-top:12px;" align = "center"><span class="counter px-3" [CountTo]="expstock" [from]="0"
+                                            [duration]="8"></span></h6>
+                                    </div>
+                        </div>
+                    </div>
+                    <p class="text-white f-18" style="text-align:center" >Expired Stock</p>
+                </form>
+            </div>
+        </div>
+        </div>
+</div><br><br>
+
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-md-8 col-xl-8">
+            <div class="card" style="height:450px">
+                <div class="card-body"><!--- style="padding:2px;"-->
+                <h5 style="padding:5px 1em" (click)="abcpyramid()">ABC Analysis</h5><br><br><br>
+                <!-- <google-chart [data]="comboChartData1"></google-chart> palette="Harmony light"--
+                <dx-funnel
+                id="pyramid"
+                [dataSource]="pyramidSource"
+                argumentField="level"
+                valueField="count"
+                [inverted]="true"
+                algorithm="dynamicHeight"
+                [sortData]="false"
+                [palette]="['#277145', '#3aa967', '#868e96', '#68b38a']">
+                <dxo-tooltip [enabled]="true"></dxo-tooltip>
+                <dxo-item>
+                    <dxo-border [visible]="true"></dxo-border>
+                </dxo-item>
+                <dxo-legend [visible]="true"></dxo-legend>
+                <!-- horizontalAlignment="left"--
+                <dxo-label 
+                    visible="true"
+                    position="inside"
+                    backgroundColor="none">
+                    <dxo-font [size]="14"></dxo-font>
+                </dxo-label>
+                </dx-funnel>-->
+                <div id="chartContainer" style="height: 300px; width: 85%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-xl-4">
+            <div class="card" style="height:450px">
+                <div class="card-body">
+                    <h5>Sales Order Counts</h5>
+                </div>
+                <div class="mx-2 mb-3 text-center" id="donut-example"></div>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<div class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-md-4 col-xl-4">
+            <div class="card" style="height:450px">
+                <div class="card-body" style="padding:5px 2px;">
+                    <h5 class="heads">Product Wise Sales</h5><br>
+                    <div class="mb-3 text-center" id="productwisesale"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 col-xl-8">
+            <div class="card" style="height:450px">
+                <div class="card-body" style="padding:5px 2px;"><!---->
+                    <br>
+                    <h5 style="padding:0px 1em">Lead Time Analysis</h5><br>
+                    <div id="stackbar-chart" ></div>
+                    <!-- <div id="dist_lead"></div> 
+                    title="Male Age Structure" 
+                    <dx-chart
+                    id="chart"
+                    [dataSource]="leadSource"
+                    [palette]="['#277145', '#3aa967', '#868e96', '#68b38a']">
+                    <dxi-series valueField="young" name="Short Time"></dxi-series>
+                    <dxi-series valueField="middle" name="Mid Time"></dxi-series>
+                    <dxi-series valueField="older" name="Long Time"></dxi-series>
+                    <dxi-value-axis position="right">
+                        <dxo-title text="Days"></dxo-title>
+                    </dxi-value-axis>
+                    <dxo-common-series-settings
+                        argumentField="state"
+                        type="stackedBar">
+                    </dxo-common-series-settings>
+                    <dxo-legend
+                        verticalAlignment="bottom"
+                        horizontalAlignment="center"
+                        itemTextPosition="top">
+                    </dxo-legend>
+                    <!-- <dxo-export [enabled]="true"></dxo-export> -
+                    <dxo-tooltip
+                        [enabled]="true"
+                        location="edge"
+                        [customizeTooltip]="customizeTooltip">
+                    </dxo-tooltip>
+                </dx-chart>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

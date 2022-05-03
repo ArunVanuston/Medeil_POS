@@ -1,0 +1,233 @@
+<style>
+	.radio {
+		font-size: 16px;
+	}
+
+	input[type=radio] {
+		zoom: 1.0;
+	}
+</style>
+
+<app-card>
+	<div class="sub-title">{{'doctor.editdoctor'| translate}}
+		<i class="fa fa-edit ficon"></i>
+	</div>
+	<table style="width:100%">
+		<tbody>
+		 <tr>
+		 <td style="width:95%">
+			<form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" class="mx-3" autocomplete="off">
+				<div align="right">
+					<button type="button" class="btn-round" [routerLink]="['/DoctorRegistration/ViewDoctor']">{{'doctor.viewdoctor'| translate}}</button>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctortitle'| translate}}</h6></label>
+							<select name="select" class="form-control" formControlName="title" autofocus>
+								<option value="Mr">Mr.</option>
+								<option value="Mrs">Mrs.</option>
+								<option value="Dr">Dr.</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold control-label">{{'doctor.doctorname'| translate}}<font color="red" class="fontlangifbel">*</font></label>
+							<input type="text" class="form-control" placeholder="Enter Doctor Name" 
+							autocomplete="off" formControlName="doctorname" />
+							
+							<!-- <p class="messages text-danger" *ngIf="doctorForm.controls.doctorname.errors?.required">
+									This Field is Required*</p> -->
+									<p class="messages text-danger" *ngIf="doctorForm.controls.doctorname.errors?.pattern">
+											Accepts Only Text!</p>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorprcnumber'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+								
+							</label>
+							<input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" placeholder="Professional Regulation Commission Number" 
+							autocomplete="off" formControlName="registrationno" />
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label"><h6>{{'doctor.doctorgender'| translate}}<font color="red" class="fontlangifbel">*</font></h6></label><br>
+						</fieldset>
+						<label class="radio">
+							<input type="radio" value="Male" name="gender" formControlName="gender" checked> Male
+						</label>
+						<label class="radio">
+							<input type="radio" value="Female" name="gender" formControlName="gender"> Female
+						</label>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctordob'| translate}}</h6></label>
+							<input type="date" class="form-control" placeholder="Enter your DOB" formControlName="docdob" />
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">{{'doctor.doctoraddress1'| translate}}<font color="red" class="fontlangifbel">*</font></label>
+							<input type="text" class="form-control" placeholder="Enter your Address Line 1" 
+							autocomplete="off" formControlName="docaddress1" />
+		
+							<!-- <p class="messages text-danger" *ngIf="doctorForm.controls.docaddress1.errors?.required">
+									This Field is Required*</p> -->
+						</fieldset>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctoraddress2'| translate}}</h6></label>
+							<input type="text" class="form-control" placeholder="Enter your Address Line 2" 
+							autocomplete="off" formControlName="docaddress2" />
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorcountry'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+								</label>
+							<select name="select" class="form-control" placeholder="Select Country" formControlName="country" (change)="getState()" >
+								<option value="0">---Select Country---</option>
+								<option *ngFor="let coun of country" value={{coun[0]}}>{{coun[1]}}</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorstate'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+								</label>
+							<select name="select" class="form-control" formControlName="state" (change)="getCity()" >
+								<option value="0">---Select State---</option>
+								<option *ngFor="let st of state" value={{st[0]}}>{{st[2]}}</option>
+							</select>
+						</fieldset>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						<label class="form-label semibold"><h6>{{'doctor.doctorcity'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+							</label>
+						<select name="select" class="form-control" formControlName="city">
+							<option value="0">---Select City---</option>
+							<option *ngFor="let co of city" value={{co[0]}}>{{co[1]}}</option>
+						</select>
+					</div>
+					<div class="col-lg-4">
+							<label class="form-label semibold"><h6>{{'doctor.doctorpin'| translate}}</h6></label>
+							<input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" placeholder="Enter your Pincode" 
+							autocomplete="off" formControlName="pincode" />
+					</div>
+					<div class="col-sm-4">
+						<label class="form-label semibold"><h6>{{'doctor.doctorcountrycode'| translate}}</h6></label>
+						<select name="select" class="form-control" formControlName="countrycode">
+							<option value="0">---Select CountryCode---</option>
+							<option *ngFor="let co of countrycode" value={{co}}>{{co}}</option>
+						</select>
+					</div>
+				</div>
+		
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">{{'doctor.doctormobile'| translate}}<font color="red" class="fontlangifbel">*</font></label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" maxlength="15" class="form-control" placeholder="Enter your Mobile Number" 
+							autocomplete="off" formControlName="mobile" />
+							
+							<!-- <p class="messages text-danger" *ngIf="doctorForm.controls.mobile.errors?.required">
+									This Filed is Required*</p> -->
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorphone'| translate}}</h6></label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" maxlength="15" class="form-control" placeholder="Enter your Phone" 
+							autocomplete="off" formControlName="phone" />
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctoremail'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+								</label>
+							<input type="email" class="form-control" placeholder="Enter your Email" formControlName="email" />
+							<p class="messages text-danger" *ngIf="doctorForm.controls.email.errors?.pattern">
+								Enter Correct Mail!</p>
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorwebsite'| translate}}</h6></label>
+							<input type="text" class="form-control" placeholder="Enter your Website" 
+							autocomplete="off" formControlName="website" />
+						</fieldset>
+					</div>
+					<!-- <div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>Aadhar No</h6></label>
+							<input type="text" class="form-control" placeholder="Enter your Aadhaar" formControlName="aadhaarcardno" />
+						</fieldset>
+					</div> -->
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorlanguages'| translate}}</h6></label>
+							<input type="text" class="form-control" placeholder="Enter your Languages" 
+							autocomplete="off" formControlName="language" />
+							<p class="messages text-danger" *ngIf="doctorForm.controls.language.errors?.pattern">
+								Enter Text Only!</p>
+						</fieldset>
+					</div>
+					
+		
+					<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold"><h6>{{'doctor.doctorexperience'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+									</label>
+								<input type="number" class="form-control" placeholder="Enter your Experience" formControlName="experience" />
+							</fieldset>
+					</div>
+				</div>
+		
+				<div class="form-group row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>{{'doctor.doctorworkinghours'| translate}}</h6></label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" maxlength="2" class="form-control" placeholder="Enter your Working-Hours" 
+							autocomplete="off" formControlName="workhour" />
+						</fieldset>
+					</div>
+				</div>
+				<div class="" align="center">
+					<img src="assets/images/saveload.gif" class="mt-2" *ngIf="saveprocess">
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						<button type="submit" class="btn-round" [disabled]="!doctorForm.valid">update</button>
+					</div>
+				</div>
+			</form>
+		</td>
+		  <td style="width:5%" valign="top">
+		 <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+		 </td>
+		 </tr>
+		</tbody>
+	</table>			 			 			 			 						
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

@@ -1,0 +1,208 @@
+<style>
+  .borderform {
+    border: 2px solid #b3b3b3;
+    border-radius: 5px;
+    padding: 1em;
+  }
+</style>
+<app-card>
+  <div class="sub-title">{{'salesinvoice.salesreturndetails' | translate }}
+    <em class="fa fa-reply ficon"></em>
+  </div>
+  <div class="panels">
+  <div class="panel1" style="width:95%;float:left">
+    <div class="mr-2" align="right">
+			<button type="button" class="btn-round" [routerLink]="['/SalesReturn/ViewSalesReturn']">{{'salesinvoice.viewsalesreturns' | translate }}</button>
+		</div>
+    <form [formGroup]="registerForm">
+      <div class="box-typical box-typical-padding">
+        <div class="row">
+          <div class="col-md-4">
+            <label class="form-label" for="exampleInput">{{'salesinvoice.salesinvoiceno' | translate }}</label>
+            <select class="select2" id="docstate" class="form-control" (change)="viewSInvoiceProduct()"
+            formControlName="invoiceno">
+            <option value="opt1" disabled>--{{'salesinvoice.selectsalesreturnno' | translate}}--</option>
+            <option *ngFor="let item of invoices; let i = index" value={{item[0]}}>{{item[1]}}</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label semibold" for="exampleInput">{{'salesinvoice.invoicedate' | translate}}
+            </label>
+            <input type="date" class="form-control" formControlName="date" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label semibold" for="exampleInput">{{'salesinvoice.customername' | translate}}
+            </label>
+            <input type="text" class="form-control" formControlName="customername" />
+          </div>
+        </div><br>
+        <label class="title1"><u> {{'salesinvoice.returnproducts' | translate}}</u></label> <br>
+        <div formArrayName="invoice" class="flow">
+          <!--. table  start-->
+          <table aria-describedby="mydesc" class="table " (keydown)="autocleartable1()">
+            <thead class="stylehead">
+              <tr>
+                <th scope="col"> {{'common.remove' | translate}}</th>
+                <th scope="col">{{'common.snum' | translate}} </th>
+                <th scope="col">{{'salesdeliverychallan.prodcode' | translate}}</th>
+                <th scope="col">{{'salesdeliverychallan.prodname' | translate}}</th>
+                <th scope="col">{{'salesdeliverychallan.batchno' | translate}}</th>
+                <!--      <th scope="col">B/S/T</th>     -->
+                <th scope="col">{{'picking.invoiceqty' | translate}}</th>
+                <th scope="col">{{'common.unitreturn' | translate}} </th>
+                <!-- <th scope="col">Total Return </th> -->
+                <th scope="col">{{'common.salesprice' | translate}} </th>
+                <th scope="col">{{'shipment.amount' | translate}} </th>
+                <th scope="col"> {{'common.salesprice' | translate}} </th>
+                <th scope="col">{{'common.unitdiscount' | translate}}</th>
+                <th scope="col" *ngIf="taxid == 0">VAT</th>
+                <th scope="col" *ngIf="taxid == 1">GST</th>
+                <th scope="col" *ngIf="taxgstid==1">SGST </th>
+                <th scope="col" *ngIf="taxgstid==2">UGST </th>
+                <th scope="col" *ngIf="taxgstid==1 || taxgstid==2">CGST </th>
+                <th scope="col" *ngIf="taxid == 2">IGST </th>
+                <th scope="col">{{'salesinvoice.totalinvoiceqty' | translate}}</th>
+                <th scope="col">{{'salesinvoice.prevreturnqty' | translate}}</th>
+                <!--      <th scope="col">SiQty </th>
+                                                   <th scope="col">StkQty </th>  -->
+              </tr>
+            </thead>
+            <tbody class="stylebody">
+              <tr *ngFor="let address of registerForm.controls.invoice.controls; let i=index" [formGroupName]="i">
+                <!-- <td><input type="checkbox" class="tabcheck" id="width1" formControlName="delflag" /></td> -->
+                <td><em class="fa fa-times text-secondary" (click)="remove(i)" style="cursor: pointer;"></em></td>
+                <td><input value={{i+1}} id="width1" readonly /></td>
+                <td><input formControlName="drugproductid" readonly /></td>
+                <td><input formControlName="productname" id="width6" style="text-align:left" readonly /></td>
+                <td><input formControlName="batchname" id="width4" style="text-align:left" readonly /></td>
+                <!--      <td ><input  formControlName="drgtyp"   /></td>  -->
+                <td><input formControlName="siqty" readonly id="width2"/></td>
+                <td><input formControlName="indvqty" id="width2" (blur)="calcGST()" type="text" /></td>
+                <!-- <td><input formControlName="totalqty" id="width3" readonly /></td> -->
+                <td><input formControlName="unitprice" class="right" type="text" readonly/></td>
+                <td><input formControlName="subtotal" class="right" /></td>
+                <td><input formControlName="unitdiscount" id="width2" readonly /></td>
+                <td><input formControlName="expirydate" readonly /></td>
+                <td *ngIf="taxid == 0"><input formControlName="unitvat" id="width2" />
+                </td>
+                <td *ngIf="taxid == 1"><input formControlName="unitgst" id="width2" />
+                </td>
+                <td *ngIf="taxgstid==1"><input formControlName="unitsgst" id="width2" />
+                </td>
+                <td *ngIf="taxgstid==2"><input formControlName="unitugst" id="width2" />
+                </td>
+                <td *ngIf="taxgstid==1 || taxgstid==2"><input formControlName="unitcgst" id="width2" />
+                </td>
+                <td *ngIf="taxid == 2"><input formControlName="unitigst" id="width2" />
+                </td>
+                <td><input formControlName="totalinvoiceqty" id="width2" readonly /></td>
+                <td><input formControlName="prevreturnnqty" id="width2" readonly /></td>
+                <!--     <td><input  formControlName="crntsiqty" /></td>
+                                           <td><input  formControlName="crntstkqty" /></td>  -->
+              </tr>
+              <tr *ngFor="let val of itemlength;let i=index">
+                <td><input class="tabcheck" id="width1"/></td>
+                <td><input id="width1" readonly /></td>
+                <td><input readonly id="width1"/></td>
+                <td><input id="width1" style="text-align:left" readonly /></td>
+                <td><input id="width1" style="text-align:left" readonly /></td>
+                <td><input  readonly id="width1"/></td>
+                <!--      <td ><input  formControlName="drgtyp"   /></td>  -->
+                <td><input  readonly id="width1"></td>
+                <td><input  id="width1" type="text" /></td>
+                <td><input  class="right" id="width1" readonly /></td>
+                <td><input  id="width1" readonly /></td>
+                <td *ngIf="taxid == 0"><input id="width1" />
+                </td>
+                <td *ngIf="taxid == 1"><input id="width1" />
+                </td>
+                <td *ngIf="taxgstid==1"><input id="width1" />
+                </td>
+                <td *ngIf="taxgstid==2"><input id="width1" />
+                </td>
+                <td *ngIf="taxgstid==1 || taxgstid==2"><input id="width1" />
+                </td>
+                <td *ngIf="taxid == 2"><input id="width1" />
+                </td>
+                <td><input class="right" id="width1"/></td>
+                <td><input class="right" id="width1"/></td>
+                <td><input class="right" id="width1"/></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <br>
+        <div class="row" style="border-color:#002e86;border-width:1px;border-style:solid;">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-6" style="overflow:auto">
+            <table aria-describedby="mydesc">
+                <tbody>
+                  <tr>
+                    <td>
+                        <tr>
+                            <th scope="col" style="font-weight: normal;">{{'salesinvoice.totalproducts' | translate}}:</th>
+                            <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{registerForm.controls.totalitems.value}}</td>
+                        </tr>
+                    </td>
+                    <td class="pl-3">
+                        <tr>
+                            <th scope="col" style="font-weight: normal;">{{'salesinvoice.totaldiscamount' | translate}}:</th>
+                            <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{registerForm.controls.totaldiscount.value}}</td>
+                          </tr> 
+                    </td> 
+                    <td class="pl-3">
+                      <tr>
+                        <th scope="col" style="font-weight: normal;">{{'salesinvoice.subtotal' | translate}}:</th>
+                        <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{registerForm.controls.totalamount.value}}</td>
+                      </tr>
+                    </td>      
+                  </tr><br>
+                  <tr>
+                    <td>
+                        <tr>
+                            <th scope="col" style="font-weight: normal;">{{'salesinvoice.taxableamt' | translate}}:</th>
+                            <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{registerForm.controls.taxableamt.value}}</td>
+                        </tr>
+                    </td>
+                    <td class="pl-3">
+                        <tr>
+                            <th scope="col" style="font-weight: normal;">{{'salesinvoice.totaltaxamt' | translate}}:</th>
+                            <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{registerForm.controls.totaltaxamt.value}}</td>
+                          </tr> 
+                    </td> 
+                    <td class="pl-3">
+                      <tr>
+                          <th scope="col" style="font-weight: normal;">{{'purchaseinvoice.roundoffamt' | translate}}:</th>
+                          <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{registerForm.controls.roundoff.value}}</td>
+                        </tr> 
+                  </td>        
+                </tr>                        
+                </tbody>
+            </table>
+          </div>
+          <div class="col-lg-2" align="right">
+            <label class="form-label pt-4"  style="font-size: 1.4em;">{{'purchaseinvoice.grandtotal' | translate}}:</label>
+          </div>
+          <div class="col-lg-3" style="background-color:#002e86;color:white" align="right"> 
+            <label class="" style="font-weight:bold; font-size: 3.1em;">
+             {{registerForm.controls.grandtotal.value}}</label><br>
+          </div>
+        </div>
+        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+      </div>
+      <!-- box-typical-->
+    </form><br>
+      <!--addresses-->
+    <div class="" align="center">
+        <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+    </div>
+  <div class="row">
+    <!-- row Start-->
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2"> <button type="button" class="btn-round" (click)="onSubmit()"> {{"common.save" | translate}} </button> </div>
+  </div> <!-- row end--><br>
+  </div>
+  <div class="panel2" style="width:5%;float:right">
+  <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+  </div>
+  </div>	
+</app-card>

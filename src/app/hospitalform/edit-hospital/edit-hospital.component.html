@@ -1,0 +1,136 @@
+<app-card>
+  <div class="sub-title">{{'formtitle.editdetails'| translate}}
+    <em class="fa fa-hospital-o ficon" aria-hidden="true"></em></div>
+    <table aria-describedby="mydesc" style="width:100%">
+      <tbody>
+       <tr>
+       <td style="width:95%">
+        <div class="" align="right">
+          <button type="button" class="btn-round" [routerLink]="['/HospitalRegistration/ViewHospital']">{{'hospital.viewhospital'| translate}}</button>
+        </div>
+        <form [formGroup]="hospitalForm" (ngSubmit)="onSubmit()" autocomplete="off">
+          <input type="hidden" class="form-control" formControlName="id">
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label"> {{'hospital.hospitalname'| translate}}
+                <span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Hospital Name" 
+              autocomplete="off" formControlName="hospitalname" autofocus>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label"> {{'hospital.registrationno'| translate}}
+                <span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter the Registration Number" 
+              autocomplete="off" formControlName="registrationno">
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label"> {{'hospital.speciality'| translate}}</label>
+              <select name="select" class="form-control" placeholder="Select Country" formControlName="specialityid" (change)="getState()">
+                <option selected disabled value="0">---Select Speciality---</option>
+                <option *ngFor="let sp of speciality" value={{sp[0]}}>{{sp[1]}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">  {{'hospital.headquarters'| translate}}<span class="fontlangifbel">*</span></label>
+              <input type="text" class="form-control" placeholder="Enter Head Quarters" 
+              autocomplete="off" formControlName="hosheadquarters">
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label"> {{'common.adress1'| translate}}
+                <span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Your Address 1" 
+              autocomplete="off" formControlName="hosaddress1">
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label"> {{'common.adress2'| translate}}</label>
+              <input type="text" class="form-control" placeholder="Enter Your Address 2" 
+              autocomplete="off" formControlName="hosaddress2">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label"> {{'common.pincode'| translate}}</label>
+              <input type="text" class="form-control" placeholder="Enter Your Zip/Pin code" 
+              autocomplete="off" formControlName="hospincode">
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">  {{'common.country'| translate}}<span class="fontlangifbel">*</span></label>
+              <select name="select" class="form-control" placeholder="Select Country" formControlName="countryid" (change)="getState()">
+                <option selected disabled value="0">---Select Country---</option>
+                <option *ngFor="let coun of country" value={{coun[0]}}>{{coun[1]}}</option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">  {{'common.state'| translate}}<span class="fontlangifbel">*</span></label>
+              <select name="select" class="form-control" placeholder="Select State" formControlName="stateid" (change)="getCity()">
+                <option selected disabled value="0">---Select State---</option>
+                <option *ngFor="let coun of state" value={{coun[0]}}>{{coun[2]}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">  {{'common.city'| translate}}<span class="fontlangifbel">*</span></label>
+              <select name="select" class="form-control" placeholder="Select City" formControlName="city">
+                <option selected disabled value="0">---Select City---</option>
+                <option *ngFor="let coun of city" value={{coun[0]}}> {{coun[1]}} </option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">       {{'hospital.countrycode'| translate}}</label>
+              <select name="select" class="form-control form-control-default" formControlName="countrycode">
+                <option selected disabled value="0">---Select Country Code---</option>
+                <option *ngFor="let coun of countrycode" value={{coun}}>{{coun}} </option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">{{'common.phone'| translate}}
+                <span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control phone" placeholder="Enter Phone Number" 
+              autocomplete="off" formControlName="phoneno">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label"> {{'hospital.helplinenumber'| translate}}</label>
+              <input type="text" class="form-control phone" placeholder="Enter Help Line Number" 
+              autocomplete="off" formControlName="helpline">
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label"> {{'common.email'| translate}}<span class="fontlangifbel">*</span></label>
+              <input type="text" class="form-control" placeholder="Enter Your Email Id" 
+              autocomplete="off" formControlName="email">
+              <div class="messages text-danger" *ngIf="hospitalForm.controls.email.errors?.pattern">invalid Email Address..</div>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label"> {{'salesinvoice.status'| translate}}</label>
+              <select name="select" class="form-control" placeholder="Select Status" formControlName="status">
+                <option value="0">Active</option>
+                <option value="1">In-Active</option>
+              </select>
+            </div>
+          </div>
+          <div class="" align="center">
+						<img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+					</div><br>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <button type="submit" class="btn-round"> {{'common.update'| translate}}</button>
+            </div>
+          </div>
+        </form>
+      </td>
+        <td style="width:5%" valign="top">
+       <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+       </td>
+       </tr>
+      </tbody>
+    </table>			 			 			 			 						
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

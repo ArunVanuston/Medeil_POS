@@ -1,0 +1,96 @@
+<style>
+
+	.td1{
+		background-image: url("assets/images/plantbg.jpg");
+		height: 100%; 
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		width:70%;
+		color:white;
+		font-family:Montserrat;
+	}
+
+	.td2{
+		background-color: white;
+		width:30%;
+		padding:7em 1.3em;
+	}
+
+  .texthighlight{
+		background-image: linear-gradient(to bottom, #d4af37,#f0db73);
+		-webkit-background-clip: text;
+		-moz-background-clip: text; 
+		background-clip: text;
+		color: transparent;
+		font-weight:bold;
+		font-size:39px;
+  }
+
+  button:disabled{
+    opacity: 0.6;
+  }
+	
+	@media (max-width:580px){
+		.td1{
+			display:none;
+	}
+
+	}
+
+	@media (max-width:1200px){
+		.td1{
+			width:60%;
+		}
+
+		.td2{
+			width:40%;
+		}
+
+	}
+	
+</style>
+
+<table aria-describedby="mydesc" style="width:100%;height:100%">
+	<tbody>
+	<tr>
+		<td class="td1">
+		  <img src="assets/images/cloudlogo.png" alt="logo" style="height:51px;width:251px;position:absolute;top:1em;left:2em"><br>
+      <div class="" align="center" style="padding-left:19em;padding-top:21em">
+        <table aria-describedby="mydesc">
+          <tr><h2 class="text-secondary" style="font-family: 'Mada', sans-serif;font-weight:bold">Welcome You!...</h2></tr>
+          <!-- <tr> <h5 class="text-secondary" style="font-family: 'Mada', sans-serif">Signup to your account and made member of the Medeil POS</h5></tr> -->
+        </table>
+			</div>
+		  </td>
+		  <td class="td2">
+			<div class="" align="center">
+		<img src="assets/images/poslogobg.jpg" alt="Theme-Logo" style="width:273px"><br>
+        <!-- <h4 class="text-center text-secondary my-4">Login your Medeil Account</h4><br> -->
+        <form [formGroup]="domaincheckForm">
+            <div class="input-group">
+              <table aria-describedby="mydesc" style="width:100%">
+                <tr>
+                  <td style="width:70%">
+                    <input type="text" class="sign-control" formControlName="username" placeholder="Domain Name" />
+                  </td>
+                  <td style="width:30%">
+                    <button class="sign-btn" style="font-size:17px;outline:none;background-color: darkgray;cursor:text">medeil.io</button>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div>
+              <button class="sign-btn" style="font-size:17px;height:48px" [disabled]="!domaincheckForm.valid" (click)="domainvalid()">Proceed</button>
+              <span class="md-line"></span>
+			</div>
+			<div class="pt-4 pr-2" align="right">
+				<label class="f-w-600" style="color:#868e96">Create an Account?</label><span class="ml-1" style="cursor:pointer;color:#002e86;font-weight:bold" [routerLink]="['/pricing/viewprice']">Sign Up</span>
+			</div>
+        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+        </form>
+			</div>
+		  </td>
+	</tr>
+	</tbody>
+</table>

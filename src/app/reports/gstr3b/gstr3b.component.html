@@ -1,0 +1,65 @@
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u>Monthly GSTR3B Report </u>
+
+        </div>
+      </label>
+    </div>
+  </div>
+<br>
+  <form [formGroup]="GSTR3BMonthForm" >
+
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="form-label">
+          <h6>Select Month:</h6>
+        </label>
+        <!-- <input type="date" id='date' name='date' (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="months" /> -->
+        <select name="select" class="form-control"  (change)="datefetch($event.target.value)">
+          <!-- (change)="datefetch($event.target.value)" -->
+          <option value="0" selected disabled>---Select Month---</option>
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June </option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>  
+         </div>
+
+
+
+      <div class=" col-lg-8" align="right">
+        <!-- <a href=" http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/Gst1_Report/Gst1_Report_Invoice.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&month={{month}}&status=0"
+          class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+          <button class="btn-round" (click)="gstr3bmonth()">View </button>
+
+      </div>
+    </div>
+  </form>
+
+
+</app-card>
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:550%">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

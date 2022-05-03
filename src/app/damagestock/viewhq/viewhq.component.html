@@ -1,0 +1,104 @@
+<style>
+	.nodata {
+	  text-align: center;
+	  width: 100%;
+	  padding: 10px;
+	  font-size: 25px;
+	  color: rgb(245, 50, 50);
+	  font-family: Verdana, Geneva, sans-serif;
+	}
+	
+	.action {
+	  font-size: 15px;
+	  color: green;
+	}
+	.action1 {
+	  font-size: 15px;
+	  color: red;
+
+    }
+    
+  </style>
+
+<app-card>
+	<br>
+	<div class="row">
+
+		<div class="col-lg-6"></div>
+
+		<div class="col-lg-6">
+			<div class="form-inline justify-content-end">
+				<strong class="searchstyle">Search:</strong>
+				<input type="text" [(ngModel)]="searchText" class="form-control w-50" placeholder="Search By DamageNumber..." />
+			</div>
+		</div>
+
+	</div><br>
+
+	<div class="dt-responsive" style="overflow: auto;">
+		<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+			<thead>
+				<tr>
+					<th scope="col">#S.No</th>
+					<th scope="col">DamageStock ID</th>
+					<th scope="col">DamageStock No</th>
+					<th scope="col">Invoice Number</th>
+					<th scope="col">Damage Date</th>
+					<th scope="col">Distributor Name</th>
+					<th scope="col">Total Amount</th>
+					<th scope="col">From</th>
+					<th scope="col">Action</th>
+				</tr>
+				<tr>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngIf="(data | category: searchText).length === 0">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="nodata">No matching Records found....</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr *ngFor="let item of data | category : searchText | paginate: { id: 'listing_pagination',
+              itemsPerPage: 10,
+              currentPage: page,
+              totalItems: totalRec } let i = index">
+					<th scope="row" class="index">{{i+1}}</th>
+					<td>{{item[0]}}</td>
+					<td>{{item[1]}}</td>
+					<td>{{item[3]}}</td>
+					<td>{{item[4]}}</td>
+					<td>{{item[5]}}</td>
+					<td>{{item[6] | number:'1.2-4'}}</td>
+					<td>{{item[7]}}</td>
+					<td ngbDropdown class="text-center">
+						<a ngbDropdownToggle="" class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+							<em class="icofont icofont-ui-settings"></em>
+						</a>
+						<div ngbDropdownMenu="" class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="javascript:;" [routerLink]="['/DamageStock/viewdamagestockhq',item[0]]"
+							 skipLocationChange>
+								<em class="icofont icofont-ui-edit"></em>Edit</a>
+							<!-- <a class="dropdown-item" href="javascript:;" (click)="deletedamagestock(item[0])">
+								<em class="icofont icofont-delete-alt"></em>Delete</a>
+							<div role="separator" class="dropdown-divider"></div> -->
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="7">
+						<pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page = $event" style="float: right;"></pagination-controls>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

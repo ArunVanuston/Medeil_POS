@@ -1,0 +1,749 @@
+<style>
+    .modalcont {
+        height: 365px;
+    }
+</style>
+<app-card>
+    <div class="sub-title">{{'formtitle.purchaseorder'| translate}}
+        <em class="fa fa-shopping-cart" style="float: right;" aria-hidden="true"></em>
+    </div>
+    <div class="panels">
+        <div class="panel1" style="width:95%;float:left">
+            <form [formGroup]="purchaseOrder">
+                <div align="right">
+                    <button type="button" [routerLink]="'/PurchaseOrder/ViewPurchaseOrder'" class="btn-round">{{'purchaseorder.viewpo'| translate}}</button>
+                </div>
+                <div class="form-group row">
+                    <!-- <div style='display:none;'>                       
+                            <label for="email" class="col-sm-2 col-form-label">Order Number#</label>
+                            <div class="col-sm-4">
+                                <input type="text"  class="form-control inputline"  formControlName="pono" disabled>   
+                            </div>
+                            </div> -->
+                   
+                    <div class="col-sm-4">
+                        <label for="stock" class="form-label">{{'purchaseorder.vendorname'| translate}}
+                            <span class="fontlangifbel">*</span>
+                        </label>
+                        <!-- (input)="getDist($event.target.value)"-->
+                        <ng-select [options]="distributors" [disabled]="test" placeholder="Search Distributor"
+                            (change)="getDistributorProduct()" (click)="getDistributorProduct()"  (click)="alert()"
+                            formControlName="vendorid">
+                        </ng-select>
+                        
+                    </div>
+                    
+                    <div class="col-sm-4">
+                        <label class="form-label">{{'purchaseorder.purchaseorderdate'| translate}}</label>
+                        <input type="date" class="form-control inputline" placeholder="Enter the date" required="true"
+                            formControlName="podate">
+                    </div>
+                    <div class="col-lg-4">
+                        <label  class="form-label mb-2">{{'purchaseorder.others'| translate}}</label><br>
+                        <div class="">
+                            <label><input type="radio"   name="others" (click)="selectedcheckbox($event,1)">{{'purchaseorder.minqty'| translate}}</label>
+                            <label><input type="radio"   name="others" (click)="selectedcheckbox($event,2)">{{'purchaseorder.newproduct'| translate}}</label>
+                        </div>
+                        <div class="">
+                            <label><input type="radio"  name="others" (click)="selectedcheckbox($event,3)">{{'purchaseorder.zeroStockproduct'| translate}}</label>
+                            <label><input type="radio"  name="others" (click)="selectedcheckbox($event,4)">{{'purchaseorder.all'| translate}}</label>
+                        </div>
+                    </div>
+
+
+                    <!-- <div class="col-sm-2">
+                        <input type="checkbox" name="checkbox" class="mr-2" formControlName="minqtyflag"
+                            (click)="selectedcheckbox($event,1)">Minimum Qty
+                        <br>
+                        <input type="checkbox" name="checkbox" class="mr-2" formControlName="newproflag"
+                            (click)="selectedcheckbox($event,2)">New Product
+                    </div> -->
+
+                </div>
+
+                <div class="sub-title">{{'purchaseorder.productdetails'| translate}}
+                    <em class="icofont icofont-rounded-down" style="float:right;cursor:pointer;" cardToggleEvent (click)="toggleCard($event)"></em>
+                </div> 
+                <div class="" [@cardToggle]="cardToggle">
+                    <div>
+                        <label class="form-label">
+                            <input type = "radio" value="0" id="radio1" name="qtype" [checked]="qtype == 0"  (click)="quantitytype($event.target.value)"> {{'purchaseorder.totalquantity'| translate}}
+                        </label> &nbsp;&nbsp;&nbsp;
+                        <label class="form-label">
+                            <input type = "radio" value="1" id="radio2" name="qtype"  (click)="quantitytype($event.target.value)"> {{'purchaseorder.packingquantity'| translate}}
+                        </label> &nbsp;&nbsp;&nbsp;
+                        <label>{{'purchaseorder.note'| translate}}</label>
+                    </div>  
+                    <div class="">
+                        <!-- <label class="form-label">Product Name</label> -->
+                        <ng-select [options]="characters" placeholder="Search Drug Name"
+                            (input)="getProduct($event.target.value)" formControlName="drug">
+                        </ng-select>
+                    </div><br>
+                    <div class="bform" *ngIf="qtype == 0">
+                        <label>{{'purchaseorder.packagingtype'| translate}}</label> <select  class="" (click)="packingevent($event.target.value)" formControlName = "packageunit">
+                            <option>Box</option><option>Strips</option><option>Bottles</option>
+                            <option>Containers</option><option>Injectable</option><option>Cartons</option>
+                            <option>Lamitubes</option><option>Sachets</option><option>PolyBags</option>
+                        </select>
+                        <label class="ml-3"> {{'purchasedue.totalqty'| translate}}: </label>
+                        <input type="text" class="search ml-1 mt-1" style="background: white;width:100px;padding:7px 0px" placeholder="Enter Quantity" formControlName="boxqty" (blur)="getDrugs()">
+                     </div>
+                    <div class="bform" *ngIf="qtype == 1">
+                        <!-- <label class="form-label">Packaging Type</label> -->
+                        <label>{{'purchaseorder.packagingtype'| translate}}</label> <select  class="" (click)="packingevent($event.target.value)" formControlName = "packageunit">
+                            <option>Box</option><option>Strips</option><option>Bottles</option>
+                            <option>Containers</option><option>Injectable</option><option>Cartons</option>
+                            <option>Lamitubes</option><option>Sachets</option><option>PolyBags</option>
+                        </select>
+                        <input type="text" class="search ml-1 mt-1" style="background: white;width:100px;padding:7px 0px" placeholder="Enter Quantity" formControlName="boxqty">
+                    
+                    
+                        <!-- <label class="form-label">Packaging Type</label> -->
+                       <!-- <label class="ml-3"> Per {{pactype}} No.of: </label> <select type="text" class="" placeholder="Enter " formControlName = "packageunit2" (click)="packingevent1($event.target.value)">
+                        <option>Box</option><option>Strips</option><option>Bottles</option>
+                        <option>Containers</option><option>Injectable</option><option>Cartons</option>
+                        <option>Lamitubes</option><option>Sachets</option><option>PolyBags</option>
+                        </select>
+                        <input type="text" class="search ml-1 mt-1" style="background: white;width:85px;padding:7px 0px" placeholder="Enter Quantity" formControlName="boxperstrip"> -->
+                   
+                    
+                        <!-- <label class="form-label">Packaging Type</label> -->
+                      <label class="ml-3">  Per {{pactype}} No.of Quantity: </label>
+                        <input type="text" class="search ml-1 mt-1" style="background: white;width:100px;padding:7px 0px" placeholder="Enter Quantity" formControlName="boxperstrip" (blur)="quantitycalculation()" (blur)="getDrugs()">
+                    </div>
+                </div>
+                    <!-- <div class="form-group row" [@cardToggle]="cardToggle">
+                        <div class="col-sm-4">
+                            <label class="form-label">Box Quantity</label>
+                            <input type="text" class="form-control inputline" 
+                                placeholder="Enter Quantity" formControlName="boxqty" (blur)="quantitycalculation()">
+                        </div>
+                    <div class="col-sm-4">
+                        <label class="form-label">Per Box No.of Strips</label>
+                        <input type="text" class="form-control inputline"
+                            placeholder="Enter Quantity" formControlName="boxperstrip">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-label">Strip Quantity</label>
+                        <input type="text" class="form-control inputline"
+                            placeholder="Enter Quantity" formControlName="stripqty" (blur)="quantitycalculation()">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="form-label">Per Strips No.of Quantity</label>
+                        <input type="text" class="form-control inputline"
+                            placeholder="Enter Quantity" formControlName="strippertablet">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="form-label">Tablet Quantity</label>
+                        <input type="text" class="form-control inputline"
+                            placeholder="Enter Quantity" formControlName="tabqty" (blur)="quantitycalculation()" (blur)="getDrugs()">
+                    </div>
+                </div> -->
+                <br>
+                <!-- <div class="container" align="center">
+                    <div class="row">
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success" (click)="selectedcheckbox($event,1)">Minimum
+                                Quantity</button>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success" (click)="selectedcheckbox($event,2)">New Product</button>
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-success" (click)="selectedcheckbox($event,3)">Stock Zero
+                                Quantity</button>
+                        </div>
+                        <div class="col-sm-2"></div>
+                    </div>
+                </div> -->
+                <div class="mr-2" align="right">
+                    <em class="fa fa-plus pr-2" style="cursor:pointer;color:#002e86;font-weight:bold;"
+                    (click)="hiddenfieldsflag=true;">Additional Fields</em>
+                </div><br>
+                <div class="flow" style="overflow:auto;" formArrayName="brandDetails">
+                    <table aria-describedby="mydesc" class="table styletab">
+                        <thead class="stylehead">
+                            <tr>
+                                <!-- <th scope="col">
+                                    <input type="checkbox" class="checkAll" style="height:1.4em;width:1.3em" name="checkAll" />
+                                </th> -->
+
+                                <th scope="col">{{'common.sno'| translate}}</th>
+                                <th scope="col">{{'common.action'| translate}}</th>
+                                <!-- <th scope="col">Purchase SessionID</th> -->
+                                <th scope="col">{{'purchaseorder.productname'| translate}}</th>
+                                <th scope="col">{{'purchaseorder.packagetype'| translate}} </th>
+                                <th scope="col" *ngIf="qtype == 1">{{'purchaseorder.packagecount'| translate}}</th>
+                                <!-- <th scope="col">Package Unit</th> -->
+                                <th scope="col" *ngIf="qtype == 1">{{'purchaseorder.unitcount'| translate}} </th>
+                                <!-- <th scope="col" *ngIf="qtype == 1">Per Quantity </th> -->
+                                <!-- <th scope="col">UOM</th>
+                                <th scope="col">Equal To</th> -->
+                                <!-- <th scope="col">Box Quantity</th>
+                                <th scope="col">Strip Quantity</th>
+                                <th scope="col">Tablet Quantity</th>     -->
+                                <th scope="col">{{'purchaseorder.totalquantity'| translate}}</th>
+                                <th scope="col">{{'purchaseorder.acquisitioncost'| translate}}</th>
+                                <th scope="col">{{'purchaseorder.totalcost'| translate}}</th>
+                                <th scope="col" *ngIf="hiddenindexflag[0]==true">{{'purchaseorder.analysis'| translate}}</th>
+                                <th scope="col" *ngIf="hiddenindexflag[1]==true">{{'purchaseorder.prodrank'| translate}}</th>
+                                <th scope="col" *ngIf="hiddenindexflag[2]==true">{{'purchaseorder.prodremark'| translate}}</th>
+                                <th scope="col" *ngIf="hiddenindexflag[3]==true">{{'purchaseorder.dosage'| translate}} </th>
+                                <th scope="col" *ngIf="hiddenindexflag[4]==true">{{'stock.productcode'| translate}}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+                            <tr *ngFor="let brand of purchaseOrder.controls.brandDetails.controls; let i = index"
+                                [formGroupName]="i">
+                                <!-- <td>
+                                    <input type="checkbox" name="check" class="tabcheck" id="width1" /></td> -->
+                                <td id="width1">{{i+1}}</td>
+                                <td>
+                                    <em class="fa fa-trash text-secondary" title="Remove Row" id="width1" 
+                                    style="font-weight: bold;cursor:pointer" (click)="removeRow(i)"></em>
+                                    <!-- <button type="button" class="btn viewbtn" (click)="removeRow(i)">Remove</button> -->
+                                </td>
+                                <!-- <td>
+                                    <input type="text" formControlName="pursessionno" id="width5" readonly>
+                                </td> -->
+                                <td>
+                                    <input type="text" formControlName="itemname" id="width6" readonly>
+                                </td>
+                                
+                                <!-- <td>
+                                        <input type="text" align="center" formControlName="boxquantity" class="tds boxqfocus" (change)="getSum()" (click)="getSum()">
+                                        <div *ngIf="brand.hasError('pattern', 'boxquantity')" style="color:red;">Invalid Charcters..</div>
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="stripquantity" class="tds stripqfocus" (change)="getSum()" (click)="getSum()">
+                                        <div *ngIf="brand.hasError('pattern', 'stripquantity')" style="color:red;">Invalid Charcters..</div>
+                                    </td> -->
+                                <!-- <td>
+      
+                             <select style="border-width: 0px;" name="select" formControlName="uom">
+                            <option value="opt" selected disabled>-select UOM-</option>
+                            <option *ngFor="let list of unitofMsr " value={{list[0]}}>{{list[1]}}</option></select>
+      
+                                    </td>
+                                    <td>
+                                      <input type="text" formControlName="equalto" class="tabqfocus">
+                                      <div *ngIf="brand.hasError('pattern', 'equalto')" style="color:red;">Invalid Charcters..</div>
+                             
+                                    </td> -->
+                                <!-- <td>
+                                    <input type="text" formControlName="tabletquantity" class="tabqfocus"
+                                        (keydown)="calc($event)" (change)="getSum()" (click)="getSum()" autofocus>
+                                    <div *ngIf="brand.hasError('pattern', 'tabletquantity')" style="color:red;">Invalid
+                                        Charcters..</div>
+                                </td> -->
+                                <td *ngIf="purchaseOrder.controls.brandDetails.controls[i].controls.packageunit.value != ''">
+                                    <input type="text" formControlName="packageunit" id="width4" >
+                                </td>
+                                <td *ngIf="purchaseOrder.controls.brandDetails.controls[i].controls.packageunit.value == ''">
+                                    <select  class="" (click)="packingevent($event.target.value)" 
+                                    formControlName = "packageunit" id="width4">
+                                        <option>Box</option><option>Strips</option><option>Bottles</option>
+                                        <option>Containers</option><option>Injectable</option><option>Cartons</option>
+                                        <option>Lamitubes</option><option>Sachets</option><option>PolyBags</option>
+                                    </select>
+                                </td>
+                                <td *ngIf="qtype == 1">
+                                    <input type="text" formControlName="packagecount" id="width3" (blur)="getSum()">
+                                </td>
+                                <!-- <td>
+                                    <input type="text" formControlName="packageunit" id="width4" readonly>
+                                </td> -->
+                                <td *ngIf="qtype == 1">
+                                    <input type="text" formControlName="stripperbox" class="tds tabqfocus" 
+                                    id="width3" (blur)="getSum()">
+                                    <div *ngIf="brand.hasError('pattern', 'stripperbox')" style="color:red;">Invalid Charcters..</div>
+                                </td> 
+                                <!-- <td *ngIf="qtype == 1">
+                                    <input type="text" formControlName="quantityperstrip" class="tds tabqfocus" (blur)="getSum()">
+                                    <div *ngIf="brand.hasError('pattern', 'quantityperstrip')" style="color:red;">Invalid Charcters..</div>
+                                </td>  -->
+                                <td *ngIf="qtype == 0">
+                                        <input type="text" formControlName="packagecount" class="tds tabqfocus" 
+                                        id="width3" (change)="getSum()" (click)="getSum()" autofocus>
+                                        <div *ngIf="brand.hasError('pattern', 'packagecount')" style="color:red;">Invalid Charcters..</div>
+                                    </td>  
+                                    <td *ngIf="qtype == 1">
+                                        <input type="text" formControlName="totalquantity" class="tds tabqfocus" 
+                                        id="width3" (change)="getSum()" (click)="getSum()" autofocus>
+                                        <div *ngIf="brand.hasError('pattern', 'totalquantity')" style="color:red;">Invalid Charcters..</div>
+                                    </td>    
+                                <td>
+                                    <input type="text" formControlName="unitprice" class="tabqfocus right"
+                                    id="width3"   (keydown)="calc($event)" autofocus>
+                                    <div *ngIf="brand.hasError('pattern', 'unitprice')" style="color:red;">Invalid
+                                        Charcters..</div>
+                                </td>
+                                <td>
+
+                                    <input type="text" formControlName="totalproductprice" class="tabqfocus right"
+                                        (change)="getSum()" (click)="getSum()" autofocus>
+                                    <div *ngIf="brand.hasError('pattern', 'totalproductprice')" style="color:red;">
+                                        Invalid Charcters..</div>
+                                </td>
+                                <td  *ngIf="hiddenindexflag[0]==true">
+                                    <input type="text" id="width3" formControlName="abc">
+                                </td>
+                                <td  *ngIf="hiddenindexflag[1]==true">
+                                    <input type="text" id="width3" formControlName="distprodrank">
+                                </td>
+                                <td *ngIf="hiddenindexflag[2]==true">
+                                    <input type="text" id="width6" formControlName="distremarks">
+                                </td>
+                                <td *ngIf="hiddenindexflag[3]==true">
+                                    <input type="text" id="width4" formControlName="dosage" readonly>
+                                </td>
+                                <td *ngIf="hiddenindexflag[4]==true">
+                                    <input type="text" id="width4" formControlName="drugproductrefid" readonly>
+                                </td>
+                            </tr>
+
+
+                            <tr *ngFor="let item of itemlength; let i=index">
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td *ngIf="qtype == 1">
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td *ngIf="qtype == 1">
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td>
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td *ngIf="hiddenindexflag[0]==true">
+                                    <input type="text" id="width1"  readonly>
+                                </td>
+                                <td *ngIf="hiddenindexflag[1]==true">
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                 <td *ngIf="hiddenindexflag[2]==true">
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td *ngIf="hiddenindexflag[3]==true">
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                                <td *ngIf="hiddenindexflag[4]==true">
+                                    <input type="text" id="width1" readonly>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><br>
+                
+                <div class="pl-5 pr-3" style="border:2px solid #002e86">
+                    <div class="row">
+                        <div class="col-lg-3 px-2 py-4">
+                            <th scope="col" style="font-weight: normal;font-size:1.2em"><b>{{'purchaseorder.totalproducts'| translate}}:</b></th>
+                            <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                                {{purchaseOrder.controls.totalproduct.value}}</td>
+                        </div>
+                        <div class="col-lg-3 px-2 py-4">
+                            <th scope="col" style="font-weight: normal;font-size:1.2em;"><b>{{'purchaseorder.totalquantity'| translate}}:</b></th>
+                            <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                                {{purchaseOrder.controls.totalquantity.value}}</td>
+                        </div>
+                        <div class="col-lg-2 py-4" align="right">
+                            <th scope="col" style="font-weight: normal;font-size:1.2em;"> <b>{{'purchaseorder.totalcost'| translate}}:</b></th>
+                        </div>
+                        <div class="col-lg-4" style="background-color: #002e86;color:white;" align="right">
+                            <label class="" style="font-weight:bold; font-size: 3.1em;">
+                                {{purchaseOrder.controls.grandtotal.value}}</label><br>
+                        </div>
+                    </div>
+                </div><br>
+
+                <div align="center">
+                    <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                </div>
+                <div class="form-group row">
+
+                    <div class="col-lg-3">
+                        <button type="button" (click)="onSubmit()" class="btn-round">{{'common.save'| translate}}</button>
+                        <!-- <button type="submit" class="btn-round"  [routerLink]="['/PurchaseOrder/ViewPurchaseOrder']">View</button>                        
+                                        <button class="btn-round" (click)="poprint()"  >Print</button> -->
+                        <!-- <div class="col-lg-1"><label (click)="reportlink()">..</label></div>                -->
+                    </div>
+
+
+
+
+
+                    <!-- <div class="col-lg-4">
+                              
+                             <a href="http://204.93.193.244:8082/birt/frameset?__report=MedeilReports/BillPrint_PurchaseOrder/Billprnt_PO.rptdesign&branchrefid={{branchid}}&Locname={{locname}}&Locrefid={{locrefid}}&Companyrefid={{companyrefid}}&porefid={{poid}}&POID={{poid}}&ShopID={{shopid}}&__format=PDF"
+                                class="btn btn-success btn-round active" (click)="poprint()" role="submit" aria-pressed="true" routerLinkActive="active" target="form_a">Print</a> -
+                    
+                        </div> -->
+
+                </div>
+
+
+                <!--side panel for New Product-->
+                <div [ngClass]="newproduct?'showtop':'hidetop'" align="center">
+
+                    <div class="modalcont animated fadeindown">
+                        <div class="modal-header">
+                            <label class="form-label">{{'purchaseorder.newproduct'| translate}}</label>
+                            <em class="fa fa-close" (click)="newproduct=false" style="cursor:pointer"></em>
+                        </div><br>
+                        <!--. table  start-->
+                        <!-- <div class="px-2" align="right">
+                            <button type="text" class="btn-round" [routerLink]="'/ProductMaster/AddNewProduct'">Add
+                                    New Row</button>
+                        </div> -->
+                        <div class="popflow mx-2" align="center">
+                            <table aria-describedby="mydesc" class="table popstyletab px-4">
+                                <thead class="popstylehead">
+                                    <tr>
+                                        <th scope="col">{{'common.sno'| translate}}</th>
+                                        <th scope="col"><input type="checkbox" (click)="selectallnewprod($event)" /></th>
+                                        <th scope="col">{{'purchaseorder.newproductname'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.reqqty'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.abc'| translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="popstylebody">
+                                    <tr *ngIf="newprolist == ''">
+                                        <td></td>
+                                        <td class="nodata">No Data Available..</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr *ngFor="let val of newprolist;let i=index">
+                                        <td>
+                                            <input value={{i+1}} readonly id="width1" />
+                                        </td>
+                                        <td><input type="checkbox" id="width1" [checked]="val.flag"
+                                                (click)="selectnewprod(i)" /></td>
+                                        <td id="width3">{{val.brandname}} </td>
+                                        <td id="width2">{{val.boxqty}}</td>
+                                        <td id="width1">{{val.abc}}</td>
+                                    </tr>
+                                    <tr *ngFor="let item of itemlength; let i=index">
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                    </tr>
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+
+                        <div class="mr-4" align="right">
+                            <!-- <button *ngIf="saveenable==1" class="btn-round" (click)="saveNewProduct()">Save New
+                                Product</button> -->
+                            <button type = "button" class="popbtn-round" (click)="Insertnewproduct()">{{'common.insert'| translate}}</button>
+                        </div><br>
+
+                    </div>
+                    <!--Modal Content End-->
+
+                </div>
+
+                <div [ngClass]="minstockproduct?'showtop':'hidetop'" align="center">
+
+                    <div class="modalcont animated fadeindown">
+                        <div class="modal-header">
+                            <label class="form-label">{{'purchaseorder.minimumquantityproducts'| translate}}</label>
+                            <em class="fa fa-close" (click)="minstockproduct=false" style="cursor:pointer"></em>
+                        </div><br>
+
+                        <div class="popflow mx-2" align="center">
+                            <table aria-describedby="mydesc" class="table popstyletab px-4">
+                                <thead class="popstylehead">
+                                    <tr>
+                                        <th scope="col">{{'common.sno'| translate}}</th>
+                                        <th scope="col"><input type="checkbox" (click)="selectallminstk($event)" /></th>
+                                        <th scope="col">{{'purchaseorder.productname'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.packingquantity'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.abc'| translate}}</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="popstylebody">
+                                    <tr *ngIf="minstkdata == ' '">
+                                        <td></td>
+                                        <td class="nodata">No Data Available..</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr *ngFor="let val of minstkdata;let i=index">
+                                        <td>
+                                            <input value={{i+1}} readonly id="width1" />
+                                        </td>
+                                        <td><input type="checkbox" id="width1" [checked]="val.flag"
+                                                (click)="selectminstk(i)" /></td>
+                                        <td id="width3">{{val.brandname}} </td>
+                                        <td id="width2">{{val.boxqty}}</td>
+                                        <td id="width1">{{val.abc}}</td>
+                                    </tr>
+                                    <tr *ngFor="let item of itemlength; let i=index">
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><br>
+                        <div class="mr-4" align="right">
+                            <button type = "button" class="popbtn-round" (click)="getMinStockid();minstockproduct=false">{{'common.insert'| translate}}</button>
+                        </div><br>
+
+                    </div>
+
+
+                </div>
+                <!--New Product Side panel end-->
+                <div [ngClass]="zerostockproduct?'showtop':'hidetop'" align="center">
+
+                    <div class="modalcont animated fadeindown">
+                        <div class="modal-header">
+                            <label class="form-label">{{'purchaseorder.zeroStockquantityproducts'| translate}}</label>
+                            <em class="fa fa-close" (click)="zerostockproduct=false" style="cursor:pointer"></em>
+                        </div><br>
+
+                        <div class="popflow mx-2" align="center">
+                            <table aria-describedby="mydesc" class="table popstyletab px-4">
+                                <thead class="popstylehead">
+                                    <tr>
+                                        <th scope="col">{{'common.sno'| translate}}</th>
+                                        <th scope="col"><input type="checkbox" (click)="selectallzerostk($event)" /></th>
+                                        <th scope="col">{{'purchaseorder.productname'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.quantity'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.abc'| translate}}</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="popstylebody">
+                                    <tr *ngIf="zerostkdata == ' '">
+                                        <td></td>
+                                        <td class="nodata">No Data Available..</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr *ngFor="let val of zerostkdata;let i=index">
+                                        <td>
+                                            <input value={{i+1}} readonly id="width1" />
+                                        </td>
+                                        <td><input type="checkbox" id="width2" [checked]="val.flag"
+                                                (click)="selectzerostk(i)" /></td>
+                                        <td>{{val.brandname}} </td>
+                                        <td>{{val.boxqty}}</td>
+                                        <td>{{val.abc}}</td>
+                                    </tr>
+                                    <tr *ngFor="let item of itemlength; let i=index">
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><br>
+                
+                        <div class="mr-4" align="right">
+                            <button type = "button" class="popbtn-round" (click)="getZeroStockid();zerostockproduct=false">{{'common.insert'| translate}}</button>
+                        </div><br>
+
+                    </div>
+
+
+                </div>
+
+                <div [ngClass]="allstockproduct?'showtop':'hidetop'" align="center">
+
+                    <div class="modalcont animated fadeindown">
+                        <div class="modal-header">
+                            <label class="form-label">All Products</label>
+                            <em class="fa fa-close" (click)="allstockproduct=false" style="cursor:pointer"></em>
+                        </div><br>
+
+                        <div class="popflow mx-2" align="center">
+                            <table aria-describedby="mydesc" class="table popstyletab px-4">
+                                <thead class="popstylehead">
+                                    <tr>
+                                        <th scope="col">{{'common.sno'| translate}}</th>
+                                        <th scope="col"><input type="checkbox" (click)="selectallpopprod($event)" /></th>
+                                        <th scope="col">{{'purchaseorder.productname'| translate}}</th>
+                                        <!-- <th scope="col">Quantity</th> -->
+                                        <th scope="col">{{'purchaseorder.abc'| translate}}</th>
+                                        <th scope="col">{{'salesordernew.ordertype'| translate}}</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="popstylebody">
+                                    <tr *ngIf="allpoplist == ''">
+                                        <td></td>
+                                        <td class="nodata">No Data Available..</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr *ngFor="let val of allpoplist;let i=index">
+                                        <td>
+                                            <input value={{i+1}} readonly id="width1" />
+                                        </td>
+                                        <td><input type="checkbox" id="width2" [checked]="val.flag"
+                                                (click)="selectpopprod(i)" /></td>
+                                        <td>{{val.brandname}} </td>
+                                        <!-- <td>{{val.minqty}}</td> -->
+                                        <td>{{val.abc}}</td>
+                                        <td>{{val.ordertype}}</td>
+                                    </tr>
+                                    <tr *ngFor="let item of itemlength; let i=index">
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                        <td>
+                                            <input type="text" id="width1" readonly>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div><br>
+                
+                        <div class="mr-4" align="right">
+                            <button type = "button" class="popbtn-round" (click)="Insertallproduct();allstockproduct=false">{{'common.insert'| translate}}</button>
+                        </div><br>
+                    </div>
+                </div>
+
+
+                <div [ngClass]="hiddenfieldsflag?'sidenavshow':'sidenavhide'" class="animated fadeinright" style="width:100%;padding-top: 0px;">
+                    <div class="insienav" style="background-color: #FDFDFD; width:420px;height:100%">
+                        <br><br>
+                        <div class="closeicon" align="right">
+                            <em class="fa fa-close fa-2x mr-4" style="cursor:pointer" (click)="hiddenfieldsflag=false"></em>
+                        </div><br>
+                        <label class="form-label ml-2" style="font-weight:bold;color:#002e86"><u>{{'salesinvoice.extrafields'| translate}}</u></label><br><br>
+                        <!-- <div class="mr-2" align="right">
+                            <em class="fa fa-plus" style="color:#002e86;font-weight: bold;cursor: pointer;" (click)="insertnewdummy()">New Dummy</em>
+                        </div><br> -->
+                        <div class="popflow mx-2" align="center" style="max-height:580px">
+                            <table aria-describedby="mydesc" class="table popstyletab" formArrayName="hiddenfields">
+                                <thead class="popstylehead">
+                                    <tr>
+                                        <th scope="col">{{'common.sno'| translate}}</th>
+                                        <th scope="col">{{'purchaseorder.labelname'| translate}}</th>
+                                        <th scope="col">{{'smssettings.enabledisable'| translate}}</th>
+                                        <!-- <th scope="col"><em class="fa fa-close"></em></th> -->
+                                    </tr>
+                                </thead>
+                                <tbody class="popstylebody">
+                                    <tr *ngFor="let address of purchaseOrder.controls.hiddenfields.controls; let i=index"
+                                        [formGroupName]="i">
+                                        <td>
+                                            <input value={{i+1}} readonly id="width1" />
+                                        </td>
+                                        <td>
+                                            <input type="text" formControlName="hiddenlabel" id="width4" style="text-align:left" />
+                                        </td>
+                                        <td>
+                                            <!--<input type="checkbox" class="tabcheck" formControlName="dummyvalue" id="width2" />  switchColor="red" -->
+                                            <ui-switch id="pick1" size="small" [checked]=" purchaseOrder.controls.hiddenfields.controls[i].controls.hiddenflag.value==true" defaultBgColor="#002e86"
+                                            (change)="hiddentooglechange(i)"> </ui-switch>
+                                        </td>
+                                        <!-- <td id="width3">
+                                            <em class="fa fa-close" style="color:brown;font-weight: bold;cursor: pointer;" (click)="removedummyrow(i)"></em>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                             </div><br><br>
+                            <div class="mr-2" align="right">
+                                <button class="btn-round" (click)="savehiddenlabels()">{{'common.save'| translate}}</button>
+                            </div>
+                    </div>
+                  </div> 
+            </form>
+        </div>
+        <div class="panel2" style="width:5%;float:right">
+            <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </div>
+    </div>
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+    <br>
+    <div class="mr-2" align="right">
+        <em class="fa fa-close fa-2x mr-2" (click)="printclose()" style="cursor:pointer;color:white"></em>
+    </div><br>
+    <div class="container">               
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+    </div>
+</div>
+
+      <!--Hidden fields start-->
+     
+    <!---Hidden Fields End-->
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

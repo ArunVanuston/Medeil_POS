@@ -1,0 +1,93 @@
+<style>
+	.nodata {
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		font-size: 25px;
+		color: rgb(245, 50, 50);
+		font-family: Verdana, Geneva, sans-serif;
+	}
+
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+
+	.data-search {
+		width: 350px;
+		margin-left: 0.5em;
+		display: inline-block;
+	}
+</style>
+
+<app-card>
+	<div class="bform">
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+			<div>
+				<label class="label-control">Show
+					<select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+						<option [ngValue]="1">1</option>
+						<option [ngValue]="25">25</option>
+						<option [ngValue]="50">50</option>
+						<option [ngValue]="100">100</option>
+					</select>
+					entries
+				</label>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-6">
+			<div class="form-inline" >
+				<strong style="margin-left:65px">Search :</strong>
+				<input type="search" [(ngModel)]="filterQuery" class="form-control ml-2 w-75" placeholder="Search Product">
+		</div>
+		</div>
+	</div><br>
+	<!-- <div class="panel-heading">User information</div>-->
+	<div class="dt-responsive" style="overflow:auto">
+		<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+		 #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+			<thead>
+				<tr>
+					<th scope="col">S.No</th>
+					<th scope="col">Product Name</th>
+					<th scope="col">Country Name</th>
+					<th scope="col">Product Code</th>
+					<th scope="col">Status</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+					<td></td>
+					<td class="nodata">No matching Records found....</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr *ngFor="let val of mf.data;let i=index">
+					<td>{{i+1}}</td>
+					<td>{{val[1]}}</td>
+					<td>{{val[2]}}</td>
+					<td>{{val[3]}}</td>
+					<td>
+						<span class="label label-success" *ngIf="val[4]=='0'" style="font-size: 16px;">Active</span>
+						<span class="label label-danger" *ngIf="val[4]=='2'" style="font-size: 16px;">In Active</span>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="5">
+						<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	</div>
+</app-card>

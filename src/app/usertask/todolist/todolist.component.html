@@ -1,0 +1,109 @@
+<app-card>
+
+    <form [formGroup]="ToDoList" (ngSubmit)="onSubmit()">
+
+        <div class="sub-title">ToDo List
+            <em  class="fa fad fa-check-square fa-lg"></em>
+        </div>
+
+
+        <div class="col-lg-12">
+
+            <div class="form-group row border">
+
+                <div class="col-sm-4">
+                    <div class="textbox">
+                        <em  class="fas fa-comments"></em>
+                        <input type="text" placeholder="Topic Name" formControlName="topicname" maxlength="125"
+                            (keydown)="maxlength()">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="textbox">
+                        <em  class="far fa-clock"></em>
+                        <input type="datetime-local" title="Start Date & Time" formControlName="start_date_time">
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="textbox">
+                        <em  class="fas fa-clock"></em>
+                        <input type="datetime-local" title="End Date & Time" formControlName="end_date_time"
+                            (click)="addButton1()">
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12">
+
+                    <div class="form-group">
+
+                        <textarea rows="4" cols="50" class="textareaalign form-control border" style="min-width: 100%"
+                            formControlName="description" placeholder="Please leave your description here!...." maxlength="2000"
+                            (keydown)="maxlengthTxtArea()"></textarea>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+            <div class="col-lg-12 mt-1" *ngIf="addButton">
+
+                <button type="submit" class="btn btn-round">ADD <em  class="fa fa-plus"> </em></button>
+
+            </div>
+
+
+
+            <section id="task-container">
+                <ul id="task-list">
+                    <li *ngFor="let todo of todoList; let i=index" [ngClass]="todo.active ? 'stikeTopBorder' :'none'"
+                        (click)="isActive(todo)" (dblclick)="removeItem(i,todo)">
+                        <p>{{todo}} </p>
+                    </li>
+                </ul>
+                <div class="col-lg-12 text-center" *ngIf="clearAllBtn">
+                    <button id="clear-all-tasks" [ngStyle]="{ 'background': (bgColor?'red':'#002e86') }"
+                        class="btn btn-danger" type="button" value="clearAll"
+                        (click)="clearAllModal($event.target.value, clearallmoodal)">Clear All Tasks</button>
+                </div>
+            </section>
+
+            <ng2-toasty [position]="position"></ng2-toasty>
+            <ng-template #clearallmoodal let-c="close" let-d="dismiss">
+                <div class="modal-header">
+                    <label class="form-label"> Clear All ToDos</label>
+                    <em  class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+                </div>
+                <img src="assets/images/poptab.jpg" class="mt-4 modimg"><br>
+
+                <div class="modal-body mx-5 labelalign">
+                    <label>Are you sure clear all Todos?</label>
+                </div>
+
+                <div class="modal-footer">
+
+
+                    <label style="float: left;" class="btnclearall modbtn" id="typemain" (click)="removeAll(c)">Yes
+                    </label>
+
+                    <label style="float: right;" class="btnclearall modbtn" id="typemain" (click)="c('Close click')">No
+                    </label>
+
+                </div>
+            </ng-template>
+
+
+
+
+
+        </div>
+    </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

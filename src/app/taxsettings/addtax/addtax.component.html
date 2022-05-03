@@ -1,0 +1,71 @@
+<app-card>
+<form [formGroup] = "taxSettingsForm">
+  <div class="sub-title" style="font-size: 20px;">Add TaxSetting
+    <em style="float:right" class="fa fa-percent" aria-hidden="true"></em>
+  </div>
+   <br><br>
+    <!-- <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">Country</label>
+      <select name="select" class="form-control" formControlName = "countryrefid">
+        <option value="opt1">---Select country---</option>
+        <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option> 
+      </select>
+      </div>
+    </div> -->
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="vat_gst" [checked]="taxtype == 0" value = "0" (click)="indiangstfn($event.target.value)">
+              <em class="helper"></em>VAT
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="vat_gst" [checked]="taxtype == 1" value = "1" (click)="indiangstfn($event.target.value)">
+              <em class="helper"></em>GST
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="vat_gst" [checked]="taxtype == 2" value="2" (click)="indiangstfn($event.target.value)">
+              <em class="helper"></em>INDIAN GST
+              
+            </label>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div *ngIf = "indgstflag == 1">
+        <label class="form-label semibold">Please Select State for Taxation </label>
+        <select name="select" class="form-control col-sm-4" formControlName = "stateid">
+          <option value="opt1">---Select country---</option>
+          <option *ngFor="let val of state " value={{val[0]}}>{{val[2]}}</option> 
+        </select>
+          <!-- <input type="checkbox" formControlName="sgst">
+          <label class="ml-1 mr-2">SGST</label>
+          <input type="checkbox" formControlName="cgst">
+          <label class="ml-1 mr-2">CGST</label>
+          <input type="checkbox" formControlName="igst">
+          <label class="ml-1 mr-2">IGST</label>
+          <input type="checkbox" formControlName="ugst">
+          <label class="ml-1 mr-2">UGST</label> -->
+      </div>
+      <br>
+    <div class="mr-4" align="right">
+      <button class="btn btn-success" (click)="savetaxsetting()">Set Tax</button>
+    </div>
+ 
+</form>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

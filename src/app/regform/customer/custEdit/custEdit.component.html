@@ -1,0 +1,344 @@
+ 
+ <style>
+ input[type="checkbox"] {
+ width:1.5em;
+ height:1.8em
+ }
+
+ .cattype{
+  border:2px solid #ebebeb;
+  border-radius:10px;
+  background-color: #f7f4f4;
+  font-size: 16px;
+  width: 100%;
+  height:37px;
+  text-align:center;
+  outline:none;
+ }
+</style>
+ 
+ <app-card>
+        
+    <div class="sub-title">Edit Details
+        <em class="fa fa-edit ficon"></em>
+    </div>
+    <table aria-describedby="mydesc" style="width:100%">
+        <tbody>
+          <tr>
+            <td style="width:95%">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mx-3">
+                    <div class="mr-2" align="right">
+                        <button class="btn-round" [routerLink]="['/CustomerRegistration/ViewCustomer']">View Customer</button>
+                    </div><br>
+                    <div class="box-typical box-typical-padding">
+                
+                        <div class="form-group row">
+                
+                            <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">
+                                    Customer Id </label> <input type="text" name="doctorName"
+                                    class="form-control" id="docid" placeholder=""
+                                    formControlName="id"  readonly>
+                             </div>
+            
+                            <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">
+                                    Customer First Name <span class="fontlangifbel">*</span></label> <input type="text" name="doctorName"
+                                    class="form-control" id="docid" placeholder=""
+                                    formControlName="patientfirstname" autofocus/>
+                            
+                                    <!-- <p class="messages text-danger"
+                                    *ngIf="registerForm.controls.patientfirstname.errors?.required">This Field is
+                                    Required*</p> -->
+                                    <p class="messages text-danger"
+                                    *ngIf="registerForm.controls.patientfirstname.errors?.pattern">Accepts
+                                    Only Text!</p>
+                            </div>
+                
+                
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">Customer Last Name </label>
+                                <input type="text" class="form-control" id="docregistrationid"
+                                    placeholder="" formControlName="patientlastname" />
+                            
+                                    <p class="messages text-danger"
+                                    *ngIf="registerForm.controls.patientlastname.errors?.pattern">Accepts
+                                    Only Text!</p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                
+                                <label class="form-label mb-2">Gender</label><br>
+                                     
+                                <input type="radio" value="Male" name="gender" formControlName="gender" checked> Male
+                          
+                                <input type="radio" class="ml-2" value="Female" name="gender" formControlName="gender"> Female
+                         
+                             </div>
+                             <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">Date of Birth
+                                </label> <input type="date" class="form-control" id="docphonenumber"
+                                    formControlName="dob" (change)="agecalculate($event.target.value)"/>
+                                <div class="messages text-secondary" style="font-weight:bold">Age in Days: {{registerForm.controls.age.value}}</div>
+                            </div> 
+                            <!-- <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">TIN No
+                                </label> <input  class="form-control" id="docphonenumber"
+                                placeholder="Goods & Service Tax" formControlName="tinno" />
+                            </div> -->
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">VAT / GST No</label> <input
+                                        type="text" class="form-control"    
+                                         formControlName="vatno" />
+                            </div>
+                        </div>
+                           
+                               
+            
+                    
+                
+                            <!-- <div class="col-lg-4 mt-2">
+                                    
+                                        <label class="form-label semibold" for="exampleInput">Age
+                                        </label> <input type="number" class="form-control" id="docphonenumber"
+                                            formControlName="age" />
+                                        
+                                    
+                            </div>  -->
+                    
+            
+                          
+                            
+            <!--                 
+                                <div class="col-lg-4">
+                                
+                                    <label class="form-label" for="exampleInput">GST No</label> <input
+                                        type="text" class="form-control"   
+                                        formControlName="gstno" />
+                
+                
+                                
+                            </div> -->
+                            
+                            <div class="form-group row">
+                                <div class="col-lg-4">
+                                    <label class="form-label">Customer Category</label><br>
+                                    <select name="select" class="cattype" formControlName="patientcattypeid" >
+                                     <option value="opt1" selected disabled>---Select Customer Category---</option>
+                                     <!-- <option value="custcategory" style="background-color: #5aa02c;color:white">Add Customer Category</option> -->
+                                     <option *ngFor="let cc of custcat" value={{cc[0]}}>{{cc[1]}}</option>
+                                    </select><br>
+                                  </div>
+                                <div class="col-lg-1">
+                                    <label class="form-label" for="exampleInput">Select</label> <br>
+                
+                                    <input type="checkbox" formControlName="scitizenflag" style="margin-left: 0px;"    (change)="enablecontrol1()" />
+                
+                                </div>
+                
+                               <div class="col-lg-3">
+                                    
+                                         <label class="form-label" for="exampleInput">Senior Citizen Id No</label> 
+                                         
+                                         <input    type="text"   class="form-control"          formControlName="scitizenno" />
+                                     
+                                 </div>
+                                 
+                             <div class="col-lg-1">
+                                <label class="form-label" for="exampleInput">Select</label> <br>
+                                <input type="checkbox" formControlName="phycapflag"  style="margin-left: 0px;"  (change)="enablecontrol2()" />
+        
+                            </div>
+        
+        
+                            <div class="col-lg-3">
+                                
+                                     <label class="form-label" for="exampleInput">Physically Handicapped Id No</label> 
+                                     
+                                     <input    type="text" class="form-control"      formControlName="phycapno" />
+                                 
+                             </div>
+                            </div>
+                           
+            
+            
+                           
+            
+            
+            
+                
+                      <!--         <div class="col-lg-4">
+                                
+                                    <label class="form-label" for="exampleInput">Gender </label> 
+                                    <select class="select2" id="doccountry"
+                                    class="form-control" formControlName="gender">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                
+                                </select>
+                
+                
+                                
+                            </div>
+                            
+                
+                            <div class="col-lg-4">
+                                
+                                    <label class="form-label semibold">Date Of Birth </label> <input
+                                        type="date" class="form-control" id="gender"
+                                        placeholder=" " 
+                                        formControlName="dob">
+                
+                                        <p class="messages text-danger"
+                                        *ngIf="registerForm.controls.dob.errors">This field is
+                                        required!</p>
+                                        
+                                
+                            </div>
+                            <div class="col-lg-4" id="country">
+                                <label class="form-label" for="country">Patient type</label>
+                                <select class="select2" id="doccountry"
+                                class="form-control" formControlName="patienttype">
+                                <option value="1">IN_PATIENT</option>
+                                <option value="2">OUT_PATIENT</option>
+                
+                            </select>
+                            </div>
+                
+                            <div class="col-lg-4" id="country">
+                                <label class="form-label" for="country">Marital status </label>
+                                <select class="select2" id="doccountry"
+                                class="form-control" formControlName="maritalstatus">
+                                <option value="1">Married</option>
+                                <option value="2">Single</option>
+                
+                            </select>
+                            </div>  -->
+                
+                        <br>
+                        <div class="sub-title">Contact Details</div><br>
+                        
+                        <div class="form-group row">
+                            <!--.row2start-->
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">Address1
+                                    <span class="fontlangifbel">*</span>
+                                </label>
+                                <input type="text" class="form-control" id="doc_address1"
+                                    placeholder="" formControlName="address1" />
+                                    <!-- <p class="messages text-danger"
+                                    *ngIf="registerForm.controls.address1.errors?.required">This Field is
+                                    Required*</p> -->
+            
+                            </div>
+                
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">Address2</label>
+                                    <input type="text" class="form-control" id="doc_address2"
+                                        placeholder="" formControlName="address2" />
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">Zip/Pin Code</label> 
+                                <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" id="docpincode"
+                                placeholder="  " formControlName="pincode" /> 
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            
+                            <div class="col-lg-4" id="country">
+                                <label class="form-label" for="country">Country</label>
+                                    <select class="select2" id="doccountry" class="form-control"
+                                    (change)="viewState()"	formControlName="country" >
+                            
+                                        <option *ngFor="let item of countries; let i = index"
+                                            value={{item[0]}}>{{item[1]}}</option>
+            
+                                    </select>
+                            </div>
+                
+                            <div class="col-lg-4" id="state">
+                                <label class="form-label" for="state">State</label>
+                                <select class="select2" id="docstate" class="form-control"
+                                (change)="viewCity()"	formControlName="state"  >
+                                    <option *ngFor="let item of states; let i = index"
+                                        value={{item[0]}}>{{item[2]}}</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4" id="state">
+                                <label class="form-label" for="state">City</label>
+                                <select class="select2" id="docstate" class="form-control"
+                                formControlName="city">
+                                <option *ngFor="let item of cities; let i = index"
+                                    value={{item[0]}}>{{item[2]}}</option>
+                            </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="form-label"    for="exampleInput">Mobile Number
+                                    <span class="fontlangifbel">*</span>
+                                </label>
+                                     <input type="number" class="form-control" id="docmobile" placeholder=" " formControlName="mobile"/>
+                                   
+                                     <!-- <p class="messages text-danger"
+                                     *ngIf="registerForm.controls.mobile.errors?.required">This Field is
+                                     Required*</p> -->
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInputEmail1">Email Id
+                                </label>
+                                 <input type="text" class="form-control" id="docemail"
+                                placeholder="  " formControlName="email" />
+                        
+                                <p class="messages text-danger"
+                                *ngIf="registerForm.controls.email.errors?.pattern">Enter Correct Mail! 
+                                </p>
+                            </div> 
+                            
+                                
+                            <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">Phone
+                                    Number</label> <input type="number" class="form-control" id="docphonenumber"
+                                    placeholder="  " formControlName="phone" />
+            
+                            </div>
+                           
+                
+                        </div>
+                           
+
+                        <div class="" align="center">
+                            <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                        </div>
+                        <div class="from-group row">
+                            <!--.row4start-->
+                            <div class="col-lg-3" style="text-align: center">
+                                <div class="form-group">
+                                    <button type="submit" class="btn-round"
+                                        [disabled]="!registerForm.valid">Update</button>
+                                    <!-- <button type="button" class="btn btn-round ml-3" (click)="openConfirmsSwal()"> Delete</button> -->
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!--.row4 end-->
+                
+                    </div>
+                    <!-- box-typical-->
+                    <ng2-toasty [position]="'center-center'"></ng2-toasty>
+                </form>            
+            </td>
+            <td style="width:5%" valign="top">
+                <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+   
+    
+    </app-card>
+    
+
+    

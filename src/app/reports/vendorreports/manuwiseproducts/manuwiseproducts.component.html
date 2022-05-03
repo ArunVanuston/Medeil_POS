@@ -1,0 +1,34 @@
+<app-card>
+  <div class="sub-title">
+    Manufaturewise Products
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+  <form [formGroup]="ManuwiseForm">
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="form-label">
+          <h6>Select Manufature</h6>
+        </label>
+        <select name="select" class="form-control" formControlName="manuid"  (change)="getmanuid()"  >
+          <option value="opt1">-- Select Manufacture --</option>
+          <option *ngFor="let val of mulservList" value={{val[0]}}>{{val[1]}}</option>
+        </select>
+      </div>
+
+      <div class="col-lg-4" align="right">
+        <button class="btn-round" (click)="getmanuwiseproduct()">View</button>
+      </div>
+    </div>
+
+  </form>
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:230%;">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

@@ -1,0 +1,247 @@
+<style>
+	.nodata {
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		font-size: 25px;
+		color: rgb(245, 50, 50);
+		font-family: Verdana, Geneva, sans-serif;
+	}
+
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+
+	.table-striped tr th{
+   text-align:center!important
+  }
+
+
+
+</style>
+
+<app-card>
+
+<br>
+
+	<form [formGroup]="registerForm">
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+				<!-- <div>
+					<label class="label-control">Show
+						<select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+							<option [ngValue]="1">1</option>
+							<option [ngValue]="25">25</option>
+							<option [ngValue]="50">50</option>
+							<option [ngValue]="100">100</option>
+						</select>
+						Entries
+					</label>
+				</div> -->
+			</div>
+
+
+			<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+					<div class="form-inline justify-content-end">
+				
+					<strong class="searchstyle">Search : </strong>
+					<input type="search" [(ngModel)]="filterQuery" [ngModelOptions]="{standalone: true}" class="form-control w-50" placeholder="Search Stock & Product No">
+				
+			</div>  
+			</div>
+		</div><br>
+
+		<div class="title1"><u>Reorder Type</u></div><br>
+
+
+		<div class="row">
+
+
+				<!-- row Start-->
+				<div class="col-lg-1">
+				
+				</div>
+	
+	
+				<div class="col-lg-4">
+	
+					<label class="form-label">
+						<input type="radio" name="minstock" value="1" style="margin-right:.5em" (change)="viewAll()"
+							formControlName="minstockflag"> Load Min Stock
+					</label> &nbsp;&nbsp;&nbsp;
+					<label class="form-label">
+						<input type="radio" name="minstock" value="2" style="margin-right:.5em" (change)="viewAll()"
+							formControlName="minstockflag"> Load New Product
+					</label>
+				</div>
+
+				<div class="col-lg-4" align="center">
+					
+						<img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+					  
+				</div><br>
+	
+	
+			</div>	<br><br>
+	
+
+
+		<div class="dt-responsive">
+			<div style="overflow-x:auto">
+				<table aria-describedby="mydesc" style="text-align:center;" class="table table-striped table-bordered table-responsive full-data-table"
+					[mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+					[(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+					<thead>
+						<tr>
+							<th scope="col">S.No </th>
+							<th scope="col" *ngIf="hdFlag ==1">Minimum Stock No</th>
+							
+							
+							<!-- <th scope="col" *ngIf="hdFlag ==1"> Product Code</th>
+							<th scope="col" *ngIf="hdFlag ==1"> Product Name</th> -->
+
+
+							<th scope="col" *ngIf="hdFlag==2">New Product Code</th>
+
+							<th scope="col" *ngIf="hdFlag==1">Minimum Stock Date</th>
+							<th scope="col" *ngIf="hdFlag==2"> Required Qunatity </th>
+							<th scope="col" *ngIf="hdFlag==2"> Required Date </th>
+							<th scope="col" *ngIf="hdFlag ==1">Total Product</th>
+
+							<!-- <th scope="col" *ngIf="hdFlag ==1"> ABC Analysis</th> -->
+
+							<th scope="col" *ngIf="hdFlag==2">Remarks</th>
+
+							<th scope="col" *ngIf="hdFlag ==1">Request Status</th>
+
+							<th scope="col"> View </th>
+
+							<!-- <th scope="col">Edit</th> -->
+
+						</tr>
+					</thead>
+
+
+					<tbody>
+
+						
+								<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+										<td></td>
+										<td></td>
+										<td></td>
+										<td class="nodata">No matching Records found....</td>
+										<td></td>
+										<td></td>
+										<td></td>
+			
+								</tr>
+
+						<tr *ngFor="let item of mf.data;let i=index">
+
+							<td>{{i+1}} </td>
+							<td *ngIf="hdFlag ==1">{{item[1]}}</td>
+							<td *ngIf="hdFlag ==2">{{item[0] }}</td>
+							<!-- <td *ngIf="hdFlag ==1"> {{item[5 ] }}</td>
+							<td *ngIf="hdFlag ==1">{{item[6 ] }} </td> -->
+
+
+							<td>{{item[2 ] }}</td>
+							<td>{{item[4 ] }}</td>
+
+							<td>{{item[3 ] }}</td>
+
+							<!-- <td *ngIf="hdFlag ==1">{{item[7] }} </td> -->
+							<td *ngIf="hdFlag ==1">
+								<span class="label label-danger" *ngIf="item[4]==0" style="font-size: 18px;">Request
+									InComplete</span>
+								<span class="label label-success" *ngIf="item[4]==1 " style="font-size: 18px;">Request
+									Complete</span>
+							</td>
+
+
+							<td *ngIf="hdFlag ==1">
+								<span  [routerLink]="['/ReorderForm/viewWantedRecord',item[0],1]"
+									class="btn viewbtn">View Minstock Entries</span>
+
+
+
+									<!-- href="javascript:;" -->
+							</td>
+
+							<td *ngIf="hdFlag==2">
+								<span [routerLink]="['/ReorderForm/viewWantedRecord', item[0], 2]"
+									class="btn viewbtn">View New Product Entries</span>
+							</td>
+
+
+
+							<!-- 						
+							<td *ngIf="hdFlag ==1">
+								<a [routerLink]="['/ReorderForm/stkminqtyEdit',item[0] ]"
+									class="btn btn-primary btn-sm">Edit</a>
+							</td>
+
+							<td *ngIf="hdFlag==2">
+								<a [routerLink]="['/ReorderForm/stkminqtyEdit',item[0] ]"
+									class="btn btn-primary btn-sm">Edit</a>
+							</td> -->
+
+
+
+						</tr>
+
+					</tbody>
+
+
+
+					<tfoot>
+						<tr>
+							<td colspan="7">
+								<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+							</td>
+						</tr>
+					</tfoot>
+
+					
+				</table>
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	</form>
+</app-card>

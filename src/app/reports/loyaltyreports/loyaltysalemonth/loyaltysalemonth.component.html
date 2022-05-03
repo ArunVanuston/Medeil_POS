@@ -1,0 +1,34 @@
+<app-card>
+  
+ <br>
+ <br>
+
+  <div class="row">
+    <div class="col-lg-4">
+      <label class="form-label">
+        <h6><strong><u>Monthly Loyalty Sales</u></strong></h6>
+      </label>
+      <input type="date" class="form-control" (change) = "getmonth($event.target.value)">
+    </div>
+    <div class="col-lg-7" align="right">
+      <button class="btn-round" (click)="MonthlyLoyaltySales()">View</button>
+    </div>
+  </div>
+
+
+
+</app-card>
+
+
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:230%;">
+<br>
+<div class="mr-2" align="right">
+  <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+</div><br>
+<div class="px-4">
+  <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+</div>
+</div>

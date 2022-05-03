@@ -1,0 +1,239 @@
+<style>
+  .spcont {
+    font-size: 16px;
+    cursor: pointer;
+    font-family: Montserrat;
+  }
+
+  .cont {
+    background-image: linear-gradient(to right, #c8c8c8, whitesmoke, #c8c8c8);
+    border-radius: 5px;
+    padding: 4px 15px;
+  }
+
+  .cont:hover {
+    -webkit-transform: scale(1.2);
+    /* Safari 3-8 */
+    transform: scale(1.2);
+  }
+
+  ::ng-deep #gauge {
+    height: 440px;
+    width: 100%;
+  }
+
+  @media (max-width: 500px) {}
+</style>
+
+<app-card>
+
+  <div class="sub-title">General Settings
+    <em class="fa fa-gears ficon"></em>
+  </div><br>
+
+
+
+  <div class="row mt-3">
+
+    <div class="col-lg-2"></div>
+
+    <div class="col-lg-8">
+
+      <div class="container mt-1" style="border-top: 3px solid #c8c8c8;">
+
+        <div class="row mt-3">
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/barcodesetting/generatebarcode']">
+                <em class="fa fa-barcode mr-2"></em>Barcode Settings</span>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/qrcodesetting/generateqrcode']">
+                <em class="fa fa-qrcode mr-2"></em>Qrcode Settings</span>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/psettings/viewprintsettings']">
+                <em class="fa fa-print mr-2"></em>Print Settings</span>
+            </div>
+
+          </div>
+
+        </div><br>
+
+        <div class="row mt-2">
+
+          <!-- <div class="col-lg-4">
+            
+            <div class="cont">   
+            
+            <span class="spcont" [routerLink]="['/TaxSettings/AddTax']">
+                <em class="ti-settings mr-2"></em>Tax Settings</span>
+            </div>
+
+          </div> -->
+
+          <!-- <div class="col-lg-4">
+              <div class="cont">
+                <span class="spcont" [routerLink]="['/BonusLoyalty/BonusLoyalty']">
+                  <em class="ti-layers-alt mr-2"></em>Bonus Loyalty Settings</span>
+              </div>
+              </div> -->
+          <div class="col-lg-4">
+            <div class="cont">
+              <span class="spcont" [routerLink]="['//CustomerType/CustomerType']">
+                <em class="ti-user mr-2"></em>Add Customer Type</span>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/EmailSetting/EmailSettings']">
+                <em class="ti-email mr-2"></em>E-Mail Settings</span>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/SmsSetting/SmsSettings']">
+                <em class="ti-comment-alt mr-2"></em>SMS Settings</span>
+            </div>
+
+          </div>
+
+        </div><br>
+
+        <div class="row mt-2">
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/ranking/folderrank']">
+                <em class="fa fa-file-o mr-2"></em>Label Rank Settings</span>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/ranking/modulerank']">
+                <em class="ti-layers-alt mr-2"></em>Module Rank Settings</span>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/ShortExpiry/ShortExpirySettings']">
+                <em class="ti-layers-alt mr-2"></em>Short Expiry</span>
+            </div>
+          </div>
+        </div><br>
+
+        <div class="row mt-2">
+
+
+
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/finacialsettings/finacial']">
+                <em class="ti-stats-up mr-2"></em>Financial Year Settings</span>
+            </div>
+
+          </div>
+
+          <div class="col-lg-4">
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/decimalSettings/decimaltype']">
+                <em class="ti-more mr-2"></em>Decimal & RoundOff</span>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/setupcostsettings/setupcost']">
+                <em class="ti-headphone-alt mr-2"></em>Business Setup Cost</span>
+            </div>
+
+          </div>
+        </div><br>
+
+        <div class="row mt-2">
+
+
+
+          <div class="col-lg-4">
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/Loyalty/Loyaltypointsettings']">
+                <em class="ti-layers-alt mr-2"></em>Loyalty Settings</span>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/Loyalty/GiftCardSettings']">
+                <em class="ti-layers-alt mr-2"></em>Gift Product Settings</span>
+            </div>
+          </div>
+          <div class="col-lg-4">
+
+            <div class="cont">
+              <span class="spcont" [routerLink]="['/CurrencySetting/addcurrency']">
+                <em class="ti-money mr-2"></em>Currency Settings </span>
+            </div>
+
+          </div>
+
+        </div><br>
+
+      </div>
+      <!---Container Complete-->
+
+
+
+    </div>
+
+    <div class="col-lg-2"></div>
+    <!--Col-lg-6 2second End-->
+
+  </div>
+  <!--Row Complete-->
+  <br>
+  <!-- <dx-circular-gauge id="gauge" [value]="45">
+        <dxo-scale
+            [startValue]="50"
+            [endValue]="150"
+            [tickInterval]="5">
+            <dxo-label [useRangeColors]="true"></dxo-label>
+        </dxo-scale>
+        <dxo-range-container palette="pastel">
+            <dxi-range [startValue]="50" [endValue]="90"></dxi-range>
+            <dxi-range [startValue]="90" [endValue]="130"></dxi-range>
+            <dxi-range [startValue]="130" [endValue]="150"></dxi-range>
+        </dxo-range-container>
+        <! <dxo-export [enabled]="true"></dxo-export> 
+        <dxo-title text="Temperature of the Liquid in the Boiler">
+            <dxo-font [size]="28"></dxo-font>
+        </dxo-title>
+    </dx-circular-gauge> -->
+  <ng2-toasty [position]="position"></ng2-toasty>
+</app-card>

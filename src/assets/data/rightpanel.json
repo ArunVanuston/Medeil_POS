@@ -1,0 +1,29 @@
+[{
+  "sales":{
+    "videourl":"https://www.youtube.com/embed/TmJFCthK7WI",
+    "helpcontent":[
+      ["Fill All Mandatory Fields"],
+      ["Some Fields will be Validation Match Must"],
+      ["After Fill all Details Submit Button will be Enable"],
+      ["Notifications Message will be Shown on Bottom-Right"]
+    ]
+  },
+  "purchase":{
+    "videourl":"https://www.youtube.com/embed/TmJFCthK7WI",
+    "helpcontent":[
+      ["Fill All Mandatory Fields Purchase"],
+      ["Some Fields will be Validation Match Must"],
+      ["After Fill all Details Submit Button will be Enable"],
+      ["Notifications Message will be Shown on Bottom-Right"]
+    ]
+  },"role":{
+    "videourl":"https://www.youtube.com/embed/TmJFCthK7WI",
+    "helpcontent":[
+      ["Fill All Mandatory Fields Purchase"],
+      ["Some Fields will be Validation Match Must"],
+      ["After Fill all Details Submit Button will be Enable"],
+      ["Notifications Message will be Shown on Bottom-Right"]
+    ]
+  }
+
+}]

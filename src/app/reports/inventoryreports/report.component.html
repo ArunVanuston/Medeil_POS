@@ -1,0 +1,426 @@
+<style>
+  a:hover {
+    color: white;
+  }
+
+  .btn.btn-round {
+    margin-top: 35px;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Inventory Reports
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <app-card>
+        <div class="row">
+          <div class=" col-lg-4">
+            <br>
+            <label class="form-label semibold">
+              <div class="title1">
+
+                <u>Current Stock</u> </div>
+            </label>
+          </div>
+        </div>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-lg-4">
+              <label class="form-label">
+                <h6> Rack No:</h6>
+              </label>
+              <input type="text" (change)="view()" class="form-control" formControlName="rack" />
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                <h6>Shelf No:</h6>
+              </label>
+              <input type="text" (change)="view()" class="form-control" formControlName="shelf" />
+            </div>
+
+
+
+            <div class=" col-lg-3" align="right">
+              <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/currentstock/currentstock.rptdesign&companyid={{companyid}}&branchid={{branchid}}&loc_name={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&rack_no={{rackno}}&shelf no={{shelfno}}&status=0"
+                        class="btn btn-round " role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+                    -->
+
+              <button class="btn-round" (click)="currentStock()">View </button>
+
+            </div>
+
+          </div>
+        </form>
+      </app-card>
+
+      <app-card>
+
+        <div class="row">
+          <div class=" col-lg-4">
+            <label class="form-label semibold">
+              <div class="title1">
+
+                <u>Expired Stock</u> </div>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class=" col-lg-11" align="right">
+            <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/Expiry Stock/ExpiryStockReport.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&status=0" 
+                                class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+
+            <button class="btn-round" (click)="expiredStock()">View </button>
+          </div>
+        </div>
+      </app-card>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+  <!-- Chain Process Reports  -->
+   
+   
+   
+<!--    
+      <app-card>
+        <div class="row">
+          <div class=" col-lg-4">
+            <label class="form-label semibold">
+              <div class="title1">
+
+                <u>Requisition Status</u></div>
+            </label>
+          </div>
+        </div>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class='col-lg-4'>
+
+
+              <div class='date' id='datetimepicker6'>
+
+                <label class="form-label">
+                  <h6>From Date:</h6>
+                </label>
+
+                <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                  formControlName="from_date" />
+
+              </div>
+
+            </div>
+            <div class='col-lg-4'>
+
+              <div class='date' id='datetimepicker7'>
+
+                <label class="form-label">
+                  <h6>To Date:</h6>
+                </label>
+
+                <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                  formControlName="to_date" />
+
+
+              </div>
+
+            </div>
+
+
+
+            <div class=" col-lg-3" align="right">
+           
+              <button class="btn-round" (click)="requisitionStatus()">View </button>
+
+
+            </div>
+          </div>
+        </form>
+      </app-card>
+      <app-card>
+        <div class="row">
+          <div class=" col-lg-4">
+            <label class="form-label semibold">
+              <div class="sub-title" style="font-size: 20px;">
+                Requisition Status By Product</div>
+            </label>
+          </div>
+        </div>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+
+          <div class="row">
+            <!-- <div class="col-lg-3" > 
+                              <label class="col-form-label"><h6> Requisition No:</h6></label>
+                                 <input type="text"  (change)="view()" class="form-control" formControlName="indentno"/> 
+                              </div> -->
+
+            <!-- <div class="col-lg-3">
+              
+                <label class="form-label">
+                  <div class="title1">
+
+                    <u>Requisition Number:</u>
+
+                  </div>
+                </label>
+                <select name="select" class="form-control" formControlName="requisitionno" (change)="view()">
+                  <option value="opt1">---Select Requisition Number---</option>
+                  <option *ngFor="let list of indentno" value={{list[1]}}>{{list[1]}}</option>
+                </select>
+              
+            </div>
+
+            <div class=" col-lg-8" align="right">
+              <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/IndentReq By Product/IndentReqByProduct.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&indentno={{indtno}}&status=0" -->
+                        <!-- class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> 
+              <button class="btn-round" (click)="  requisitionNumber()">View </button>
+
+            </div>
+          </div>
+        </form>
+      </app-card>
+
+      <app-card>
+
+        <div class="row">
+          <div class=" col-lg-4">
+            <label class="form-label semibold">
+              <div class="sub-title" style="font-size: 20px;">
+                Stock Transfer By Product</div>
+            </label>
+          </div>
+        </div>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+
+          <div class="row">
+            <div class="col-lg-3">
+              
+                <label class="form-label">
+                  <div class="title1">
+
+                    <u>Select Stock Transfer No:</u>
+
+                  </div>
+
+                </label>
+                <select name="select" class="form-control" formControlName="stranferno" (change)="view()">
+                  <option value="opt1">---Select Stock Transfer Number---</option>
+                  <option *ngFor="let list of stocklist" value={{list[1]}}>{{list[1]}}</option>
+                </select>
+              
+            </div>
+
+
+
+            <div class=" col-lg-8" align="right">
+             <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/StockTransfer By Product/StockTransferByProduct.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&stocktransferno={{stransno}}&status=0" 
+            class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+
+              <button class="btn-round" (click)="stkTransNum()">View </button>
+            </div>
+          </div>
+        </form>
+
+      </app-card>
+      <app-card>
+        <div class="row">
+          <div class=" col-lg-4">
+            <label class="form-label semibold">
+              <div class="title1">
+
+                <u>Stock Transfer Rejected Quantity</u>
+
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class='col-lg-4'>
+
+
+              <div class='date' id='datetimepicker6'>
+
+                <label class="form-label">
+                  <h6>From Date:</h6>
+                </label>
+
+                <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                  formControlName="from_date" />
+
+              </div>
+
+            </div>
+            <div class='col-lg-4'>
+
+              <div class='date' id='datetimepicker7'>
+
+                <label class="form-label">
+                  <h6>To Date:</h6>
+                </label>
+
+                <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                  formControlName="to_date" />
+
+
+              </div>
+
+            </div>
+
+
+
+            <div class=" col-lg-3" align="right">
+             <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/StockTransfer RejectQty/StockTransfer Reject Quantity Report.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0" 
+             class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> 
+              <button class="btn-round" (click)="stkTranRejQty()">View </button>
+
+            </div>
+          </div>
+        </form>
+
+      </app-card>
+
+
+      <app-card>
+        <div class="row">
+          <div class=" col-lg-4">
+            <label class="form-label semibold">
+              <div class="title1">
+
+                <u>StockTransfer Waiting Quantity Report</u>
+
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class='col-lg-4'>
+
+
+              <div class='date' id='datetimepicker6'>
+
+                <label class="form-label">
+                  <h6>From Date:</h6>
+                </label>
+
+                <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                  formControlName="from_date" />
+
+              </div>
+
+            </div>
+            <div class='col-lg-4'>
+
+              <div class='date' id='datetimepicker7'>
+
+                <label class="form-label">
+                  <h6>To Date:</h6>
+                </label>
+
+                <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                  formControlName="to_date" />
+
+
+              </div>
+
+            </div>
+
+
+
+            <div class=" col-lg-3" align="right">
+              <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/StockTranswer WaitingQty/StockTrasfer Waiting Quantity Report.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0" 
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> 
+
+              <button class="btn-round" (click)="stkTranwaitQty()">View </button>
+
+
+
+
+            </div>
+          </div>
+        </form>
+
+      </app-card>
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+</app-card>-->
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>
+
+<!--<app-card>
+        <div class="row">
+                <div class=" col-lg-4">
+                    <label class="form-label semibold"><h6>2.stock analysis</h6></label>
+                     </div>
+                </div>
+              
+                    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                 
+                    <div class ="row">
+                        <div class='col-lg-4'>
+             
+                     
+                            <div class='date' id='datetimepicker6'>
+                              
+                                    <label class="col-form-label"><h6>From Date:</h6></label>
+                                   
+                                 <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+                         
+                            </div>
+                      
+                    </div>
+                    <div class='col-lg-4'>
+               
+                        <div class='date' id='datetimepicker7'>
+                           
+                            <label class="col-form-label"><h6>To Date:</h6></label>
+                               
+                                 <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+                       
+                        
+                        </div>
+                  
+                </div>
+               
+              
+              
+                    <div class=" col-lg-3" align="right">
+                      <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/stock_analysis/stock_analysis.rptdesign&branchid={{branchid}}&loc_name={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&from_date={{reportvar}}&to_date={{reportvar1}}&status=0"
+                      class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+                    </div>
+                 </div>
+                </form>
+ 
+ 
+ </app-card> -->

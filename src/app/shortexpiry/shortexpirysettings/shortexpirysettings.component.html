@@ -1,0 +1,115 @@
+<app-card>
+
+  <div class="sub-title">{{'generalsettings.shortexp'| translate}}
+    <em class="fa fa-exclamation-circle ficon" ></em>
+  </div>
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <div class="mr-2" align="right">
+        <button class="btn-round" [routerLink]="['/ShortExpiry/ViewShortExpiry']">{{'generatebarcode.viewshortexpiry'| translate}}</button>
+      </div>
+      <form [formGroup]="ShortexpirySettingsForm" (ngSubmit)="onSubmit()">
+
+        <label class="form-label"><strong>{{'generatebarcode.you'| translate}} :</strong></label>
+        <div class="row">
+          <div class='col-lg-3'>
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" value="Days" (click)="setradio('Days')" [checked]='true'>
+                {{'generatebarcode.days'| translate}}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" value="Month" (click)="setradio('Month')">
+                {{'generatebarcode.month'| translate}}
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="gender" value="Year" (click)="setradio('Year')">
+                {{'generatebarcode.year'| translate}}
+              </label>
+            </div>
+
+            <div *ngIf="isSelected('Days')">
+              <!-- <input type="text"/>Enter Number of Days  -->
+              <input type="text" class="form-control" maxlength="2" placeholder="Enter Number of Days"
+                formControlName="no_days" (blur)="dayscalc()" />
+              <div class="messages text-danger" *ngIf="ShortexpirySettingsForm.controls.no_days.errors?.required">Enter
+                Number of Days</div>
+              <div class="messages text-danger" *ngIf="ShortexpirySettingsForm.controls.no_days.errors?.pattern">
+                Numerical Only Allowed Here</div>
+            </div>
+
+            <div *ngIf="isSelected('Month')">
+              <!-- <input type="text"/> Enter Number of Month   -->
+              <select name="select" class="form-control" formControlName="no_month" (change)="monthcalc()">
+                <option value="0" selected disabled>---Select Number of Month---</option>
+                <option value="1">1</option>
+                <option value="2">2 </option>
+                <option value="3">3 </option>
+                <option value="4">4</option>
+                <option value="5">5 </option>
+                <option value="6">6 </option>
+                <option value="7">7 </option>
+                <option value="8">8 </option>
+                <option value="9">9</option>
+                <option value="10">10 </option>
+                <option value="11">11</option>
+
+              </select>
+              <div class="messages text-danger" *ngIf="ShortexpirySettingsForm.controls.no_month.errors?.required">
+                Select Number of Month</div>
+            </div>
+
+            <div *ngIf="isSelected('Year')">
+              <!-- <input type="text"/> Enter Number of Year   -->
+              <select name="select" class="form-control" formControlName="no_year" (change)="yearcalc()">
+                <option value="0" selected disabled>---Select Number of year---</option>
+                <option value="1">1</option>
+                <option value="2">2 </option>
+                <option value="3">3 </option>
+
+
+              </select>
+
+              <div class="messages text-danger" *ngIf="ShortexpirySettingsForm.controls.no_year.errors?.required">Select
+                Number of Year</div>
+
+            </div>
+          </div>
+        </div>
+
+       
+        <div class="" align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div><br>
+        <div class="col-lg-5">
+          <div class="form-group">
+            <button type="submit" class="btn-round">{{'common.submit'| translate}}</button>
+            <button type="button" class="btn-round ml-3"
+              [routerLink]="['/GeneralSettings/GeneralSettings']">{{'common.back'| translate}}</button>
+          </div>
+        </div>
+        <!-- [disabled]="!registerForm.valid" -->
+      </form>
+      <div class="bform">
+        <!-- <label (click)="formethod1()">Formethod</label> -->
+        <div class="form-group row">
+
+          <h5> &nbsp; &nbsp;{{'generatebarcode.current'| translate}}: &nbsp; &nbsp; {{current}}</h5>
+
+        </div>
+     
+      </div>
+      <br>
+
+      
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

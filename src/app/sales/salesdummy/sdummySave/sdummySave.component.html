@@ -1,0 +1,384 @@
+<style>
+
+    .image {
+        position: absolute;
+        width: 400px;
+        height: 400px;
+        top: 0px;
+        left: 60%;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        /*
+    display:none  ;
+ 
+   */
+    }
+    
+    #ptdlist{
+        padding-left:5px;
+        text-align:center;
+        font-size:15px;
+        font-family:Montserrat;
+    }
+
+    .form-control:disabled,
+    .form-control[readonly] {
+        background-color: transparent;
+    }
+
+    #swidth{
+        width:250px;
+    }
+
+    .invstyle{
+         font-weight:bold;
+     }
+
+     .invstyle input[type=text]{
+         font-weight:bold;
+         font-size:18px;
+         font-family:Montserrat;
+     }
+
+</style>
+
+<app-card>
+
+    <div class="sub-title">Sales Dummy Generate
+        <em class="fa fa-money ficon"></em>
+    </div><br>
+
+    <form [formGroup]="registerForm">
+
+        <div class="box-typical box-typical-padding">
+
+                
+                <!-- splitcolumnbefore1   start-->
+                <div class="row">
+                    <!-- splitcolumn   start-->
+                        <div class="col-lg-3">
+                                <label class="form-label semibold" for="exampleInput">Dummy Sales No
+                                </label>
+                            
+                                <input type="text" class="form-control" formControlName="salesbillno" />
+                        </div>
+
+                            <div class="col-lg-3">
+                                <label class="form-label semibold" for="exampleInput">Customer Name </label>
+                            
+                                <select class="select2" class="form-control" (change)="custLoyalty(i)" formControlName="customerrefid"  placeholder ="--Select Customer Name--"
+                                onfocus="if(this.options.length>5){this.size=5;}" onmousedown="if(this.options.length>5){this.size=5;}" onkeypress="if(this.options.length>5){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
+                                        <option value="opt1 " >--Select Customer Name--</option>
+                                    <option *ngFor="let item of customers; let i = index" value={{item[0]}}>{{item[1]}}</option>
+           
+                                </select>
+                                <p class="messages text-danger marginzero" *ngIf="registerForm.controls.customerrefid.errors?.required">Select Customer
+                                </p>
+                            </div>
+
+                   
+
+                            <div class="col-lg-3 drugname">
+
+                                <label class="form-label semibold" for="exampleInput">Product Name
+                                </label>
+                          
+                                <input type="text" class="form-control" id="autoname" (focus)="autofocusin()" (focusout)="autofocusout()" autocomplete="off"
+                                    (keydown)="autokeyselect($event,0)" formControlName="autonamenew" placeholder="Type Search Product Name" />
+                              
+                                    <div id="autolist" 
+                                style="height:135px;overflow:auto;position:absolute;z-index:2">
+                                    <ul id="ptdlist">
+                                        <li *ngFor="let address of    autodata; let i=index" [formGroupName]="i" (keydown)="autokeyselect($event,i+1)">
+                                            <input readonly value={{address[0]}} class="boldnew" />
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div class="boxname">
+                                        <div id="autolistnew" 
+                                        style="position:absolute;z-index:1">
+                                            <ul id="ptdlist">
+                                                <li (keydown)="viewStock($event, 1)">
+                                                    <input type="text" readonly value='Box' /> </li>
+                                                <li (keydown)="viewStock( $event ,2)">
+                                                    <input type="text" readonly value='Strip' /> </li>
+                                                <li (keydown)="viewStock($event ,3)">
+                                                    <input type="text" readonly value='Tab' /> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                            <div class="col-lg-3">
+                                
+                                    <label class="form-label semibold"> Invoice Date
+                                       </label>
+                                          
+                                          
+                                  <input type="date" formControlName="date" class="form-control" />
+                                          
+                              </div>
+
+  
+                        </div>
+                    
+
+
+                    <div class="col-lg-4">
+
+                        <div class="row">
+                        
+                    <!--        <div class="col-md-5">
+                                <label class="form-label semibold" for="exampleInput">Doctor name </label>
+                            </div>
+                            <div class="col-md-7">
+                                <select class="select2" class="form-control" formControlName="doctorrefid">
+                                    <option *ngFor="let item of   doctors; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                                </select>
+                            </div>  -->
+                   <!--         <div class="col-lg-5">
+                                <label class="form-label semibold" for="exampleInput"> Barcode
+                                </label>
+                            </div>
+                            <div class="col-lg-7">
+                                <input type="text" class="form-control barcode" (keydown)="viewBarcodeProd($event)" formControlName="barcode" />
+                            </div>  -->
+                          
+
+                            <div class="col-md-7 boxname">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+
+                        <div class="row">
+                            <!--         <div class="col-lg-4">
+                                    
+                            
+                                                        <label class="form-label semibold" for="exampleInput"   style="color: #0073aa"   > PrescSave 
+                                                               </label> 
+                                                    
+                                             
+                                                
+                                                </div>
+                                                <div class="col-lg-4">
+                                                   
+                                                <input type="file"   (change)="fileChange($event)" class="form-control"     />
+                                                                                                        
+                                                          
+                                                        
+                                                   </div>    
+                                                     <div class="col-lg-4">
+                                                   
+                                                       <label  class="btn btn-primary"
+                                                      (click)="viewsPresc()" >viewPresc</label>
+                                                        
+                                                   </div>     -->
+                        </div>
+
+                    </div> <br>
+                <!-- splitcolumn  end  -->
+
+                <div class="title1"> <u>Estimation Products</u>
+                </div><br>
+            
+                <!-- splitcolumnbefore1   start-->
+
+                <div formArrayName="invoice" class="flow">
+                    <!--. table  start-->
+                    
+                        <table aria-describedby="mydesc" class="table styletab" id="knowledgeTreeTable" (keydown)="autocleartable1()">
+
+                            <thead class="stylehead">
+                                <tr>
+                                    <th scope="col">Select </th>
+                                    <th scope="col">S. No </th>
+                                    <th scope="col">Prod Code</th>
+                                    <th scope="col">Product Name</th>
+                                    <!--     <th scope="col">B/S/T</th>    -->
+                                    <th scope="col">Unit Qty</th>
+                                    <th scope="col">Unit Free </th>
+                                    <th scope="col">Dis%</th>
+                                    <th scope="col">Total Qty </th>
+                                    <th scope="col">Total Free </th>
+                                    <th scope="col">Sales Price</th>
+                                    <th scope="col" *ngIf="registerForm.controls.vatdispflag.value=='0'">VAT </th>
+                                    <th scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">SGST </th>
+                                    <th scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">CGST </th>
+                                    <th scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">IGST </th>
+                                    <th scope="col">Amount </th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="stylebody">
+
+                            <tr *ngFor="let address of registerForm.controls.invoice.controls; let i=index" [formGroupName]="i">
+                                <td>
+                                    <input type="checkbox" id="width1" class="tabcheck" formControlName="delflag" />
+                                </td>
+                                <td>
+                                    <input value={{i+1}} id="width1" readonly/>
+                                </td>
+                                <td>
+                                    <input formControlName="drugproductid" id="width3"  readonly/>
+                                </td>
+                                <td>
+                                    <input formControlName="productname" id="swidth" style="text-align:left"  readonly />
+                                </td>
+                                <!--      <td ><input  formControlName="drgtyp"   /></td>   -->
+                                <td>
+                                    <input formControlName="indvqty" id="width2" (keydown)="calc($event)" type="number" />
+                                </td>
+                                <td>
+                                    <input formControlName="indvfreeqty" id="width2" (keydown)="calc($event)" type="number" />
+                                </td>
+                                <td>
+                                    <input formControlName="unitdiscount" id="width1" (keydown)="calc($event)" />
+                                </td>
+                                <td>
+                                    <input formControlName="totalqty" id="width2" readonly/>
+                                </td>
+                                <td>
+                                    <input formControlName="totalfreeqty" id="width2" readonly />
+                                </td>
+                                <td>
+                                    <input formControlName="unitprice" id="width2" (keydown)="calc($event)" type="number" />
+                                </td>
+                                <td *ngIf="registerForm.controls.vatdispflag.value=='0'">
+                                    <input formControlName="unitvat" id="width1" />
+                                </td>
+                                <td *ngIf="registerForm.controls.vatdispflag.value=='1'">
+                                    <input formControlName="unitsgst" id="width1" />
+                                </td>
+                                <td *ngIf="registerForm.controls.vatdispflag.value=='1'">
+                                    <input formControlName="unitcgst" id="width1" />
+                                </td>
+                                <td *ngIf="registerForm.controls.vatdispflag.value=='1'">
+                                    <input formControlName="unitigst" id="width1"/>
+                                </td>
+                                <td>
+                                    <input formControlName="subtotal" id="width3" readonly/>
+                                </td>
+                            </tr>
+                        </table>
+                  
+                <!--. table     end-->
+            </div><br>
+            <!-- splitcolumnbefore1   end-->
+            
+            <div class="col-lg-5">
+                <button type="button" class="btn-round" (click)="remove()"> Remove </button>
+            </div><br>
+
+            <div class="borderform">
+                <!-- splitcolumnbefore1   start-->
+                <div class="row topadding invstyle">
+                    <!-- splitcolumn  start-->
+                   
+                            <div class="col-lg-3">
+
+                                <label class="form-label semibold" for="exampleInput">Total Product
+                                </label>
+                            
+                                <input type="text" class="form-control" formControlName="totalitems" readonly />
+                            </div>
+
+                            <div class="col-lg-3">
+                                <label class="form-label semibold" for="exampleInput">Grand Total
+                                </label>
+                           
+                                <input type="text" class="form-control" formControlName="grandtotal" readonly />
+                                <p class="messages text-danger marginzero" *ngIf="registerForm.controls.grandtotal.errors?.min">Zero Total
+                                </p>
+                            </div>
+
+                            <div class="col-lg-3">
+
+                                    <label class="form-label semibold" for="exampleInput">Sub Total
+                                    </label>
+                               
+                                    <input type="text" class="form-control" formControlName="totalamount" readonly />
+    
+                                </div>
+
+                                <div class="col-lg-3">
+                                        <label class="form-label semibold" for="exampleInput">Total Discount Amt
+                                        </label>
+                                 
+                                        <input type="text" class="form-control" formControlName="totaldiscount" readonly />
+                                    </div>
+        
+
+                            <div class="col-lg-3 mt-3">
+                                <label class="form-label semibold" for="exampleInput">Taxable Amt
+                                </label>
+                          
+                                <input type="text" class="form-control" formControlName="taxableamt" readonly />
+                            </div>
+
+                            <div class="col-lg-3 mt-3">
+                                <label class="form-label semibold" for="exampleInput">Total Tax Amt
+                                </label>
+                           
+                                <input type="text" class="form-control" formControlName="totaltaxamt" readonly />
+                            </div>
+
+                      
+                  
+                           
+                            <!--      <div class="col-md-5">
+                                                                
+                                                        
+                                                    <label class="form-label semibold" for="exampleInput">Cust  Discount 
+                                                                                           </label> 
+                                                                                
+                                                                         
+                                                                            
+                                                                            </div>
+                                                             <div class="col-md-7">
+                                                                      <input type="text"   (change)="setDiscAmt()"
+                                                                      class="form-control"   formControlName="custdiscamt"
+                                                                   />
+                                                              
+                                                            
+                                                                </div>       -->
+                           
+                        </div>
+
+                    </div>
+
+                    <!-- subcolumn  end-->
+                 
+
+            <div class="image">
+                <button type="submit" class="btn btn-primary" (click)="ClosePresc()">Close</button>
+                <ngx-image-viewer [src]=images></ngx-image-viewer>
+            </div>
+
+        </div>
+        <!-- box-typical-->
+
+        <ng2-toasty [position]="position"></ng2-toasty>
+
+    </form><br>
+    <!--addresses-->
+    <div class="row mb-3">
+        <!-- row Start-->
+        <div class="col-lg-1"></div>
+
+        <div class="col-lg-3">
+            <button type="button" class="btn-round" (click)="onSubmit()" [disabled]="!registerForm.valid"> Save </button>
+        </div>
+
+        <div class="col-lg-3">
+            <button type="button" class="btn-round" [routerLink]="['/SalesDummy/sdummyEdit' ]"> Edit </button>
+        </div>
+
+    </div>
+    <!-- row end-->
+</app-card>

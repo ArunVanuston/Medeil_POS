@@ -1,0 +1,53 @@
+<app-card>
+		<div class="bform">
+			<div align="right">
+				<button class="btn-round" (click)="view()">View Product</button>
+			</div><br>
+			<form [formGroup]="productForm">
+				<div class="row">
+					<div class="col-lg-4">
+						<!-- <angular2-multiselect [data]="mulList" [settings]="mulSettings" [(ngModel)]="selectedItems" formControlName="countryid">
+						</angular2-multiselect> -->
+						<label class="form-label semibold">Country</label>
+						<select name="select" class="form-control" formControlName="countryid" (change)="getproductlist()">
+							<option value="opt1" selected disabled>---Select Country Name---</option>
+							<option *ngFor="let coun of country " value={{coun[0]}}>
+								{{coun[1]}}</option>
+						</select> 
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label semibold"><h6>Product Name</h6></label>
+							<select name="select" class="form-control" formControlName="productname" (change)="newproductadd($event.target.value, newproduct)">
+								<option value="opt1" selected disabled>---Select Product Name---</option>
+								<option value="newproduct" style="background-color: #002e86;color:white"> Add Product</option>
+								<option *ngFor="let coun of productlist" value={{coun}}>{{coun}}</option>
+							</select> 
+							<!-- <input type="text" class="form-control" placeholder="Enter your Product Name" minlength="5" formControlName="productname"/> -->
+						
+					</div>
+				</div>
+				<button class="btn btn-round ml-5" (click)="SaveProduct(c)">Save</button>
+
+				<ng-template #newproduct let-c="close" let-d="dismiss">
+					<div class="modal-header">
+						<label class="form-label"> Add Product</label>
+						<em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+					</div>
+					<img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+			
+					<div class="modal-body mx-5">
+						<input class="form-control" id="maingroupnumber" formControlName="productname" placeholder="Enter Product Name" />
+					</div>
+					<div class="modal-footer">
+						<label class="btn modbtn" id="typemain" (click)="SaveProduct(c)">Save
+						</label>
+			
+					</div>
+				</ng-template>
+			</form>
+		</div>
+		<ng2-toasty [position]="position"></ng2-toasty>	
+</app-card>
+		
+	

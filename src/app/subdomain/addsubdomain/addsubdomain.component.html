@@ -1,0 +1,66 @@
+<app-card>
+	<div class="container bform">
+		<div align ="right">
+			<button class="btn-round" (click)="viewSubDomain()">View Sub-Domain</button>
+		</div> <br>
+
+		<form [formGroup]="subDomainForm" (ngSubmit)="onSubmit()">
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<label class="form-label semibold"><h6>Country Name</h6></label> 
+				<select	name="select" class="form-control"
+					 formControlName="countryid"  (change)="getproduct()" (click)="getproduct()" autofocus> 	
+					 <option value="opt1" selected disabled>---Select CountryName---</option>							
+					<option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option>
+				</select>
+			</div>
+			<div class="col-lg-4">
+				<label class="form-label semibold"><h6>Product Name</h6></label> <select
+					name="select" class="form-control"  formControlName="productid" (change)="getdomain()">
+					<option value="opt1" selected disabled>---Select ProductName---</option>				
+					<option *ngFor="let coun of productname" value={{coun[0]}}>{{coun[1]}}</option>
+				</select>
+			</div>
+			<div class="col-lg-4">
+				<label class="form-label semibold"><h6>Domain Name</h6></label> <select
+					name="select" class="form-control" formControlName="domainrefid" (click)="getsubdomain()">
+					<option value="opt1" selected disabled>---Select DomainName---</option>				
+					<option *ngFor="let coun of domainname" value={{coun[0]}}>
+						{{coun[1]}}</option>
+				</select>
+			</div>
+			<!-- <div class="col-lg-4">
+				<ng-select [options]="salesinvcustomers" class="inputstyle" formControlName="domainrefid"
+				placeholder="Search Cust Name/Mobile"
+				(change)="getinvcustomerinfo(salesinvcustomers)" (click)="getinvcustomerinfo(salesinvcustomers)" > </ng-select>
+			</div> -->
+			
+		</div>
+
+   		<div class="form-group row">
+			<div class="col-lg-4">
+				
+					<label class="form-label semibold"><h6>Sub-Domain Name</h6></label>
+					<select	name="select" class="form-control" formControlName="subdomainname"> 	
+					 <option value="opt1" selected disabled>---Select Sub-Domain Name---</option>							
+					<option *ngFor="let coun of subdomain " value={{coun[1]}}>{{coun[1]}}</option>
+				</select>
+				
+			</div>
+		
+			<div class="col-lg-4">
+				
+					<label class="form-label semibold"><h6>Status</h6></label> <select
+					 class="form-control form-control-default" formControlName="status">
+						<option value="0">Active</option>
+						<option value="1">In-Active</option>
+					</select>
+				
+			</div>
+		</div><br>
+		<button  type="submit" class="btn-round">Save</button>  
+	</form> 
+	</div>
+</app-card>
+
+<ng2-toasty [position]="position"></ng2-toasty>

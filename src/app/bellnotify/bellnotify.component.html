@@ -1,0 +1,60 @@
+<style>
+  .printlabel{
+    padding:0.5em 0em;
+    cursor: pointer;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Add Notifications
+    <em class="fa fa-bell ficon"></em>
+  </div>
+  <form [formGroup]="bellnotifyForm">
+    <div class="" align="right">
+      <button type="button" class="mr-1 btn-round" style="font-size:18px" [routerLink]="['/Notify/ViewNotify']">View Notifications</button>
+    </div><br>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <label class="form-label">Notification Title</label>
+        <input type="text" class="form-control" formControlName="msgTitle">
+      </div>
+      <div class="col-lg-4">
+        <label class="form-label">Country</label>
+        <select class="form-control" formControlName="countryId">
+          <option value="opt1">--Select Country--</option>
+          <option *ngFor="let coun of countrylist" value={{coun[0]}}>{{coun[1]}} </option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label class="form-label">Edition</label>
+        <select class="form-control" formControlName="editionId">
+          <option value="opt1">--Select Edition Type--</option>
+          <option value="1">Trial</option>
+          <option value="2">Paid</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <label class="form-label">Notification Send</label>
+        <select class="form-control" formControlName="msgType">
+          <option value="opt1">--Select Type--</option>
+          <option value="1">All</option>
+          <option value="2">Country</option>
+          <option value="3">Edition</option>
+        </select>
+      </div>
+     
+      <div class="col-lg-4">
+        <label class="form-label">Notification Description</label>
+        <textarea rows="3" cols="100" class="form-control" formControlName="msgDescription"
+          placeholder="Type Description here..."></textarea>
+      </div>
+    </div>
+    <div class="from-group row">
+      <div classs="col-lg-4">
+        <button type="button" class="btn-round ml-1 mt-4" (click)="SaveNotifyRecord()">Save</button>
+      </div>
+    </div>
+  </form><br>
+  <ng2-toasty [position]="'center-center'"></ng2-toasty>
+</app-card>

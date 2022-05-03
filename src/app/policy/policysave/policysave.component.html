@@ -1,0 +1,199 @@
+<app-card>
+  <div class="sub-title">Add Policy
+      <em class="fa fa-user ficon"></em>
+  </div>
+  <table aria-describedby="mydesc" style="width:100%">
+      <tbody>
+        <tr>
+          <td style="width:95%">
+              <form [formGroup]="policyForm"  class="mx-3" autocomplete="off">
+                  <div class="mr-2" align="right">
+                      <button type="button" class="btn-round"  [routerLink]="['/Policy/ViewPolicy']" >View Policy</button>
+                  </div><br>
+                  <div class="box-typical box-typical-padding">
+<div class="row px-2 pt-1" style="border-width:0px 2px;">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <label class="form-label semibold" for="exampleInput">Customer Name
+            <span class="fontlangifbel">*</span>
+          </label><br>
+        <ng-select [options]="salesinvcustomers" class="inputstyle" id="customfocus" formControlName="patientid" placeholder="Search Cust Name/Mobile" 
+        (input)="searchallcustomers($event.target.value)" #custfocus> </ng-select>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+        <label class="form-label semibold" for="exampleInput">Drug Name
+          </label><br>
+        <ng-select [options]="searcheddrugvalues" class="inputstyle" id="customfocus" formControlName="customerrefid" placeholder="Search Product" 
+        (input)="searchdrug($event.target.value,1)"  #custfocus> </ng-select>
+    </div>
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" >
+        <label class="form-label" for="country">Select Doctor
+            <span class="fontlangifbel"></span>
+        </label>
+        <select class="select2" class="form-control" formControlName="doctorrefid"   #doctorfocus>
+            <option  value="0">--Select Doctor--</option>
+            <option *ngFor="let item of doctorslist; let i = index" value={{item[0]}}>{{item[1]}}
+            </option>
+        </select>
+    </div>
+  
+    </div><br>
+                      
+                       <div class="form-group row">
+                                      
+                          <div class="col-lg-4" >
+                              
+                                  <label class="form-label semibold" for="exampleInput">Company Name
+                                    <span class="fontlangifbel">*</span>
+                                  </label> <input type="text" name="doctorName" class="form-control" id="docid" autocomplete="off"
+                                      placeholder="" formControlName="companyname" />
+                                      <p class="messages text-danger" *ngIf="policyForm.controls.companyname.errors?.pattern">
+                                        Text Only Accepts!</p>
+                              
+                          </div>
+                          <div class="col-lg-4">
+                              <label class="form-label semibold" for="exampleInput">ShortName
+                                  <span class="fontlangifbel"></span></label> 
+                                  <input type="text" name="doctorName" class="form-control"
+                                  id="docid" placeholder="" formControlName="shortname" autocomplete="off" autofocus/>
+                              <!-- <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.required">
+                                  This Field is Required*</p> -->
+                              <p class="messages text-danger" *ngIf="policyForm.controls.shortname.errors?.pattern">
+                                  Text Only Accepts!</p>
+                          </div>
+                          <div class="col-lg-4">
+                              <label class="form-label" for="exampleInput">IRDAcode  <span class="fontlangifbel">*</span></label>
+                                  <input type="text" class="form-control" id="docregistrationid" placeholder=""
+                                      formControlName="irdacode" autocomplete="off"/>
+                                
+                          </div>
+          
+                          <!-- <div class="col-lg-4">
+                              <label class="form-label mb-2">{{'common.gender'| translate}}</label><br>
+                              <input type="radio" value="Male" name="gender" formControlName="gender" checked> {{'common.male'| translate}}
+                              <input type="radio" class="ml-2" value="Female" name="gender" formControlName="gender"> {{'common.female'| translate}}
+                           </div> -->
+                       </div>
+                       <div class="form-group row">
+                                      
+                        <div class="col-lg-4" >
+                            
+                                <label class="form-label semibold" for="exampleInput">Policy Name</label> <input type="text" name="doctorName" class="form-control" id="docid"
+                                autocomplete="off"  placeholder="" formControlName="policytypename" />
+                            
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Policy Amount
+                                <span class="fontlangifbel">*</span></label> 
+                                <input type="text" name="doctorName" class="form-control"
+                                id="docid" placeholder="" formControlName="policyamount" autocomplete="off"/>
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.required">
+                                This Field is Required*</p> -->
+                            <p class="messages text-danger" *ngIf="policyForm.controls.policyamount.errors?.pattern">
+                                Text Only Accepts!</p>
+                        </div>
+                       
+                        <div class="col-lg-4" >
+                            
+                            <label class="form-label semibold" for="exampleInput">Policy Validity</label> <input type="text" name="doctorName" class="form-control" id="docid"
+                                placeholder="" formControlName="policyvalidity" autocomplete="off"/>
+                        
+                    </div>
+                        <!-- <div class="col-lg-4">
+                            <label class="form-label mb-2">{{'common.gender'| translate}}</label><br>
+                            <input type="radio" value="Male" name="gender" formControlName="gender" checked> {{'common.male'| translate}}
+                            <input type="radio" class="ml-2" value="Female" name="gender" formControlName="gender"> {{'common.female'| translate}}
+                         </div> -->
+                     </div>
+                     <div class="form-group row">
+                                      
+                      
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Policy Type
+                                <span class="fontlangifbel"></span></label> 
+                                <input type="text" name="doctorName" class="form-control"
+                                id="docid" placeholder="" formControlName="policytype" autocomplete="off"/>
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.required">
+                                This Field is Required*</p> -->
+                            <p class="messages text-danger" *ngIf="policyForm.controls.policytype.errors?.pattern">
+                                Text Only Accepts!</p>
+                        </div>
+                        <div class="col-lg-4" >
+                            
+                            <label class="form-label semibold" for="exampleInput">Policy <span class="fontlangifbel">*</span></label> <input type="text" name="doctorName" class="form-control" id="docid"
+                                placeholder="" formControlName="policy" autocomplete="off"/>
+                        
+                    </div>
+        
+                        <!-- <div class="col-lg-4">
+                            <label class="form-label mb-2">{{'common.gender'| translate}}</label><br>
+                            <input type="radio" value="Male" name="gender" formControlName="gender" checked> {{'common.male'| translate}}
+                            <input type="radio" class="ml-2" value="Female" name="gender" formControlName="gender"> {{'common.female'| translate}}
+                         </div> -->
+                     </div>
+                    
+                   
+                   
+                                
+                                      
+                       <!-- <div class="form-group row">
+                          <div class="col-lg-1">
+                              <label class="form-label" for="exampleInput">{{'common.select'| translate}}</label><br>
+                              <input type="checkbox"  formControlName="scitizenflag"
+                                  (change)="enablecontrol1()" />
+                          </div>
+                          <div class="col-lg-3">
+                              <label class="form-label" for="exampleInput">{{'customer.seniorid'| translate}}</label>
+                              <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" formControlName="scitizenno" />
+                              <div class="messages text-danger" *ngIf="registerForm.controls.scitizenno.errors?.pattern">
+                                  Text & Numbers & 25 Characters Only!..</div>
+                          </div>
+                          <div class="col-lg-1">
+                              <label class="form-label" for="exampleInput">{{'common.select'| translate}}</label><br>
+                              <input type="checkbox"  formControlName="phycapflag"
+                              (change)="enablecontrol2()" />
+                          </div>
+                          <div class="col-lg-3">
+                              <label class="form-label" for="exampleInput">{{'customer.phycapid'| translate}}</label>
+                              <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" formControlName="phycapno" />
+                              <div class="messages text-danger" *ngIf="registerForm.controls.phycapno.errors?.pattern">
+                                  Text & Numbers & 25 Characters Only!..</div>
+                              
+                          </div>
+                       </div> -->
+                                      
+                                    
+                                  <br>
+                                
+                                 
+                                  <div class="" align="center">
+                                      <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                                  </div>
+                                  <div class="form-group row">
+                                    
+                                      <ng2-toasty [position]="'center-center'"></ng2-toasty>
+                                      <div class="col-lg-2">
+                                          <div class="form-group">
+                                              <button type="button" class="btn-round"  (click)="onSubmit()" [disabled]="!policyForm.valid">Submit</button>
+                                          </div>
+                                      </div>
+                                      <!--    <div class="col-lg-4" style="text-align: center">
+                                          <div class="form-group">
+                              
+                                              <a [routerLink]="['/Customer/custView']"
+                                                  class="btn btn-primary">Customer View </a>
+                              
+                                          </div>
+                                      </div>  -->
+                                  </div>
+                      </div>
+                      <!-- box-typical-->
+                  </form>
+          </td>
+          <td style="width:5%" valign="top">
+              <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+          </td>
+        </tr>
+      </tbody>
+    </table><br>
+
+</app-card>

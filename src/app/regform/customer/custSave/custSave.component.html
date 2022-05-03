@@ -1,0 +1,334 @@
+<style>
+
+    
+.cattype{
+  border:2px solid #ebebeb;
+  border-radius:10px;
+  background-color: #f7f4f4;
+  font-size: 16px;
+  width: 100%;
+  height:37px;
+  text-align:center;
+  outline:none;
+}
+</style>
+<app-card>
+    <div class="sub-title">Customer Details
+        <em class="fa fa-user ficon"></em>
+    </div>
+    <table aria-describedby="mydesc" style="width:100%">
+        <tbody>
+          <tr>
+            <td style="width:95%">
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mx-3">
+                    <div class="mr-2" align="right">
+                        <button type="button" class="btn-round" [routerLink]="['/CustomerRegistration/ViewCustomer']">View Customer</button>
+                    </div>
+                    <div class="mr-3" align="right">
+                        <label class="text-info mr-2" [routerLink]="['/SalesInvoice/SalesInvoice']"
+                        style="font-weight:bold;cursor: pointer;"><u>Back to S-Invoice</u></label>
+                    </div><br>
+                    <div class="box-typical box-typical-padding">
+                         <div class="form-group row">
+                                        
+                            <div class="col-lg-4" style="display: none;">
+                                
+                                    <label class="form-label semibold" for="exampleInput">Patient Id </label> <input type="text" name="doctorName" class="form-control" id="docid"
+                                        placeholder="" formControlName="ptid" />
+                                
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">Customer First Name
+                                    <span class="fontlangifbel">*</span></label> 
+                                    <input type="text" name="doctorName" class="form-control"
+                                    id="docid" placeholder="" formControlName="patientfirstname" autofocus/>
+                                <!-- <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.required">
+                                    This Field is Required*</p> -->
+                                <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.pattern">
+                                    Text Only Accepts!</p>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">Customer Last Name </label>
+                                    <input type="text" class="form-control" id="docregistrationid" placeholder=""
+                                        formControlName="patientlastname" />
+                                    <p class="messages text-danger" *ngIf="registerForm.controls.patientlastname.errors?.pattern">
+                                        Text Only Accepts!</p>
+                            </div>
+            
+                            <div class="col-lg-4">
+                                <label class="form-label mb-2">Gender
+                                    <span class="fontlangifbel">*</span>
+                                </label><br>
+                                <input type="radio" value="Male" name="gender" formControlName="gender" checked> Male
+                                <input type="radio" class="ml-2" value="Female" name="gender" formControlName="gender"> Female
+                                <p class="messages text-danger" *ngIf="registerForm.controls.gender.errors?.Required">
+                                    Please select Gender </p>
+                             </div>
+                         </div>
+                         <div class="form-group row">
+                            <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">Date of Birth
+                                    <span class="fontlangifbel">*</span></label> 
+                                    <input type="date" class="form-control" id="docphonenumber"
+                                    formControlName="dob" (change)="agecalculate($event.target.value)"/>
+                                <!-- <div class="messages text-danger" *ngIf="registerForm.controls.dob.errors?.required">
+                                        This Field is Required*</div> -->
+                                <div class="messages text-secondary" style="font-weight:bold">Age: {{calculatedage}}</div>  
+                            </div>    
+            
+<!--         
+                            <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">TIN Number
+                                </label> 
+                                <input class="form-control" id="docphonenumber" placeholder="Goods & Service Tax"
+                                onkeyup="this.value = this.value.toUpperCase();" formControlName="tinno" />
+                                    <div class="messages text-danger" *ngIf="registerForm.controls.tinno.errors?.pattern">
+                                        Text & Numbers & 20 Characters Only!..</div>
+                            </div> -->
+                            <!-- <div class="col-lg-4">
+                                
+                                    <label class="form-label" for="exampleInput">GST Number</label> <input type="text"
+                                        class="form-control" formControlName="gstno" />
+                                
+                                 <div class="col-lg-4 mt-2">
+                                    
+                                        <label class="form-label semibold" for="exampleInput">Age
+                                        </label> <input type="number" class="form-control" id="docphonenumber"
+                                            formControlName="age" />
+                                    
+                                </div>    
+            
+                            </div> -->
+                            <div class="col-lg-4">
+                                <label class="form-label" for="exampleInput">VAT / GST Number</label>
+                                <input type="text" class="form-control" formControlName="vatno" />
+                                <div class="messages text-danger" onkeyup="this.value = this.value.toUpperCase();" *ngIf="registerForm.controls.vatno.errors?.pattern">
+                                    Text & Numbers & 20 Characters Only!..</div>
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label">Customer Category
+                                    <span class="fontlangifbel">*</span>
+                                </label><br>
+                                <select name="select" class="cattype" formControlName="patientcattypeid" (change)="custpopup($event.target.value,custcategory)">
+                                 <option value="opt1" selected disabled>---Select Customer Category---</option>
+                                 <option value="custcategory" style="background-color: #5aa02c;color:white">Add Customer Category</option>
+                                 <option *ngFor="let cc of custcat" value={{cc[0]}}>{{cc[1]}}</option>
+                                </select><br>
+                              </div>
+                              <p class="messages text-danger" *ngIf="registerForm.controls.gender.errors?.pattern">please select Category</p>
+                         </div>            
+                                        
+                         <div class="form-group row">
+                           
+                            <div class="col-lg-1">
+                                <label class="form-label" for="exampleInput">Select</label><br>
+                                <input type="checkbox"  formControlName="scitizenflag"
+                                    (change)="enablecontrol1()" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="form-label" for="exampleInput">Senior Citizen Id Number</label>
+                                <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" formControlName="scitizenno" />
+                                <div class="messages text-danger" *ngIf="registerForm.controls.scitizenno.errors?.pattern">
+                                    Text & Numbers & 25 Characters Only!..</div>
+                            </div>
+                            <div class="col-lg-1">
+                                <label class="form-label" for="exampleInput">Select</label><br>
+                                <input type="checkbox"  formControlName="phycapflag"
+                                    (change)="enablecontrol2()" />
+                            </div>
+                            <div class="col-lg-3">
+                                <label class="form-label" for="exampleInput">Physically Handicapped Number</label>
+                                <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" formControlName="phycapno" />
+                                <div class="messages text-danger" *ngIf="registerForm.controls.phycapno.errors?.pattern">
+                                    Text & Numbers & 25 Characters Only!..</div>
+                                
+                            </div>
+                         </div>
+                                        
+                                        <!--         <div class="col-lg-4">
+                                            
+                                                <label class="form-label" for="exampleInput">Gender </label> 
+                                                <select class="select2" id="doccountry"
+                                                class="form-control" formControlName="gender">
+                                                <option value="1">Male</option>
+                                                <option value="2">Female</option>
+                            
+                                            </select>
+                            
+                            
+                                            
+                                        </div>
+                                        
+                            
+                                        <div class="col-lg-4">
+                                            
+                                                <label class="form-label semibold">Date Of Birth </label> <input
+                                                    type="date" class="form-control" id="gender"
+                                                    placeholder="select date" 
+                                                    formControlName="dob">
+                            
+                                                    <p class="messages text-danger"
+                                                    *ngIf="registerForm.controls.dob.errors">This field is
+                                                    required!</p>
+                            
+                                            
+                                        </div>
+                                        <div class="col-lg-4" id="country">
+                                            <label class="form-label" for="country">Patient type</label>
+                                            <select class="select2" id="doccountry"
+                                            class="form-control" formControlName="patienttype">
+                                            <option value="1">IN_PATIENT</option>
+                                            <option value="2">OUT_PATIENT</option>
+                            
+                                        </select>
+                                        </div>
+                            
+                                        <div class="col-lg-4" id="country">
+                                            <label class="form-label" for="country">Marital status </label>
+                                            <select class="select2" id="doccountry"
+                                            class="form-control" formControlName="maritalstatus">
+                                            <option value="1">Married</option>
+                                            <option value="2">Single</option>
+                            
+                                        </select>
+                                        </div>   -->
+                                    <br>
+                                    <div class="sub-title">Contact Details</div><br>
+                                    <div class="form-group row">
+                                        <!--.row2start-->
+                                        <div class="col-lg-4">
+                                            <label class="form-label" for="exampleInput">Address1
+                                                <span class="fontlangifbel">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="doc_address1" placeholder=""
+                                                formControlName="address1" />
+                                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.address1.errors?.required">
+                                                This Field is Required*</p> -->
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label class="form-label" for="exampleInput">Address2</label>
+                                            <input type="text" class="form-control" id="doc_address1" placeholder=""
+                                                formControlName="address2" />
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label class="form-label" for="exampleInput">ZIP/PIN Code</label>
+                                            <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" id="docpincode"
+                                                 placeholder="  " formControlName="pincode" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-4" id="country">
+                                            <label class="form-label" for="country">Country</label>
+                                            <select class="select2" id="doccountry" class="form-control" (change)="viewState()"
+                                            formControlName="country">
+                                            <option value="opt1" disabled selected>-- Select Country --</option>
+                                            <option *ngFor="let item of countries; let i = index" value={{item[0]}}>{{item[1]}}
+                                            </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4" id="state">
+                                            <label class="form-label" for="state">State</label>
+                                            <select class="select2" id="docstate" class="form-control" (change)="viewCity()"
+                                            formControlName="state">
+                                            <option value="opt1" disabled selected>-- Select State --</option>
+                                            <option *ngFor="let item of states; let i = index" value={{item[0]}}>{{item[2]}}
+                                            </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-4" id="state">
+                                            <label class="form-label" for="state">City
+                                                <span class="fontlangifbel">*</span>
+                                            </label>
+                                            <select class="select2" id="docstate" class="form-control" formControlName="city">
+                                                <option value="opt1" disabled selected>-- Select City --</option>
+                                                <option *ngFor="let item of cities; let i = index" value={{item[0]}}>{{item[2]}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-lg-4">
+                                            <label class="form-label" for="exampleInput">Mobile Number
+                                                <span class="fontlangifbel">*</span>
+                                            </label>
+                                             <input 
+                                             oninput="javascript: if(this.value.length > this.maxLength) this.value=this.value.slice(0,this.maxLength);"
+                                             type="number" maxlength="15" class="form-control" id="docmobile" placeholder=" " formControlName="mobile"/>
+                                            <p class="messages text-danger" *ngIf="registerForm.controls.mobile.invalid && (registerForm.controls.mobile.dirty || registerForm.controls.mobile.touched)">
+                                                    This Field is Required*</p>
+                                                    
+                                        </div>
+
+                                        <div class="col-lg-4">
+                                            <label class="form-label" for="exampleInputEmail1">Email Id
+                                                <span class="fontlangifbel">*</span>
+                                            </label> <input type="text" class="form-control" id="docemail" placeholder="  "
+                                                formControlName="email" />
+                                                <p class="messages text-danger" *ngIf="registerForm.controls.email.errors?.pattern">
+                                                Enter Correct Mail!
+                                            </p>
+                                        </div>
+                        
+                                        <div class="col-lg-4">
+                                            <label class="form-label semibold" for="exampleInput">Phone Number</label> 
+                                            <input
+                                            oninput="javascript: if(this.value.length>this.maxLength) this.value=this.value.slice(0,this.maxLength)"
+                                            type="number" maxlength="15" class="form-control" id="docphonenumber"
+                                                placeholder="  " formControlName="phone" />
+                                                <!-- <p class="messages text-danger" *ngIf="registerForm.controls.phone.invalid && (registerForm.controls.phone.dirty || registerForm.controls.phone.touched)">
+                                                    This Field is Required*</p> -->                                                                                                                                                                                                        
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="" align="center">
+                                        <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                                    </div>
+                                    <div class="form-group row">
+                                      
+                                        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+                                        <div class="col-lg-2">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn-round"
+                                                    [disabled]="!registerForm.valid">Submit</button>
+                                            </div>
+                                        </div>
+                                        <!--    <div class="col-lg-4" style="text-align: center">
+                                            <div class="form-group">
+                                
+                                                <a [routerLink]="['/Customer/custView']"
+                                                    class="btn btn-primary">Customer View </a>
+                                
+                                            </div>
+                                        </div>  -->
+                                    </div>
+                        </div>
+                        <!-- box-typical-->
+
+                        <ng-template #custcategory let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                              <label class="form-label"> Add Customer Category</label>
+                              <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+                            </div>
+                            <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+                        
+                            <div class="modal-body mx-5">
+                              <input class="form-control" id="maingroupnumber" formControlName="customercategory" placeholder="Enter Customer Category" />
+                            </div>
+                            <div class="modal-footer">
+                              <label class="btn modbtn" id="typemain" (click)="savecustcat(c)">Save
+                              </label>
+                            </div>
+                          </ng-template>
+                    </form>
+            </td>
+            <td style="width:5%" valign="top">
+                <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+            </td>
+          </tr>
+        </tbody>
+      </table><br>
+
+   
+  
+</app-card>

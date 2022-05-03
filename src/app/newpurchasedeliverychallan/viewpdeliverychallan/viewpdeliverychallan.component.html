@@ -1,0 +1,148 @@
+<style>
+  .action {
+    font-size: 15px;
+    color: green;
+  }
+
+  .action1 {
+    font-size: 15px;
+    color: red;
+  }
+
+  .statusbtn {
+    border-radius: 2rem;
+    background-color: #002e86;
+    border-color: transparent;
+    width: 180px;
+    text-align: center;
+    font-family: Montserrat;
+    color: #fff;
+    cursor: pointer;
+    padding: 2px 5px;
+  }
+
+  .bform {
+    border: 2px solid #b3b3b3;
+    border-radius: 5px;
+  }
+</style>
+
+<app-card>
+
+  <div class="sub-title">View Purchase Delivery Challan
+    <em class="fa fa-user-md ficon"></em>
+  </div><br>
+  <div  class="mx-3">
+
+    <div align="right">
+      <button [routerLink]="'/PurchaseDeliveryChallan/PurchaseDC'" class="btn-round">Add Purchase DC</button>
+  </div><br>
+
+    <div class="dt-responsive" style="overflow:auto">
+      <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"
+        [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+        [(mfSortOrder)]="sortOrder">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">{{'purchasedchallan.pdcid'|translate}}PDC Id</th>
+            <th scope="col">{{'purchasedchallan.pono'|translate}}PO No</th>
+            <th scope="col">{{'purchasedchallan.dcdate'|translate}}DC Date</th>
+            <th scope="col">{{'purchasedchallan.vemdor'|translate}}Vendor Name</th>
+            <th scope="col">{{'purchasedchallan.vendordcno'|translate}}Vendor Dc No</th>
+            <th scope="col">Action </th>
+          </tr>
+          <tr>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+            <td></td>
+            <td></td>
+            <td class="nodata">No Data Available</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let val of mf.data;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{val[1]}}</td>
+            <td>{{val[3]}}</td>
+            <td>{{val[4]}}</td>
+            <td>{{val[2]}}</td>
+            <td>{{val[5]}}</td>
+            <!-- <td>{{val[5]}}</td> -->
+            <td ngbDropdown class="text-center">
+              <a ngbDropdownToggle="" class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+                <em class="icofont icofont-ui-settings"></em>
+              </a>
+              <div ngbDropdownMenu="" class="dropdown-menu dropdown-menu-right">               
+                <a class="dropdown-item" href="javascript:;" (click)="viewdcproducts(val[0])">
+                  <em class="icofont icofont-papers"></em>View Products</a>	
+                <div role="separator" class="dropdown-divider"></div>
+              </div>
+            </td>
+           
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="12">
+              <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+            </td>
+          </tr>
+        </tfoot>
+
+      </table>
+    </div>
+
+
+  </div>
+
+  <div [ngClass]="productsview?'showtop':'hidetop'">
+		<br>
+		<div class="mr-2" align="right">
+			<em class="fa fa-close fa-2x mr-2" (click)="productsview=false" style="cursor:pointer;color:white"></em>
+		</div>
+		<div class="container pt-3" style="overflow:auto;background-color:white;max-height:580px;border-radius: 12px;" *ngIf="productsview">
+		<div class="dt-responsive" style="overflow: auto;">
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+				<thead>
+				<tr>
+				<th scope="col">S.No</th>  
+        <th scope="col">SI Product No</th>
+				<th scope="col">Product Name</th>
+        <th scope="col">Batch Name</th>
+        <th scope="col">Package Type</th>
+				<th scope="col">Package Qty</th>
+				<th scope="col">Unit Count</th>
+        <th scope="col">Total Qty</th>
+				</tr>
+				</thead>
+			<tbody>
+			<tr *ngFor="let item of dcproducts;let i=index">
+				<td>{{i+1}}  </td> 
+        <td>{{item[6]}} </td>
+				<td>{{item[0]}} </td>
+				<td>{{item[1]}} </td>
+        <td>{{item[5]}} </td>
+        <td style="text-align: right !important">{{item[2] | number:'1.2-2'}} </td>
+				<td style="text-align: right !important;">{{item[3] | number:'1.2-2'}} </td>
+        <td style="text-align: right !important;">{{item[4] | number:'1.2-2'}} </td>
+			</tr>
+			<tr *ngIf="(dcproducts) == 0">
+				<td></td>
+				<td></td>
+				<td class="nodata">No Data Available</td>
+				<td></td>
+				<td></td>
+				<!-- <td></td> -->
+				<td></td>
+			</tr>										
+			</tbody>
+			</table>
+		</div><br>
+		</div>
+	</div>
+</app-card>

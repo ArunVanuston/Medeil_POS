@@ -1,0 +1,30 @@
+<style>
+  .card-body { 
+    padding: 0.2rem 1.25rem !important;
+  }
+</style>
+<div class="card">
+  <div class="card-body">
+    <ngb-tabset [destroyOnHide]="false">
+      <!--<div class="container row" [innerHTML]="htmlContent"></div>-->
+    <ngb-tab *ngFor="let tab of tabs let i=index">
+        <ng-template ngbTabTitle>
+          <span style="color:#002e86;font-weight:bold;font-size:16px">{{i+1}} - </span>
+          <span *ngIf="i>0"><em class="fa fa-close text-secondary ml-2" (click)="closetab(i)"></em></span>
+          <span><em class="fa fa-plus ml-2" style="color:#002e86" (click)="onAddTabClick()"></em></span>
+        </ng-template>
+        <ng-template ngbTabContent>
+          <div [@fadeInOutTranslate] class="mt-1" #screen>
+            <app-multisalesinvoice></app-multisalesinvoice>
+          </div>
+        </ng-template>
+    </ngb-tab>
+    </ngb-tabset> 
+  </div>
+</div>
+<!--<app-card>
+    <!-- <div class="mr-2" align="right">
+      <span (click)="onAddTabClick()" style="color:green;font-size:17px;cursor: pointer;"> <em class="fa fa-plus mr-2"></em>Create Tab</span>
+    </div> --
+   
+</app-card>-->

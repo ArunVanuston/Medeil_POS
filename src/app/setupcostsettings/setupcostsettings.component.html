@@ -1,0 +1,123 @@
+<app-card>
+  <div class="sub-title" style="font-size: 20px;">Add SetupCostSetting
+    <em style="float:right" class="ti-headphone-alt" aria-hidden="true"></em>
+  </div>
+  <form [formGroup]="SetupcostForm">
+  <div class="" align="right">
+    <button type="button" class="btn-round" [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+  </div><br>
+  <div class="">
+    <h5>Setup Costs</h5><br>
+    <div class="py-2" style="overflow:auto">
+      <table aria-describedby="mydesc" class="table px-2" style="width:100%">
+        <tr>
+          <td style="width:50%">
+        <tr>
+          <th scope="col">Opening Cash Balance:</th>
+          <td> <input type="text" class="ml-1 inputchange" formControlName="opencashbalance" (change)="addtotalcost()"></td>
+        </tr>
+        <tr>
+          <th scope="col">Refrigeration:</th>
+          <td> <input type="text" class="ml-1 inputchange" formControlName="fridge" (change)="addtotalcost()"></td>
+        </tr>
+        <tr>
+          <th scope="col">Building Cost:</th>
+          <td> <input type="text" class="ml-1 inputchange" formControlName="buildingcost" (change)="addtotalcost()"></td>
+        </tr>
+        <tr>
+          <th scope="col">Air-Conditioning:</th>
+          <td> <input type="text" class="ml-1 inputchange" formControlName="aircondition" (change)="addtotalcost()"></td>
+        </tr>
+        <tr>
+          <th scope="col">Advance/Lease Deposit:</th>
+          <td> <input type="text" class="ml-1 inputchange" formControlName="advleadsedeposit" (change)="addtotalcost()"></td>
+        </tr>
+        <!-- <tr>
+              <th scope="col">Others3:</th>
+              <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+            </tr>
+            <tr>
+              <th scope="col">Others4:</th>
+              <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+            </tr> -->
+        </td>
+        <td style="width:50%">
+          <tr>
+            <th scope="col">Display Boards:</th>
+            <td> <input type="text" class="ml-1 inputchange" formControlName="displayboard" (change)="addtotalcost()"></td>
+          </tr>
+          <tr>
+            <th scope="col">Registration Fee:</th>
+            <td> <input type="text" class="ml-1 inputchange" formControlName="regfee" (change)="addtotalcost()"></td>
+          </tr>
+          <tr>
+            <th scope="col">Computers & Peripherals:</th>
+            <td> <input type="text" class="ml-1 inputchange" formControlName="computerperipherals" (change)="addtotalcost()"></td>
+          </tr>
+          <tr>
+            <th scope="col">Electrical Lightening:</th>
+            <td> <input type="text" class="ml-1 inputchange" formControlName="electriclighting" (change)="addtotalcost()"></td>
+          </tr>
+          <tr>
+            <th scope="col">Furniture & Carpentery:</th>
+            <td> <input type="text" class="ml-1 inputchange" formControlName="furnishcarpentry" (change)="addtotalcost()"></td>
+          </tr>
+          <!-- <tr>
+              <th scope="col">Others:</th>
+              <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1" ></em></td>
+            </tr>
+            <tr>
+              <th scope="col">Others1:</th>
+              <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+            </tr>
+            <tr>
+              <th scope="col">Others2:</th>
+              <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+            </tr> -->
+        </td>
+        </tr>
+      </table>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Do you want Others Option <a href="javascript:;"
+          (click)="count = count+1;othersfn()">Click here</a></label>
+      <label class="form-label">(You can add (Max 5) Only)</label> <em class="fa fa-trash ml-2" (click)="count = count-1"></em>
+    </div>
+
+    <div class="form-group row px-5">
+      <div class="ml-5" *ngIf="count == 1 || count ==  2 || count ==  3 || count ==  4 || count ==  5">
+        <label class="form-label"><strong>Others</strong></label>
+        <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others1" (change)="addtotalcost()">
+      </div>
+      <div class="ml-5" *ngIf="count == 2 || count ==  3 || count ==  4 || count ==  5 ">
+        <label class="form-label"><strong>Others</strong></label>
+        <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others2" (change)="addtotalcost()">
+      </div>
+      <div class="ml-5" *ngIf="count == 3 || count ==  4 || count ==  5 ">
+        <label class="form-label"><strong>Others</strong></label>
+        <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others3" (change)="addtotalcost()">
+      </div>
+    </div>
+      <div class="form-group row px-5">
+      <div class="ml-5" *ngIf="count == 4 || count ==  5 ">
+        <label class="form-label"><strong>Others</strong></label>
+        <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others4" (change)="addtotalcost()">
+      </div>
+      <div class="ml-5" *ngIf="count == 5 ">
+        <label class="form-label"><strong>Others</strong></label>
+        <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others5" (change)="addtotalcost()">
+      </div>
+    </div>
+    <div class="form-group row px-5">
+      <label class="form-label"><strong>Total Expenses</strong></label>
+      <input type="text" class="ml-2" style="outline: none;" formControlName="totalsetupcost" readonly>
+    </div>
+
+
+  </div>
+  <div class="mr-4" align="right">
+    <button type="submit" class="btn-round" (click)="savesetupcost()">Save</button>
+</div>
+  </form>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

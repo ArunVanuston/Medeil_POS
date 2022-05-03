@@ -1,0 +1,102 @@
+thead {
+    background: #002e86;
+    color: white;
+}
+
+.togglealign {
+    margin-left: 17px;
+    margin-top: 7px;
+}
+
+.btnalign {
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 20px;
+    padding-top: -0px;
+    margin-bottom: 5px;
+}
+
+div i p {
+    text-align: center;
+}
+
+ul li {
+    line-height: 16.5px;
+    transition: transform .2s;
+}
+
+ul li:hover, ul li:active {
+    font-size: 30px !important;
+    border-bottom: medium dashed blue;
+}
+
+td span.badge {
+    border-radius: 5px;
+    /* color: black; */
+}
+
+.table td {
+    padding: .75rem;
+}
+
+.table-striped td:nth-child(2) {
+    text-align: center !important;
+}
+
+.marginRight {
+    padding-left: 61px;
+    float: right;
+}
+
+.totalAssgn {
+    text-align: center;
+    font-size: 25px;
+    padding-top: 5px;
+}
+
+.backgrd {
+    background: #002e86;
+}
+
+.backgrd:hover {
+    background: #bf00ff;
+    cursor: pointer;
+}
+
+.card-text {
+    text-align: center !important;
+    margin-bottom: 2px;
+}
+
+.card-body{
+    height: 123px !important;
+}
+
+.spanalign {
+    margin-top: -10px;
+    margin-left: 120px;
+    font-size: 1.5em;
+    text-align: center !important;
+}
+
+.fa-users {
+    text-align: center;
+    content: "\F0C0";
+    font-size: 1.5em;
+    margin-left: 120px;
+    transition: transform .2s;
+    position: relative;
+}
+
+.icon-layers {
+    text-align: center;
+    font-size: 2em;
+    margin-left: 120px;
+    transition: transform .2s;
+    position: relative;
+}
+
+.spanalign:hover {
+    /* transform: scale(1.3); */
+    font-size: 2.5em;
+}

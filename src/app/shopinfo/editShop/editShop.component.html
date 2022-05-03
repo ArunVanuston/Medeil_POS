@@ -1,0 +1,349 @@
+<app-card>
+	<div class="sub-title">Edit Details
+		<em class="fa fa-edit ficon"></em>
+	</div>
+	<table aria-describedby="mydesc" style="width:100%">
+	<tbody>
+	<tr>
+	<td style="width:95%">
+		<div class="mr-2" align="right">
+			<button type="button" class="btn-round" [routerLink]="['/ShopRegistration/ViewShopInformation']">View Shop</button>
+		  </div>
+		<form [formGroup]="myForm" (ngSubmit)="onSubmit()" class="mx-2">
+		
+			<div class="col-lg-4">
+				
+					<input type="hidden" class="form-control" placeholder="Enter Shop Id" formControlName="id">
+				
+			</div>
+			<div class="form-group row">
+	
+					<!-- <div class="col-lg-4">
+						
+							<label class="form-label">
+								<h6>Company Name</h6>
+							</label>
+							<select name="select" class="form-control" formControlName="companyid" (change)="getBranch()">
+								<option value="opt1">---Select Company---</option>
+								<option *ngFor="let companies of companyrefid1" value={{companies[0]}}>{{companies[1]}}</option>
+							</select>
+						
+					</div>
+		
+					<div class="col-lg-4">
+						<label class="form-label semibold">
+							<h6>Branch Name</h6>
+						</label>
+						<select name="select" class="form-control" placeholder="Select Branch" formControlName="branchid">
+							<option value="opt1">---Select Branch Name---</option>
+							<option *ngFor="let coun of branchrefid1" value={{coun[0]}}>
+								{{coun[1]}}</option>
+						</select>
+					</div> -->
+	
+						<div class="col-lg-4">
+							
+								<label class="form-label">Shop Name<span class="fontlangifbel">*</span></label>
+								<input type="text" class="form-control" placeholder="Enter Shop_Name" formControlName="shopname">
+								<!-- <div class="messages text-danger" *ngIf="myForm.controls.shopname.errors?.required">Enter Shop Name!</div> -->
+								<div class="messages text-danger" *ngIf="myForm.controls.shopname.errors?.pattern">Text only Accepts!</div>
+							
+						</div>
+	
+						<div class="col-lg-4">
+							
+								<label class=" form-label">Owner Name<span class="fontlangifbel">*</span></label>
+								<input type="text" class="form-control" placeholder="Enter Owner_Name" formControlName="ownername">
+								<!-- <div class="messages text-danger" *ngIf="myForm.controls.ownername.errors?.required">Enter Owner Name!</div> -->
+								<div class="messages text-danger" *ngIf="myForm.controls.ownername.errors?.pattern">Text only Accepts!</div>
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class=" form-label">License Holder<span class="fontlangifbel">*</span></label>
+								<input type="text" class="form-control" placeholder="Enter License Holder_Name" formControlName="license_holder">
+								<!-- <div class="messages text-danger" *ngIf="myForm.controls.license_holder.errors?.required">Enter License holder Name!</div> -->
+							
+						</div>
+	
+				</div>
+			<div class="form-group row">
+			
+					<div class="col-lg-4">
+						
+							<label class="form-label">Registration Number<span class="fontlangifbel">*</span></label>
+							<input type="text" class="form-control" placeholder="Enter Registration Number" formControlName="phar_registration_no">
+							<!-- <div class="messages text-danger" *ngIf="myForm.controls.phar_registration_no.errors?.required">Enter Registration Number!</div> -->
+						
+					</div>
+	
+	
+					<div class="col-lg-4">
+						
+							<label class="form-label">DL Number</label>
+							<input type="text" class="form-control" placeholder="Drug License Number" formControlName="dlno">
+						
+					</div>
+		
+					<div class="col-lg-4">
+							
+								<label class="form-label">TIN<span class="fontlangifbel">*</span></label>
+								<input type="text" class="form-control" placeholder="Tax Identification Number" formControlName="tinno">
+								<!-- <div class="messages text-danger" *ngIf="myForm.controls.tinno.errors?.required">Enter TIN Number!</div> -->
+							
+						</div>
+	
+			</div>
+	
+			<!-- <div class="form-group row">
+				
+				 -->
+	
+				<!-- <div class="col-lg-4">
+					
+						<label class="col-form-label"><h6>GST Number</h6></label>
+						<input type="text" class="form-control" placeholder="Goods And ServiceTax" formControlName="gstno">
+					
+				</div> -->
+	
+	
+	
+			<!-- </div> -->
+	
+			<!-- <div class="form-group row"> -->
+				
+	
+	<!-- 
+				<div class="col-lg-4">
+					
+						<label class="col-form-label"><h6>CST</h6></label>
+						<input type="text" class="form-control" placeholder="Central Service Tax" formControlName="cstno">
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="col-form-label"><h6>PAN</h6></label>
+						<input type="text" class="form-control" placeholder="Permanent Account Number" formControlName="panno">
+					
+				</div> -->
+	
+	
+			<!-- </div> -->
+			<div class="sub-title" style="font-size: 20px;">Contact Details</div><br>
+			<div class="form-group row">
+				<div class="col-lg-4">
+					
+						<label class="form-label">Address1<span class="fontlangifbel">*</span></label>
+						<input type="text" class="form-control" placeholder="Address" formControlName="address1">
+						<!-- <div class="messages text-danger" *ngIf="myForm.controls.address1.errors?.required">Enter Address!</div> -->
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label">Address2</label>
+						<input type="text" class="form-control" placeholder="Address" formControlName="address2">
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label">Country</label>
+						<select name="select" class="form-control" formControlName="country" (change)="getState()"  (click)="getState()">
+							<option value="0" disabled>---Select Country---</option>
+							<option *ngFor="let country of countries" value={{country[0]}}>{{country[1]}}</option>
+						</select>
+					
+				</div>
+				
+			</div>
+			<div class="form-group row">
+	
+				<div class="col-lg-4">
+					
+						<label class="form-label">State</label>
+						<select name="select" class="form-control" formControlName="state" (change)="getCity()" (click)="getCity()" >
+							<option value="0" disbaled>---Select State---</option>
+							<option *ngFor="let state of states" value={{state[0]}}>{{state[2]}}</option>
+						</select>
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label">City</label>
+						<select name="select" class="form-control" formControlName="city">
+							<option value="0" disbaled>---Select City---</option>
+							<option *ngFor="let city of cities" value={{city[0]}}>{{city[1]}}</option>
+						</select>
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label">ZIP/PIN Code<span class="fontlangifbel">*</span></label>
+						<input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" placeholder="Pincode" formControlName="pincode">
+						<!-- <div class="messages text-danger" *ngIf="myForm.controls.pincode.errors?.required">Enter Zip/Pin Code!</div> -->
+
+					
+				</div>
+				
+			</div>
+			<div class="form-group row">
+	
+				<div class="col-lg-4">
+					
+						<label class="form-label">Phone Number</label>
+						<input type="number" class="form-control" placeholder="Enter Phone Number" formControlName="mobileno">
+					
+					<div class="messages text-danger" *ngIf="myForm.controls.mobileno.errors?.pattern">Numerical Only Allowed Here</div>
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label">Email Id</label>
+						<input type="text" class="form-control" placeholder="Enter Email Id" formControlName="emailid">
+						<div class="messages text-danger" *ngIf="myForm.controls.emailid.errors?.pattern">Invalid Email..</div>
+					
+				</div>
+			</div>
+			<!-- <div class="sub-title" style="font-size: 20px;">Pharmacist Details</div>
+			<div class="form-group row">
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>Pharmacist Name</h6></label>
+						<input type="text" class="form-control" placeholder="Pharmacist Name" formControlName="pharmacistname">
+						<div class="messages text-danger" *ngIf="myForm.controls.pharmacistname.errors?.required">Enter Pharmacist Name</div>
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>Country</h6></label>
+						<select name="select" class="form-control" formControlName="phar_country" (click)="getState1()" (change)="getState1()">
+							<option value="0">---Select Country---</option>
+							<option *ngFor="let country of countries" value={{country[0]}}>{{country[1]}}</option>
+						</select>
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>State</h6></label>
+						<select name="select" class="form-control" formControlName="phar_state" (click)="getCity1()" (change)="getCity1()">
+							<option value="0">---Select State---</option>
+							<option *ngFor="let state of states1" value={{state[0]}}>{{state[2]}}</option>
+						</select>
+					
+				</div>
+			</div> -->
+			<!-- <div class="form-group row">
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>City</h6></label>
+						<select name="select" class="form-control" formControlName="phar_city">
+							<option value="0">---Select City---</option>
+							<option *ngFor="let city of cities1" value={{city[0]}}>{{city[1]}}</option>
+						</select>
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>ZIP/PIN Code</h6></label>
+						<input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" placeholder="Pincode" formControlName="phar_pincode">
+					
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>Phone Number</h6></label>
+						<input type="number" class="form-control" placeholder="Enter Phone Number" formControlName="phar_contactno1">
+					
+					<div class="messages text-danger" *ngIf="myForm.controls.phar_contactno1.errors?.pattern">Numerical only Allowed Here..</div>
+				</div>
+			</div> -->
+			<!-- <div class="form-group row">
+				<div class="col-lg-4">
+					
+						<label class="form-label"><h6>Email Id</h6></label>
+						<input type="text" class="form-control" placeholder="Enter Email Id" formControlName="phar_emailid">
+					
+					<div class="messages text-danger" *ngIf="myForm.controls.phar_emailid.errors?.pattern">Invalid Email..</div>
+				</div>
+				
+				
+			</div> -->
+	
+			<div class="sub-title" style="font-size: 20px;">Bank Details</div><br>
+			<div class="form-group row">
+				<div class="col-lg-4">
+					
+						<label class="form-label">Bank Name</label>
+						<input type="text" class="form-control" placeholder="bankname" formControlName="bankname">
+					
+					<!-- <div class="messages text-danger" *ngIf="myForm.controls.phar_emailid.errors?.pattern">Invalid Email..</div> -->
+				</div>
+			
+				<div class="col-lg-4">
+					
+						<label class="form-label">Branch Name</label>
+						<input type="text" class="form-control" placeholder="" formControlName="branchname">
+					
+					<!-- <div class="messages text-danger" *ngIf="myForm.controls.phar_emailid.errors?.pattern">Invalid Email..</div> -->
+				</div>
+				<div class="col-lg-4">
+					
+						<label class="form-label">Account No</label>
+						<input type="text" class="form-control" placeholder="" formControlName="accountno">
+					
+					<!-- <div class="messages text-danger" *ngIf="myForm.controls.phar_emailid.errors?.pattern">Invalid Email..</div> -->
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-lg-4">
+					
+						<label class="form-label">Account Type</label>
+						<input type="text" class="form-control" placeholder="Enter Email Id" formControlName="accounttype">
+					
+					<!-- <div class="messages text-danger" *ngIf="myForm.controls.phar_emailid.errors?.pattern">Invalid Email..</div> -->
+				</div>
+			
+				<div class="col-lg-4">
+					
+						<label class="form-label">IFSC Code</label>
+						<input type="text" class="form-control" placeholder="" formControlName="ifsccode">
+					
+					<!-- <div class="messages text-danger" *ngIf="myForm.controls.phar_emailid.errors?.pattern">Invalid Email..</div> -->
+				</div>
+				
+			</div>
+			<div class="sub-title" style="font-size: 20px;">Upload Logo</div><br>
+			<div class="form-group row"> 
+				<div class="col-lg-4">
+	
+					<label class="form-label">Shop Logo (Upload Size Max 500 KB)</label>
+		
+					<div class="form-inline">
+						<input type="file" class="form-control" id="empimgfile"
+						(change)="empimgupload($event)" #fileInput accept="image/*"/>
+						<span class="fa fa-eye mt-2" style="cursor: pointer" (click)="logoshow()" *ngIf="logoshoweye"></span>
+						<span class="fa fa-eye-slash mt-2" style="cursor: pointer" (click)="logohide()" *ngIf="logoshoweyeslash"></span>
+						<span class="fa fa-trash mt-2 ml-2" style="cursor: pointer" (click)="logoreset()"></span>
+					</div><br>
+				</div>
+				<div class="col-lg-4" *ngIf="empshowimage">
+					<div class="imageview" >
+					<img [src]="empimgURL" alt="altitem" height="180" width="260" *ngIf = "shoplogo == ''"/>
+					<img [src]="shoplogo" alt="altitem" height="180" width="260" *ngIf = "shoplogo != ''"/>
+					</div>
+					<span style="color:red;" *ngIf="uploadmessage">{{uploadmessage}}</span>
+				</div>
+			</div>
+				<div class="form-group row">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-3">
+						<button [disabled]="!myForm.valid" type="submit" class="btn-round">Update</button>
+					</div>
+				</div>
+		</form>
+	</td>
+	<td style="width:5%" valign="top">
+	<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+	</td>
+	</tr>
+	</tbody>
+	</table>			 			 			 			 						
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

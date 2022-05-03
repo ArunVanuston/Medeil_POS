@@ -1,0 +1,403 @@
+<!-- <h1>Purchase reports</h1> -->
+<style>
+  a:hover {
+    color: white;
+  }
+
+  .btn.btn-round {
+    margin-top: 35px;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Purchase Vat Reports
+    <i class="fa fa-print ficon"></i>
+  </div>
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+
+
+
+
+
+
+
+      <div class="title1"><u>Purchase VAT Report</u>
+
+      </div><br>
+
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="form-label">
+              <h6> VAT</h6>
+            </label>
+            <select name="select" class="form-control" (change)="view()" formControlName="vat">
+              <option value="0" selected disabled>---Select VAT %---</option>
+              <option value="0">0</option>
+              <option value="5">5 </option>
+              <option value="12">12 </option>
+            </select>
+          </div>
+          <div class='col-lg-3'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='date' id='datetimepicker7'>
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-2" align="right">
+            <button class="btn-round" (click)="purchasevat()">View</button>
+          </div>
+        </div>
+      </form><br>
+
+
+
+
+      <div class="row">
+        <div class=" col-lg-4">
+          <label class="form-label semibold">
+            <div class="title1"><u>Purchase Vat with Distributor Details</u>
+            </div>
+                    </label>
+        </div>
+      </div>
+
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <!-- <div class="col-lg-3">
+
+            <label class="form-label">
+              <h6>Distributor Name</h6>
+            </label>
+            <select name="select" class="form-control" formControlName="distname" (change)="getDistributor()">
+              <option value="opt1">---Select Distributor Name---</option>
+              <option *ngFor="let dist of distributorId" value={{dist[0]}}>{{dist[1]}}</option>
+            </select>
+
+          </div> -->
+
+
+          <div class='col-lg-4'>
+
+
+            <div class='date' id='datetimepicker6'>
+
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+
+            </div>
+
+          </div>
+          <div class='col-lg-4'>
+
+            <div class='date' id='datetimepicker7'>
+
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+
+
+            </div>
+
+          </div>
+
+          <div class=" col-lg-3" align="right">
+            <!-- <a href="http://3.6.8.66:8080/birt/frameset?__report=MedeilReports/Payment By Distributor/Dist_Payment.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&distributorid={{dname}}&status=0"
+              class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+            <button class="btn-round" (click)="DistwiseVatReport()">View</button>
+          </div>
+        </div>
+      </form><br>
+
+  
+      <div class="row">
+        <div class=" col-lg-4">
+          <label class="form-label semibold">
+            <div class="title1"><u>Purchase Vat with Product Details</u>
+            </div>
+                     </label>
+        </div>
+      </div>
+
+
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker7'>
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-3" align="right">
+            <button class="btn-round" (click)="purchasevatwithProduct()">View</button>
+          </div>
+        </div>
+      </form><br>
+
+
+
+
+      <div class="title1"><u>Purchase Return VAT Report</u>
+      </div><br>
+
+
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="form-label">
+              <h6> VAT</h6>
+            </label>
+
+            <select name="select" class="form-control" (change)="view()" formControlName="vat">
+              <option value="0" selected disabled>---Select VAT %---</option>
+              <option value="0">0</option>
+              <option value="1">5 </option>
+              <option value="2">12 </option>
+
+            </select>
+          </div>
+          <div class='col-lg-3'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='date' id='datetimepicker7'>
+
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-2" align="right">
+            <!-- <a href="http://3.6.8.66:8080/birt/frameset?__report=MedeilReports/VatReport/Individual%20PRVat%20Report.rptdesign&Branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&vat={{vatno}}&status=0"
+                    class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+            <button class="btn-round" (click)="purchasereturnvat()">View</button>
+          </div>
+        </div>
+      </form><br><br>
+
+
+
+
+      <div class="sub-title">Sales Vat Reports
+      
+      </div>
+     <br>
+      <div class="row">
+        <div class=" col-lg-4">
+          <label class="form-label semibold">
+            <div class="title1"><u>Sales Invoice Vat with Customer Details</u>
+            </div>
+                    </label>
+        </div>
+      </div>
+
+
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker7'>
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-3" align="right">
+            <button class="btn-round" (click)="custsalesinvoice()">View</button>
+          </div>
+        </div>
+      </form><br>
+
+
+      <div class="title1"><u>Percentagewise Sales VAT Report</u>
+
+      </div><br>
+
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class="col-lg-3">
+            <label class="form-label">
+              <h6> VAT</h6>
+            </label>
+            <select name="select" class="form-control" (change)="view()" formControlName="vat">
+              <option value="0" selected disabled>---Select VAT %---</option>
+              <option value="0">0</option>
+              <option value="5">5 </option>
+              <option value="12">12 </option>
+            </select>
+          </div>
+          <div class='col-lg-3'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-3'>
+            <div class='date' id='datetimepicker7'>
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-2" align="right">
+            <button class="btn-round" (click)="percensales()">View</button>
+          </div>
+        </div>
+      </form><br>
+     
+      <div class="row">
+        <div class=" col-lg-4">
+          <label class="form-label semibold">
+            <div class="title1"><u>Sales Invoice Vat with Product Details</u>
+            </div>
+          </label>
+        </div>
+      </div>
+    
+    
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker7'>
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-3" align="right">
+            <button class="btn-round" (click)="prodwisesales()">View</button>
+          </div>
+        </div>
+      </form><br>
+    
+      <div class="row">
+        <div class=" col-lg-4">
+          <label class="form-label semibold">
+            <div class="title1"><u>Sales Return Vat Details</u>
+            </div>
+          </label>
+        </div>
+      </div>
+    
+    
+      <form [formGroup]="VatForm">
+        <div class="row">
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker6'>
+              <label class="form-label">
+                <h6>From Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="from_date" />
+            </div>
+          </div>
+          <div class='col-lg-4'>
+            <div class='date' id='datetimepicker7'>
+              <label class="form-label">
+                <h6>To Date:</h6>
+              </label>
+              <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                formControlName="to_date" />
+            </div>
+          </div>
+          <div class=" col-lg-3" align="right">
+            <button class="btn-round" (click)="salesreturnvat()">View</button>
+          </div>
+        </div>
+      </form><br>
+
+      <div class="title1"><u>Today Sales Return Vat Details</u>
+
+      </div><br>
+
+
+      <div class=" col-lg-11 ml-2" align="right">
+        <button class="btn btn-round" (click)="todaysalesreturn()">View</button>
+      </div>
+    
+
+
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+ 
+
+
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink1"></iframe>
+  </div>
+</div>

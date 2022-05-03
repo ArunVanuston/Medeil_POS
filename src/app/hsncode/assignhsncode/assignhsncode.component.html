@@ -1,0 +1,130 @@
+<app-card>
+  <div class="sub-title">{{'hsn.assignhsncode'| translate}}
+    <i class="fa fa-code ficon"></i>
+  </div><br>
+
+  <table style="width:100%">
+    <tbody>
+      <tr>
+        <td style="width:95%">
+          <form [formGroup]="AssignHsncodeForm" class="mx-3">
+
+            <div class="form-group row">
+              <!-- <div class="col-sm-4">
+              <label class="form-label semibold">
+                <h6>Country Name</h6>
+              </label>
+              <select name="select" class="form-control" (change)="getmdesc()" formControlName="country_id">
+                <option value="opt1" selected disabled>---Select Country---</option>
+                <option *ngFor="let coun of country" value={{coun[0]}}> {{coun[1]}}</option>
+              </select>
+            </div> -->
+              <div class="col-sm-12 col-xl-4">
+                <fieldset class="form-group">
+                  <label class="form-label">{{'hsn.productname'| translate}}</label><br><br>
+                  <ng-select [options]="characters" placeholder="Search Drug Name"
+                    (input)="getProduct($event.target.value)" formControlName="drugproductid">
+                  </ng-select>
+                </fieldset>
+              </div>
+              <div class="col-sm-4">
+                <label class="form-label semibold">
+                  <h6>{{'hsn.chapterlist'| translate}}</h6>
+                </label>
+                <select name="select" class="form-control" formControlName="md_ref_id" (click)="getidescription()">
+                  <option selected disabled value="opt1">---Select Main Description---</option>
+                  
+                  <option *ngFor="let coun of mdescList" value={{coun[2]}}>{{coun[1]}}</option>
+                </select>
+                <!-- <button type="button" class="addnew" (click)="searchwithchapter('nonechapter',contenetchapter)" id="comdivision">Add Chapter List</button> -->
+                <!-- <angular2-multiselect [data]="mdesclist" [settings]="mulSettings" [(ngModel)]="selectedItems"
+                (click)="getidescription()" formControlName="md_ref_id">
+              </angular2-multiselect> -->
+              </div>
+
+              <div class="col-sm-4">
+                <label class="form-label semibold">
+                  <h6>{{'hsn.hsncode'| translate}}</h6>
+                </label>
+                <select name="select" class="form-control" formControlName="id_ref_id" (change)="showdescription()">
+                  <option selected disabled value="opt1">---Select HSN CodE---</option>
+                  <!-- <option *ngIf="submodulelist==''" value="noData" style="color: black">SubModule Not Available</option> -->
+                  <option *ngFor="let sub of idescrlist" value={{sub[0]}}>{{sub[2]}}</option>
+                </select>
+                <!-- <angular2-multiselect [data]="idesclist" [settings]="mulSettings1" [(ngModel)]="selectedItems1"
+                formControlName="id_ref_id">
+      
+              </angular2-multiselect> -->
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+              <!-- <div class="col-sm-4">
+                 -->
+                 <div class="col-sm-12 col-xl-8">
+                 <label class="form-label semibold">
+                <h6>HSN Description</h6>
+              </label>
+              <div class="col-lg-8">
+                <textarea class="form-control">{{hsndesc}} - GST {{prodgst}} %</textarea>
+              </div>
+              </div>
+              <!-- <div class="col-sm-4"> -->
+                <div class="col-sm-12 col-xl-4">
+                <label class="form-label semibold">
+                  <h6>GST %</h6>
+                </label>
+                <div class="col-lg-4">
+                  <h3>{{prodgst}} </h3>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row mt-2">
+
+
+              <div class="col-lg-4 mt-4">
+                <fieldset class="form-group">
+                  <label class="form-label semibold"></label>
+                  <button (click)="onSubmit()" class="btn btn-round">{{'hsn.save'| translate}}</button>
+
+                  <!-- <label class="form-label semibold"></label>
+                 <button type="button" class="btn btn-round" (click)="addhsncode()">Add Hsn Code</button> -->
+                </fieldset>
+              </div>
+              <div class="col-lg-4 mt-4">
+                <fieldset class="form-group">
+                  <label class="form-label semibold"></label>
+                  <button type="button" class="btn-round" (click) = "addhsncode()">{{'hsn.addhsn'| translate}}</button>
+                </fieldset>
+              </div>
+
+            </div>
+
+
+
+            <!-- <ng-template #contenetmain let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <label class="form-label"> Add Chapter List</label>
+                <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+              </div>
+              <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+      
+              <div class="modal-body mx-5">
+                <input class="form-control" id="maingroupnumber" formControlName="groupname" placeholder="Enter Main Group Name" />
+              </div>
+              <div class="modal-footer">
+                <label class="btn modbtn" id="typemain" (click)="saveChapter(c)"
+                  (click)="groupname.value= null">Save Chapter
+                </label>
+      
+              </div>
+            </ng-template>		 -->
+          </form>
+        </td>
+        <td style="width:5%" valign="top">
+          <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

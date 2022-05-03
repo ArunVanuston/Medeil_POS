@@ -1,0 +1,314 @@
+<style>
+  .selects {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Customer Gift Settings
+    <em class="fa fa-cogs ficon"></em>
+  </div>
+
+
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+
+      <div align="right">
+        <button type="submit" class="btn-round" [routerLink]="['/Loyalty/ViewGiftCard']">View Gift Card</button>
+      </div>
+
+      <form [formGroup]="GiftcardForm">
+
+
+        <!-- <div class="form-group row">
+        <label class="form-label"><h6><strong>&nbsp; &nbsp; &nbsp;Select Loyality Scheme :</strong></h6></label>
+      <div class="radio">  
+        <label>  
+            <input type="radio"  style="color: #002e86;" name="gender" value="Points" (click)="setradio('Points')" [checked]='true' ngModel>  
+          Points  
+        </label>  
+      </div>  
+      <div class="radio">  
+        <label>  
+            <input type="radio" name="gender" value="Gift" (click)="setradio('Gift')" ngModel>  
+            Gifts  
+        </label>  
+      </div>  
+      </div> -->
+
+        <div class="form-group row">
+          <div class="col-lg-4">
+            
+              <label class="form-label">
+                <h6>Gift Scheme</h6>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Loyalty Scheme" formControlName="loyality_type"
+                autofocus>
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.hospitalname.errors?.required">Enter Hospital Name*</div> -->
+            
+          </div>
+          <div class="col-lg-4">
+            
+              <label class="form-label">Validate From Date</label>
+              <input type="date" class="form-control" formControlName="from_date">
+            
+          </div>
+
+          <div class="col-lg-4">
+            
+              <label class="form-label">Validate To Date</label>
+              <input type="date" class="form-control" formControlName="to_date">
+            
+          </div>
+        </div>
+
+        <div class='row'>
+          &nbsp; &nbsp; <label style="font-size:18;"> Select Gift</label>
+          <div class="radio">
+            <label>
+              &nbsp;&nbsp;
+              <input type="radio" name="ctype" value="Amount" (click)="setradio('Amount')" [checked]='true'>
+              Amount
+            </label>
+          </div>
+          <div class="radio ml-2">
+            <label>
+              <input type="radio" name="ctype" value="product" (click)="setradio('product')" (click)="getgiftprod()">
+              Product
+            </label>
+          </div>
+        </div>
+
+
+
+
+
+        <br>
+        <!-- Table Start -->
+        <div class="title1" (click)="toastcall()"><u>Gift Product Details</u></div><br>
+        <div formArrayName="lproduct" class="flow">
+
+          <table aria-describedby="mydesc" class="table styletab">
+            <thead class="stylehead">
+              <tr>
+                <th scope="col">S.No </th>
+                <th scope="col">Minimum Amount</th>
+
+                <th scope="col" *ngIf="isSelected('product')">Gift Product Name</th>
+                <th scope="col" *ngIf="isSelected('product')">Gift Product Qty</th>
+                <th scope="col">Gift Value</th>
+                <th scope="col">Gift Code</th>
+                <th scope="col">QR Code</th>
+                <th scope="col">Remarks</th>
+                <th scope="col" *ngIf="isSelected('product')">Card View</th>
+                <th scope="col" *ngIf="isSelected('Amount')">Card View</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+
+            <tbody class="stylebody">
+              <tr *ngFor="let address of GiftcardForm.controls.lproduct.controls; let i=index" [formGroupName]="i">
+
+                <td><input value={{i+1}} id="width2" readonly /></td>
+                <td><input type="number" formControlName="min_gift_point" /></td>
+
+                <td *ngIf="isSelected('product')">
+
+                  <select type="Select" name="select" formControlName="gift_product_id"
+                    (change)="addgiftpopup($event.target.value,newgpname,i)">
+                    <option value="opt1" selected disabled>---Select Product---</option>
+                    <option value="newgpname" style="background-color: #002e86;color:white">Add Product Name</option>
+                    <option *ngFor="let gp of gprod" value={{gp[0]}}>{{gp[1]}}</option>
+                  </select>
+
+
+                <td *ngIf="isSelected('product')"><input type="text" formControlName="gift_Product_qty" /></td>
+                <td><input type="number" formControlName="product_value" (change)="qrcodecreate()" /></td>
+                <td><input type="text" formControlName="gift_code" id="width6" style="text-align:left" readonly /></td>
+                <td>
+
+                  <ngx-qrcode qrc-element-type="url" [qrc-value]="qrvalue[i]" qrc-class="qrclass"></ngx-qrcode>
+
+                </td>
+
+                <td><input type="text" formControlName="remarks" /></td>
+                <td *ngIf="isSelected('product')"><button type="button" value="giftproduct" (click)="getcurrency()"
+                    (click)="showpopups(giftproduct,i)">View</button></td>
+
+                <td *ngIf="isSelected('Amount')"><button type="button" value="percentagedisc" (click)="getcurrency()"
+                    (click)="showpopup(percentagedisc,i)">View</button></td>
+
+
+                <td id="width3">
+                  <em class="fa fa-plus" style="color:green;font-weight: bold;cursor: pointer;"
+                    (click)="insertnewloyaltyrow()"></em>
+                  <em class="fa fa-close ml-3" style="color:brown;font-weight: bold;cursor: pointer;"
+                    (click)="removenewloyaltyrow(i)"></em>
+                </td>
+              </tr>
+              <tr *ngFor="let irow of extrow; let i = index">
+                <td>
+                  <input type="text" id="width2">
+                </td>
+                <td>
+                  <input type="number">
+                </td>
+                <td *ngIf="isSelected('product')">
+                  <input type="text">
+                </td>
+                <td *ngIf="isSelected('product')">
+                  <input type="text" id="width4">
+                </td>
+                <td>
+                  <input type="text">
+                </td>
+                <td>
+                  <input type="number" id="width4">
+                </td>
+                <td>
+                  <input type="text" id="width3">
+                </td>
+                <td *ngIf="isSelected('product')">
+                  <input type="text" id="width3">
+                </td>
+                <td *ngIf="isSelected('Amount')">
+                  <input type="text" id="width3">
+                </td>
+                <td>
+                  <input type="text" id="width3">
+                </td>
+                <td>
+                  <input type="text" id="width3">
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div><br>
+
+        <!-- Add Gift Product -->
+        <ng-template #newgpname let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <label class="form-label"> Add New Gift Product</label>
+            <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+          </div>
+          <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+
+          <div class="modal-body mx-5">
+            <input class="form-control" id="maingroupnumber" formControlName="giftproductname"
+              placeholder="Enter Product Name" />
+          </div>
+          <div class="modal-footer">
+            <label class="btn modbtn" id="typemain" (click)="SaveNewproduct(c)">Save
+            </label>
+          </div>
+        </ng-template>
+
+
+
+        <!-- Show Discount Gift Card-->
+        <ng-template #percentagedisc let-c="close" let-d="dismiss">
+          <div class="coupon">
+            <div class="container" align="right">
+              <em class="fa fa-times mt-2" (click)="c('Close click')"
+                style="cursor:pointer;position:absolute;right:10px"></em>
+            </div>
+            <img src="assets/images/poslogo1.png" class="ml-2" style="height:39px"><br><br>
+            <img src="assets/images/tablets.jpg" alt="Avatar" style="width:100%;" height="270">
+            <div class="container" style="background-color:white">
+
+              <h4 style="color:#f1c40f"><strong>{{logo}}
+                  {{GiftcardForm.controls.lproduct.controls[qrimgindex].controls.product_value.value}} OFF ON YOUR NEXT
+                  PURCHASE</strong></h4>
+              <div class="form-group row">
+                <div class="col-lg-8">
+
+                  <p><strong>Use Promo Code: </strong><span
+                      class="promo"><strong>{{GiftcardForm.controls.lproduct.controls[qrimgindex].controls.gift_code.value}}</strong>
+                    </span>
+                  </p>
+                  <p class="expire"><strong>Validate Till : {{GiftcardForm.controls.to_date.value}}</strong></p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="mr-2" align="right">
+                    <ngx-qrcode qrc-element-type="url" [qrc-value]="qrvalue[qrimgindex]" qrc-class="qrclass">
+                    </ngx-qrcode>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+
+        <!-- Show Product Gift Card-->
+        <ng-template #giftproduct let-c="close" let-d="dismiss">
+          <div class="coupon">
+            <div class="container" align="right">
+              <em class="fa fa-times mt-2" (click)="c('Close click')"
+                style="cursor:pointer;position:absolute;right:10px"></em>
+            </div>
+            <img src="assets/images/poslogo1.png" class="ml-2" style="height:39px"><br><br>
+            <img src="assets/images/FMCG.jpg" alt="Avatar" style="width:100%;" height="270">
+            <div class="container" style="background-color:white">
+
+              <h4 style="color:#f1c40f"><strong>When You Reach
+                  {{GiftcardForm.controls.lproduct.controls[qrimgindexs].controls.min_gift_point.value}}.00 Loyalty
+                  Point, You will Get Gift Product</strong></h4>
+              <div class="form-group row">
+                <div class="col-lg-8">
+                  <p><strong>Gift Product Worth {{logo}}
+                      {{GiftcardForm.controls.lproduct.controls[qrimgindexs].controls.product_value.value}}.00</strong></p>
+                  <p><strong>Use Promo Code:</strong><span
+                      class="promo"><strong>{{GiftcardForm.controls.lproduct.controls[qrimgindex].controls.gift_code.value}}</strong></span>
+                  </p>
+                  <p class="expire"><strong>Validate Till : {{GiftcardForm.controls.to_date.value}}</strong></p>
+                </div>
+                <div class="col-lg-4">
+                  <div class="mr-2" align="right">
+                    <ngx-qrcode qrc-element-type="url" [qrc-value]="qrvalue[qrimgindexs]" qrc-class="qrclass">
+                    </ngx-qrcode>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+
+
+        <div align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        <div class="form-group row">
+
+          <div class="col-lg-4">
+            <button type="submit" class=" btn-round" (click)="onSubmit()">Submit</button>
+          </div>
+          <div class="col-lg-4">
+            <button type="button" class=" btn-round ml-3"
+              [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+          </div>
+          <div class="col-lg-4">
+            <button type="button" class=" btn-round ml-3" [routerLink]="['/BonusLoyalty/BonusLoyalty']">Bonus
+            Settings</button>
+          </div>
+
+
+        </div>
+      </form>
+
+
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+
+</app-card>
+
+<ng2-toasty [position]="position"></ng2-toasty>

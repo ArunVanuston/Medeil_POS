@@ -1,0 +1,191 @@
+<style>
+  .row input,
+  .row label,
+  .row select {
+    margin-bottom: 6px;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }
+  /*  .row label {
+font-size: 1.2em; 
+font-family: sans-serif  ;
+font-stretch: expanded ;
+font-weight: 500 ; 
+ }       */
+  .tablenew {
+    border: 1px solid rgba(0, 0, 0, .15);
+    height: 300px;
+    max-width: 100%;
+    box-sizing: border-box;
+    max-height: 300px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+  .tablenew table th {
+    padding: 0.43em 0em 0.43em 0em;
+    margin: 0em;
+    text-align: center;
+    vertical-align: top;
+    /*    border: 1px solid rgba(0,0,0,.15);
+    font-family: sans-serif  ;
+    color: black;
+    background-color: rgb(151, 156, 151);  */
+  }
+  .tablenew table td {
+    vertical-align: top;
+    padding: 0.43em 0em 0.43em 0em;
+    text-align: center;
+    margin: 0em;
+    border: 1px solid rgba(0, 0, 0, .15);
+  }
+  .tablenew table p {
+    padding: 0em;
+    margin: 0em;
+  }
+  .tablenew table td input {
+    width: 4em;
+    text-align: center;
+    border: #FFFFFF;
+  }
+  .tablenew table th label {
+    text-align: center;
+    border: #FFFFFF;
+  }
+  .tablenew table td label {
+    margin: 0em;
+    padding: 0em;
+    text-align: center;
+    border: #FFFFFF;
+  }
+  .tablenew table tr {
+    margin: 0em;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, .15);
+  }
+  .tablenew table td input:focus {
+    background-color: rgba(0, 0, 0, .15);
+  }
+  .tablenew input[type="checkbox"] {
+    width: 1.7em;
+    height: 1.7em;
+    padding: 0em;
+    margin: 0em;
+  }
+  #gridContainer {
+    height: 369px;
+  }
+  .button input {
+    background-color: #0073aa;
+    color: #FFFFFF;
+    cursor: pointer;
+    width: 7.34em;
+  }
+  .button {
+    padding-top: 16px;
+  }
+  #inputwidth1,
+  #inputwidth2,
+  #inputwidth3,
+  #inputwidth4 {
+    width: 9.23em;
+    margin-left: -2em;
+    margin-right: -2em;
+  }
+  #input7width1,
+  #input7width2 {
+    width: 7em;
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+</style>
+<app-card>
+  <form [formGroup]="registerForm">
+    <div class="box-typical box-typical-padding">
+      <div class="row">
+        <!-- splitcolumn  start-->
+        <div class="col-lg-4">
+          <!-- subcolumn  start-->
+          <div class="row">
+            <div class="col-lg-5" *ngIf="registerForm.controls.invdispflag.value=='0' ">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.journalno'| translate}} </label>
+            </div>
+            <div class="col-lg-7" *ngIf="registerForm.controls.invdispflag.value=='0' ">
+              <select class="form-control" (change)="viewEdit()" formControlName="id">
+                <option *ngFor="let item of editdata; let i = index" value={{item[0]}}>{{item[1]}}</option>
+              </select>
+            </div>
+            <div class="col-md-5" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.referenceno'| translate}}
+              </label>
+            </div>
+            <div class="col-md-7" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+              <input type="text" class="form-control" formControlName="formno" />
+            </div>
+            <div class="col-md-5">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.journaldate'| translate}}
+              </label>
+            </div>
+            <div class="col-md-7">
+              <input type="date" class="form-control" formControlName="date" />
+            </div>
+          </div>
+        </div> <!-- subcolumn  end-->
+        <div class="col-lg-4">
+          <!-- subcolumn  start-->
+          <div class="row">
+          </div>
+        </div> <!-- subcolumn  end-->
+        <div class="col-lg-4">
+          <!-- subcolumn  start-->
+          <div class="row">
+          </div>
+        </div> <!-- subcolumn  end-->
+      </div> <!-- splitcolumn  end-->
+      <div formArrayName="journal" class="tablenew ">
+        <!--. table  start-->
+        <div>
+          <label class="form-label semibold"> {{'finance.purchasejournal'| translate}}
+          </label>
+          <table aria-describedby="mydesc" class="table ">
+            <thead class="thead-default">
+              <tr>
+                <th scope="col">S. No </th>
+                <th scope="col">{{'finance.debitaccount'| translate}}</th>
+                <th scope="col">{{'finance.creditaccount'| translate}}</th>
+                <th scope="col">{{'finance.debitamount'| translate}}</th>
+                <!--     <th scope="col">Credit Amount</th>  -->
+                <th scope="col">{{'finance.invoiceno'| translate}}</th>
+                <!--	  <th scope="col">Bal Amt</th>  -->
+              </tr>
+            </thead>
+            <tr *ngFor="let address of registerForm.controls.journal.controls; let i=index" [formGroupName]="i">
+              <td><input value={{i+1}} readonly /></td>
+              <td><input formControlName="draccname" id="inputwidth1" readonly /></td>
+              <td><input formControlName="craccname" id="inputwidth2" readonly /></td>
+              <td><input formControlName="debitamount" type="number" /></td>
+              <!--       <td><input      formControlName="creditamount"   type="number"   /></td>  -->
+              <td><input formControlName="invoicename" id="inputwidth3" /></td>
+              <!--    <td><input      formControlName="invoicebalamt"     /></td>  -->
+            </tr>
+          </table>
+        </div>
+      </div>
+      <!--. table     end-->
+      <h5></h5>
+      <div class="row    ">
+        <!-- splitcolumn  start-->
+        <ng2-toasty [position]="position"></ng2-toasty>
+      </div> <!-- splitcolumn  end-->
+    </div>
+    <!-- box-typical-->
+    <div class="row button">
+      <!-- row Start-->
+      <div class="col-lg-3"> <button type="button" class="btn btn-success btn-round" (click)="onSubmit()"> {{'finance.update'| translate}}
+        </button> </div>
+      <div class="col-lg-3"> <button type="button" class="btn btn-success btn-round" (click)="deletePurJrnl()"> {{'finance.delete'| translate}}
+        </button> </div>
+    </div> <!-- row end-->
+  </form>
+</app-card>

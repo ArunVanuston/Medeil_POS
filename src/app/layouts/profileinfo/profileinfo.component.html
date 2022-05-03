@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-lg-12">
+  <div class="md-tabs">
+    <ngb-tabset>
+        <ngb-tab title="Profile Info">
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="mt-5">
+              <app-viewprofileinfo></app-viewprofileinfo>  
+              </div>
+            </ng-template>
+          </ngb-tab>
+
+          <ngb-tab title="Billings & Upgrades">
+              <ng-template ngbTabContent>
+                <div [@fadeInOutTranslate] class="mt-5">
+                  <app-billing></app-billing>
+                </div>
+              </ng-template>
+          </ngb-tab>  
+
+          <ngb-tab title="Invoices">
+            <ng-template ngbTabContent>
+              <div [@fadeInOutTranslate] class="mt-5">
+                <app-viewcustpayments></app-viewcustpayments>
+              </div>
+            </ng-template>
+          </ngb-tab>   
+            
+        <ngb-tab title="Addons">
+          <ng-template ngbTabContent>
+            <div [@fadeInOutTranslate] class="mt-5">
+              <app-addonsbuy></app-addonsbuy>
+            </div>
+          </ng-template>
+        </ngb-tab>    
+    </ngb-tabset>
+  </div>
+  </div>
+</div>

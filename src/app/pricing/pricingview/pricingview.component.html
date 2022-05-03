@@ -1,0 +1,227 @@
+<style>
+.pricing{
+  background-image: url("assets/images/plantbg.jpg");
+  background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;	
+  height: 100%;
+}
+.md-line{
+	position: absolute;
+	margin: 0.6em -1.5em;
+	font-size: 21px;
+	color: darkgrey;
+}
+</style>
+<div class="container-fluid pricing" align="center">
+  <div class="container"><br>
+    <div class="row py-5">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6 p-5" style="background-color: white;">
+        <!-- <h4 class="text-center text-secondary mt-4">Pricing Table?</h4> -->
+        <img src="assets/images/poslogobg.jpg" alt="Theme-Logo" style="width:273px"><br>
+        <!-- <img class="mx-1" src="assets/images/cloudlogo.png" alt="Theme-Logo" style="height:57px"/><br><br> -->
+        <form [formGroup]="pricingForm">
+          <p class="text-secondary">As per Location Based you are in 
+          <span style="font-weight:bold;font-size:17px;">{{ipfetchcountry}}</span></p>
+          <p class="text-danger"><span style="font-weight:bold;">Note: </span> 
+          If you Changed Location Server Response will be Affect!..</p>
+          <div>
+            <select class="sign-control" formControlName="country">
+              <option value="opt1">--Select Country--</option>
+              <option *ngFor = "let val of country" value="{{val[0]}}">{{val[1]}}</option>
+            </select>
+            <span class="md-line" style="cursor:pointer"></span>
+          </div><br>
+          <div>
+            <select class="sign-control" formControlName="editiontype" (change)="editiontypechange()">
+              <option value="opt1">--Select Edition Type--</option>
+              <option value="1">Trial Edition</option>
+              <option value="0" [style.display]="pricingForm.controls.country.value=='opt1'?'none':
+              pricingForm.controls.country.value==291?'none':'block'">
+              Free Edition</option>
+              <!-- <option value="0">Free Edition</option> --
+              <option value="1" [style.display]="pricingForm.controls.country.value=='opt1'?'none':
+              pricingForm.controls.country.value==291?'none':'block'">
+              Trial Edition</option>-->
+              <option value="2">Paid Edition</option>
+            </select>
+            <span class="md-line" style="cursor:pointer"></span>
+          </div><br>
+          <div>
+            <select class="sign-control" formControlName="editionid" (change)="editionchange()">
+              <option value="opt1">--Select Edition--</option>
+              <option value="5" *ngIf="pricingForm.controls.editiontype.value==0">Free Edition</option>
+              <option value="1" *ngIf="pricingForm.controls.editiontype.value==1">Bronze Trial Edition</option>
+              <option value="2" *ngIf="pricingForm.controls.editiontype.value==1">Silver Trial Edition</option>
+              <option value="3" *ngIf="pricingForm.controls.editiontype.value==1">Gold Trial Edition</option>
+              <!-- <option value="4" *ngIf="pricingForm.controls.editiontype.value==1">Platinum Trial Edition</option> -->
+              <option value="6" *ngIf="pricingForm.controls.editiontype.value==2">Bronze Paid Edition</option>
+              <option value="7" *ngIf="pricingForm.controls.editiontype.value==2">Silver Paid Edition</option>
+              <option value="8" *ngIf="pricingForm.controls.editiontype.value==2">Gold Paid Edition</option>
+              <!-- <option value="9" *ngIf="pricingForm.controls.editiontype.value==2">Platinum Paid Edition</option> -->
+            </select>
+            <span class="md-line" style="cursor:pointer"></span>
+          </div><br>
+          <div>
+            <select class="sign-control" formControlName="plantype" (change)="planchange()">
+              <option value="opt1">--Select Plan Type--</option>
+              <option value="0" *ngIf="pricingForm.controls.editiontype.value==0 || pricingForm.controls.editiontype.value==1">
+              14 Days Trial</option>
+              <!-- <option value="1" *ngIf="pricingForm.controls.editiontype.value==2">Monthly</option> -->
+              <option value="2" *ngIf="pricingForm.controls.editiontype.value==2">Yearly</option>
+            </select>
+            <span class="md-line" style="cursor:pointer"></span>
+          </div><br>
+          <div class="px-5" *ngIf="pricingForm.controls.editiontype.value==2">
+            <h4 class="text-secondary" style="font-weight: bold;">{{ selplanamount | number:'1.2-2'}}</h4>
+            <!-- <div class="px-3" *ngIf="plantype==1">
+              <h4 class="text-secondary" style="font-weight: bold;">{{(editionid==9)?(75 | number:'1.2-2'):(editionid==8)?(50 | number:'1.2-2'):(editionid==7)?(25 | number:'1.2-2'):(editionid==6)?(10 | number:'1.2-2'):(0 | number:'1.2-2')}}</h4>
+            </div>
+            <div class="px-3" *ngIf="plantype==2">
+              <h4 class="text-secondary" style="font-weight: bold;">{{(editionid==9)?(100 | number:'1.2-2'):(editionid==8)?(75 | number:'1.2-2'):(editionid==7)?(50 | number:'1.2-2'):(editionid==6)?(25 | number:'1.2-2'):(0 | number:'1.2-2')}}</h4>
+            </div> -->
+          </div>
+          <div *ngIf="pricingForm.controls.editionid.value!=='opt1'">
+            <button class="sign-btn" (click)="getSignup()">
+            {{(pricingForm.controls.editionid.value<=4)?'Start Trial':(pricingForm.controls.editionid.value==5)?'Start Free':'Buy Now'}}
+            </button>
+            <span class="md-line" style="cursor:pointer"></span>
+          </div><br>
+        </form>
+      </div>
+      <div class="col-lg-3"></div>
+    </div><br><br>
+  </div>
+ <!--
+  <form [formGroup]="pricingForm">
+  <h5 class="text-center pricing-table-subtitle">MEDEIL PLAN</h5> --
+  <br>
+ 
+  <img class="mx-1" src="assets/images/cloudlogo.png" alt="Theme-Logo" style="height:51px"/>
+  <h1 class="text-center pricing-table-title">Pricing Table</h1>
+  <div class="card">
+    <select placeholder="Select Country" class="input-select" formControlName="country">
+      <option value="opt">Select Country</option>
+      <option *ngFor = "let val of country" value="{{val[0]}}">{{val[1]}}</option>
+    </select><br>
+  </div><br>
+  <div class="mt-1" align="center">
+    <input type="radio" [value]="1"  formControlName="selectcheck" (click)="selectcheck($event,1)" checked>
+    <label class="form-label mr-3">Trial</label>
+    <input type="radio" [value]="2" formControlName="selectcheck" (click)="selectcheck($event,2)">
+    <label class="form-label">Paid</label>
+  </div><br>
+  <div class="mx-3 mb-4" align="center" *ngIf="pricingForm.controls.selectcheck.value==2">
+    <input type="radio" [value]="1"  formControlName="plantype" (click)="selectcheck($event,1)" class="">
+    <label class="form-label mr-3">Monthly</label>
+    <input type="radio" [value]="2" formControlName="plantype" (click)="selectcheck($event,2)" class="">
+    <label class="form-label">Yearly</label>
+  </div><br>
+  <div class="row">
+    <div class="col-md-2.4">
+      <div class="card pricing-card pricing-plan-pro">
+        <div class="card-body">
+          <em  class="mdi mdi-cube-outline pricing-plan-icon"></em>
+          <p class="pricing-plan-title">Limited</p>
+          <h3 class="pricing-plan-cost ml-auto">Free</h3>
+          <ul class="pricing-plan-features">
+            <li>Unlimited conferences</li>
+            <li>100 participants max</li>
+            <li>Custom Hold Music</li>
+            <li>10 participants max</li>
+          </ul>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(5)"
+          *ngIf="pricingForm.controls.selectcheck.value==1">Start Free</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2.4">
+      <div class="card pricing-card pricing-plan-pro">
+        <div class="card-body">
+          <em  class="mdi mdi-cube-outline pricing-plan-icon"></em>
+          <p class="pricing-plan-title">Bronze</p>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==1">₹0</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==1">₹10</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==2">₹25</h3>
+          <ul class="pricing-plan-features">
+            <li>Unlimited conferences</li>
+            <li>100 participants max</li>
+            <li>Custom Hold Music</li>
+            <li>10 participants max</li>
+          </ul>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(1)"
+          *ngIf="pricingForm.controls.selectcheck.value==1">Start Trial</a><br>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(6)"
+          *ngIf="pricingForm.controls.selectcheck.value==2">Buy</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2.4">
+      <div class="card pricing-card pricing-card-highlighted  pricing-plan-pro">
+        <div class="card-body">
+          <em  class="mdi mdi-trophy pricing-plan-icon"></em>
+          <p class="pricing-plan-title">Silver</p>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==1">₹0</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==1">₹25</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==2">₹50</h3>
+          <ul class="pricing-plan-features">
+            <li>Unlimited conferences</li>
+            <li>100 participants max</li>
+            <li>Custom Hold Music</li>
+            <li>10 participants max</li>
+          </ul>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(2)"
+          *ngIf="pricingForm.controls.selectcheck.value==1">Start Trial</a><br>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(7)"
+          *ngIf="pricingForm.controls.selectcheck.value==2">Buy</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2.4">
+      <div class="card pricing-card pricing-card-highlighted  pricing-plan-pro">
+        <div class="card-body">
+          <em  class="mdi mdi-trophy pricing-plan-icon"></em>
+          <p class="pricing-plan-title">Gold</p>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==1">₹0</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==1">₹50</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==2">₹75</h3>
+          <ul class="pricing-plan-features">
+            <li>Unlimited conferences</li>
+            <li>100 participants max</li>
+            <li>Custom Hold Music</li>
+            <li>10 participants max</li>
+          </ul>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(3)"
+          *ngIf="pricingForm.controls.selectcheck.value==1">Start Trial</a><br>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(8)"
+          *ngIf="pricingForm.controls.selectcheck.value==2">Buy</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-2.4">
+      <div class="card pricing-card pricing-plan-pro">
+        <div class="card-body">
+          <em  class="mdi mdi-wallet-giftcard pricing-plan-icon"></em>
+          <p class="pricing-plan-title">Platinum</p>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==1">₹0</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==1">₹75</h3>
+          <h3 class="pricing-plan-cost ml-auto" *ngIf="pricingForm.controls.selectcheck.value==2 && pricingForm.controls.plantype.value==2">₹100</h3>
+          <ul class="pricing-plan-features">
+            <li>Unlimited conferences</li>
+            <li>100 participants max</li>
+            <li>Custom Hold Music</li>
+            <li>10 participants max</li>
+          </ul>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(4)"
+          *ngIf="pricingForm.controls.selectcheck.value==1">Start Trial</a><br>
+          <a href="javascript:;" class="btn pricing-plan-purchase-btn" (click)="getSignup(9)"
+          *ngIf="pricingForm.controls.selectcheck.value==2">Buy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>-->
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>

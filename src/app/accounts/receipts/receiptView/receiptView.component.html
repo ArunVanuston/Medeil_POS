@@ -1,0 +1,91 @@
+<style>
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+</style>
+<app-card >
+	<div class="bform"><br>
+	<div class="searchbox" align="center">
+		<input type="search" [(ngModel)]="filterQuery" class="search" placeholder="Search Receipts">
+	</div><br>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6"> </div>
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6" align="right">
+			<select class="form-control selectsize mr-3" [(ngModel)]="rowsOnPage">
+				<option value="opt1">Select Count</option>
+				<option [ngValue]="10">10</option>
+				<option [ngValue]="15">15</option>
+				<option [ngValue]="20">20</option>
+			</select>
+		</div>
+		
+	</div><br>
+	<div align="center">
+		<img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+	</div>
+	<div align="right">
+        <button [routerLink]="'/Receipt/Receipt'"  class="btn-round">{{'finance.addreceipts'| translate}}</button> 
+    </div><br>
+	<div class="dt-responsive">
+		<div style="overflow-x: auto">
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+			 #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+				<thead>
+					<tr>
+				<th scope="col">S. No </th>  
+                <th scope="col">{{'finance.journalno'| translate}}</th>
+                <th scope="col">{{'finance.journaldate'| translate}}</th>
+				<th scope="col">{{'finance.personname'| translate}}</th>
+				<th scope="col">{{'finance.referenceno'| translate}}</th>
+<!-- 				
+				<th scope="col">DrAccName</th>
+                <th scope="col">CrAccName</th> -->
+				<th scope="col">{{'finance.debitamount'| translate}}</th>
+				<th scope="col">{{'finance.creitamount'| translate}}</th>
+				<th scope="col">{{'finance.invoiceno'| translate}}</th>
+                <!-- <th scope="col">Edit</th> -->
+				</tr>
+				</thead>
+				<tbody>
+				
+				<tr *ngFor="let item of mf.data;let i=index">
+				<td>{{i+1}}  </td> 
+                <td>{{item[1]}} </td>
+                <td>{{item[2]}} </td>
+    			<td>{{item[8]}} </td>
+				<td>{{item[9]}} </td>
+				<td>{{item[3]}} </td>
+				<td>{{item[4]}} </td>
+				<td>{{item[7]}} </td>
+				<!-- <td><a [routerLink]="['/Receipt/receiptEdit',item[0]]"
+					class="btn viewbtn">Edit</a></td> -->
+				</tr>             
+				<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+					<td></td>
+					<td></td>
+					<!-- <td></td> -->
+					<td class="nodata">No Data Available!..</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>				
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="9">
+							<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+</app-card>

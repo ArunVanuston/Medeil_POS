@@ -1,0 +1,283 @@
+<app-card>
+	<form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+		<div class="md-tabs">
+			<ngb-tabset>
+				<ngb-tab title="Basic Details" style="font-size: 22px;">
+					<ng-template ngbTabContent>
+						<div [@fadeInOutTranslate] class="m-t-15">
+							<!-- Basic Details start -->
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Company Name</label>
+									<input type="text" class="form-control" placeholder="Enter Company Name"
+										formControlName="formname">
+									<div class="messages text-danger"
+										*ngIf="companyForm.controls.formname.errors?.required">Enter Company Name</div>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class=" col-form-label">Short Name</label>
+									<input type="text" class="form-control" placeholder="Enter Short Name"
+										formControlName="shortname">
+									<div class="messages text-danger"
+										*ngIf="companyForm.controls.shortname.errors?.required">Enter Short Name</div>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class=" col-form-label">Contact person</label>
+									<input type="text" class="form-control" placeholder="Enter Contact_Person Name"
+										formControlName="contactperson">
+
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Desgination</label>
+									<input type="text" class="form-control" placeholder="Desgination"
+										formControlName="desgination">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Email</label>
+									<input type="text" class="form-control" placeholder="Enter Email Id"
+										formControlName="email">
+
+									<div class="messages text-danger"
+										*ngIf="companyForm.controls.email.errors?.pattern">Invalid Email..</div>
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Mobile Number</label>
+									<input type="text" class="form-control" placeholder="Enter Mobile Number"
+										formControlName="mobileno">
+
+									<div class="messages text-danger"
+										*ngIf="companyForm.controls.mobileno.errors?.pattern">Numerical Only Allowed
+										Here</div>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">TIN</label>
+									<input type="text" class="form-control" placeholder="Tax Identification Number"
+										formControlName="tinno">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">CST</label>
+									<input type="text" class="form-control" placeholder="Central Service Tax"
+										formControlName="cstno">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">PAN</label>
+									<input type="text" class="form-control" placeholder="permanent Account Number"
+										formControlName="panno">
+
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">GST</label>
+									<input type="text" class="form-control" placeholder="Goods And Service Tax"
+										formControlName="gstno">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Address 1</label>
+									<input type="text" class="form-control" placeholder="Address 1"
+										formControlName="address1">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Address 2</label>
+									<input type="text" class="form-control" placeholder="Address 2"
+										formControlName="address2">
+
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Country</label>
+									<select name="select" class="form-control" formControlName="country"
+										(change)="getValues()" (change)="getState()">
+										<option value="0">---Select Country---</option>
+										<option *ngFor="let country of countries" value={{country[0]}}>{{country[1]}}
+										</option>
+									</select>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">State</label>
+									<select name="select" class="form-control" formControlName="state"
+										(change)="getCity()">
+										<option value="0">---Select State---</option>
+										<option *ngFor="let state of states" value={{state[0]}}>{{state[2]}}</option>
+									</select>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">City</label>
+									<select name="select" class="form-control" formControlName="city">
+										<option value="0">---Select City---</option>
+										<option *ngFor="let city of cities" value={{city[0]}}>{{city[1]}}</option>
+									</select>
+
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Pin Code</label>
+									<input type="text" class="form-control" id="pincode" placeholder="Pincode"
+										formControlName="pincode">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Phone Number</label>
+									<input type="text" class="form-control" placeholder="Phone Number"
+										formControlName="phoneno">
+
+									<div class="messages text-danger"
+										*ngIf="companyForm.controls.phoneno.errors?.pattern">Numerical Only Allowed Here
+									</div>
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Country Code</label>
+									<select name="select" class="form-control" id="countrycode"
+										formControlName="countrycode">
+										<option value="0">---Select CountryCode---</option>
+										<option *ngFor="let code of ccode" value={{code}}>{{code}}</option>
+									</select>
+
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+								</div>
+								<div class="col-lg-4">
+
+								</div>
+								<div class="col-lg-4">
+									<input type="button" class="btn btn-success btn-round" value="Next"
+										(click)="showProdcut()" style="margin-left: 190px">
+								</div>
+							</div>
+							<!-- Basic Details end-->
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab title="Product Details" [disabled]="showpanel===false">
+					<ng-template ngbTabContent>
+						<div [@fadeInOutTranslate] class="m-t-15">
+							<!-- Product Details start -->
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Product Name</label>
+									<select name="select" class="form-control" formControlName="productrefid"
+										(change)="getDomain()" (click)="getDomain()">
+										<option value="0">---Select Product---</option>
+										<option *ngFor="let product of productinfo" value={{product[1]}}>{{product[0]}}
+										</option>
+									</select>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Domain</label>
+									<select name="select" class="form-control" formControlName="domainrefid"
+										(change)="getsubDomain()" (click)="getsubDomain()">
+										<option value="0">---Select Domain---</option>
+										<option *ngFor="let domains of domain" value={{domains[0]}}>{{domains[1]}}
+										</option>
+									</select>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Sub Domain</label>
+									<select name="select" class="form-control" formControlName="subdomainrefid"
+										(change)="getEdition()" (click)="getEdition()">
+										<option value="0">---Select SubDomain---</option>
+										<option *ngFor="let subdomains of subdomain" value={{subdomains[0]}}>
+											{{subdomains[1]}}</option>
+									</select>
+
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Edition Type</label>
+									<select name="select" class="form-control" formControlName="editionrefid">
+										<option value="0">---Select EditionType---</option>
+										<option *ngFor="let editions of edition" value={{editions[0]}}>{{editions[1]}}
+										</option>
+									</select>
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">User Name</label>
+									<input type="text" class="form-control" placeholder="Enter UserName"
+										formControlName="username">
+
+								</div>
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Password</label>
+									<input type="password" class="form-control" placeholder="****************"
+										formControlName="password">
+
+								</div>
+							</div>
+							<div class="form-group row">
+								<div class="col-lg-4">
+
+									<label class="col-form-label">Form Type</label>
+									<select name="select" class="form-control" formControlName="formtype">
+										<option value="0">---Select FormType---</option>
+										<option value="1">Chain Store</option>
+										<option value="2">Shop</option>
+										<option value="3">Hospital</option>
+										<option value="4">Warehouse</option>
+									</select>
+
+								</div>
+								<div class="col-lg-4">
+									<button [disabled]="!companyForm.valid" type="submit"
+										class="btn btn-success btn-round">Save</button>
+								</div>
+							</div>
+							<!-- Product Details end-->
+						</div>
+					</ng-template>
+				</ngb-tab>
+			</ngb-tabset>
+		</div>
+
+	</form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

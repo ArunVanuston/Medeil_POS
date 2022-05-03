@@ -1,0 +1,322 @@
+<app-card>
+
+	<div class="sub-title">{{'doctor.adddoctor'| translate}}
+		<i class="fa fa-user-md ficon"></i>
+	</div>
+	<table style="width:100%">
+		<tbody>
+		 <tr>
+		 <td style="width:95%">
+			<div align="right">
+				<button type="button" class="btn-round" (click)="view()">{{'doctor.viewdoctor'| translate}}</button>
+			</div>
+			<form [formGroup]="doctorForm" (ngSubmit)="onSubmit()" class="mx-3" autocomplete="off">
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctortitle'| translate}}</h6>
+							</label>
+							<select name="select" class="form-control" formControlName="title" autofocus>
+								<option value="Mr">Mr.</option>
+								<option value="Mrs">Mrs.</option>
+								<option value="Dr">Dr.</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label semibold control-label">
+								{{'doctor.doctorname'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<input type="text" class="form-control" placeholder="Enter Doctor Name"
+								formControlName="doctorname" autocomplete="off" (input) = "searchdoct($event.target.value)"/>
+		
+							<!-- <p class="messages text-danger" *ngIf="doctorForm.controls.doctorname.errors?.required">
+								This Field is Required*</p> -->
+							<p class="messages text-danger" *ngIf="doctorForm.controls.doctorname.errors?.pattern">
+								Accepts Only Text*</p>
+					
+
+						<div class="mt-1" *ngIf="docname.length>0">
+							<table class="table" style="border: 2px solid grey;position: absolute;
+							background-color: white;z-index: 1;">
+								<tbody class="lbody">
+									<tr *ngFor = "let item of docname ; let index=i" >
+									   <td>{{item[1]}} </td>
+									</tr>
+								</tbody>
+							</table>
+						</div> 
+
+					
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctorprcnumber'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control"
+							autocomplete="off"	placeholder="Professional Regulation Commission Number" formControlName="registrationno" />
+							<p class="messages text-danger" *ngIf="doctorForm.controls.registrationno.errors?.pattern">
+									Accepts Only Numbers & Texts*</p>
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label mb-2">
+								<h6>{{'doctor.doctorgender'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+								
+								
+							</label><br>
+							<label class="radio">
+								<input type="radio" value="Male" name="gender" formControlName="gender" checked> Male
+							</label>
+							<label class="radio">
+								<input type="radio" value="Female" name="gender" formControlName="gender"> Female
+							</label>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctordob'| translate}}</h6>
+							</label>
+							<input type="date" class="form-control" placeholder="Enter your DOB" formControlName="docdob" />
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctoraddress1'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<input type="text" class="form-control" placeholder="Enter your Address Line 1"
+								formControlName="docaddress1" autocomplete="off"/>
+<!-- 		
+							<p class="messages text-danger" *ngIf="doctorForm.controls.docaddress1.errors?.required">
+								This Field is Required*</p> -->
+						</fieldset>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctoraddress2'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+							</label>
+							<input type="text" class="form-control" placeholder="Enter your Address Line 2"
+								formControlName="docaddress2" autocomplete="off"/>
+						</fieldset>
+					</div>
+					<div class="col-sm-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctorcountry'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<select name="select" class="form-control" placeholder="Select Country" formControlName="country"
+								(change)="getState()">
+								<option value="0">---Select Country---</option>
+								<option *ngFor="let coun of country" value={{coun[0]}}>{{coun[1]}}</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="col-sm-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctorstate'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<select class="form-control" formControlName="state" (change)="getCity()">
+								<option value="0">---Select State---</option>
+								<option *ngFor="let st of statelist" value={{st[0]}}>{{st[2]}}</option>
+							</select>
+						</fieldset>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctorcity'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<select name="select" class="form-control" formControlName="city">
+								<option value="0">---Select City---</option>
+								<option *ngFor="let co of city" value={{co[0]}}>{{co[1]}}</option>
+							</select>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorpin'| translate}}</h6>
+							</label>
+							<input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" autocomplete="off"
+								placeholder="Enter your Pincode" formControlName="pincode" 	maxlength="10" (keydown)="maxPinCodeLength()" />
+						</fieldset>
+					</div>
+					<div class="col-sm-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorcountrycode'| translate}}</h6>
+							</label>
+							<select name="select" class="form-control" formControlName="countrycode">
+								<option value="0">---Select Country Code---</option>
+								<option *ngFor="let co of countrycode" value={{co}}>{{co}}</option>
+							</select>
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="row">
+					
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctormobile'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<input  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+							type="number" class="form-control" placeholder="Enter your Mobile Number" formControlName="mobile"
+								maxlength="15" (keydown)="maxMobLength()" autocomplete="off"/>
+							
+							<p class="messages text-danger" *ngIf="doctorForm.controls.mobile.errors?.pattern">
+								Enter only Number</p>
+			
+							<!-- <div *ngIf="(f.mobile.touched || f.mobile.untouched) && f.mobile.invalid" class="messages text-danger">
+								<div *ngIf="f.mobile.errors.required">This Field is Required*</div>
+								<div *ngIf="doctorForm.controls.mobile.errors.pattern" class="text-danger">Enter only number*</div>
+							</div> -->
+						</fieldset>
+					</div>
+		
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorphone'| translate}}</h6>
+							</label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" class="form-control" placeholder="Enter your Phone" 
+							formControlName="phone"  autocomplete="off"
+								maxlength="15" (keydown)="maxPhnLength()" />
+									<p class="messages text-danger" *ngIf="doctorForm.controls.phone.errors?.pattern">
+										Enter only number*</p>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								{{'doctor.doctoremail'| translate}}<font color="red" class="fontlangifbel">*</font>
+							</label>
+							<input type="email" class="form-control" placeholder="Enter your Email" 
+							autocomplete="off" formControlName="email" />
+							<p class="messages text-danger" *ngIf="doctorForm.controls.email.errors?.pattern">
+								Enter Correct Mail!</p>
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="row">
+					
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold">
+									<h6>{{'doctor.doctorwebsite'| translate}}</h6>
+								</label>
+								<input type="text" class="form-control"
+									placeholder="Enter your Website" formControlName="website" autocomplete="off"/>
+									<p class="messages text-danger" *ngIf="doctorForm.controls.website.errors?.pattern">
+										Enter Correct Website Pattern!</p>
+							</fieldset>
+						</div>
+				
+					<!-- <div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold"><h6>Aadhar No</h6></label>
+							<input type="text" class="form-control" placeholder="Enter your Aadhaar" formControlName="aadhaarcardno" />
+						</fieldset>
+					</div>  -->
+		
+		
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorlanguages'| translate}}</h6>
+							</label>
+							<input type="text" class="form-control" placeholder="Enter your Languages"
+								formControlName="language" autocomplete="off"/>
+								<p class="messages text-danger" *ngIf="doctorForm.controls.language.errors?.pattern">
+									Enter Text Only!</p>
+						</fieldset>
+					</div>
+		
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorexperience'| translate}}<font color="red" class="fontlangifbel">*</font></h6>
+							</label>
+							<input type="number" class="form-control" placeholder="Enter your Experience"
+								formControlName="experience" maxlength="3" autocomplete="off"/>
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="row">
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorworkinghours'| translate}}</h6>
+							</label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" class="form-control" placeholder="Enter your Working-Hours"
+								formControlName="workhour" maxlength="2" autocomplete="off"/>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorworkinghours'| translate}}</h6>
+							</label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" class="form-control" placeholder="Enter your Working-Hours"
+								formControlName="workhour" maxlength="2" autocomplete="off"/>
+						</fieldset>
+					</div>
+					<div class="col-lg-4">
+						<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>{{'doctor.doctorworkinghours'| translate}}</h6>
+							</label>
+							<input 
+							oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+							type="number" class="form-control" placeholder="Enter your Working-Hours"
+								formControlName="workhour" maxlength="2" autocomplete="off"/>
+						</fieldset>
+					</div>
+				</div>
+		
+				<div class="" align="center">
+					<img src="assets/images/saveload.gif" class="mt-2" *ngIf="saveprocess">
+				</div>
+				<!---->
+				<div class="form-group row">
+					<div class="col-lg-4">
+						<button type="submit" [disabled]="!doctorForm.valid" class="btn-round">Save</button>
+					</div>
+				</div>
+			</form>
+		</td>
+		  <td style="width:5%" valign="top">
+		 <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+		 </td>
+		 </tr>
+		</tbody>
+	</table>			 			 			 			 						
+	
+</app-card>
+
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

@@ -1,0 +1,160 @@
+<style>
+
+	.td1{
+		background-image: url("assets/images/plantbg.jpg");
+		height: 100%; 
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		width:70%;
+		color:white;
+		font-family:Montserrat;
+	}
+
+	.td2{
+		background-color: white;
+		width:30%;
+		padding:7em 1.3em;
+	}
+
+  .texthighlight{
+		background-image: linear-gradient(to bottom, #d4af37,#f0db73);
+		-webkit-background-clip: text;
+		-moz-background-clip: text; 
+		background-clip: text;
+		color: transparent;
+		font-weight:bold;
+		font-size:39px;
+  }
+	
+  .md-line{
+	position: absolute;
+	margin: 0.6em -1.5em;
+	font-size: 21px;
+	color: darkgrey;
+	}
+  
+	@media (max-width:580px){
+		.td1{
+			display:none;
+	}
+
+	}
+
+	@media (max-width:1200px){
+		.td1{
+			width:60%;
+		}
+
+		.td2{
+			width:40%;
+		}
+
+	}
+	
+</style>
+
+<table aria-describedby="mydesc" style="width:100%;height:100%">
+	<tbody>
+	<tr>
+		<td class="td1">
+		  <img src="assets/images/cloudlogo.png" alt="logo" style="height:51px;width:251px;position:absolute;top:1em;left:2em"><br>
+      <div class="" align="center" style="padding-left:19em;padding-top:21em">
+        <table aria-describedby="mydesc">
+          <tr><h2 class="text-secondary" style="font-family: 'Mada', sans-serif;font-weight:bold">Welcome You!...</h2></tr>
+          <!-- <tr> <h5 class="text-secondary" style="font-family: 'Mada', sans-serif">Change your account password and make your self more securely Medeil POS</h5></tr> -->
+        </table>
+			</div>
+		  </td>
+		  <td class="td2">
+			<div class="" align="center">
+        <p class="text-right">Back to<a [routerLink]="['/userlogin/login']" class="pl-1" style="color:#002e86;font-weight:bold">Login.</a></p>
+        <h4 class="text-center text-secondary my-4">Forgot Password?</h4><br>
+        <form [formGroup]="forgotForm">
+          <div *ngIf="enterotp == 1">
+            <p class="text-danger text-center m-b-0">{{phonevalid}}</p><br>
+            <div class="input-group">
+              <input type="text" class="sign-control" placeholder="User Name" value="{{user}}" readonly/>
+              <span class="md-line"></span>
+            </div>
+            <div class="input-group">
+              <input type="number" class="sign-control" placeholder="Enter Mobile No" autocomplete="off"
+                formControlName="phone" />
+              <span class="md-line"></span>
+            </div>
+            <div>
+              <button class="sign-btn" (click)="mobilevalid()" [disabled]="otpenable">Get OTP</button>
+              <span class="md-line"></span>
+            </div>
+          </div>
+
+          <div *ngIf="enterotp == 2">
+              <input type="number" class="sign-control" formControlName="enteredpassword" placeholder="Enter OTP"/>
+              <div class="mt-3">
+                <button class="sign-btn" (click)="otpvalidate()">Validate OTP</button>
+                <span class="md-line"></span>
+              </div>
+          </div>
+
+          <div *ngIf="enterotp == 3">
+            <div><input type="password" class="sign-control" placeholder="New Password" formControlName ="newpassword"  />
+              <span class="md-line"></span></div><br>
+            <div><input [type]="showpassflag ? 'text' : 'password'" class="sign-control" placeholder="Confirm Password" formControlName ="confirmpassword"/>
+              <span class="md-line" style="cursor:pointer"><em [ngClass]="showpassflag ? 'fa fa-eye-slash' : 'fa fa-eye'" (click)="showpass()"></em></span>
+            </div><br>
+            <button class="sign-btn" (click)="savepassword()">Save Password</button>
+            <span class="md-line"></span>
+          </div><br>
+          <ul style="list-style-type:square;text-align: left;font-size:14px" 
+          class="text-secondary pl-3" *ngIf="enterotp == 3">
+            <li>Password Must be a Minimum 6 Characters</li>
+            <li>Password Must Contains One Uppercase & Lowercase</li>
+            <li>Password Must Contains One Number</li>
+            <li>Password Must Contains One Special Character</li>
+          </ul>  
+          <ng2-toasty [position]="'center-center'"></ng2-toasty>
+        </form>
+			</div>
+		  </td>
+	</tr>
+	</tbody>
+</table>
+
+<!-- <section class="login p-fixed d-flex text-center bg-primary common-img-bg">
+  <div class="auth-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="login-card card-body auth-body">
+          <form [formGroup]="forgotForm" class="md-float-material">
+            <div class="text-center">
+              <img src="assets/images/auth/logo.png" alt="logo.png">
+            </div>
+            <div class="auth-box">
+              <div class="row m-b-20">
+                <div class="col-md-12">
+                  <h3 class="text-left">You forgot your Password? Don't worry. </h3>
+                </div>
+              </div>
+              <p class="text-inverse b-b-default text-right">Back to <a [routerLink]="['/userlogin/login']">Login.</a>
+              </p>
+
+             
+              <hr />
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="text-inverse text-left m-b-0">Thank you and enjoy our Medeil Cloud.</p>
+                  <p class="text-inverse text-left"><strong>Your Autentification Medeil Team</strong></p>
+                </div>
+                <div class="col-md-2">
+                  <img src="assets/images/auth/Logo-small-bottom.png" alt="small-logo.png">
+                </div>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+</section> -->

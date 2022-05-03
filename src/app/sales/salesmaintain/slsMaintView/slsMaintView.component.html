@@ -1,0 +1,167 @@
+<style>
+
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+
+   .table-striped tr th:nth-child(9){
+   text-align:center!important
+   }
+
+   .table-striped tr td:nth-child(9){
+   text-align:center!important
+   }
+</style>
+
+<app-card>
+	<div class="sub-title">View Quotate Invoice Details
+		<em class="fa fa-eye ficon"></em>
+	</div><br>
+	<div class="" align="right">
+		<button type="button" [routerLink]="['/SalesInvoice/QuotationInvoice']" class="btn-round">Add Quotate Invoice</button>
+	</div>
+	<div class="searchbox" align="center">
+		<input type="text"  (input)="searchinvvalue($event.target.value)" class="search" placeholder="Search Invoice/Customer/Mobile">
+	</div>
+	<div align="center">
+		<img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+	</div>
+	<div class="mr-2" align="right">
+		<select class="form-control countwidth" [(ngModel)]="rowsOnPage">
+		  <option [ngValue]="10">10</option>
+		  <option [ngValue]="25">25</option>
+		  <option [ngValue]="50">50</option>
+		  <option [ngValue]="100">100</option>
+		</select>
+	</div><br>
+	<!--Invoice View-->
+	<div class="dt-responsive" *ngIf="!gifFail">
+		<div style="overflow-x: auto">
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+				<thead>
+				<tr>
+				<th scope="col">S.No </th>  
+				<th scope="col">Quotation Invoice No</th>
+				<th scope="col">Customer Name</th>
+				<th scope="col">Mobile No</th>
+				<th scope="col">Email</th>
+				<th scope="col">QI Date</th>
+				<th scope="col">Total Product</th>
+				<th scope="col">Grand Total</th>
+				<th scope="col">Discount</th>
+				<th scope="col">Total Tax Amt</th>
+				<th scope="col">Sub Total</th>
+				<th scope="col">Action</th>
+				</tr>
+				</thead>
+
+				<tbody>
+				<tr *ngFor="let item of invdata | paginate: { id: 'listing_pagination',
+						itemsPerPage:rowsOnPage, currentPage: page }let i=index">
+					<td>{{i+1}}  </td> 
+					<td>{{item[1]}} </td>
+					<td>{{item[12]}} </td>
+					<td>{{item[13]}} </td>
+					<td>{{item[14]}} </td>
+					<td>{{item[3]}} </td>
+					<td>{{item[6]}} </td>
+					<td style="text-align: right !important">{{item[9] | number:'1.2-2'}} </td>
+					<td style="text-align: right !important">{{item[4] | number:'1.2-2'}} </td>
+					<td style="text-align: right !important">{{item[8] | number:'1.2-2'}} </td>
+					<td style="text-align: right !important">{{item[7] | number:'1.2-2'}} </td>
+					<td ngbDropdown class="text-center">
+						<a ngbDropdownToggle="" class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+							<em class="icofont icofont-ui-settings"></em>
+						</a>
+						<div ngbDropdownMenu="" class="dropdown-menu dropdown-menu-right">
+							<a class="dropdown-item" href="javascript:;" (click)="viewQuotateproducts(item[0])">
+								<em class="icofont icofont-papers"></em>View Products</a>	
+						</div>
+					</td>
+					</tr>
+					<tr *ngIf="(invdata) == 0">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="nodata">No Data Available</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>	
+						<td></td>
+						<td></td>					
+					</tr>	
+					</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="14">
+							<pagination-controls id="listing_pagination" directionLinks="true"
+								(pageChange)="page = $event" style="float: right;"></pagination-controls>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div><br><!---Invoice View End-->
+	
+	<!-- <div class="panels">
+	<div class="panel1" style="width:95%;float:left"></div>
+	<div class="panel2" style="width:5%;float:right">
+	<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+	</div>
+	</div> -->
+	<ng2-toasty [position]="'center-center'"></ng2-toasty>
+	</app-card>
+
+	<!--Products view Start-->
+	<div [ngClass]="productsview?'showtop':'hidetop'">
+		<br>
+		<div class="mr-2" align="right">
+			<em class="fa fa-close fa-2x mr-2" (click)="productsview=false" style="cursor:pointer;color:white"></em>
+		</div>
+		<div class="container pt-3" style="overflow:auto;background-color:white;max-height:580px;border-radius: 12px;" *ngIf="productsview">
+		<div class="dt-responsive" style="overflow: auto;">
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+				<thead>
+				<tr>
+				<th scope="col">S.No</th>  
+                <th scope="col">QI Product No</th>
+				<th scope="col">Product Name</th>
+				<th scope="col">Qty</th>
+                <th scope="col">Price</th>
+				<th scope="col">Grand Total</th>
+				</tr>
+				</thead>
+			<tbody>
+			<tr *ngFor="let item of invproducts;let i=index">
+				<td>{{i+1}}  </td> 
+                <td>{{item[1]}} </td>
+				<td>{{item[2]}} </td>
+				<td>{{item[3]}} </td>
+                <td style="text-align: right !important">{{item[4] | number:'1.2-2'}} </td>
+				<td style="text-align: right !important;">{{item[5] | number:'1.2-2'}} </td>
+			</tr>
+			<tr *ngIf="(invproducts) == 0">
+				<td></td>
+				<td></td>
+				<td class="nodata">No Data Available</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>										
+			</tbody>
+			</table>
+		</div><br>
+		</div>
+	</div>
+	<!--Products view End-->
+
+

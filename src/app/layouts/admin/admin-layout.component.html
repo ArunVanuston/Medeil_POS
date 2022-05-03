@@ -1,0 +1,1484 @@
+<style>
+  .pcoded .pcoded-navbar[navbar-theme="themelight1"] .pcoded-item>li>a:hover {
+    background: #002e86;
+    color: white;
+  }
+
+  .pcoded .pcoded-navbar[navbar-theme="themelight1"] .pcoded-item .pcoded-hasmenu .submenu2{
+    background: lightgrey;
+  }
+
+  .pcoded-micon em {
+    background-color: #00d7b5;
+    color: #ffffff;
+    padding: 15px 15px 17px;
+    margin-left: -15px;
+  }
+
+  /*Prasad*/
+
+  .main-menu {
+    /* height: 1100px; */
+    overflow-y: auto;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 4px grey;
+    border-radius: 10px;
+    display: none;
+  }
+
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 7px grey;
+    border-radius: 10px;
+    height: 50px;
+    /* display:none; */
+  }
+
+  /* Handle on hover
+::-webkit-scrollbar-thumb:hover {
+   display:flex;
+} */
+
+  .element {
+    width: 92%;
+    overflow-x: hidden;
+  }
+
+
+  .form-controls {
+    font-size: 19px !important;
+    border: none;
+    margin-left: 5px;
+    font-weight: bold;
+    font-family: Montserrat;
+  }
+
+  /* selva2*/
+
+  .header-navbar .navbar-wrapper .navbar-container .nav-left a,
+  .header-navbar .navbar-wrapper .navbar-container .nav-right a {
+    color: white;
+  }
+
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+    margin-top: -10px;
+    font-size: 20px;
+    color: rgb(238, 238, 238);
+  }
+
+  /* my dashboard link */
+
+  .model-body .table td{
+    border-top: none;
+    text-align: right;
+  }
+
+  .model-body .table th{
+    border-top: none;
+    text-align: right;
+  }
+
+  .inputchange {
+    width: 100px;
+    outline: none;
+  }
+
+  .helpcontent{
+    background-color:#5983d2;
+    color: white;
+    position: absolute;
+    width:25%;
+    padding:6px 4px;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .helpcontent:before {
+      content: "";
+      position: absolute;
+      right: 100%;
+      top: 27px;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-right: 45px solid #5983d2;
+      border-bottom: 10px solid transparent;
+    }
+
+    .helpcontentup{
+      background-color:#5983d2;
+      color: white;
+      position: absolute;
+      width:25%;
+      padding:6px 4px;
+      border-radius: 12px;
+      text-align: center;
+      top: 10%;
+      right: 0;
+    }
+
+    .helpcontentup:before {
+      content: "";
+      position: absolute;
+      left: 85%;
+      top: -37px;
+      width: 0;
+      height: 0;
+      border-left: 17px solid transparent;
+      border-bottom: 45px solid #5983d2;
+      border-right: 17px solid transparent;
+    }
+
+  .helparrow{
+    border-top: 10px solid transparent;
+    border-right: 45px solid #5983d2;
+    border-bottom: 10px solid transparent;
+    position: absolute;
+  }
+
+  @media (max-width: 500px) {
+    
+  .helpcontent{
+    width:78%;
+    padding:5px 3px;
+    border-radius: 10px;
+  } 
+
+  .helpcontent:before {
+      top: 25px;
+      border-top: 12px solid transparent;
+      border-right: 30px solid #5983d2;
+      border-bottom: 12px solid transparent;
+    }
+
+  .helparrow{
+    border-top: 12px solid transparent;
+    border-right: 25px solid #5983d2;
+    border-bottom: 12px solid transparent;
+  }
+
+  }
+
+  @media (max-width: 710px) {
+    .helpcontent{
+    width:40%;
+    padding:5px 3px;
+    }
+
+    .helpcontent:before {
+      top: 26px;
+      border-top: 12px solid transparent;
+      border-right: 35px solid #5983d2;
+      border-bottom: 12px solid transparent;
+    }
+
+    .helparrow{
+    border-top: 12px solid transparent;
+    border-right: 38px solid #5983d2;
+    border-bottom: 12px solid transparent;
+    }
+
+  }
+</style>
+
+<div id="pcoded" (window:resize)="onResize($event)" class="pcoded iscollapsed" theme-layout="vertical"
+  vertical-placement="left" vertical-layout="wide" [attr.pcoded-device-type]="deviceType"
+  [attr.vertical-nav-type]="verticalNavType" [attr.vertical-effect]="verticalEffect" vnavigation-view="view1">
+  <div class="pcoded-overlay-box"></div>
+  <div class="pcoded-container navbar-wrapper">
+    <nav class="navbar header-navbar pcoded-header" header-theme="theme4">
+      <div class="navbar-wrapper">
+        <div class="navbar-logo" navbar-theme="theme4">
+          <a class="mobile-menu" id="mobile-collapse" href="javascript:;" (click)="toggleOpened()"
+            [exclude]="'#main_navbar'" (clickOutside)="onClickedOutside($event)">
+            <em class="ti-menu"></em>
+          </a>
+          <a [routerLink]="['/Dashboard/Admindash']">
+            <img class="img-fluid2 img-fluid" src="assets/images/poslogobg.jpg" alt="Theme-Logo" />
+          </a>
+          <a (click)="onMobileMenu()" class="mobile-options">
+            <em class="ti-more"></em>
+          </a>
+        </div>
+
+        <div class="navbar-container">
+          <div>
+            <ul class="nav-left">
+              <li>
+                <div class="sidebar_toggle">
+                  <a href="javascript:;" (click)="toggleOpened()">
+                    <em class="ti-menu text-white f-18"></em>
+                  </a>
+                </div>
+              </li>
+              <li>
+                <a>
+                  <em class="ti-fullscreen text-white" style="cursor:pointer" (click)="openFullscreen()"></em>
+                </a>
+              </li>
+
+            </ul>
+
+            <ul [@mobileMenuTop]="isCollapsedMobile" class="nav-right" [ngClass]="isCollapsedMobile">
+              <ul class="navbar-nav navbar-center">
+                <li class="header-notification lng-dropdown">
+                  <!-- <input type="text" class="input" formControlName="shopname" value=""/> -->
+                  {{shop}}
+                </li>
+              </ul>
+
+              <!---Last Login session time
+              <li class="header-notification lng-dropdown">
+                <a href="javascript:;" id="dropdown-active-item">Last Login: {{userlastlogintime}}</a>
+                <ul class="show-notification">
+                  <h6 class="text-info mt-3" style="text-align:center"><u>Recent Login Times!..</u></h6>
+                  <li *ngFor="let item of userloginhistory; let i=index">
+                    <div class="" *ngIf="i<5">
+                      <span>{{item.date}}</span>
+                      <span>{{item.country}}</span>
+                      <span>{{item.city}}</span>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <!-Login time end-->
+              <li class="header-notification">
+                <a href="javascript:;" id="dropdown-active-item">
+                  <em class="fa fa-key text-white"></em>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li>
+                    <span [routerLink]="['/StockEntryForm/AddNewStock']"
+                    style="cursor: pointer;">Add Stocks</span>
+                  </li>
+                  <li>
+                    <span [routerLink]="['/PurchaseOrder/PurchaseOrder']"
+                    style="cursor: pointer;">Purhase Order</span>
+                  </li>
+                  <li>
+                    <span [routerLink]="['/PurchaseInvoice/PurchaseInvoice']"
+                    style="cursor: pointer;">Purchase Invoice</span>
+                  </li>
+                  <li>
+                    <span [routerLink]="['/SalesOrder/SalesOrder']"
+                    style="cursor: pointer;">Sales Order</span>
+                  </li>
+                  <li>
+                    <span [routerLink]="['/SalesInvoice/SalesInvoice']"
+                    style="cursor: pointer;">Sales Invoice</span>
+                  </li>
+                  <li>
+                    <span [routerLink]="['/CustomerRegistration/AddCustomer']"
+                    style="cursor: pointer;">Customer Registration</span>
+                  </li>
+                  <li>
+                    <span [routerLink]="['/VendorRegistration/AddVendor']"
+                    style="cursor: pointer;">Vendor Registration</span>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="user-profile header-notification">
+                <a href="javascript:;" id="dropdown-active-item">
+                  <em class="fa fa-language text-white"></em>
+                </a>
+                <!-- <a href="javascript:;" id="dropdown-active-item">Choose Language</a> -->
+                <ul class="show-notification profile-notification">
+                  <li>
+                    <a href="javascript:;" id="English" (click)="Languagetranslate('en')">
+                      <span>English
+                      </span>
+                      <em class="flag-icon flag-icon-gb m-r-5"></em>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" id="French" (click)="Languagetranslate('fr')">
+                      <span>French </span>
+                      <em class="flag-icon flag-icon-fr m-r-5"></em>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" id="Spanish" (click)="Languagetranslate('es')">
+                      <span>Spanish</span>
+                      <em class="flag-icon flag-icon-es m-r-5"></em>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="javascript:;" id="Arabic" (click)="Languagetranslate('ar')">
+                      <span>Arabic</span>
+                      <em class="flag-icon flag-icon-ru m-r-5"></em>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="user-profile header-notification">
+                <a href="javascript:;" (click)="getNotification()">
+                  <em class="ti-shopping-cart text-white"></em>
+                  <span class="badge">{{cartitemdatas.length}}</span>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li *ngIf="cartitemdatas.length==0">
+                    <h6 class="text-info mt-3" style="text-align:center"><u>Your Cart is Empty!..</u></h6>
+                  </li>
+                  <li *ngIf="cartitemdatas">
+                    <table aria-describedby="mydesc" align="center">
+                      <tbody>
+                        <tr *ngFor="let item of cartitemdatas;let i=index">
+                          <td style="padding:0.4em 0px">{{item.itemname}}</td>
+                          <td class="pl-2">{{item.itemqty}}*{{item.itemrate}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <div class="col-lg-12 bg-warning mt-3" align="center" *ngIf="cartitemdatas.length>0">
+                      <h5 style="font-size:18px;padding:0.3em 1.9em;cursor:pointer"
+                        [routerLink]="['/ShopRegistration/Billing/viewcart']">Proceed</h5>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="user-profile header-notification">
+                <a href="javascript:;" (click)="getNotification()">
+                  <em class="ti-bell text-white"></em>
+                  <span class="badge">{{(notifylists.length+1)}}</span>
+                </a>
+                <ul class="show-notification profile-notification">
+                  <li><!--style="margin-top:-12px"-->
+                    <th>Expiry</th><br>
+                    <p style="word-break: break-all;margin-top:-10px">Expiry with in <strong>{{ExpDescription}} </strong></p>    
+                    <label style="border-top:1px solid darkgray;margin-top:-9px;width:100%"></label>
+                    <!-- <hr style="margin:-8px 0px 5px 0px"> -->
+                  </li>
+                  <li *ngFor="let item of notifylists;let i=index" style="margin-top:-28px"><!--[style.margin-top]="i > 0 ? '-28px':'0px'"-->
+                    <th>{{item.msgTitle}}</th><br>
+                    <p style="word-break: break-all;margin-top:-10px">{{item.msgDescription}}</p>    
+                    <label style="border-top:1px solid darkgray;margin-top:-9px;width:100%"></label>
+                    <!-- <hr style="margin:-8px 0px 5px 0px"> -->
+                  </li>
+                  <li *ngIf="(notifylists)==0">
+                    <div>
+                      <p class="notification-msg" style="font-size: 17px;color:black">{{noMessage}}</p>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+
+
+              <li class="user-profile header-notification">
+
+                <span style="cursor:pointer">
+                  <img [src]="imgURL" alt="altitem" (click)="image()"
+                    style="border-radius:50px;margin-left:5px;height:41px;width:41px">
+                  <h6 style="color:white;font-family:montserrat;font-size:15px">{{username}}</h6>
+                </span>
+
+                <ul class="show-notification profile-notification" style="margin-top:-8px">
+
+                  <!-- (click)="modalOverflow.show()" -->
+                  <li>
+                    <a style="cursor: pointer" [routerLink]="['/GeneralSettings/GeneralSettings']">
+                      <em class="ti-settings"></em> General Settings
+                    </a>
+
+                  </li>
+                  <li>
+                    <a style="cursor: pointer" [routerLink]="['/Profileinfo/ViewProfileSettings']">
+                      <em class="ti-user"></em> Profile & Billings
+                    </a>
+
+                  </li>
+                  <!-- (click)="modalOverflow1.show()" -->
+
+                  <li>
+                    <a style="cursor: pointer" [routerLink]="['/Password/ChangePassword']">
+                      <em class="ti-key"></em> Change Password
+                    </a>
+
+                  </li>
+                  <li class="mt-2">
+                    <!-- [routerLink]="['/']" -->
+                    <a (click)="openConfirmsSwal()" style="font-size:18px;font-weight:bold;cursor: pointer">
+                      <em class="ti-power-off"></em> Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- rightbar chat start -->
+
+    <!-- rightbar inner chat start-->
+
+    <!-- rightbar inner chat end-->
+    <!-- rightbar chat end-->
+    <div class="pcoded-main-container">
+      <div class="pcoded-wrapper">
+        <nav id="main_navbar" class="pcoded-navbar element" (clickOutside)="onClickedOutside($event)"
+          [exclude]="'#mobile-collapse'" navbar-theme="themelight1" active-item-theme="theme4" sub-item-theme="theme2"
+          active-item-style="style0" pcoded-navbar-position="absolute">
+
+          <div class="sidebar_toggle">
+            <a href="javascript:;">
+              <em class="icon-close icons"></em>
+            </a>
+          </div>
+          <div class="pcoded-inner-navbar main-menu" appAccordion width="100%" height="100%" size="4px" color="#fff"
+            opacity="0.3" allowPageScroll="false"><!--(mouseover)="clickinsidemenu()" selva-->
+            <!-- <ul class="pcoded-item pcoded-left-item dash">
+              <li class="pcoded-hasmenu">
+                <a [routerLink]="['/Dashboard/Admindash']">
+                  <span class="pcoded-micon"><em class="ti-home"></em></span>
+                  <span class="pcoded-mtext">Home</span>
+                </a>
+              </li>
+            </ul> -->
+            <ul class="pcoded-item pcoded-left-item" item-border="none" item-border-style="solid" subitem-border="solid"
+              appAccordionLink group="" *ngFor="let label of modLabel">
+              <li [routerLinkActive]="['active']" class="pcoded-hasmenu" dropdown-icon="style1" subitem-icon="style6"
+                appAccordionLink group="" *ngIf="label.split('_')[0]!=='none';else other_content">
+                <a href="javascript:;" appAccordionToggle>
+                  <span class="pcoded-micon">
+
+                    <em class="{{label.split('_').pop()}}"></em>
+
+
+
+                    <!--  <img src="{{label.split('_').pop()}}" background-color="red" alt="{{label.split('_').pop()}}" height="20" width="20"> -->
+                  </span>
+                  <span class="pcoded-mtext">{{label.split('_')[0]}}</span>
+                </a>
+                <ul class="pcoded-submenu" *ngFor="let asideItems of menu">
+                  <li [routerLinkActive]="['active']" class="pcoded-hasmenu" dropdown-icon="style1"
+                    subitem-icon="style6" appAccordionLink group="sub-toggled"
+                    *ngIf="label.split('_')[0]==asideItems[2]">
+                    <a href="javascript:;" appAccordionToggle class="submenu2">
+                      <span class="pcoded-micon">
+                        <em class="{{asideItems[0].split('_')[0]}}"></em>
+                      </span>
+                      <span class="pcoded-mtext">{{asideItems[0].split('_')[0]}}</span>
+                    </a>
+                    <ul class="pcoded-submenu">
+                      <li [routerLinkActive]="['active']" *ngFor="let asideItem of asideItems[1]" appAccordionLink
+                        group="{{asideItems[0]}}">
+                        <a [routerLink]="['/', asideItems[0].split('_')[0].replace(' ',''), asideItem.split('_')[0].replace(' ','')]"
+                          appAccordionToggle>
+                          <span class="pcoded-micon">
+                            <em class="{{asideItem.split('_').pop()}}"></em>
+                          </span>
+                          <span class="pcoded-mtext">{{ asideItem.split('_')[0]}}</span>
+                          <span class="pcoded-mcaret"></span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+
+              <ng-template #other_content>
+                <div *ngFor="let asideItems of menu">
+                  <ul class="pcoded-item pcoded-left-item" item-border="none" item-border-style="solid"
+                    subitem-border="solid" appAccordionLink group="{{asideItems[0].split('_')[0]}}">
+                    <li [routerLinkActive]="['active']" class="pcoded-hasmenu" dropdown-icon="style1"
+                      subitem-icon="style6" appAccordionLink group="sub-toggled" *ngIf="asideItems[2]=='none'">
+
+                      <a href="javascript:;" appAccordionToggle>
+                        <span class="pcoded-micon">
+                          <em class="{{asideItems[0].split('_').pop()}}"></em>
+                        </span>
+                        <span class="pcoded-mtext">{{asideItems[0].split('_')[0]}}</span>
+                      </a>
+
+                      <ul class="pcoded-submenu">
+                        <li [routerLinkActive]="['active']" *ngFor="let asideItem of asideItems[1]" appAccordionLink
+                          group="{{asideItems[0]}}">
+                          <a [routerLink]="['/', asideItems[0].split('_')[0].replace(' ',''), asideItem.split('_')[0].replace(' ','')]"
+                            appAccordionToggle>
+                            <span class="pcoded-micon">
+                              <em class="{{asideItem.split('_').pop()}}"></em>
+                            </span>
+                            <span class="pcoded-mtext">{{ asideItem.split('_')[0]}}</span>
+                            <span class="pcoded-mcaret"></span>
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </ng-template>
+            </ul>
+          </div>
+        </nav>
+
+        <div class="pcoded-content">
+          <div class="pcoded-inner-content"><!--(click)="onClicked3($event)" //selva-->
+            <div class="main-body" (click)="gettoken()">
+              <div class="page-wrapper">
+                <app-title></app-title>
+                <app-breadcrumbs></app-breadcrumbs>
+                <div class="page-body">
+                  <router-outlet>
+                    <spinner></spinner>
+                  </router-outlet>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>
+<div [ngClass]="setupform?'showtop':'hidetop'" align="center">
+  <form [formGroup]="taxSettingsForm" class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Tax SetUp Form</label>
+        <em class="fa fa-close" (click)="setupform=false" style="cursor:pointer"></em>
+      </div><br><br>
+      <!-- <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">Country</label>
+      <select name="select" class="form-control" formControlName = "countryrefid">
+        <option value="opt1">---Select country---</option>
+        <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option> 
+      </select>
+      </div>
+    </div> -->
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" name="vat_gst" checked="checked" value="0"
+                  (click)="indiangstfn($event.target.value)">
+                <em class="helper"></em>VAT
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" name="vat_gst" checked="checked" value="1"
+                  (click)="indiangstfn($event.target.value)">
+                <em class="helper"></em>GST
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" name="vat_gst" checked="checked" value="2"
+                  (click)="indiangstfn($event.target.value)">
+                <em class="helper"></em>INDIAN GST
+
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="indgstflag == 1" class="bform">
+        <label class="form-label semibold">Please Select State for Taxation </label>
+        <select name="select" class="form-control col-sm-4" formControlName="stateid">
+          <option value="opt1">---Select country---</option>
+          <option *ngFor="let val of state " value={{val[0]}}>{{val[2]}}</option>
+        </select>
+        <!-- <input type="checkbox" formControlName="sgst">
+          <label class="ml-1 mr-2">SGST</label>
+          <input type="checkbox" formControlName="cgst">
+          <label class="ml-1 mr-2">CGST</label>
+          <input type="checkbox" formControlName="igst">
+          <label class="ml-1 mr-2">IGST</label>
+          <input type="checkbox" formControlName="ugst">
+          <label class="ml-1 mr-2">UGST</label> -->
+      </div>
+      <div class="mr-4" align="right">
+        <button class="btn btn-success" (click)="savetaxsetting()">Set Tax</button>
+      </div>
+    </div>
+    <!--Modal Content End-->
+  </form>
+
+</div>
+
+<div [ngClass]="setupform?'showtop':'hidetop'" align="center">
+  <form [formGroup]="taxSettingsForm" class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Tax SetUp Form</label>
+        <!-- <em class="fa fa-close fa-2x" (click)="setupform=false" style="cursor:pointer"></em> -->
+      </div><br><br>
+      <!-- <div class="form-group row">
+        <div class="col-sm-4">
+          <label class="form-label semibold">Country</label>
+        <select name="select" class="form-control" formControlName = "countryrefid">
+          <option value="opt1">---Select country---</option>
+          <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option> 
+        </select>
+        </div>
+      </div> -->
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" name="vat_gst" checked="checked" value="0"
+                  (click)="indiangstfn($event.target.value)">
+                <em class="helper"></em>VAT
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" name="vat_gst" checked="checked" value="1"
+                  (click)="indiangstfn($event.target.value)">
+                <em class="helper"></em>GST
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" name="vat_gst" checked="checked" value="2"
+                  (click)="indiangstfn($event.target.value)">
+                <em class="helper"></em>INDIAN GST
+
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="indgstflag == 1" class="bform">
+        <label class="form-label semibold">Please Select State for Taxation </label>
+        <select name="select" class="form-control col-sm-4" formControlName="stateid">
+          <option value="opt1">---Select country---</option>
+          <option *ngFor="let val of state " value={{val[0]}}>{{val[2]}}</option>
+        </select>
+        <!-- <input type="checkbox" formControlName="sgst">
+            <label class="ml-1 mr-2">SGST</label>
+            <input type="checkbox" formControlName="cgst">
+            <label class="ml-1 mr-2">CGST</label>
+            <input type="checkbox" formControlName="igst">
+            <label class="ml-1 mr-2">IGST</label>
+            <input type="checkbox" formControlName="ugst">
+            <label class="ml-1 mr-2">UGST</label> -->
+      </div>
+      <br>
+      <div class="mr-4" align="right">
+        <button class="btn btn-success" (click)="savetaxsetting()">Set Tax</button>
+      </div>
+    </div>
+    <!--Modal Content End-->
+  </form>
+
+</div>
+
+<div [ngClass]="shopsetup?'showtop':'hidetop'" align="center">
+  <form [formGroup]="ShopForm" class="adminlay">
+    <div class="modalcont animated fadeindown pl-2">
+      <div class="modal-header">
+        <label class="form-label">Shop Details</label>
+        <em class="fa fa-building-o"  style="cursor:pointer"></em>
+      </div><br><br>
+      <!-- <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label semibold">Country</label>
+          <select name="select" class="form-control" formControlName = "countryrefid">
+            <option value="opt1">---Select country---</option>
+            <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option> 
+          </select>
+          </div>
+        </div> -->
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Shop Name</label>
+            <input type="text" class="form-control" formControlName="shopname" (input)="characterlength()" id="shopvalid">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.shopname.errors?.pattern">Alphabets Only Allowed Here</div>
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Owner Name</label>
+            <input type="text" class="form-control" formControlName="ownername" (input)="characterlength()" id="ownervalid">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.ownername.errors?.pattern">Numerical Only Allowed Here</div>
+
+          </div>
+
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">GST/Vat No</label>
+            <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" formControlName="tinno" (input)="characterlength()" id="tinovalid">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.tinno.errors?.pattern">Numerical Only Allowed Here</div>
+
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="address1">
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Town</label>
+            <input type="text" class="form-control" formControlName="address2">
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Country</label>
+            <!-- <input type="text" formControlName = "country"> -->
+            <select name="select" class="form-control" formControlName="country" (change)="getState()"
+              (click)="getState()" disabled>
+              <option value="0">---Select Country---</option>
+              <option *ngFor="let country of countries" value={{country[0]}}>{{country[1]}}</option>
+            </select>
+          </div>
+        </div>
+       
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">State</label>
+            <!-- <input type="text" formControlName = "state"> -->
+            <select name="select" class="form-control" formControlName="state" (change)="getCity()" (click)="getCity()">
+              <option value="0">---Select State---</option>
+              <option *ngFor="let state of states" value={{state[0]}}>{{state[2]}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">City/District</label>
+            <!-- <input type="text" formControlName = "city"> -->
+            <select name="select" class="form-control" formControlName="city">
+              <option value="0">---Select City---</option>
+              <option *ngFor="let city of cities" value={{city[0]}}>{{city[1]}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Mobile No</label>
+            <input type="text" class="form-control" formControlName="mobileno" (input)="characterlength()" id="mobilevalid">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.mobileno.errors?.pattern">Numerical Only Allowed Here</div>
+
+          </div>
+
+        </div>
+      </div>
+       <div class="form-group row">
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Email ID</label>
+            <input type="text" class="form-control" formControlName="emailid">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.emailid.errors?.pattern">Numerical Only Allowed Here</div>
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">DL Number</label>
+            <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" formControlName="dlno" (input)="characterlength()" id="dlnovalid">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.dlno.errors?.pattern">AlphaNumeric Only Allowed Here</div>
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+
+            <label class="form-label">Website</label>
+            <input type="text" class="form-control" formControlName="website">
+            <div class="messages text-danger" *ngIf="ShopForm.controls.website.errors?.pattern">Invalid Pattern</div>
+
+          </div>
+        </div>
+       </div>
+     
+      <div class="mr-4" align="right">
+        <button class="btn-round" (click)="saveshopsetup()">Save & Next</button>
+      </div>
+    </div>
+    <!--Modal Content End-->
+  </form>
+
+</div>
+
+
+<div [ngClass]="currenysetup?'showtop':'hidetop'" align="center">
+  <form [formGroup]="CurrencyForm" class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Currency Details</label>
+        <em class="ti-money" (click)="setupform=false" style="cursor:pointer"></em>
+      </div><br>
+      <br><br><br>
+      <!-- <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-label semibold">Country</label>
+            <select name="select" class="form-control" formControlName = "countryrefid">
+              <option value="opt1">---Select country---</option>
+              <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option> 
+            </select>
+            </div>
+          </div> -->
+      <h4>Please select currency on your payment option</h4>
+      <br>
+      <div class="col-sm-4">
+        <!-- <label class="form-label semibold">Country</label> -->
+        <select name="select" class="form-control" formControlName="currencyrefid">
+          <option value="opt1">---Select Currency---</option>
+          <option *ngFor="let val of currsts" value={{val[0]}}>{{val[1]}}</option>
+        </select>
+      </div>
+      <br><br><br><br><br><br>
+      <div class="mr-4" align="right">
+        <button class="btn-round" (click)="savecurrencysetup()">Save & Next</button>
+      </div>
+    </div>
+    <!--Modal Content End-->
+  </form>
+
+</div>
+
+<div [ngClass]="decimalsetup?'showtop':'hidetop'" align="center">
+  <form [formGroup]="DecimalForm" class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Decimal & Roundoff Details</label>
+        <em class="ti-more" (click)="setupform=false" style="cursor:pointer"></em>
+      </div><br>
+      <!-- <div class="form-group row">
+              <div class="col-sm-4">
+                <label class="form-label semibold">Country</label>
+              <select name="select" class="form-control" formControlName = "countryrefid">
+                <option value="opt1">---Select country---</option>
+                <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option> 
+              </select>
+              </div>
+            </div> -->
+      <!-- <h4>select Deci on your payment option</h4> -->
+
+      <div class="model-body">
+        <h5>Decimal Settings</h5><br>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="decimalcheckbox($event,1)"
+              formControlName="decimaltwo"> <label class="form-check-label">
+              0.00
+            </label>
+          </div>
+          <div class="col-sm-4">
+            <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="decimalcheckbox($event,2)"
+              formControlName="decimalthree"> <label class="form-check-label">
+              0.000
+            </label>
+          </div>
+        </div>
+        <div class="row bform m-2">
+          <p style="text-align:left">NOTE: If you are from Algeria,Bahrain,Iraq, Jordan, Kuwait, Libya and
+            Tunisia.Please select three decimal.It will reflect all your Finicial Transaction</p>
+        </div>
+        <h5>Rounded Off Settings</h5><br>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label ml-5">Do you want ?</label>
+          </div>
+          <div class="col-sm-4">
+            <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="roundedcheckbox2($event,1)"
+              formControlName="expectedamt"> <label class="form-check-label">
+              Actual Amount
+            </label>
+          </div>
+          <div class="col-sm-4">
+            <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="roundedcheckbox2($event,2)"
+              formControlName="roundoffamt"> <label class="form-check-label">
+              Round off the value
+            </label>
+          </div>
+          <!-- <input type="checkbox" class="mr-2" (click)="roundedcheckbox2($event,1)" formControlName="roundedabove">
+            Rounded Amount Above 1.5<br>
+            <input type="checkbox" class="mr-2" (click)="roundedcheckbox2($event,2)" formControlName="roundedbelow">
+            Rounded Amount Below 1.5 -->
+
+        </div>
+        <!-- <div class="form-group row" *ngIf="roundenable == 1">
+          <div class="col-sm-8">
+            <label class="form-label ml-4">If the amount is less than > 0.50,</label>
+            <label class="form-label ml-5">(Do you want the value,(ex)0.00),If yes</label>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" name="checkbox" formControlName="roundedabove" (click)="roundedcheckbox1($event,1)">
+          </div>
+
+        </div>
+        <div class="form-group row" *ngIf="roundenable == 1">
+          <div class="col-sm-8">
+            <label class="form-label ml-4">If the amount is more than < 0.50,</label>
+                <label class="form-label ml-5">(Do you want the value,(ex)1.00),If yes</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="checkbox" formControlName="roundedbelow"
+                  (click)="roundedcheckbox1($event,2)">
+          </div>
+
+        </div> -->
+
+      </div>
+
+      <div class="mr-4" align="right">
+        <button class="btn-round" (click)="savedecimalsetup()">Save & Next</button>
+      </div>
+    </div>
+    <!--Modal Content End-->
+  </form>
+
+</div>
+
+<div [ngClass]="setupcostsetup?'showtop':'hidetop'" align="center">
+  <form [formGroup]="SetupcostForm"class="adminlay" >
+    <div class="modalcont animated fadeindown" style="width: 55%;">
+      <div class="modal-header">
+        <label class="form-label">Setup Costs Details</label>
+        <em class="fa fa-headphones" (click)="setupform=false" style="cursor:pointer"></em>
+      </div><br>
+      <div class="model-body">
+        <h5>Setup Costs</h5><br>
+        <div class="py-2" style="overflow:auto">
+          <table aria-describedby="mydesc" class="table px-2" style="width:100%">
+            <tr>
+              <td style="width:50%">
+            <tr>
+              <th scope="col">Opening Cash Balance:</th>
+              <td> <input type="text" class="ml-1 inputchange" formControlName="opencashbalance" (change)="addtotalcost()">
+                <div class="messages text-danger" *ngIf="SetupcostForm.controls.opencashbalance.errors?.pattern">Numerical Only Allowed Here</div>
+              </td>
+            </tr>
+            <tr>
+              <th scope="col">Refrigeration:</th>
+              <td> <input type="text" class="ml-1 inputchange" formControlName="fridge" (change)="addtotalcost()">
+                <div class="messages text-danger" *ngIf="SetupcostForm.controls.fridge.errors?.pattern">Numerical Only Allowed Here</div></td>
+            </tr>
+            <tr>
+              <th scope="col">Building Cost:</th>
+              <td> <input type="text" class="ml-1 inputchange" formControlName="buildingcost" (change)="addtotalcost()">
+                <div class="messages text-danger" *ngIf="SetupcostForm.controls.buildingcost.errors?.pattern">Numerical Only Allowed Here</div></td>
+            </tr>
+            <tr>
+              <th scope="col">Air-Conditioning:</th>
+              <td> <input type="text" class="ml-1 inputchange" formControlName="aircondition" (change)="addtotalcost()">
+                <div class="messages text-danger" *ngIf="SetupcostForm.controls.aircondition.errors?.pattern">Numerical Only Allowed Here</div></td>
+            </tr>
+            <tr>
+              <th scope="col">Advance/Lease Deposit:</th>
+              <td> <input type="text" class="ml-1 inputchange" formControlName="advleadsedeposit" (change)="addtotalcost()">
+                <div class="messages text-danger" *ngIf="SetupcostForm.controls.advleadsedeposit.errors?.pattern">Numerical Only Allowed Here</div></td>
+            </tr>
+            <!-- <tr>
+                  <th scope="col">Others3:</th>
+                  <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+                </tr>
+                <tr>
+                  <th scope="col">Others4:</th>
+                  <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+                </tr> -->
+            </td>
+            <td style="width:50%">
+              <tr>
+                <th scope="col">Display Boards:</th>
+                <td> <input type="text" class="ml-1 inputchange" formControlName="displayboard" (change)="addtotalcost()">
+                  <div class="messages text-danger" *ngIf="SetupcostForm.controls.displayboard.errors?.pattern">Numerical Only Allowed Here</div></td>
+              </tr>
+              <tr>
+                <th scope="col">Registration Fee:</th>
+                <td> <input type="text" class="ml-1 inputchange" formControlName="regfee" (change)="addtotalcost()">
+                  <div class="messages text-danger" *ngIf="SetupcostForm.controls.regfee.errors?.pattern">Numerical Only Allowed Here</div></td>
+              </tr>
+              <tr>
+                <th scope="col">Computers & Peripherals:</th>
+                <td> <input type="text" class="ml-1 inputchange" formControlName="computerperipherals" (change)="addtotalcost()">
+                  <div class="messages text-danger" *ngIf="SetupcostForm.controls.computerperipherals.errors?.pattern">Numerical Only Allowed Here</div></td>
+              </tr>
+              <tr>
+                <th scope="col">Electrical Lighting:</th>
+                <td> <input type="text" class="ml-1 inputchange" formControlName="electriclighting" (change)="addtotalcost()">
+                  <div class="messages text-danger" *ngIf="SetupcostForm.controls.electriclighting.errors?.pattern">Numerical Only Allowed Here</div></td>
+              </tr>
+              <tr>
+                <th scope="col">Furnish & Carpentry:</th>
+                <td> <input type="text" class="ml-1 inputchange" formControlName="furnishcarpentry" (change)="addtotalcost()">
+                  <div class="messages text-danger" *ngIf="SetupcostForm.controls.furnishcarpentry.errors?.pattern">Numerical Only Allowed Here</div></td>
+              </tr>
+              <!-- <tr>
+                  <th scope="col">Others:</th>
+                  <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1" ></em></td>
+                </tr>
+                <tr>
+                  <th scope="col">Others1:</th>
+                  <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+                </tr>
+                <tr>
+                  <th scope="col">Others2:</th>
+                  <td> <input type="text" class="ml-2 inputchange" style="width:85px;"><em class="fa fa-plus ml-1"></em></td>
+                </tr> -->
+            </td>
+            </tr>
+          </table>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Do you want Others Option <a href="javascript:;"
+              (click)="count = count+1;othersfn(1)">Click here</a></label>
+          <label class="form-label">(You can add (Max 5) Only)</label>
+        </div>
+
+        <div class="form-group row px-5">
+          <div class="" *ngIf="count1 == 1">
+            <label class="form-label"><strong>Others</strong></label>
+            <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others1" (change)="addtotalcost()"><span><em *ngIf="count1 == 1" class="fa fa-plus ml-2" (click)="othersfn(2)"></em> <em class="fa fa-close ml-2" (click)="delothersfn(1)"></em></span>
+            <div class="messages text-danger" *ngIf="SetupcostForm.controls.others1.errors?.pattern">Numerical Only Allowed Here</div>
+          </div>
+          <div class="ml-2" *ngIf="count2 == 2">
+            <label class="form-label"><strong>Others</strong></label>
+            <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others2" (change)="addtotalcost()"><span><em *ngIf="count2 == 2" class="fa fa-plus ml-2" (click)="othersfn(3)"></em> <em class="fa fa-close ml-2" (click)="delothersfn(2)"></em></span>
+            <div class="messages text-danger" *ngIf="SetupcostForm.controls.others2.errors?.pattern">Numerical Only Allowed Here</div>
+          </div>
+          <div class="ml-2" *ngIf="count3 == 3">
+            <label class="form-label"><strong>Others</strong></label>
+            <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others3" (change)="addtotalcost()"><span><em *ngIf="count3 == 3" class="fa fa-plus ml-2" (click)="othersfn(4)"></em> <em class="fa fa-close ml-2" (click)="delothersfn(3)"></em></span>
+            <div class="messages text-danger" *ngIf="SetupcostForm.controls.others3.errors?.pattern">Numerical Only Allowed Here</div>
+          </div>
+        <!-- </div>
+          <div class="form-group row px-5"> -->
+          <div class="" *ngIf="count4 == 4">
+            <label class="form-label"><strong>Others</strong></label>
+            <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others4" (change)="addtotalcost()"><span><em *ngIf="count4 == 4" class="fa fa-plus ml-2" (click)="othersfn(5)"></em> <em class="fa fa-close ml-2" (click)="delothersfn(4)"></em></span>
+            <div class="messages text-danger" *ngIf="SetupcostForm.controls.others4.errors?.pattern">Numerical Only Allowed Here</div>
+          </div>
+          <div class="ml-2" *ngIf="count5 == 5">
+            <label class="form-label"><strong>Others</strong></label>
+            <input type="text" class="ml-2" style="outline: none;width:85px;" formControlName="others5" (change)="addtotalcost()"><span><em *ngIf="count5 == 4" class="fa fa-plus ml-2" (click)="othersfn(6)"></em> <em class="fa fa-close ml-2" (click)="delothersfn(5)"></em></span>
+            <div class="messages text-danger" *ngIf="SetupcostForm.controls.others5.errors?.pattern">Numerical Only Allowed Here</div>
+          </div>
+        </div>
+        <!-- <div class="form-group row px-5">
+          <label class="form-label"><strong>Total Expenses</strong></label>
+          <input type="text" class="ml-2" style="outline: none;" formControlName="totalsetupcost" readonly>
+        </div> -->
+
+
+      </div>
+
+
+      <div class="mr-4" align="right">
+        <button class="btn-round" (click)="savesetupcost()">Finish</button>
+      </div>
+    </div>
+    <!--Modal Content End-->
+  </form>
+
+</div>
+<div [ngClass]="firstpopup?'showtop':'hidetop'" align="center">
+  <div class="container1" style="background-color: #dae1ed;border-radius:40px;width:48%;margin-top:9em">
+    <div class=""><br><br>
+      <img src="assets/images/cloudlogo.png" alt="logo" style="height:80px;width:50%"><br><br>
+      <h4 class="text-secondary" style="font-style: italic;font-weight: bold;">Welcome to Medeil!..</h4>
+    </div><br>
+    <div class="pt-3" (click)="helpmenu1 = true;firstpopup = false" style="background-color: #00d7b5;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Start <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div>
+  </div>
+</div>
+<!--One time Help Menus-->
+<div [ngClass]="helpmenu1?'showtop':'hidetop'">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 16%;margin-left: 7%"></em> -->
+      <label class="helpcontent" style="margin: 14% 0px 0px 19%">
+        First you Enter Product's in Insert Products from Our Drug List & Enter Directly New Products via Add Product!..
+      <span style="cursor:pointer" (click)="helpmenu2 = true;helpmenu1 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help1.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="helpmenu2 = true;helpmenu1 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<div [ngClass]="helpmenu2?'showtop':'hidetop'">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 20%;margin-left: 7%"></em> -->
+      <label class="helpcontent" style="margin: 18% 0px 0px 19%">
+        First you Enter Product's in Insert Products from Our Drug List & Enter Directly New Products via Add Product!..
+      <span style="cursor:pointer" (click)="helpmenu3 = true;helpmenu2 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help2.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="helpmenu3 = true;helpmenu2 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<div [ngClass]="helpmenu3?'showtop':'hidetop'">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 14%;margin-left: 8%"></em> -->
+      <label class="helpcontent" style="margin: 13% 0px 0px 19%">
+      First you Enter Product's in Insert Products from Our Drug List & Enter Directly New Products via Add Product!..
+      <span style="cursor:pointer" (click)="helpmenu4 = true;helpmenu3 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help3.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="helpmenu4 = true;helpmenu3 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<div [ngClass]="helpmenu4?'showtop':'hidetop'">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 18%;margin-left: 8%"></em> -->
+      <label class="helpcontent" style="margin: 15% 0px 0px 19%">
+      First you Enter Product's in Insert Products from Our Drug List & Enter Directly New Products via Add Product!..
+      <span style="cursor:pointer" (click)="helpmenu5 = true;helpmenu4 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help4.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="helpmenu5 = true;helpmenu4 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<div [ngClass]="helpmenu5?'showtop':'hidetop'">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 18%;margin-left: 8%"></em> -->
+      <label class="helpcontent" style="margin: 16% 0px 0px 19%">
+      First you Enter Product's in Insert Products from Our Drug List & Enter Directly New Products via Add Product!..
+      <span style="cursor:pointer" (click)="helpmenu6 = true;helpmenu5 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help5.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="helpmenu6 = true;helpmenu5 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<div [ngClass]="helpmenu6?'showtop':'hidetop'">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 14%;margin-left: 8%"></em> -->
+      <label class="helpcontent" style="margin: 13% 0px 0px 19%">
+        First you Enter Product's in Insert Products from Our Drug List & Enter Directly New Products via Add Product!..
+      <span style="cursor:pointer" (click)="helpmenu7 = true;helpmenu6 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help6.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="shopsetup = true;helpmenu6 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<div [ngClass]="helpmenu7?'showtop':'hidetop'" align="right">
+  <div class="container1">
+    <div class=""><br><br>
+      <!-- <em class="helparrow" style="margin-top: 14%;margin-left: 8%"></em> -->
+      <label class="helpcontentup">See Profile Pages & Billings , Change Password & Logout..
+      <span style="cursor:pointer" (click)="shopsetup = true;helpmenu7 = false"><u><strong><br>Next</strong></u></span></label>
+      <!-- <img src="assets/images/helpmenu/help6.png" alt="helpmenu" style="height:480px;width:97%"> -->
+    </div><br>
+    <!-- <div class="pt-3" (click)="shopsetup = true;helpmenu6 = false" style="background-color: orange;color:white;cursor: pointer;border-radius:10px;">
+      <label class="" >Next <span class="ml-2"><em class="fa fa-arrow-right animated pulse infinite"></em></span></label>
+    </div> -->
+  </div>
+</div>
+<!--Payment Outstanting-->
+<div [ngClass]="payout?'showtop':'hidetop'" align="center">
+  <form  class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Account Payable</label>
+        <em class="fa fa-close" (click)="payout=false" style="cursor:pointer"></em>
+      </div><br>
+      <div class="mx-2" style="max-height:320px;overflow:auto">
+      <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+			#mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+				<thead>
+					<tr>
+						<th scope="col">S.No</th>
+						<th scope="col">Distributor Name</th>
+            <th scope="col">Invoice No</th>
+            <th scope="col">Invoice Date</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Payment Status</th>
+					</tr>
+				</thead>
+				<tbody>
+			    <tr *ngIf = "payoutdata ==''">
+              <td></td>
+              <td></td>
+              <td class="nodata">No Data Available..</td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr *ngFor = "let val of payoutdata;let i =index">
+              <td>{{i+1}}</td>
+              <td>{{val[2]}}</td>
+              <td>{{val[0]}}</td>
+              <td>{{val[3]}}</td>
+              <td>{{val[1]}}</td>
+              <td ngbDropdown class="text-center">
+                <a ngbDropdownToggle="" class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+                  <em class="icofont icofont-ui-settings"></em>
+                </a>
+                <div ngbDropdownMenu="" class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="javascript:;">
+                    <em class="icofont icofont-comment"></em>Pay</a>
+                  <!-- <a class="dropdown-item" href="javascript:;">
+                    <em class="icofont icofont-send-mail"></em>Mail</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <em class="icofont icofont-brand-whatsapp"></em>Whats App</a> -->
+                  <div role="separator" class="dropdown-divider"></div>
+                </div>
+              </td>
+          </tr>
+				</tbody>
+				<!-- <tfoot>
+					<tr>
+						<td colspan="6">
+							<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot> -->
+			</table>
+      </div><br>
+      <div class="mx-2" align="center">
+        <label class="text-secondary" style="cursor: pointer;font-weight:bold" (click)="payout=false;paycredit=true;">Next >></label>
+      </div>
+      
+    </div>
+    <!--Modal Content End-->
+  </form>
+</div><!--Payment Outstanting-->
+
+
+<!--Payment Pending Credit notes-->
+<div [ngClass]="paycredit?'showtop':'hidetop'" align="center">
+  <form  class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Account Receivable</label>
+        <em class="fa fa-close" (click)="paycredit=false" style="cursor:pointer"></em>
+      </div><br>
+      <div class="mx-2" style="max-height:320px;overflow:auto">
+      <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+			#mf="mfDataTable" [mfRowsOnPage]="3" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+				<thead>
+					<tr>
+						<th scope="col">S.No</th>
+						<th scope="col">Customer Name</th>
+            <th scope="col">Invoice No</th>
+            <th scope="col">Invoice Date</th>
+            <th scope="col">Amount</th>
+            <!-- <th scope="col">Payment Status</th> -->
+					</tr>
+					
+				</thead>
+				<tbody>
+			    <tr *ngIf = "(paycreditdata)==0">
+            <td></td>
+            <td></td>
+              <td class="nodata">No Data Available..</td>
+              <td></td>
+              <td></td>
+              <!-- <td></td> -->
+          </tr>
+          <tr *ngFor = "let val of paycreditdata;let i =index">
+              <td>{{i+1}}</td>
+              <td>{{val[6]}}</td>
+              <td>{{val[3]}}</td>
+              <td>{{val[7]}}</td>
+              <td>{{val[2]}}</td>
+              <!-- <td><button class="btn btn-success">Pay</button></td> -->
+          </tr>
+				</tbody>
+				<!-- <tfoot>
+					<tr>
+						<td colspan="5">
+							<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot> -->
+			</table>
+      </div><br>
+      <div class="mx-2" align="center">
+        <label class="text-secondary mr-3" style="cursor: pointer;font-weight:bold" (click)="payout=true;paycredit=false"><< Previous</label>
+        <label class="text-secondary" style="cursor: pointer;font-weight:bold" (click)="paycredit=false;refillflag=true">Next >></label>
+      </div>
+      
+    </div>
+    <!--Modal Content End-->
+  </form>
+</div><!--Payment Pending Credit notes-->
+
+<!--Refill Alerts-->
+<div [ngClass]="refillflag?'showtop':'hidetop'" align="center">
+  <form  class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Refill Alerts</label>
+        <em class="fa fa-close" (click)="refillflag=false" style="cursor:pointer"></em>
+      </div><br>
+      <div class="mx-3" align="left" *ngIf = "(refilldata)!=0">
+        <input type="checkbox" (click)="selectallrefill($event)">
+        <label class="ml-1">Select All</label>
+      </div>
+      <div class="mx-2" style="max-height:320px;overflow:auto">
+      <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="refilldata | dataFilter : filterQuery"
+			#mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+				<thead>
+					<tr>
+            <!-- <th scope="col">S.No</th> -->
+            <th scope="col">Select</th>
+						<th scope="col">Customer Name</th>
+            <th scope="col">Invoice No</th>
+            <th scope="col">Invoice Date</th>
+            <th scope="col">Refiil Days</th>
+            <th scope="col">Action</th>
+					</tr>
+					
+				</thead>
+				<tbody>
+			    <tr *ngIf = "(refilldata)==0">
+            <td></td>
+            <td></td>
+            <td class="nodata">No Data Available..</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr *ngFor = "let val of refilldata;let i =index">
+              <!-- <td>{{i+1}}</td> -->
+              <td><input type="checkbox" [checked]="val.flag" (click)="selectrefill(i)"></td>
+              <td>{{val.cusname}}</td>
+              <td>{{val.invno}}</td>
+              <td>{{val.invdate}}</td>
+              <td>{{val.rdays}}</td>
+              <td ngbDropdown class="text-center">
+                <a ngbDropdownToggle="" class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true" style="cursor: pointer;">
+                  <em class="icofont icofont-ui-settings"></em>
+                </a>
+                <div ngbDropdownMenu="" class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item" href="javascript:;">
+                    <em class="icofont icofont-comment"></em>SMS</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <em class="icofont icofont-send-mail"></em>Mail</a>
+                  <a class="dropdown-item" href="javascript:;">
+                    <em class="icofont icofont-brand-whatsapp"></em>Whats App</a>
+                  <div role="separator" class="dropdown-divider"></div>
+                </div>
+              </td>
+          </tr>
+				</tbody>
+				<!-- <tfoot>
+					<tr>
+						<td colspan="5">
+							<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot> -->
+			</table>
+      </div><br>
+      <div class="mx-2" align="center">
+        <label class="text-secondary mr-3" style="cursor: pointer;font-weight:bold" (click)="paycredit=true;refillflag=false"><< Previous</label>
+        <label class="text-secondary" style="cursor: pointer;font-weight:bold" (click)="refillflag=false;openregflag=true">Next >></label>
+      </div>
+      
+    </div>
+    <!--Modal Content End-->
+  </form>
+</div>  <!--Refill Alerts-->
+
+<!---Open register popup-->
+<div [ngClass]="openregflag?'showtop':'hidetop'" align="center">
+  <div  class="adminlay">
+    <div class="modalcont animated fadeindown">
+      <div class="modal-header">
+        <label class="form-label">Open Register</label>
+        <em class="fa fa-close" (click)="openregflag=false" style="cursor:pointer"></em>
+      </div><br>
+      <div class="px-2" style="max-height:320px;overflow:auto">
+        <form [formGroup]="shiftOpenedForm">
+          <div class="container" align="center">
+              <div class="mx-2 shiftclass">
+                  <label class="text-secondary" style="font-weight: bold;" *ngIf="employeename!=null">User: {{employeename}}</label><br>
+                  <select  class="sign-control" formControlName="counterid">
+                      <option value="opt1" disabled>--Select Counter--</option>
+                      <option value="1">Counter1</option>
+                      <option value="2">Counter2</option>
+                      <option value="3">Counter3</option>
+                      <option value="4">Counter4</option>
+                      <option value="5">Counter5</option>
+                  </select><br><br>
+                  <input type="text" class="sign-control" placeholder="Enter Previous Closed (or) Drawer Amount" formControlName="openbalance"><br>
+                  <div class="messages text-danger" *ngIf="shiftOpenedForm.controls.openbalance.errors?.pattern">Enter Only Numbers!..</div><br>
+                  <input type="text" class="sign-control" placeholder="Enter Current Opening (or) Hand in Cash Amount" formControlName="additionalamount"><br>
+                  <div class="messages text-danger" *ngIf="shiftOpenedForm.controls.additionalamount.errors?.pattern">Enter Only Numbers!..</div><br>
+                  <textarea placeholder="Notes" rows="3" cols="65" class="sign-control" style="height:18%;" formControlName="openregdetails"></textarea><br><br>
+                  <div class="" align="center">
+                      <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                  </div><br>
+                  <button type="button" class="btn-round" [disabled]="!shiftOpenedForm.valid" (click)="SaveOpenRegister()">Open Register</button>    
+              </div><br><br>
+          </div>
+      </form>
+      </div><br>
+      <div class="mx-2" align="center">
+        <label class="text-secondary mr-3" style="cursor: pointer;font-weight:bold" (click)="refillflag=true;openregflag=false"><< Previous</label>
+        <!-- <label class="text-secondary" style="cursor: pointer;font-weight:bold">Next >></label> -->
+      </div>
+      
+    </div>
+    <!--Modal Content End-->
+  </div>
+</div>

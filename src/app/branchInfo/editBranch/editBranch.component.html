@@ -1,0 +1,203 @@
+<app-card>
+	<div class="sub-title">Edit Details
+			<em class="fa fa-edit ficon"></em>
+		</div><br>
+		<table aria-describedby="mydesc" style="width:100%">
+			<tbody>
+			 <tr>
+			 <td style="width:95%">
+				<form [formGroup]="branchForm" (ngSubmit)="onSubmit()" class="mx-2">
+
+					<div class="form-group row">
+					  <div class="col-lg-4">
+							
+								<label class="form-label"><h6>Company Name</h6></label> <select
+									name="select" class="form-control" id="companyrefid"
+									formControlName="companyrefid" (click)= "getCompany()" >
+									<option value="opt1" selected disabled>---Select Company---</option>
+									<option *ngFor="let companyrefid of companies" value={{companyrefid[0]}}>{{companyrefid[1]}}</option>
+								</select>
+							
+						</div>			
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Branch Name</h6></label> <input
+									type="text" class="form-control" id="branchname"
+									placeholder="Enter Branch Name" formControlName="branchname">
+								<div class="messages text-danger"
+									*ngIf="branchForm.controls.branchname.touche && branchForm.controls.branchname.errors?.required">Enter
+									Branch Name</div>
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class=" form-label"><h6>Short Name</h6></label> <input
+									type="text" class="form-control" id="shortname"
+									placeholder="Enter Short Name" formControlName="shortname">
+							
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-4">
+							
+								<label class=" form-label"><h6>Contact Person Name</h6></label> <input
+									type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" id="contactperson"
+									placeholder="Enter Contact_Person Name"
+									formControlName="contactperson">
+							
+						</div>						
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Designation</h6></label> <input
+									type="text" class="form-control" id="desgination"
+									placeholder="Designation" formControlName="desgination">
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Email Id</h6></label> <input type="text"
+									class="form-control" id="email" placeholder="Enter Email Id"
+									formControlName="email">
+									<div class="messages text-danger"
+									*ngIf="branchForm.controls.email.errors?.pattern">Enter
+									 Correct Mail!</div>
+									
+							
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Mobile Number</h6></label> <input
+									type="number" class="form-control" id="mobileno"
+									placeholder="Enter Mobile Number" formControlName="mobileno">
+									<div class="messages text-danger"
+									*ngIf="branchForm.controls.mobileno.touched && branchForm.controls.mobileno.errors?.required">This Filed is Required*</div>
+							
+						</div>		
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>TIN</h6></label>
+								 <input type="text" onkeyup="this.value = this.value.toUpperCase();" 
+									class="form-control" id="tinno"
+									placeholder="Tax Identification Number" formControlName="tinno">
+							
+						</div>
+						<!-- <div class="col-lg-4">
+							
+								<label class="col-form-label"><h6>CST</h6></label> <input type="text"
+									class="form-control" id="cstno"
+									placeholder="Cetntral Service Tax" formControlName="cstno">
+							
+						</div> -->
+						<div class="col-lg-4">
+								
+									<label class="form-label"><h6>Address 1</h6></label> 
+									<input type="text"
+										class="form-control" id="address1" placeholder="Address 1"
+										formControlName="address1"><div class="messages text-danger"
+										*ngIf="branchForm.controls.address1.touched && branchForm.controls.address1.errors?.required">This Field is Required*</div>
+								
+							</div>
+					</div>
+					<div class="form-group row">
+						<!-- <div class="col-lg-4">
+							
+								<label class="col-form-label"><h6>PAN</h6></label> <input type="text"
+									class="form-control" id="panno"
+									placeholder="Permanent Account Number" formControlName="panno">
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class="col-form-label"><h6>GST</h6></label> <input type="text"
+									class="form-control" id="gstno" placeholder="Goods And Service Tax"
+									formControlName="gstno">
+							
+						</div> -->
+						
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Address 2</h6></label> <input type="text"
+									class="form-control" id="address2" placeholder="Address 2"
+									formControlName="address2">
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Country</h6></label> <select
+									name="select" class="form-control" id="country" 
+									formControlName="country" (change)="getState()">
+									<option value="opt1" selected disabled>---Select Country---</option>
+									<option *ngFor="let country of countries" value={{country[0]}}>{{country[1]}}</option>
+								</select>
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>State</h6></label> <select name="select"
+									class="form-control" id="state" formControlName="state"   (change)="getCity()">
+									<option value="opt1" selected disabled>---Select State---</option>
+									<option *ngFor="let state of states" value={{state[0]}}>{{state[2]}}</option>
+								</select>
+							
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-4">
+							
+								<label class="form-label" selected disabled><h6>City</h6></label> <select name="select"
+									class="form-control" id="city" formControlName="city" >
+									<option value="opt1" selected disabled>---Select City---</option>
+									<option *ngFor="let city of cities" value={{city[0]}}>{{city[1]}}</option>
+									
+								</select>
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>ZIP/PIN Code</h6></label>
+								 <input type="text" onkeyup="this.value = this.value.toUpperCase();" 
+									class="form-control" id="pincode" placeholder="Enter/Pin Code"
+									formControlName="pincode">
+							
+						</div>
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Phone Number</h6></label> <input
+									type="number" class="form-control" id="phoneno"
+									placeholder="Phone Number" formControlName="phoneno">
+							
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-lg-4">
+							
+								<label class="form-label"><h6>Country Code</h6></label> <select
+									name="select" class="form-control" id="countrycode"
+									formControlName="countrycode">
+									<option value="opt1" selected disabled>---Select CountryCode---</option>
+									<option *ngFor="let countrycode of ccode"  value={{countrycode}}>{{countrycode}}</option>
+								</select>
+							
+						</div>
+						<div class="col-lg-4">
+								
+										<label class="form-label"></label>
+										<button [disabled]="!branchForm.valid" type="submit" class="btn-round" style="margin-top: 30px;margin: 26px;">Update</button>
+														
+						</div>
+					</div>
+					</form>
+			</td>
+			  <td style="width:5%" valign="top">
+			 <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+			 </td>
+			 </tr>
+			</tbody>
+			</table>	
+
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

@@ -1,0 +1,26 @@
+/* input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+} */
+
+/* puthiran */
+
+.border {
+  border-radius: 1em;
+  border: 1px solid lightgrey !important;
+}
+
+textarea:focus {
+  outline: none !important;
+  box-shadow: 0 0 10px #002e86;
+}
+
+
+
+
+

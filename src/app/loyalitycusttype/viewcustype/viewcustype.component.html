@@ -1,0 +1,111 @@
+<style>
+  .nodata {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    color: rgb(245, 50, 50);
+    font-family: Verdana, Geneva, sans-serif;
+  }
+
+  .action {
+    font-size: 15px;
+    color: green;
+  }
+
+  .action1 {
+    font-size: 15px;
+    color: red;
+  }
+  .align td{
+    text-align: left;
+  }
+
+</style>
+
+<app-card>
+  <div class="sub-title">Customer Type Details
+    <em class="fa fa-print ficon"></em>
+   </div><br>   
+   <div align="right">
+
+    <button type="submit" class="btn-round" [routerLink]="['/CustomerType/CustomerType']">Add Customer Type</button>
+
+  </div>
+  <div class="searchbox" align="center">
+    <input type="search" [(ngModel)]="filterQuery" class="search" placeholder="Search Products">
+  </div>
+  <div align="center">
+    <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+  </div>
+  <div class="mr-2" align="right">
+    <select class="form-control countwidth" [(ngModel)]="rowsOnPage">
+      <!-- <option value="opt1" selected>--Select Count--</option> -->
+      <option [ngValue]="10">10</option>
+      <option [ngValue]="25">25</option>
+      <option [ngValue]="50">50</option>
+      <option [ngValue]="100">100</option>
+    </select>
+  </div><br>
+
+   
+
+
+  <div class="dt-responsive" style="overflow-x:auto" >
+    <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+      #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+       
+          <th scope="col"> S.No </th>
+          <th scope="col"> Customer Type</th>        
+          <th scope="col"> Minimum Loyality </th>
+          <th scope="col"> Minimum Amounyt</th>
+          <th scope="col"> Created Date </th>
+          <!-- <th scope="col"> Discount % </th> -->
+          <!-- <th scope="col"> Discount Amount </th>
+          <th scope="col"> Total Disc Products </th> -->
+         
+        </tr>
+        <tr>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+       
+          <td></td>
+          <td class="nodata">No Data Available!</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <!-- <td></td> -->
+          <!-- <td></td>
+          <td></td> -->
+       
+        </tr>
+        <tr *ngFor="let val of mf.data;let i=index">
+     
+          <td>{{i+1}}</td>
+          <td>{{val[1]}}</td>
+          <td>{{val[2]}}</td>
+          <td>{{val[3]}}.00</td>
+          <td>{{val[4]}}</td>
+          <!-- <td>{{val[5]}}</td>
+          <td>{{val[6]}}.{{fixeddec}}</td>
+          <td>{{val[7]}}</td> -->
+       
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="9">
+            <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
+  
+</app-card>
+<!-- <ng2-toasty [position]="position"></ng2-toasty> -->

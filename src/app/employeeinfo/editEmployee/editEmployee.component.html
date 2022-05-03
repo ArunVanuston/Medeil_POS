@@ -1,0 +1,289 @@
+<style>
+	input[type=radio] {
+		margin: 5px;
+
+	}
+</style>
+
+<div class="row">
+	<div class="col-sm-12">
+		<app-card>
+			<div class="sub-title">{{'employeeinfo.employeeeditdetails'| translate}}
+				<em class="fa fa-edit ficon"></em>
+			</div><br>
+			<table aria-describedby="mydesc" style="width:100%">
+				<tbody>
+				  <tr>
+				  <td style="width:95%">
+					<div align="right">
+						<button type="button" class="btn-round" [routerLink]="['/EmployeeRegister/ViewEmployee']">{{'employeeinfo.viewemployeedetails'| translate}}</button>
+					</div><br>
+					<form [formGroup]="employeeEdit" (ngSubmit)="onSubmit()" class="mx-2" autocomplete="off">
+						<div class="form-group row">
+							<div class="col-lg-4">
+								<label class="form-label">{{'employeeinfo.employeecode'| translate}}</label>
+								<input type="text" class="form-control" formControlName="employeecode" 
+								autocomplete="off" id="ecode" placeholder="Enter the EmployeeCode" autofocus readonly>
+							</div>
+		
+							<div class="col-lg-4">
+								<label class="form-label">{{'employeeinfo.employeemode'| translate}}</label>
+								<select name="select" class="form-control" formControlName="employeemode" >
+									<option  value="opt1" selected disabled>-- Select Mode --</option>
+									<option value="Permanent">Permanent</option>
+									<option value="Temprorary">Temporary</option>
+									<option value="Consulting">Consulting</option>
+									<option value="Studentjob">Student Job</option>
+									<option value="Flexyhoursjob">Flexi hours Job</option>	
+								</select>
+							</div>
+		
+							<div class="col-lg-4">
+								<label class="form-label">{{'employeeinfo.employeetype'| translate}}</label>
+								<select name="select" class="form-control" formControlName="employeetype" >
+									<option value="Fulltimehourly">Full Time Hourly</option>
+									<option value="Parttimesalaried">Part Time Salaried</option>
+									<option value="Contractor">Contractor</option>
+									<option value="Sub-Contractor">Sub-Contractor</option>
+									<option value="Apprentices">Apprentices or Trainees</option>
+								</select>
+							</div>
+						</div>
+		
+						<div class="form-group row">
+							<div class="col-lg-4">
+								<label class="form-label">{{'employeeinfo.employeefirstname'| translate}}
+									<span class="fontlangifbel">*</span>
+								</label>
+								<input type="text" class="form-control" id="fname" placeholder="Enter Employee First Name" 
+								autocomplete="off" formControlName="empfirstname">
+								<!-- <div class="messages text-danger" *ngIf="employeeEdit.controls.empfirstname.errors?.required">This Field is Required*</div> -->
+								<div class="messages text-danger" *ngIf="employeeEdit.controls.empfirstname.errors?.pattern">Text Only Accepts!</div>									
+							</div>
+		
+							<div class="col-lg-4">
+								<label class="form-label">{{'employeeinfo.employeelastname'| translate}}</label>
+								<input type="text" class="form-control" id="lname" placeholder="Enter Employee Last Name" 
+								autocomplete="off" formControlName="emplastname">
+								<div class="messages text-danger" *ngIf="employeeEdit.controls.emplastname.errors?.pattern">Text Only Accepts!</div>
+							</div>
+
+							<div class="col-lg-4">
+								<label class="form-label semibold">{{'employeeinfo.dateofbirth'| translate}}</label>
+								<input type="date" class="form-control" id="dob" placeholder="Enter Employee DOB"
+								autocomplete="off" formControlName="dob" (change)="agecalculate($event.target.value)">
+								<div class="messages text-secondary" style="font-weight:bold">Age: {{employeeEdit.controls.age.value}}</div>
+							</div>
+						</div>
+						
+						<div class="form-group row">
+							<div class="col-lg-4">
+								<label class="form-label semibold">{{'employeeinfo.dateofjoin'| translate}}
+									<span class="fontlangifbel">*</span>
+								</label>
+								<input type="date" class="form-control" id="jdate" placeholder="Enter your joining date" required="true"
+								 formControlName="joiningdate">
+								<!-- <div class="messages text-danger" *ngIf="employeeEdit.controls.joiningdate.errors?.required">This Field is Required*</div> -->
+							</div>
+		
+							<div class="col-lg-4">
+								<label class="form-label mb-2">{{'employeeinfo.employeegender'| translate}}</label><br>
+								<label>
+									<input type="radio" value="Male" name="gender" formControlName="gender"> Male
+								</label>
+								<label>
+									<input type="radio" value="Female" name="gender" formControlName="gender">Female
+								</label>
+							</div>
+						
+							<div class="col-lg-4">
+								<label class="form-label semibold">{{'employeeinfo.allowlogin'| translate}}</label><br>
+								<label>
+									<input type="radio" value="Yes" name="allowlogin" formControlName="allowlogin">Yes
+								</label>
+								<label>
+									<input type="radio" value="No" name="allowlogin" formControlName="allowlogin">No
+								</label>
+							</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+									<label class="form-label semibold">{{'employeeinfo.employeemobileno'| translate}}
+										<span class="fontlangifbel">*</span>
+									</label>
+									<input type="number" class="form-control" id="dob" placeholder="Enter Employee Mobile No" 
+									required="true" formControlName="mobileno" autocomplete="off">
+									<!-- <div class="messages text-danger" *ngIf="employeeEdit.controls.mobileno.errors?.required">This Field is Required*</div> -->
+								</div>		
+										
+								<div class="col-lg-4">
+									<label class="form-label">{{'employeeinfo.employeeemailid'| translate}}</label>
+									<input type="text" class="form-control" id="email" placeholder="Enter Employee Mail id" formControlName="email"
+									autocomplete="off">
+									<div class="messages text-danger" *ngIf="employeeEdit.controls.email.errors?.pattern">Enter Correct Mail!</div>
+								</div>	
+
+								<div class="col-lg-4">
+									<label class="form-label">{{'employeeinfo.department'| translate}}</label>
+									<select name="select" class="form-control" placeholder="Select Department"
+									formControlName="deptrefid" (change)="getSubDepartment()">
+									<option selected disabled value="0">---Select Department---</option>
+									<option *ngFor="let dept of departmentarr" value="{{dept[0]}}"> {{dept[1]}}
+									</option>
+									</select>	
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+									<label class="form-label">{{'employeeinfo.subdepartment'| translate}}</label>
+									<select name="select" class="form-control" placeholder="Select Sub Department"
+										formControlName="subdeptrefid" (change)="getDivision()">
+										<option selected disabled value="0">---Select Sub Department---</option>
+										<option *ngFor="let subdept of subdepartmentarr;" value="{{subdept[0]}}"> {{subdept[1]}}
+										</option>									
+									</select>	
+								</div>
+								<div class="col-lg-4">
+									<label class="form-label">{{'employeeinfo.division'| translate}}</label>
+									<select name="select" class="form-control" placeholder="Select Division"
+										formControlName="divisionid" (change)="getSubDivision()">
+										<option selected disabled value="0">---Select Division---</option>
+										<option *ngFor="let division of divsionarr;" value="{{division[0]}}"> {{division[1]}}
+										</option>								
+									</select> 
+								</div>
+	
+								<div class="col-lg-4">
+									<label class="form-label">{{'employeeinfo.subdivision'| translate}}</label>
+									<select name="select" class="form-control" placeholder="Select Sub Division"
+										formControlName="subdivisionid">
+										<option selected disabled value="0">---Select Sub Division---</option>
+										<option *ngFor="let subdivision of subdivsionarr;" value="{{subdivision[0]}}">
+											{{subdivision[1]}}
+										</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group row">
+								<div class="col-lg-4">
+									<label class="form-label">{{'employeeinfo.designation'| translate}}</label>
+									<input type="text" class="form-control" id="desgination" placeholder="Enter Employee Desgination"
+									 formControlName="desgination" autocomplete="off">
+									<div class="messages text-danger" *ngIf="employeeEdit.controls.desgination.errors?.pattern">Text Only Accepts!</div>
+								</div>
+								<div class="col-lg-4">
+			
+									<label class="form-label">{{'employeeinfo.employeephoto'| translate}}</label>
+			
+										<div class="form-inline">
+											<input type="file" class="form-control" id="imagefile"
+											(change)="empphotoChange($event)" #fileInput accept="image/*"/>
+				
+											<span class="fa fa-eye mt-2" style="cursor: pointer" (click)="imageshow()" *ngIf="showeye"></span>
+											<span class="fa fa-eye-slash mt-2" style="cursor: pointer" (click)="hide()" *ngIf="showeyeslash"></span>
+											<span class="fa fa-trash mt-2 ml-2" style="cursor: pointer" (click)="reset()"></span>
+										</div><br>
+				
+											<div class="imageview" *ngIf="showimage">
+											<img [src]="imgURL" alt="altitem" height="180" width="260"/>
+											</div>
+				
+											<span style="color:red;" *ngIf="message">{{message}}</span>
+			
+								</div>
+			
+								<!-- <div class="col-lg-4">
+									<label class="form-label">Employee Signature (Upload Size Max 500 KB)</label>
+										<div class="form-inline">
+											<input type="file" class="form-control" id="signfile"
+											(change)="signChange($event)" #fileInput accept="image/*"/>
+											<span class="fa fa-eye mt-2" style="cursor: pointer" (click)="signshow()" *ngIf="signshoweye"></span>
+											<span class="fa fa-eye-slash mt-2" style="cursor: pointer" (click)="signhide()" *ngIf="signshoweyeslash"></span>
+											<span class="fa fa-trash mt-2 ml-2" style="cursor: pointer" (click)="signreset()"></span>
+										</div><br>
+				
+										<div class="imageview" *ngIf="signshowimage">
+										<img [src]="signimgURL" alt="altitem" height="180" width="260"/>
+										</div>
+										<span style="color:red;" *ngIf="signmessage">{{signmessage}}</span>
+								</div> -->
+			
+							</div><br>			
+					
+						<div class="form-group row">
+							<div class="col-lg-1"></div>
+							<div class="col-lg-3">
+								<button type="submit" class="btn-round"
+								[disabled]="!employeeEdit.valid">Save</button>
+							</div>
+						</div>
+					</form>		
+				 </td>
+				  <td style="width:5%" valign="top">
+					<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+				 </td>
+				  </tr>
+				</tbody>
+			</table>
+		</app-card>
+		<ng2-toasty [position]="'center-center'"></ng2-toasty>
+	</div>
+</div>
+
+
+	<!--<div class="form-group row">
+							<div class="col-lg-4">
+								
+									<label class="form-label">Blood Group</label>
+									<input type="text" class="form-control" id="bgroup" placeholder="Enter Employee Blood Group" formControlName="bloodgroup">
+									<div class="messages text-danger" *ngIf="employeeEdit.controls.bloodgroup.errors?.required">This Field is Required*</div>
+								
+							</div>
+		
+							<div class="col-lg-4">
+									
+										<label class="form-label">Current Salary Per Month</label>
+										<input type="text" class="form-control" id="esalary" placeholder="Enter Employee Salary" formControlName="empsalary">
+									
+							</div>
+							<div class="col-lg-4">
+								
+									<label class="form-label">Company Email Id</label>
+									<input type="text" class="form-control" id="cemail" placeholder="Enter Company Mail id" formControlName="compemail">
+									<div class="messages text-danger" *ngIf="employeeEdit.controls.compemail.errors?.pattern">Enter Correct Mail!</div>
+								
+							</div>
+							<div class="col-lg-4">
+								
+									<label class=" col-form-label">PAN Card</label>
+									<input type="text" onkeyup="this.value = this.value.toUpperCase();"  class="form-control" id="pancard" placeholder="Enter Employee Pancard Number" formControlName="pancard">
+									
+								
+							</div>
+							 
+							<div class="col-lg-4">
+									
+										<label class="form-label">Passport</label>
+										<input type="text" class="form-control" id="passport" placeholder="Enter Employee Passport Number" formControlName="passport">
+									
+							</div>
+						</div>-->
+						
+					
+		
+						
+						<!-- <div class="form-group row">
+		
+							 <div class="col-lg-4">
+								
+									<label class=" col-form-label">Aadhar Card</label>
+									<input type="text" class="form-control" id="adharcard" placeholder="Enter Employee AdharCard Number" formControlName="aadharcard">
+									<div class="messages text-danger" *ngIf="employeeEdit.controls.aadharcard.errors?.pattern">Number only allowed..</div>
+								
+							</div>
+		
+						</div> -->
+		

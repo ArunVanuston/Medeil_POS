@@ -1,0 +1,84 @@
+<style>
+  .nodata {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    color: rgb(245, 50, 50);
+    font-family: Verdana, Geneva, sans-serif;
+  }
+
+  .action {
+    font-size: 15px;
+    color: green;
+  }
+
+  .action1 {
+    font-size: 15px;
+    color: red;
+  }
+</style>
+<app-card>
+  <form [formGroup]="taxtypeForm" (ngSubmit)="onSubmit()">
+    <div class="sub-title" style="font-size: 20px;">Add TaxType
+      <em style="float:right" class="fa fa-percent" aria-hidden="true"></em>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">Country</label>
+        <select name="select" class="form-control" formControlName="countryrefid">
+          <option value="opt1" selected disabled>---Select country---</option>
+          <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="vat_gst" checked="checked" formControlName="vat_gst" [value]="0" value="0">
+              <em class="helper"></em>VAT
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="vat_gst" formControlName="vat_gst" [value]="1" value="1">
+              <em class="helper"></em>GST
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="vat_gst" formControlName="vat_gst" [value]="2" value="2">
+              <em class="helper"></em>INDIAN GST
+            </label>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" id="2" name="radio">
+                <em class="helper"></em>Indian GST
+              </label>
+            </div>
+          </div>
+        </div>-->
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <button type="submit" class="btn btn-success btn-round">Save</button>
+      </div>
+    </div>
+  </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

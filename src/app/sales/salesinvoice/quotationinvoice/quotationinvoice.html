@@ -1,0 +1,1649 @@
+<style>
+    
+    .salesgrid{
+        background-color: white;
+    }
+  
+    .desktopfield:before {
+    content:'';
+    position:absolute;
+    width:2px;
+    height:100%;
+    background:linear-gradient(to bottom, #00d7b5, gray, #00d7b5);
+    left:0;
+    top:0.5%;
+    }
+  
+    .topdeskborder:before{
+      content:'';
+      position:absolute;
+      width:100%;
+      height:3px;
+      background:linear-gradient(to right, #00d7b5, gray, #00d7b5);
+      left:0;
+    }
+  
+    .mobilefield{
+        display:none;
+    }
+  
+   
+    .borderform {
+        border: 2px solid #b3b3b3;
+        border-radius: 5px;
+        padding: 0.8em;
+    }
+  
+    .inputstyle{
+      width:100%;
+      height:35px;
+      border:1px solid lightgray;
+      background-color: #F8F8F8;
+      border-radius: 5px;
+      outline: none;
+    }
+  
+    .inputstyle:focus{
+        border: 2px solid gray;
+    }
+  
+    .inputstyle:disabled,
+    .inputstyle[readonly] {
+        font-weight: bold;
+        font-size: 18px;
+    }
+  
+    .salesbtn{
+    border-radius: 1rem;
+    /* background-image: linear-gradient(90deg,gray,#00d7b5); */
+    border-color:  transparent ;
+    text-align:center;
+    font-family:Montserrat;
+    color: #fff;
+    cursor:pointer;
+    padding:9px 6px;
+    margin:5px;
+    background-color: #002e86;
+    outline:none;
+    width:110px
+    }
+  
+    .popsalesbtn{
+    border-radius: 1rem;
+    /* background-image: linear-gradient(90deg,gray,#00d7b5); */
+    border-color:  transparent ;
+    text-align:center;
+    font-family:Montserrat;
+    color: #fff;
+    cursor:pointer;
+    padding:5px 3px;
+    margin:5px;
+    background-color: #002e86;
+    outline:none;
+    width:95px
+    }
+    
+    .sdruglabel{
+        border: 2px solid grey;
+        border-radius: 8px;
+        background-color: white;
+        position: absolute;
+        z-index: 1;
+        overflow-y: auto;
+        max-height: 310px;
+    }
+  
+    .sdruglabel .lhead{
+        /* background-image: linear-gradient(to right,#002e86,orange); */
+        font-family: Montserrat;
+        font-size: 16px;
+        font-weight: bold;
+        color: #FFFFFF;
+        padding:3px;
+        background-color: #002e86;
+    }
+  
+    .sdruglabel .lbody{
+        font-family: Montserrat;
+        font-size: 14px;
+        text-align: left
+    }
+  
+    .sdruglabel .table td, .table th {
+        padding: 4px;
+        text-align:left;
+    }
+  
+    .sdruglabel .lbody td input {
+        border: transparent;
+        width:240px;
+    }
+  
+    tr.selectrow:hover{
+        background-color: #e9ecef;
+    }
+  
+    .texthighlight{
+        background-image: linear-gradient(to bottom, orangered,#002e86);
+    -webkit-background-clip: text;
+      -moz-background-clip: text; 
+      background-clip: text;
+      color: transparent;
+    }
+  
+    .sidenavshow {
+      border-left:2px solid #002e86;
+    }
+  
+    #swidth1{
+        width:380px;
+        text-align: left;
+    }
+  
+    .modalcont1{
+        width:48%;
+        background-color: white;
+        margin-top: 9em;
+        border-radius: 25px;
+        border: 2px solid #002e86;
+        max-height:350px;
+    }
+  
+    .modal-header1 {
+      position: absolute;margin: 12px -30px 0px;
+      color: grey;
+      font-size: 15px;
+      cursor: pointer;
+    }
+  
+    .voiceicon{
+      position: absolute;
+      margin-left: -28px;
+      padding-top: 12px;
+      font-size: 23px;
+      color:#b3b3b3;
+    }
+  
+    .savefocus:focus{
+        border:2px solid #00d7b5;
+        outline: none;
+    }
+  
+  .deliverytable th{
+        border:none;
+        font-weight: normal;
+        font-size:15px;
+    }
+  
+    
+  .deliverytable input{
+        border:none;
+        font-weight: bold;
+        font-size:16px;
+    }
+  
+    @media (max-width: 512px) {
+  
+    .sidenavshow {
+      width:260px;
+    }
+   
+   .modalcont1{
+       width:93%;
+   }
+  
+   .icontents{
+      padding:0.1em 0.3em !important;
+      margin:0px 2px;
+      height:50px;
+   }
+    .sdruglabel{
+      width:300px;
+    }
+    .sdruglabel .lhead{
+        font-size: 14px;
+        padding:2px;
+        width:370px;
+    }
+  
+    .sdruglabel .lbody{
+        font-size: 12px;
+    }
+  
+    .sdruglabel .table td, .table th {
+        padding: 3px 2px;
+    }
+  
+  }
+  
+  @media only screen and (min-width: 510px) and (max-width: 720px){
+  
+  .sidenavshow {
+    width:260px;
+  }
+  
+  .modalcont1{
+     width:93%;
+  }
+  
+  .icontents{
+    padding:0.1em 0.3em !important;
+    margin:0px 2px;
+    height:50px;
+  }
+  
+   .sdruglabel{
+      width:470px;
+   }
+  
+   .sdruglabel .lhead{
+        font-size: 15px;
+        padding:2px;
+    }
+  
+    .sdruglabel .lbody{
+        font-size: 13px;
+    }
+  
+    .sdruglabel .table td, .table th {
+        padding: 3px;
+    }
+  
+  }
+  
+  .flex {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: overlay;
+    overflow-y: hidden;
+    }
+  
+  .icontents{
+      background-color: #00d7b5;
+      color:#002e86;
+      padding:0.3em 0.6em;
+      margin:0px 3px;
+      cursor:pointer;
+      width:12em;
+  }
+  
+  .icontents:hover{
+      background-color: darkgrey;
+      color:black;
+  }
+  
+    
+    .paymethods{
+      background-color: #002e86;
+      color: white;
+      height: 68px;
+      width: 68px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-right:1em;
+    }
+  
+    #interactive{
+      position:absolute;
+      z-index:1;
+      top:1.3em;
+      height:0;
+      width:0;
+  }
+  
+  .shortexpiry{
+    color:orange;
+  }
+  
+  .expiry{
+    color:brown;
+    animation: blinker 1s linear infinite;
+    }
+  
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+    /* input[type=text]:focus{
+      box-shadow: 0 0 7px #b3b3b3;
+    } */
+  </style>
+  <app-card>
+    <div class="row p-1" style="background-color: #002e86;color:white">
+        <div class="flex" align="center">
+        <div class="icontents" [routerLink]="['/OpenRegister/OpenRegister']" title="Open Register">Op-Register</div>
+        <div class="icontents" [routerLink]="['/CloseRegister/CloseRegister']" title="Close Register">Cl-Register</div>
+        <div class="icontents" [routerLink]="['/SalesInvoice/SalesInvoice']" title="SalesInvoice">S-Invoice</div>
+        <div class="icontents" [routerLink]="['/QuotateInvoice/QuotateView']" title="SalesInvoice">Q-Inv-View</div>
+        <div class="icontents" title="ADD Prescription"></div><!--(click)="showpresc=true"-->
+        <div class="icontents" title="ADD New Drug"></div><!--(click)="newproduct=true;addNewProduct()"-->
+        <div class="icontents"  title="Loyalty"></div><!--(click)="loyaltyprocess(1)"-->
+        <div class="icontents"  title="Gift Card"></div><!--(click)="giftcardflag=true"-->
+        <!-- <div class="icontents" (click)="atcprocess=true" title="ATC Details">WHO-ATC</div>
+        <div class="icontents" (click)="underprogress()" title="Disease Mapping">Dis-Map</div>
+        <div class="icontents" (click)="underprogress()" title="Pharmacy Advisers">Advise</div>-->
+        <div class="icontents" title="Home Delivery"></div><!--(click)="underprogress()"-->
+        <div class="icontents" title="Add-Ons"></div> <!--(click)="addonsprocess=true"-->
+        <div class="icontents" title="Process"></div><!--(click)="underprogress()" -->
+        </div>
+      </div>
+      <form [formGroup]="SalesinvoiceForm" (window:keydown)="windoweventclose($event)">
+  
+        <!-- <div class="" align="center">
+            <label style="color:#002e86;font-weight: bold;">{{selecteddrug}}</label>
+        </div> -->
+        <div id="interactive" class="viewport">
+            <!-- QuaggaJS will populate this element -->
+        </div>
+        
+        <div class="row px-2 pt-1" style="border-width:0px 2px;border-color:#002e86;border-style:solid">
+            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                <ng-select [options]="salesinvcustomers" class="inputstyle" id="customfocus" formControlName="customerrefid" placeholder="Search Cust Name/Mobile" 
+                    (input)="searchallcustomers($event.target.value)" (change)="getinvcustomerinfo()" (click)="getinvcustomerinfo()" 
+                    *ngIf="SalesinvoiceForm.controls.salesbilltype.value==1 && holdflag==0 && !refillinvoiceflag" #custfocus> </ng-select>
+                <ng-select [options]="salesordercustomers" class="inputstyle" id="sorderevent" formControlName="customerrefid" placeholder="Search By Customer Name" 
+                    (input)="SearchSalesOrdersCustomers($event.target.value)" (change)="getsordercustomerinfo()" (click)="getsordercustomerinfo()"
+                    *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2 && !convertinvoicedetails && !refillinvoiceflag"> </ng-select>
+            </div>
+           
+            <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <select class="inputstyle" id="sorderevent" (change)="getSalesOrderProd($event.target.value)" formControlName="salesorderrefid"
+                *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2 && !convertinvoicedetails && !refillinvoiceflag">
+                    <option value="0"> --Select Sales Order No-- </option>
+                    <option *ngFor="let item of salesorders; let i = index" value={{item[0]}}>{{item[1]}}
+                    </option>
+                </select>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4" align="center">
+                <select class="select2" class="inputstyle" formControlName="doctorrefid" style="width:90%" #doctorfocus>
+                    <option  value="0">--Select Doctor--</option>
+                    <option *ngFor="let item of doctorslist; let i = index" value={{item[0]}}>{{item[1]}}
+                    </option>
+                </select>
+            </div><br><br>
+            <div class="col-xs-6 col-sm-6 col-md-5 col-lg-5 col-xl-5"  align="center"><!--*ngIf="productsearch"-->
+                <input type="text" class="search mt-1"  style="width:100%;text-align: left;" 
+                [placeholder]="productsearch?'Search by Product':'Search by Generic'" (input)="searchdrug($event.target.value,1)" 
+                (keydown)="drugkeyselect($event,$event.target.value)" autocomplete="off" id="drugfocus1" #drugfocus/>   
+                <em class="fa fa-microphone voiceicon" style="cursor:pointer" id="speechcolor" (click)="speechsearch()"></em>
+                <h6 id="speechinput" style="color:#002e86"></h6>
+                <input type="hidden" #speechhide (click)="searchdrug($event.target.value,0)">
+                <div class="sdruglabel" *ngIf="searcheddrugvalues.length>0">
+                    <table aria-describedby="mydesc" class="table">
+                        <thead class="lhead">
+                        <tr>
+                            <th scope="col" *ngIf="SalesinvoiceForm.controls.searchcheck.value==2">Generic Name</th>
+                            <th scope="col"> Drug Name </th>
+                            <th scope="col" *ngIf="SalesinvoiceForm.controls.searchcheck.value==1"> Generic Name </th>
+                            <th scope="col"> Batch No </th>
+                            <th scope="col">Price</th>
+                            <th scope="col"> Qty </th>
+                            <th scope="col"> Expiry Date </th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="lbody">
+                        <tr *ngFor="let drugdata of searcheddrugvalues; let i=index" class="selectrow"
+                        [style.background-color]="i == selectedIndex ? '#e9ecef':'' " (click)="selecteddrugdata(drugdata)">
+                        <!--[style.color]="drugdata[13]<=drugdata[12] && drugdata[13]>0 ? 'orange': drugdata[14]==1 ? 'red' : ''"-->
+                           <td *ngIf="SalesinvoiceForm.controls.searchcheck.value==2"><label> {{drugdata[8]}} </label></td>
+                           <td><label style="width:260px;overflow: hidden;"> {{drugdata[0]}} </label></td> 
+                           <td *ngIf="SalesinvoiceForm.controls.searchcheck.value==1"><label> {{drugdata[8]}} </label></td>
+                           <td><label> {{drugdata[6]}} </label></td>
+                           <!-- <td><input onload="this.value = this.value.toFixed(2)" [value]="drugdata[11]" id="width1"/></td> -->
+                           <td><label style="font-weight: bold;"> {{drugdata[11]}} </label></td>
+                           <td><label style="font-weight: bold;"> {{drugdata[3]}} </label></td>
+                           <td><label> {{drugdata[7]}} </label></td>
+                           <td><em class="fa fa-square" style="font-size:21px"
+                            [style.color]="drugdata[13]<=drugdata[12] && drugdata[13]>0 ? 'orange': drugdata[14]==1 ? 'red' : '#002e86'"></em></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>  
+            </div>
+    
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" align="center">
+                <label style="font-weight:bold">Qty:</label>  <!-- id="setqty"  (blur)="blurproductsinsert()"-->
+                <input type="number" class="search ml-1 mt-1" style="background: white;width:85px;padding:7px 0px" placeholder="0" formControlName="formqty" (keyup)="viewproducts($event)" (blur)="mobviewproducts()" autocomplete="off" #qtyfocus/>   
+            </div>
+    
+            <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4 col-xl-4" align="center">
+                <input type="text" class="search mt-1" style="background:white;width:90%;text-align: left;" (input)="barcodeinput($event.target.value)" (keydown)="barcodeinputsearch($event)" placeholder="Barcode" formControlName="barcodeval" autocomplete="off" #barcodefocus/>
+                <em class="fa fa-barcode voiceicon" style="cursor:pointer;padding-top:14px;font-size:21px" *ngIf="!barscan" (click)="barcodescan()"></em>
+                <em class="fa fa-barcode voiceicon" style="cursor:pointer;padding-top:14px;font-size:21px;color:cornflowerblue" *ngIf="barscan" (click)="barcodeend()"></em>
+            </div>
+        </div>  
+        <div class="row px-2" style="border-width:0px 2px;border-color:#002e86;border-style:solid">
+          <div class="col-xs-5 col-sm-5 col-md-4 col-lg-4 col-xl-4" align="center">
+              <div class="mt-1" align="center">
+                  <input type="radio" [value]="1"  formControlName="searchcheck" (click)="searchcheck($event,1)" class="">
+                  <label class="form-label mr-3">Product Search</label>
+                  <input type="radio" [value]="2" formControlName="searchcheck" (click)="searchcheck($event,2)" class="">
+                  <label class="form-label">Generic Search</label>
+                </div>
+          </div>
+          <div class="col-md-8 col-lg-8 col-xl-8">
+              <div class="displayproducts row px-1 pt-1">
+                  <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                      <label class="form-label">Product Name:</label> 
+                      <label class="form-label ml-2" style="font-weight:bold; font-size: 14px">
+                       {{productnameref}}</label>  
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                      <label class="form-label">Avl Qty:</label> 
+                      <label class="form-label ml-2" style="font-weight:bold; font-size: 16px">
+                       {{qtyref}}</label>  
+                  </div>
+              </div>
+          </div>
+        </div>
+        <!---New Side Panel  Changes-->
+        <div class="row bg-white" style="border-top:2px solid #002e86">
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <label class="form-label"> Employee Id:</label>
+                <label class="form-label ml-1" style="font-size:17px;font-weight: bold;"> {{SalesinvoiceForm.controls.employeerefid.value}} </label>
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <label class="form-label semibold"> Customer Type: </label>
+                <label class="form-label ml-1" style="font-size:17px;font-weight: bold;"> {{SalesinvoiceForm.controls.customertype.value}} </label>
+            </div>
+            <!-- <div class="col-xs-4 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <label class="form-label" *ngIf="holdflag==1" style="font-weight:bold;text-align: center;">{{holdcustname}}</label>
+                <label class="form-label" *ngIf="refillinvoiceflag" style="font-weight:bold;text-align: center;">{{SalesinvoiceForm.controls.delname.value}}</label>
+                <div class="" *ngIf="!refillinvoiceflag && holdflag==0">
+                    <div class="panel1" style="width:50%;float:left">
+                        <input type="radio" [value]="2" formControlName="salesbilltype" (click)="salesinvorderchanges(2)"/>
+                        <label class="form-label ml-1"> Sls_Order </label>
+                    </div>
+                    <div class="panel2" style="width:50%;float:right">
+                        <input type="radio" [value]="1" formControlName="salesbilltype" (click)="salesinvorderchanges(1)"/>
+                        <label class="form-label ml-1"> Sls_Invoice </label>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-xs-2 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <label class="form-label"> Date:</label>
+                <label class="form-label ml-1" style="font-size:17px;font-weight: bold;"> {{showbilldate}} </label>
+            </div><br>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <!-- <div class="title1" style="color:#002e86"><u>Invoice Products</u></div> -->
+                <div formArrayName="invoice" class="flow" style="max-height:265px;">
+                    <!--. table  start-->
+                    <table aria-describedby="mydesc" class="table styletab">
+                        <thead class="stylehead">
+                            <tr>
+                                <th scope="col"><em class="fa fa-close" style="font-size:21px"></em></th>
+                                <!-- <th scope="col"> S. No</th> -->
+                                <!-- <th scope="col">Prod Code</th> -->
+                                <th scope="col">Product Name</th>
+                                <th scope="col" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">Soqty</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Free Qty</th>
+                                <th scope="col">Dis (%) </th>
+                                <th scope="col">Unit Price</th>
+                                <th scope="col" *ngIf="taxid==0">VAT </th>
+                                <th scope="col" *ngIf="taxid==1">GST </th>
+                                <th scope="col" *ngIf="taxid==2"> IGST </th>
+                                <th scope="col" *ngIf="taxgstid==1 || taxgstid==2"> CGST </th>
+                                <th scope="col" *ngIf="taxgstid==1"> SGST </th>
+                                <th scope="col" *ngIf="taxgstid==2"> UGST </th>
+                                <th scope="col">SRP</th>
+                                <th scope="col">Batch No</th>
+                                <th scope="col">HSN Code</th>
+                                <th scope="col">Expiry Date</th>
+                                <th scope="col" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">Batch Qty </th>
+                                <th scope="col">Description</th>
+                                <th scope="col">SUB Drug</th>
+                                <th scope="col" *ngIf="dummyindex[0]==true">{{dummyindexlabel[0]}}</th>
+                                <th scope="col" *ngIf="dummyindex[1]==true">{{dummyindexlabel[1]}}</th>
+                                <th scope="col" *ngIf="dummyindex[2]==true">{{dummyindexlabel[2]}}</th>
+                                <th scope="col" *ngIf="dummyindex[3]==true">{{dummyindexlabel[3]}}</th>
+                                <th scope="col" *ngIf="dummyindex[4]==true">{{dummyindexlabel[4]}}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+      
+                            <tr *ngFor="let address of SalesinvoiceForm.controls.invoice.controls; let i=index"
+                                [formGroupName]="i">
+      
+                                 <td>
+                                    <em class="fa fa-trash text-secondary" title="Remove Row" id="width1" style="font-weight: bold;cursor:pointer;color:brown" (click)="removerow(i)"></em>
+                                </td> 
+                                <td>
+                                    <input formControlName="productname" id="width6" style="text-align:left" readonly />
+                                </td>
+                               
+                                <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                    <input type="text" formControlName="soqty"  id="width2"  readonly/>
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="indvqty" (blur)="calculation()" id="width2"/>
+                                </td>
+                                <td>
+                                    <input type="number"  formControlName="indvfreeqty" id="width2" />
+                                </td>
+                               
+                                <td>
+                                    <input type="number" formControlName="unitdiscount" (blur)="calculation()" id="width1" style="display:none"/>
+                                    <input type="number" formControlName="dummyunitdiscount" (blur)="calculation()" id="width1"/>
+                                </td>
+                                
+      
+                                <td>
+                                    <input type="number" formControlName="unitprice" (blur)="calculation()" id="width3" style="text-align:right" />
+                                </td>
+                                <td *ngIf="taxid==0">
+                                    <input type="number" formControlName="unitvat" (blur)="calculation()" id="width1" readonly/>
+                                </td>
+                                <td *ngIf="taxid==1">
+                                  <input type="number" formControlName="unitgst" (blur)="calculation()" id="width1" readonly/>
+                              </td>
+                                <td *ngIf="taxid==2">
+                                  <input type="number" formControlName="unitigst" (blur)="calculation()" id="width1" />
+                                </td>
+                                <td *ngIf="taxgstid== 1 || taxgstid==2">
+                                  <input type="number" formControlName="unitcgst" (blur)="calculation()" id="width1" />
+                               </td>
+                                <td *ngIf="taxgstid==1">
+                                    <input type="number" formControlName="unitsgst" (blur)="calculation()" id="width1" />
+                                </td>
+                                <td *ngIf="taxgstid==2">
+                                  <input type="number" formControlName="unitutgst" (blur)="calculation()" id="width1" />
+                                </td>
+                                <td>
+                                    <input type="number" formControlName="subtotal" id="width4" style="text-align:right" readonly/>
+                                </td>
+                                <td>
+                                    <input formControlName="batchname" id="width4" style="text-align:left" readonly />
+                                </td>
+                                <td>
+                                  <input formControlName="hsncode" id="width4" style="text-align:left" readonly />
+                                  </td>
+                                <td>
+                                    <input formControlName="expirydate" readonly/>
+                                </td>
+                                <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                    <input formControlName="crntstkqty" id="width3" readonly/>
+                                </td>
+                                <td>
+                                  <input formControlName="remarks" id="width6" style="text-align:left" />
+                                </td>
+                                <td>
+                                    <em class="fa fa-medkit" style="cursor:pointer" id="width2" (click)="getsubdrug(i)"></em>
+                                </td>
+                                <td *ngIf="dummyindex[0]==true">
+                                    <input formControlName="dummyvalue1" />
+                                </td>
+                                <td *ngIf="dummyindex[1]==true">
+                                    <input formControlName="dummyvalue2" />
+                                </td>
+                                <td *ngIf="dummyindex[2]==true">
+                                    <input formControlName="dummyvalue3" />
+                                </td>
+                                <td *ngIf="dummyindex[3]==true">
+                                    <input formControlName="dummyvalue4" />
+                                </td>
+                                <td *ngIf="dummyindex[4]==true">
+                                    <input formControlName="dummyvalue5" />
+                                </td>
+                            </tr>
+      
+                            <tr *ngFor="let item of itemlength; let i=index">
+                                <td>
+                                   <em></em>
+                                </td>
+                                
+                                <td>
+                                    <input id="width2" type="number" readonly/>
+                                </td>
+                                <td>
+                                  <input id="width2" type="number" readonly/>
+                              </td>
+                                <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                    <input id="width2" readonly />
+                                </td>
+                                <td>
+                                    <input id="width2"  type="number" readonly/>
+                                </td>
+                                <td>
+                                    <input id="width2" readonly />
+                                </td>
+                                <td>
+                                    <input id="width1" style="text-align:right" readonly/>
+                                </td>
+                                <td>
+                                    <input  style="text-align:right" id="width2" readonly />
+                                </td>
+                               
+                                <td *ngIf="taxid==0">
+                                    <input  id="width1" readonly />
+                                </td>
+                                <td *ngIf="taxid==1">
+                                  <input  id="width1" readonly />
+                              </td>
+                                <td *ngIf="taxid==2">
+                                    <input  id="width1" readonly />
+                                </td>
+                                <td *ngIf="taxgstid==1|| taxgstid==2">
+                                    <input id="width1" readonly />
+                                </td>
+                                <td *ngIf="taxgstid==1">
+                                  <input  id="width1" readonly />
+                              </td>
+                              <td *ngIf="taxgstid==2">
+                                  <input id="width1" readonly />
+                              </td>
+                                <td>
+                                    <input  id="width1" readonly />
+                                </td>
+                                <td>
+                                    <input  id="width1" style="text-align:left" readonly />
+                                </td>
+                                <td>
+                                  <input  id="width1" style="text-align:left" readonly />
+                                  </td>
+                                <td>
+                                    <input id="width1" style="text-align:left" readonly />
+                                </td>
+                                <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                    <input id="width2" readonly />
+                                </td>
+                                <td>
+                                    <em></em>
+                                </td>
+                                <td *ngIf="dummyindex[0]==true">
+                                    <input id="width1" readonly/>
+                                </td>
+                                <td *ngIf="dummyindex[1]==true">
+                                    <input id="width1" readonly/>
+                                </td>
+                                <td *ngIf="dummyindex[2]==true">
+                                    <input id="width1" readonly/>
+                                </td>
+                                <td *ngIf="dummyindex[3]==true">
+                                    <input id="width1" readonly/>
+                                </td>
+                                <td *ngIf="dummyindex[4]==true">
+                                    <input id="width1" readonly/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="convertinvoice px-3" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2 && convertinvoicedetails" align="center">
+                   Customer Name: <label class="mr-2 ml-1" style="font-weight:bold;font-size:15px">{{convertinvoicename}}</label>
+                   Sales Order No: <label class="ml-1" style="font-weight:bold;font-size:15px">{{convertinvoiceid}}</label>
+                </div>
+            </div><!--Sales invoice table fields end-->
+        </div><!---row end-->
+        <!--Payment refill hide start
+        <div class="row py-1">
+            <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <label class="form-label" style="color:#002e86;font-weight: bold;">Refill:</label>
+                <input type="checkbox"  class="paycheck ml-2" (click)="setrefill($event)"  formControlName="refillcust" />
+                <input type="number" *ngIf="showrefilltext" class="inputstyle ml-2"  formControlName="refilldays" style="width:65px"/>
+            </div>
+            <!---cash credit debit start--
+            <div class="col-xs-8 col-sm-5 col-md-5 col-lg-5 col-xl-5" align="center">
+                <div class="row mb-1">
+                    <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 1 ? '#00d7b5' : null" (click)="setpaymentmode(1)" align="center">
+                        <em class="fa fa-inr"></em><br>
+                        <label class="form-label" style="cursor:pointer">Cash</label>
+                    </div>
+                    <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 2 ? '#00d7b5' : null" (click)="setpaymentmode(2)" align="center">
+                        <em class="fa fa-credit-card"></em><br>
+                        <label class="form-label" style="cursor:pointer">Card</label>
+                    </div>
+                    <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 3 ? '#00d7b5' : null" (click)="setpaymentmode(3)" align="center">
+                        <em class="fa fa-book"></em><br>
+                        <label class="form-label" style="cursor:pointer">Credit</label>
+                    </div>
+                    <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 4 ? '#00d7b5' : null" (click)="setpaymentmode(4)" align="center">
+                        <em class="fa fa-chain-broken"></em><br>
+                        <label class="form-label" style="cursor:pointer">Multipay</label>
+                    </div>
+                    <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 5 ? '#00d7b5' : null" (click)="setpaymentmode(5)" align="center">
+                      <em class="fa fa-pause"></em><br>
+                      <label class="form-label" style="cursor:pointer;line-height:16px;">Lay Away</label>
+                      </div>
+                </div>
+            </div>               
+            <div class="col-xs-7 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                <div class="row" style="padding:0.7em 0px;margin:0px;background-color: #002e86;color:white">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <label class="form-label semibold" for="exampleInput"> Received</label><br>
+                        <input type="text" class="inputstyle" formControlName="paidamount" (blur)="calbalance()" style="font-weight:bold;font-size: 18px;" autocomplete="off" #receivebalfocus/>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        <label class="form-label semibold" for="exampleInput"> Balance </label><br>
+                        <input type="text" class="inputstyle" formControlName="balanceamount" readonly/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-5 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                <label class="form-label"  style="font-size:16px">Old Due:
+                <span class="ml-1" style="font-weight:bold; font-size:19px">{{this.prevamount}}</span></label><br>
+                <label class="form-label" style="color:#002e86;font-weight: bold;">Due Pay:</label>
+                <input type="checkbox"  class="ml-2" style="height:18px" (click)="duepay($event)"  formControlName="dueflag"/>
+            </div>
+        </div>--><!--Payment Refill Hide-->
+        <!--style="border-top:4px solid orangered"--
+        <div class="row bg-white" style="border-top:2px solid #002e86">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 col-xl-3" style="border-right:2px solid #002e86">
+               <div class="row">
+                    <div class="col-lg-12 fields">
+                        <table aria-describedby="mydesc" style="width:100%">
+                          <tr>
+                              <td style="width:50%">
+                                  <label class="form-label"> Employee Id:</label>
+                                  <label class="form-label ml-1" style="font-size:17px;font-weight: bold;"> {{SalesinvoiceForm.controls.employeerefid.value}} </label>
+                              </td>
+                              <td style="width:50%">
+                                  <div class="" align="right">
+                                      <label class="form-label ml-1" style="font-size:17px;font-weight: bold;color:#002e86"> {{SalesinvoiceForm.controls.billdate.value}} </label>
+                                  </div>
+                              </td>
+                            </tr>
+                        </table>
+                    </div>
+    
+                    <div class="col-lg-12 fields">
+                        <label class="form-label semibold"> Customer Type: </label>
+                        <label class="form-label ml-1" style="font-size:17px;font-weight: bold;"> {{SalesinvoiceForm.controls.customertype.value}} </label>
+                    </div>
+    
+                    <div class="col-lg-12 fields" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==1 && holdflag==0 && !refillinvoiceflag">
+                        <label class="form-label">Customer Name<span style="color:red">*
+                            <em class="fa fa-plus ml-2" [routerLink]="['/Customer/AddCustomer']" title="ADD New Customer" style="cursor:pointer;color:#002e86"></em></span></label>
+                        <ng-select [options]="salesinvcustomers" class="inputstyle" id="customfocus" formControlName="customerrefid"
+                            placeholder="Search Cust Name/Mobile" (input)="searchallcustomers($event.target.value)"
+                             (change)="getinvcustomerinfo()"  (click)="getinvcustomerinfo()" #custfocus> </ng-select>
+                    </div>
+                    <label class="form-label pl-2"  *ngIf="holdflag==1" style="font-weight:bold">{{holdcustname}}</label>
+                    <label class="form-label pl-3"  *ngIf="refillinvoiceflag" style="font-weight:bold">{{SalesinvoiceForm.controls.delname.value}}</label>
+                    <div class="col-lg-12 fields" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2 && !convertinvoicedetails && !refillinvoiceflag">
+                        <label class="form-label">Sales Order Customer Name<span style="color:red">*</span></label>
+                        <ng-select [options]="salesordercustomers" class="inputstyle" id="sorderevent" formControlName="customerrefid" placeholder="Search By Customer Name"
+                         (input)="SearchSalesOrdersCustomers($event.target.value)" (change)="getsordercustomerinfo()" (click)="getsordercustomerinfo()"> </ng-select>
+                    </div>
+    
+                    <div class="col-lg-12 fields" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2 && !convertinvoicedetails && !refillinvoiceflag">
+                        <label class="form-label">Sales Order No<span style="color:red">*</span></label>
+                        <select class="inputstyle" id="sorderevent" (change)="getSalesOrderProd($event.target.value)" formControlName="salesorderrefid">
+                            <option value="0"> --Select Sales Order No-- </option>
+                            <option *ngFor="let item of salesorders; let i = index" value={{item[0]}}>{{item[1]}}
+                            </option>
+                        </select>
+                    </div>
+    
+                    <div class="col-lg-12 fields mt-1" *ngIf="!refillinvoiceflag">
+                      <div class="row">
+                          <div class="col-lg-6">
+                              <input type="radio" [value]="2" formControlName="salesbilltype" (click)="salesinvorderchanges(2)"/>
+                              <label class="form-label ml-1"> Sls_Order </label><br>
+                          </div>
+                          <div class="col-lg-6">
+                              <input type="radio" [value]="1" formControlName="salesbilltype" (click)="salesinvorderchanges(1)"/>
+                              <label class="form-label ml-1"> Sls_Invoice </label>
+                          </div>
+                      </div>
+                    </div>
+    
+                    <div class="col-lg-12 fields">
+                        <label class="form-label semibold" for="exampleInput">Doctor Name 
+                            <em class="fa fa-plus ml-2" [routerLink]="['/DoctorRegistration/AddDoctor']" title="ADD New Doctor" style="cursor:pointer;color:#002e86"></em> </label>
+                        <select class="select2" class="inputstyle" formControlName="doctorrefid" #doctorfocus>
+                            <option  value="0">--Select Doctor--</option>
+                            <option *ngFor="let item of doctorslist; let i = index" value={{item[0]}}>{{item[1]}}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-lg-12 fields my-1">
+                      <div class="row" style="padding:0.7em 0px;margin:0px;background-color: #002e86;color:white">
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                              <label class="form-label semibold" for="exampleInput"> Received</label><br>
+                              <input type="text" class="inputstyle" formControlName="paidamount" (blur)="calbalance()" style="font-weight:bold;font-size: 18px;" autocomplete="off" #receivebalfocus/>
+                          </div>
+                          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                              <label class="form-label semibold" for="exampleInput"> Balance </label><br>
+                              <input type="text" class="inputstyle" formControlName="balanceamount" readonly/>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            
+               
+            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 col-xl-9">
+              <!-- <div class="title1" style="color:#002e86"><u>Invoice Products</u></div> --
+              <div formArrayName="invoice" class="flow mt-2" style="max-height:265px;">
+                  <!--. table  start--
+                  <table aria-describedby="mydesc" class="table styletab">
+                      <thead class="stylehead">
+                          <tr>
+                              <th scope="col"><em class="fa fa-close" style="font-size:21px"></em></th>
+                              <!-- <th scope="col"> S. No</th> --
+                              <!-- <th scope="col">Prod Code</th> --
+                              <th scope="col">Product Name</th>
+                              <th scope="col" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">Soqty</th>
+                              <th scope="col">Qty</th>
+                              <th scope="col">Free Qty</th>
+                              <th scope="col">Dis (%) </th>
+                              <th scope="col">Unit Price</th>
+                              <th scope="col" *ngIf="taxid==0">VAT </th>
+                              <th scope="col" *ngIf="taxid==1">GST </th>
+                              <th scope="col" *ngIf="taxid==2"> IGST </th>
+                              <th scope="col" *ngIf="taxgstid==1 || taxgstid==2"> CGST </th>
+                              <th scope="col" *ngIf="taxgstid==1"> SGST </th>
+                              <th scope="col" *ngIf="taxgstid==2"> UGST </th>
+                              <th scope="col">SRP</th>
+                              <th scope="col">Batch No</th>
+                              <th scope="col">HSN Code</th>
+                              <th scope="col">Expiry Date</th>
+                              <th scope="col" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">Batch Qty </th>
+                              <th scope="col">Description</th>
+                              <th scope="col">SUB Drug</th>
+                              <th scope="col" *ngIf="dummyindex[0]==true">{{dummyindexlabel[0]}}</th>
+                              <th scope="col" *ngIf="dummyindex[1]==true">{{dummyindexlabel[1]}}</th>
+                              <th scope="col" *ngIf="dummyindex[2]==true">{{dummyindexlabel[2]}}</th>
+                              <th scope="col" *ngIf="dummyindex[3]==true">{{dummyindexlabel[3]}}</th>
+                              <th scope="col" *ngIf="dummyindex[4]==true">{{dummyindexlabel[4]}}</th>
+                          </tr>
+                      </thead>
+                      <tbody class="stylebody">
+    
+                          <tr *ngFor="let address of SalesinvoiceForm.controls.invoice.controls; let i=index"
+                              [formGroupName]="i">
+    
+                               <td>
+                                  <em class="fa fa-trash text-secondary" title="Remove Row" id="width1" style="font-weight: bold;cursor:pointer;color:brown" (click)="removerow(i)"></em>
+                              </td> 
+                              <td>
+                                  <input formControlName="productname" id="width6" style="text-align:left" readonly />
+                              </td>
+                             
+                              <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                  <input type="text" formControlName="soqty"  id="width2"  readonly/>
+                              </td>
+                              <td>
+                                  <input type="number" formControlName="indvqty" (blur)="calculation()" id="width2"/>
+                              </td>
+                              <td>
+                                  <input type="number"  formControlName="indvfreeqty" id="width2" />
+                              </td>
+                             
+                              <td>
+                                  <input type="number" formControlName="unitdiscount" (blur)="calculation()" id="width1" style="display:none"/>
+                                  <input type="number" formControlName="dummyunitdiscount" (blur)="calculation()" id="width1"/>
+                              </td>
+                              
+    
+                              <td>
+                                  <input type="number" formControlName="unitprice" (blur)="calculation()" id="width3" style="text-align:right" />
+                              </td>
+                              <td *ngIf="taxid==0">
+                                  <input type="number" formControlName="unitvat" (blur)="calculation()" id="width1" readonly/>
+                              </td>
+                              <td *ngIf="taxid==1">
+                                <input type="number" formControlName="unitgst" (blur)="calculation()" id="width1" readonly/>
+                            </td>
+                              <td *ngIf="taxid==2">
+                                <input type="number" formControlName="unitigst" (blur)="calculation()" id="width1" />
+                              </td>
+                              <td *ngIf="taxgstid== 1 || taxgstid==2">
+                                <input type="number" formControlName="unitcgst" (blur)="calculation()" id="width1" />
+                             </td>
+                              <td *ngIf="taxgstid==1">
+                                  <input type="number" formControlName="unitsgst" (blur)="calculation()" id="width1" />
+                              </td>
+                              <td *ngIf="taxgstid==2">
+                                <input type="number" formControlName="unitutgst" (blur)="calculation()" id="width1" />
+                              </td>
+                              <td>
+                                  <input type="number" formControlName="subtotal" id="width5" style="text-align:right" readonly/>
+                              </td>
+                              <td>
+                                  <input formControlName="batchname" id="width4" style="text-align:left" readonly />
+                              </td>
+                              <td>
+                                <input formControlName="hsncode" id="width4" style="text-align:left" readonly />
+                                </td>
+                              <td>
+                                  <input formControlName="expirydate" readonly/>
+                              </td>
+                              <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                  <input formControlName="crntstkqty" id="width3" readonly/>
+                              </td>
+                              <td>
+                                <input formControlName="remarks" id="width6" style="text-align:left" />
+                              </td>
+                              <td>
+                                  <em class="fa fa-medkit" style="cursor:pointer" id="width2" (click)="getsubdrug(i)"></em>
+                              </td>
+                              <td *ngIf="dummyindex[0]==true">
+                                  <input formControlName="dummyvalue1" />
+                              </td>
+                              <td *ngIf="dummyindex[1]==true">
+                                  <input formControlName="dummyvalue2" />
+                              </td>
+                              <td *ngIf="dummyindex[2]==true">
+                                  <input formControlName="dummyvalue3" />
+                              </td>
+                              <td *ngIf="dummyindex[3]==true">
+                                  <input formControlName="dummyvalue4" />
+                              </td>
+                              <td *ngIf="dummyindex[4]==true">
+                                  <input formControlName="dummyvalue5" />
+                              </td>
+                          </tr>
+    
+                          <tr *ngFor="let item of itemlength; let i=index">
+                              <td>
+                                 <em></em>
+                              </td>
+                              
+                              <td>
+                                  <input id="width2" type="number" readonly/>
+                              </td>
+                              <td>
+                                <input id="width2" type="number" readonly/>
+                            </td>
+                              <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                  <input id="width2" readonly />
+                              </td>
+                              <td>
+                                  <input id="width2"  type="number" readonly/>
+                              </td>
+                              <td>
+                                  <input id="width2" readonly />
+                              </td>
+                              <td>
+                                  <input id="width1" style="text-align:right" readonly/>
+                              </td>
+                              <td>
+                                  <input  style="text-align:right" id="width2" readonly />
+                              </td>
+                             
+                              <td *ngIf="taxid==0">
+                                  <input  id="width1" readonly />
+                              </td>
+                              <td *ngIf="taxid==1">
+                                <input  id="width1" readonly />
+                            </td>
+                              <td *ngIf="taxid==2">
+                                  <input  id="width1" readonly />
+                              </td>
+                              <td *ngIf="taxgstid==1|| taxgstid==2">
+                                  <input id="width1" readonly />
+                              </td>
+                              <td *ngIf="taxgstid==1">
+                                <input  id="width1" readonly />
+                            </td>
+                            <td *ngIf="taxgstid==2">
+                                <input id="width1" readonly />
+                            </td>
+                              <td>
+                                  <input  id="width1" readonly />
+                              </td>
+                              <td>
+                                  <input  id="width1" style="text-align:left" readonly />
+                              </td>
+                              <td>
+                                <input  id="width1" style="text-align:left" readonly />
+                                </td>
+                              <td>
+                                  <input id="width1" style="text-align:left" readonly />
+                              </td>
+                              <td *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2">
+                                  <input id="width2" readonly />
+                              </td>
+                              <td>
+                                  <em></em>
+                              </td>
+                              <td *ngIf="dummyindex[0]==true">
+                                  <input id="width1" readonly/>
+                              </td>
+                              <td *ngIf="dummyindex[1]==true">
+                                  <input id="width1" readonly/>
+                              </td>
+                              <td *ngIf="dummyindex[2]==true">
+                                  <input id="width1" readonly/>
+                              </td>
+                              <td *ngIf="dummyindex[3]==true">
+                                  <input id="width1" readonly/>
+                              </td>
+                              <td *ngIf="dummyindex[4]==true">
+                                  <input id="width1" readonly/>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+    
+              </div>
+              <!--Senior Flags-->
+              <!-- <div class="seniorcitflag row px-2">
+                  
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                      <label class="form-label">Senior Citizen (SC) No:</label> 
+                      <label class="form-label ml-3" style="font-weight:bold; font-size: 17px;">
+                       {{SalesinvoiceForm.controls.scdno.value}}</label>  
+                  </div>
+                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                      <label class="form-label">Physically Handicapped(PWD) No:</label> 
+                      <label class="form-label ml-3" style="font-weight:bold; font-size: 17px">
+                       {{SalesinvoiceForm.controls.pwdno.value}}</label>  
+                  </div>
+                 
+              </div> --
+    
+              <div class="convertinvoice px-3" *ngIf="SalesinvoiceForm.controls.salesbilltype.value==2 && convertinvoicedetails" align="center">
+                 Customer Name: <label class="mr-2 ml-1" style="font-weight:bold;font-size:15px">{{convertinvoicename}}</label>
+                 Sales Order No: <label class="ml-1" style="font-weight:bold;font-size:15px">{{convertinvoiceid}}</label>
+              </div>
+              
+              <div class="row pt-2">
+                  <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3 col-xl-3">
+                      <label class="form-label" style="color:#002e86;font-weight: bold;">Refill:</label>
+                      <input type="checkbox"  class="paycheck ml-2" (click)="setrefill($event)"  formControlName="refillcust" />
+                      <input type="number" *ngIf="showrefilltext" class="inputstyle ml-2"  formControlName="refilldays" style="width:65px"/>
+                  </div>
+                  <!---cash credit debit start--
+                  <div class="col-xs-8 col-sm-8 col-md-7 col-lg-7 col-xl-7" align="center">
+                      <div class="row mb-1">
+                          <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 1 ? '#00d7b5' : null" (click)="setpaymentmode(1)" align="center">
+                              <em class="fa fa-inr"></em><br>
+                              <label class="form-label" style="cursor:pointer">Cash</label>
+                          </div>
+                          <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 2 ? '#00d7b5' : null" (click)="setpaymentmode(2)" align="center">
+                              <em class="fa fa-credit-card"></em><br>
+                              <label class="form-label" style="cursor:pointer">Card</label>
+                          </div>
+                          <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 3 ? '#00d7b5' : null" (click)="setpaymentmode(3)" align="center">
+                              <em class="fa fa-book"></em><br>
+                              <label class="form-label" style="cursor:pointer">Credit</label>
+                          </div>
+                          <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 4 ? '#00d7b5' : null" (click)="setpaymentmode(4)" align="center">
+                              <em class="fa fa-chain-broken"></em><br>
+                              <label class="form-label" style="cursor:pointer">Multipay</label>
+                          </div>
+                          <div class="paymethods px-1 pt-3" [style.background-color]="selectpaymode == 5 ? '#00d7b5' : null" (click)="setpaymentmode(5)" align="center">
+                            <em class="fa fa-pause"></em><br>
+                            <label class="form-label" style="cursor:pointer;line-height:16px;">Lay Away</label>
+                            </div>
+                          <!-- <input type="checkbox" formControlName="cashcheck" class="paycheck" (click)="setpaymentmode($event,1)" />
+                          <label class="form-label ml-2" for="exampleInput">Cash</label>
+    
+                          <input type="checkbox" formControlName="creditcheck" class="paycheck ml-3" (click)="setpaymentmode($event,2)" />
+                          <label class="form-label ml-2" for="exampleInput">Card</label>
+    
+                          <input type="checkbox" formControlName="debitcheck" class="paycheck ml-3" (click)="setpaymentmode($event,3)" />
+                          <label class="form-label ml-2" for="exampleInput">Credit</label>
+    
+                          <input type="checkbox" formControlName="multiplecheck" class="paycheck ml-3" (click)="setpaymentmode($event,4)" />
+                          <label class="form-label ml-2" for="exampleInput">Multiple Pay</label>   --
+                      </div>
+                  </div>               
+    
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                      <label class="form-label"  style="font-size:16px">Old Due:
+                      <span class="ml-1" style="font-weight:bold; font-size:19px">{{this.prevamount}}</span></label><br>
+                      <label class="form-label" style="color:#002e86;font-weight: bold;">Due Pay:</label>
+                      <input type="checkbox"  class="ml-2" style="height:18px" (click)="duepay($event)"  formControlName="dueflag"/>
+                  </div>
+              </div>
+              </div><!--Sales invoice table fields end--
+              <!--Destop view end--
+            <!---Mobile Fields --
+        </div><!-- box-typical  -->
+        <div class="row mt-1" style="border-color:#002e86;border-width:2px 0px;border-style:solid;">
+            <div class="col-lg-7" style="overflow:auto">
+              <table aria-describedby="mydesc">
+                  <tbody>
+                      <tr>
+                      <td>
+                          <tr>
+                              <td>
+                                  <tr>
+                                      <th scope="col" style="font-weight: normal;">Total Products:</th>
+                                      <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{SalesinvoiceForm.controls.totalitems.value}}</td>
+                                  </tr>
+                              </td>
+                              <td class="pl-3">
+                                  <tr>
+                                      <th scope="col" style="font-weight: normal;">Total Disc Amount:</th>
+                                      <!-- <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{SalesinvoiceForm.controls.totaldiscount.value}}</td> -->
+                                      <td style="font-weight:bold; font-size: 1em;">
+                                        <input type="number" class="inputstyle"  formControlName="totaldiscount" style="width:100px" (blur)="amountdisccalc()"/>
+                                      </td>
+                                    </tr> 
+                              </td> 
+                              <td class="pl-3">
+                                <tr>
+                                    <th scope="col" style="font-weight: normal;">Due Amount:</th>
+                                    <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{SalesinvoiceForm.controls.currentbilldue.value}}</td>
+                                  </tr> 
+                            </td>        
+                          </tr><br>
+                          <tr>
+                              <td>
+                                  <tr>
+                                      <th scope="col" style="font-weight: normal;">Total Quantity:</th>
+                                      <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{SalesinvoiceForm.controls.totalqty.value}}</td>
+                                  </tr>
+                              </td>
+                              <td class="pl-3">
+                                  <tr>
+                                      <th scope="col" style="font-weight: normal;">Total Tax Amount:</th>
+                                      <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{SalesinvoiceForm.controls.totaltaxamt.value}}</td>
+                                    </tr> 
+                              </td> 
+                              <td class="pl-3">
+                                <tr>
+                                    <th scope="col" style="font-weight: normal;">Round Off Amt:</th>
+                                    <td class="ml-2" style="font-weight:bold; font-size: 1em;">{{SalesinvoiceForm.controls.roundoff.value}}</td>
+                                  </tr> 
+                            </td>        
+                          </tr> 
+                      </td> 
+                      <td class="pl-3">
+                          <label class="form-label semibold" for="exampleInput">Sub Total:</label>
+                          <label class="form-label ml-2"
+                          style="font-weight:bold; font-size: 1.7em;">{{SalesinvoiceForm.controls.taxableamt.value}}</label> 
+                      </td>
+                      </tr>
+                  </tbody>
+              </table>
+            </div>
+            <div class="col-lg-2" align="right">
+              <label class="form-label pt-4"  style="font-size: 1.4em;">Grand Total:</label>
+            </div>
+            <div class="col-lg-3" style="background-color:#002e86;color:white" align="right"> 
+              <label class="" style="font-weight:bold; font-size: 3.1em;">
+               {{SalesinvoiceForm.controls.grandtotal.value}}</label><br>
+            </div>
+          </div>
+          <div class="container" align="center">
+              <div class="row">
+                  <div class="col-lg-7">
+                    <textarea placeholder="Enter Notes" rows="2" cols="60" class="sign-control mt-1" style="height:100%;" formControlName="description"></textarea><br><br>
+                  </div>
+                  <div class="col-lg-5">
+                    <!-- <button type="button" class="salesbtn" (click)="holdsales()">Hold</button> -->
+                    <button type="button" class="salesbtn" (click)="cancel()">Reset</button>
+                    <button type="button" class="salesbtn savefocus" (click)="onSubmit()" #saveprintfocus>Save & Print</button> 
+                  </div>
+              </div>
+          </div><!--*-->
+          <h3 *ngIf="saveprocess" style="text-align:center;color:#002e86">Invoice Saving!...</h3>
+    
+            <!---Side Panels Code Start-->
+    
+            <!---Report Open-->
+            <div [ngClass]="reportshow?'showtop':'hidetop'" (window:keydown)="printkeyclose($event)">
+                <br>
+                <div class="mr-2" align="right">
+                    <em class="fa fa-close fa-2x mr-2" (click)="printclose()" style="cursor:pointer;color:white"></em>
+                </div><br>
+                <div class="container">               
+                <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+                </div>
+            </div>
+            <!--Report End-->
+    
+            <!--side panel for tax excempt-->
+         
+            <div [ngClass]="showpresc?'sidenavshow':'sidenavhide'"  class="animated fadeinright" style="width:100%;padding-top:0px;">
+                <div class="insienav" style="background-color: #FDFDFD; width:420px;height:100%">
+                    <br><br>
+                    <div class="closeicon" align="right">
+                        <em class="fa fa-close fa-2x mr-4" style="cursor:pointer" (click)="showpresc=false"></em>
+                    </div><br>
+                    <label class="form-label ml-2" style="color:#002e86;font-weight:bold"><u>ADD Prescription</u></label><br><br>
+                    <div class="row presc mx-3">
+                        <input type="file" class="inputstyle px-2" (change)="prescChange($event)"
+                        style="width:290px" accept="image/*"  #prescpathclear/>
+                        <span class="fa fa-eye mt-2 ml-2" style="cursor: pointer" (click)="prescShow()" *ngIf="showeye"></span>
+                        <span class="fa fa-eye-slash mt-2 ml-2" style="cursor: pointer" (click)="prescHide()" *ngIf="showeyeslash"></span>
+                        <span class="fa fa-trash mt-2 ml-2" style="cursor: pointer" (click)="prescReset()"></span>
+                    </div><br>
+                    <div *ngIf="showprescimage">
+                        <img [src]="prescurl" alt="altitem" class="mx-5" style="height:165px;width:250px"/>         
+                    </div>
+                </div>
+             </div>  <!--taxexcempt Side panel end-->
+    
+             <!--Bill Holds-->
+             <div [ngClass]="holdprocess?'sidenavshow':'sidenavhide'"  class="animated fadeinright" style="width:100%;padding-top: 0px;">
+                <div class="insienav" style="background-color: #FDFDFD; width:420px;height:100%">
+                    <div class="closeicon" align="right">
+                        <em class="fa fa-close fa-2x mr-4" style="cursor:pointer" (click)="holdprocess=false"></em>
+                    </div><br>
+                    <label class="form-label ml-2" style="font-weight:bold">Select Hold Bill</label><br>
+                    <div class="row presc mx-3">
+                        <select class="inputstyle" id="sorderevent" (change)="getholdbillsdetails($event.target.value)" formControlName="holdbill">
+                            <option value="opt1"> --Select Hold Bill No-- </option>
+                            <option *ngFor="let item of holdbills; let i = index" value={{item[0]}}>{{item[1]}}
+                            </option>
+                        </select>
+                    </div><br>
+                </div>
+             </div> 
+    
+             <div [ngClass]="addonsprocess?'sidenavshow':'sidenavhide'" class="animated fadeinright" style="width:100%;padding-top: 0px;">
+                <div class="insienav" style="background-color: #FDFDFD; width:420px;height:100%">
+                    <div class="closeicon" align="right">
+                        <em class="fa fa-close fa-2x mr-4" style="cursor:pointer" (click)="addonsprocess=false"></em>
+                    </div><br>
+                    <div class="mx-2" align="center">
+                        <div class="icontents" (click)="atcprocess=true" title="ATC-Details">ATC-Details</div><br>
+                        <div class="icontents" (click)="underprogress()" title="Disease-Map">Disease-Map</div><br>
+                        <div class="icontents" (click)="underprogress()" title="Pharmacy-Advice">Pharmacy-Advise</div><br>
+                    </div>
+                </div>
+             </div> 
+    
+             <!--Dummy fields start-->
+             <div [ngClass]="dummy?'sidenavshow':'sidenavhide'" class="animated fadeinright" style="width:100%;padding-top: 0px;">
+                <div class="insienav" style="background-color: #FDFDFD; width:420px;height:100%">
+                    <div class="closeicon" align="right">
+                        <em class="fa fa-close fa-2x mr-4" style="cursor:pointer" (click)="dummy=false"></em>
+                    </div><br><br>
+                    <div class="mr-2" align="right">
+                        <em class="fa fa-plus" style="color:#002e86;font-weight: bold;cursor: pointer;" (click)="insertnewdummy()">New Dummy</em>
+                    </div><br>
+                    <div class="popflow mx-2" align="center">
+                        <table aria-describedby="mydesc" class="table popstyletab" formArrayName="dummyfields">
+                            <thead class="popstylehead">
+                                <tr>
+                                    <th scope="col">S.No</th>
+                                    <th scope="col">Dummy Label</th>
+                                    <th scope="col">Enable/Disable</th>
+                                    <th scope="col"><em class="fa fa-close"></em></th>
+                                </tr>
+                            </thead>
+                            <tbody class="popstylebody">
+                                <tr *ngFor="let address of SalesinvoiceForm.controls.dummyfields.controls; let i=index"
+                                    [formGroupName]="i">
+                                    <td>
+                                        <input value={{i+1}} readonly id="width1" />
+                                    </td>
+                                    <td>
+                                        <input type="text" formControlName="dummyname" id="width4" style="text-align:left" />
+                                    </td>
+                                    <td>
+                                        <!--<input type="checkbox" class="tabcheck" formControlName="dummyvalue" id="width2" />  switchColor="red" -->
+                                        <ui-switch id="pick1" size="small" [checked]="dummyindex[i]==true" defaultBgColor="#002e86"
+                                        (change)="tooglechange(i)"> </ui-switch>
+                                    </td>
+                                    <td id="width3">
+                                        <em class="fa fa-close" style="color:brown;font-weight: bold;cursor: pointer;" (click)="removedummyrow(i)"></em>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                         </div><br><br>
+                        <div class="mr-2" align="right">
+                            <button class="salesbtn" (click)="savenewdummy()">Save Dummy</button>
+                        </div>
+                </div>
+             </div>  <!--dummy fields Side panel end-->
+    
+            <!--Substitute Drug Details-->
+            <div  [ngClass]="subdrug?'showtop':'hidetop'" align="center">
+                <div class="modalcont1 animated fadeindown">
+                    <div class="" align="right">
+                        <em class="fa fa-close modal-header1" (click)="subdrug=false"></em>
+                    </div><br> 
+                    <div class="py-2">
+                      <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">SUB Drug Details</label>
+                   </div> 
+                    <div *ngIf="substitutedrug == 0 || null" align="center">
+                        <h3 style="font-weight:bold;color:brown;"> No Matched SUB Drugs</h3>
+                    </div>  
+                    <div class="mx-1" *ngIf="substitutedrug.length>0" style=" border: 2px solid grey;border-radius: 8px;background-color: white;overflow: auto;">
+                        <table aria-describedby="mydesc" class="table">
+                            <thead class="lhead" style="background-image: linear-gradient(to right,#002e86,orange);
+                            font-size: 16px; font-weight: bold; color: #FFFFFF; padding:3px;">
+                            <tr>
+                                <th scope="col"> Drug Name </th>
+                                <th scope="col"> Generic Name </th>
+                                <th scope="col"> Batch No </th>
+                                <th scope="col"> Qty </th>
+                                <th scope="col"> Expiry Date </th>
+                            </tr>
+                            </thead>
+                            <tbody class="lbody">
+                            <tr *ngFor="let subdrugdata of substitutedrug; let i=index" class="selectrow" (click)="selectedsubdrug(subdrugdata);">
+                               <td><label style="width:260px;overflow: hidden;"> {{subdrugdata[0]}} </label></td> 
+                               <td><label> {{subdrugdata[8]}} </label></td>
+                               <td><label> {{subdrugdata[6]}} </label></td>
+                               <td><label style="font-weight: bold;"> {{subdrugdata[3]}} </label></td>
+                               <td><label> {{subdrugdata[7]}} </label></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div> <br>                     
+                </div><br>
+            </div>
+            <!---Substitute Drug End-->
+    
+            <!--side panel for New Product-->
+             <div  [ngClass]="newproduct?'showtop':'hidetop'" align="center">
+                 <div class="modalcont1 animated fadeindown">
+                  <div class="" align="right">
+                  <em class="fa fa-close modal-header1" (click)="newproduct=false"></em>
+                  </div>
+                  <div class="py-2">
+                      <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">Enter New Product</label>
+                  </div>
+                <!--. table  start-->
+                <div class="popflow mx-2" align="center" style="max-height: 180px;">
+                <table aria-describedby="mydesc" class="table popstyletab px-2" formArrayName="newproduct">
+                    <thead class="popstylehead">
+                        <tr>
+                            <th scope="col">S.No</th>
+                            <th scope="col">New Product Name</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Remarks</th>
+                            <th scope="col">Add/Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody class="popstylebody">
+                        <tr *ngFor="let address of SalesinvoiceForm.controls.newproduct.controls; let i=index"
+                        [formGroupName]="i">
+                        <td>
+                            <input value={{i+1}} readonly id="width1" />
+                        </td>
+                        <td>
+                            <input type="text" formControlName="newproductname" id="width5" style="text-align:left" />
+                        </td>
+                        <td>
+                            <input type="number" formControlName="reqqty" id="width1"  />
+                        </td>
+                        <td>
+                            <input type="text" formControlName="remarks"  style="text-align:left" />
+                        </td>
+                        <td id="width3">
+                            <em class="fa fa-plus" style="color:#002e86;font-weight: bold;cursor: pointer;" (click)="insertnewrow()"></em>
+                            <em class="fa fa-close ml-3" style="color:brown;font-weight: bold;cursor: pointer;" (click)="removenewprodrow(i)"></em>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let item of newprodlength; let i=index">
+                      <td>
+                          <input readonly id="width1" readonly/>
+                      </td>
+                      <td>
+                          <input type="text" id="width5" readonly/>
+                      </td>
+                      <td>
+                          <input type="number" id="width1"  readonly/>
+                      </td>
+                      <td>
+                          <input type="text"  style="text-align:left" readonly/>
+                      </td>
+                      <td id="width3">
+                      </td>
+                  </tr>
+                  </tbody>
+                </table>
+                 </div>
+                 <div class="savebtn mr-4" align="right">
+                    <button class="popsalesbtn" (click)="saveNewProduct()">Save</button>
+                </div>
+                </div> <!--Modal Content End-->
+    
+            </div> <!--New Product Side panel end-->
+    
+            <!--Payments Pop up-->
+            <div  [ngClass]="payments?'showtop':'hidetop'" align="center">
+    
+            <div class="modalcont1 animated fadeindown">
+                <div class="" align="right">
+                    <em class="fa fa-close modal-header1" (click)="payments=false;selectpaymode=0"></em>
+                </div>     
+                <div class="py-2">
+                  <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">Enter Payments</label>
+                </div>               
+                <div class="" align="center">
+                    <label class="form-label"  style="font-size: 1.3em; ">Total Value:</label> 
+                    <label class="" style="font-weight:bold; font-size: 1.9em;color:#002e86"> {{SalesinvoiceForm.controls.grandtotal.value}}</label>                        
+                </div><br>
+               <div class="row" align="center">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <label class="form-label semibold" for="exampleInput">Cash:</label><br>
+                    <input type="text" class="inputstyle" formControlName="cashamt"
+                    style="font-weight:bold;font-size:19px;"/>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <label class="form-label semibold" for="exampleInput">Card:</label><br>
+                    <input type="text" class="inputstyle" formControlName="creditcardamt"
+                    style="font-weight:bold;font-size:19px;"/>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <label class="form-label semibold" for="exampleInput">Others:</label><br>
+                    <input type="text" class="inputstyle" formControlName="debitcardamt"
+                    style="font-weight:bold;font-size:19px;"/>
+                </div>
+              </div><br>
+                <div class="savebtn mr-4" align="right">
+                <button class="salesbtn" style="padding:5px 18px" (click)="multiPayment()">MakePayment</button>
+                </div>
+            </div> <!--Modal Content End-->
+    
+            </div> <!--Payments popup end-->
+           
+            <!--Atc Details-->
+            <div  [ngClass]="atcprocess?'showtop':'hidetop'" align="center">
+                <div class="modalcont1 animated fadeindown">
+                    <div class="" align="right">
+                        <em class="fa fa-close modal-header1" (click)="atcprocess=false"></em>
+                    </div>
+                    <div class="py-2">
+                      <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">ATC Details</label>
+                    </div>    
+                    <div *ngIf="atcdetails == 0 || null" align="center">
+                        <h3 style="font-weight:bold;color:brown;"> No Matched ATC Details</h3>
+                    </div>  
+                    <div *ngFor="let atcdata of atcdetails; let i=index" style="padding:0px 3em;margin:1em 0px">
+                        <h5 style="font-weight:bold"> {{i+1}}) Generic: {{atcdata.generic}}</h5>
+                        <span style="font-size:15px">{{atcdata.desc1}},     {{atcdata.desc2}},     {{atcdata.desc3}},    {{atcdata.desc4}}..</span>
+                    </div>                      
+                </div><br>
+            </div>
+            <!---ATC End-->
+    
+            <!--Home Delivery-->
+            <div  [ngClass]="homedelivery?'showtop':'hidetop'" align="center">
+                <div class="modalcont1 animated fadeindown">
+                    <div class="" align="right">
+                        <em class="fa fa-close modal-header1" (click)="homedelivery=false"></em>
+                    </div>
+                    <div class="py-2">
+                      <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">Delivery Details</label>
+                    </div> 
+                    <table aria-describedby="mydesc" class="table deliverytable mx-1">
+                        <tbody> 
+                        <tr>
+                          <th scope="col">Address1</th>:
+                          <input type="text" id="width6" class="" placeholder=" " formControlName="deladdress1" />
+                        </tr>
+                        <tr>
+                            <th scope="col">Address2</th>:
+                            <input type="text" id="width6" class="" placeholder=" " formControlName="deladdress2"/>
+                        </tr>
+                        <tr>
+                            <th scope="col">Country</th>:
+                            <input type="text" id="width5" class="" placeholder=" " formControlName="delcountry"/>
+                        </tr>
+                        <tr>
+                            <th scope="col">City</th>:
+                            <input type="text" id="width5" class="" placeholder=" " formControlName="delcity"/>
+                        </tr>
+                        <tr>
+                            <th scope="col">Pincode</th>:
+                            <input type="text" id="width5" class="" placeholder=" " formControlName="delpincode"/>
+                        </tr>
+                        <tr>
+                          <th scope="col">Mobile No</th>:
+                          <input type="text" id="width5" class="" placeholder=" " formControlName="delmobile"/>
+                        </tr>
+                        </tbody>
+                      </table> <br>
+                </div><br>
+            </div>
+            <!---HDelivery End-->
+    
+            <!--Loyalty Points start-->
+            <div  [ngClass]="loyaltyflag?'showtop':'hidetop'" align="center">
+                <div class="modalcont1 animated fadeindown">
+                    <div class="" align="right">
+                        <em class="fa fa-close modal-header1" (click)="loyaltyflag=false"></em>
+                    </div><br> 
+                    <div class="py-2">
+                      <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">Loyalty Points Details</label>
+                   </div> 
+                   <div class="container" align="center">
+                       <div class="row">
+                        <div class="col-lg-6">
+                            <label>Total Purchase Price:<span class="pl-2" style="font-weight:bold; font-size: 1.3em;">{{totalpurchaseprice}}</span></label>
+                        </div>
+                        <div class="col-lg-6">
+                         <label>Total Loyalty Points:<span class="pl-2" style="font-weight:bold; font-size: 1.3em;">{{totalloyalpoints}}</span></label>
+                        </div>
+                       </div>
+                       <div class="row">
+                        <div class="col-lg-6">
+                            <label>Avail Loyalty Points:<span class="pl-2" style="font-weight:bold; font-size: 1.3em;">{{availloyalpoints}}</span></label>
+                        </div>
+                        <div class="col-lg-6">
+                         <label>Minimum Loyalty Points:<span class="pl-2" style="font-weight:bold; font-size: 1.3em;">{{minimumpoints}}</span></label>
+                        </div>
+                       </div>
+                       <input type="checkbox" formControlName="minimumloyalcheck"/>
+                       <label class="ml-2">Enable Minimum Points</label><br>
+                       <div class="mx-2">
+                        <label class="pr-2">Enter Loyal Points to Use:</label>
+                        <input type="number" class="inputstyle"  formControlName="currentuseloyalpoints" placeholder="Enter Points" style="width:120px"/>
+                        <button type="button" class="popsalesbtn ml-2" (click)="loyalpointsuasage()">Apply</button>
+                       </div><br>
+                       <label class="text-secondary" *ngIf="SalesinvoiceForm.controls.totalloyalamount.value>0">Already Usage: {{SalesinvoiceForm.controls.totalloyalamount.value}}</label>
+                   </div><br>                 
+                </div>
+            </div>
+            <!--Loyalty points end-->
+    
+            <!--gift card process-->
+            <div  [ngClass]="giftcardflag?'showtop':'hidetop'" align="center">
+                <div class="modalcont1 animated fadeindown">
+                    <div class="" align="right">
+                        <em class="fa fa-close modal-header1" (click)="giftcardflag=false"></em>
+                    </div><br> 
+                    <div class="py-2">
+                      <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">Gift Card Details</label>
+                   </div>
+                   <div class="row">
+                    <div class="col-lg-6">
+                        <label>Gift Purchase Amount:<span class="pl-2" style="font-weight:bold; font-size: 1.3em;">{{giftpurchaseamt}}</span></label>
+                    </div>
+                    <div class="col-lg-6">
+                     <label>Gift Amount:<span class="pl-2" style="font-weight:bold; font-size: 1.3em;">{{giftamt}}</span></label>
+                    </div>
+                   </div>  
+                   <label class="form-label text-danger" style="text-align: center;font-weight:bold" *ngIf="giftexpiry==1">Gift Card Expired</label>
+                   <div class="container" align="center">
+                       <input type="text" class="inputstyle" style="width:230px" formControlName="giftcode" placeholder="Enter Gift Code" (input)="giftcardprocess($event.target.value)"/>
+                   </div><br> 
+                   <button type="button" class="popsalesbtn"  [disabled]="giftexpiry==1" (click)="giftcardapply()">Apply</button><br><br>
+                </div>
+            </div>
+            <!--Gift process end-->
+    
+            <!--Due Payment Process start-->
+            <div  [ngClass]="duepayflag?'showtop':'hidetop'" align="center">
+                <div class="modalcont1 animated fadeindown">
+                 <div class="" align="right">
+                 <em class="fa fa-close modal-header1" (click)="duepayflag=false"></em>
+                 </div>
+                 <div class="py-2">
+                     <label class="form-label" style="text-align: center;color:#002e86;font-weight:bold">Pay Due Amount</label>
+                 </div>
+               <!--. table  start-->
+               <div class="popflow mx-2" align="center" style="max-height: 180px;">
+               <table aria-describedby="mydesc" class="table popstyletab px-2" formArrayName="duepaytable">
+                   <thead class="popstylehead">
+                       <tr>
+                           <th scope="col">Select</th>
+                           <th scope="col">S.No</th>
+                           <th scope="col">Invoice No</th>
+                           <th scope="col">Amount</th>
+                       </tr>
+                   </thead>
+                   <tbody class="popstylebody">
+                       <tr *ngFor="let address of SalesinvoiceForm.controls.duepaytable.controls; let i=index"
+                       [formGroupName]="i">
+                       <td>
+                        <input class="paycheck ml-2" formcontrolname="payflag" type="checkbox" id="width1">
+                       </td>
+                       <td>
+                           <input value={{i+1}} readonly id="width1" />
+                       </td>
+                       <td>
+                           <input type="text" formControlName="invoicename" id="width5" style="text-align:left" />
+                       </td>
+                       <td>
+                           <input type="number" formControlName="creditamount" id="width3"  />
+                       </td>
+                   </tr>
+                   <tr>
+                     <td>
+                         <input readonly id="width1" readonly/>
+                     </td>
+                     <td>
+                         <input type="text" id="width1" readonly/>
+                     </td>
+                     <td>
+                         <input type="number" id="width1"  readonly/>
+                     </td>
+                     <td>
+                         <input type="text"  id="width1" readonly/>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td>
+                         <input readonly id="width1" readonly/>
+                     </td>
+                     <td>
+                         <input type="text" id="width1" style="text-align:left" readonly/>
+                     </td>
+                     <td>
+                         <input type="number" id="width1"  readonly/>
+                     </td>
+                     <td id="width1">
+                     </td>
+                 </tr>
+                 </tbody>
+               </table>
+                </div>
+                <div class="savebtn mr-4" align="right">
+                   <button class="salesbtn" style="padding:5px 18px">Save</button>
+               </div>
+               </div> <!--Modal Content End-->
+           </div> <!--Due Payment End-->
+    
+            <!--Side Panels Code End-->
+    
+            <!--under Process-->
+            <div  [ngClass]="underprocess?'showtop':'hidetop'">
+                <div class="container" style="margin-top:7em;" align="center">
+                    <h1 style="color:whitesmoke">Under Process Update Soon!....</h1>
+                </div>
+            </div>
+        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+     </form>
+  </app-card>
+  
+   
+  
+  
+     

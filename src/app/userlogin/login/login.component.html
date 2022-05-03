@@ -1,0 +1,157 @@
+<style>
+
+	.td1{
+		background-image: url("assets/images/plantbg.jpg");
+		height: 100%; 
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		width:70%;
+		color:white;
+		font-family:Montserrat;
+	}
+
+	.td2{
+		background-color: white;
+		width:30%;
+		padding:4.5em 1.3em 0em;
+	}
+
+	.texthighlight{
+		background-image: linear-gradient(to bottom, #d4af37,#f0db73);
+		-webkit-background-clip: text;
+		-moz-background-clip: text; 
+		background-clip: text;
+		color: transparent;
+		font-weight:bold;
+		font-size:39px;
+  }
+	
+	@media (max-width: 500px){
+
+		.modbtn{
+			margin-top:-10px;
+		}
+
+	}
+
+	@media (max-width:580px){
+		.td1{
+			display:none;
+	}
+
+	}
+
+	@media (max-width:1200px){
+		.td1{
+			width:55%;
+		}
+
+		.td2{
+			width:45%;
+		}
+
+	}
+	
+</style>
+
+<table aria-describedby="mydesc" style="width:100%;height:100%">
+	<tbody>
+	<tr>
+		<td class="td1">
+			<img src="assets/images/cloudlogo.png" alt="logo" style="height:51px;width:251px;position:absolute;top:1em;left:2em"><br>
+			<div class="" align="center" style="padding-left:19em;padding-top:21em">
+			  <table aria-describedby="mydesc">
+				<tr><h2 class="text-secondary" style="font-family: 'Mada', sans-serif;font-weight:bold">Welcome You!...</h2></tr>
+				<tr> <h5 class="text-secondary" style="font-family: 'Mada', sans-serif">Signin to your account and get explore the Medeil POS</h5></tr>
+			  </table>
+			</div><br><br>
+		  </td>
+		  <td class="td2">
+			<div class="" align="center">
+				<img src="assets/images/poslogobg.jpg" alt="Theme-Logo" style="width:273px"><br>
+				<h3 class="text-center mb-2" style="color:gray">Sign In</h3>
+				<form [formGroup]="loginForm" autocomplete="off">
+					<div class="input-group">
+						<input type="text" class="sign-control" id="version" placeholder="User Name"
+							required="true" formControlName="username" name="username"
+							[(ngModel)]="user.username" autocomplete="off"/>
+						<span class="md-line"></span>
+					</div>
+					<div class="input-group">
+						<input type="password" class="sign-control" id="password" placeholder="***************"
+							required="true" formControlName="password" name="password"
+							[(ngModel)]="user.password" autocomplete="off"/>
+						<span class="md-line"></span>
+					</div>
+					<div class="row m-t-25 text-left">
+						<div class="col-sm-7 col-xs-12">
+							<div class="checkbox-fade fade-in-primary">
+								<label>
+									<input type="checkbox" value="">
+									<span class="cr">
+										<em class="cr-icon icofont icofont-ui-check txt-primary"></em>
+									</span>
+									<span class="text-inverse">Remember me</span>
+								</label>
+							</div>
+						</div>
+						<!-- <div class="col-sm-5 col-xs-12 forgot-phone text-right">
+							<label class="text-right f-w-600 text-info" style="cursor:pointer" (click)="forgetpassword()"> Forgot Password?</label>
+						</div> -->
+					</div>
+					<div class="row m-t-30">
+						<div class="col-md-12">
+							<button class="sign-btn" style="font-size: 20px; height:48px"
+								[ngClass]="{'progress-bar progress-bar-striped progress-bar-animated':loader}" (click)="onSubmit()">Sign In</button>
+						</div>
+					</div>
+					<div class="pt-5" align="center">
+						<label class="f-w-600" style="color:#868e96">Forgot Password?</label><span class="ml-1" style="cursor:pointer;color:#002e86;font-weight: bold;" (click)="forgetpassword()">Reset</span><br>
+						<label class="f-w-600" style="color:#868e96">Create an Account?</label><span class="ml-1" style="cursor:pointer;color:#002e86;font-weight:bold" [routerLink]="['/pricing/viewprice']">Sign Up</span>
+					</div>
+					<!-- <p class="text-right f-w-600 text-danger">Three Attempts Only!...</p> -->
+					<!-- <p class="text-right f-w-600 text-inverse">Create an Account? <a
+							[routerLink]="['/pricing/viewprice']"> Sign Up</a>
+					</p> -->
+				</form>
+			</div>
+		  </td>
+	</tr>
+	</tbody>
+</table>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>
+<form [formGroup]="chooseSection">
+	<app-modal-animation [modalID]="'effect-1'" [modalClass]="'md-effect-1'">
+		<div class="modal-header" style="font-size:27px">Choose Session
+		</div><br>
+		<div class="form-group row">
+			<div class="col-sm-6">
+				
+					<label class="form-label">Business Type</label>
+					<select name="select" class="form-control" formControlName="branchid" (change)="getBranchWise()">
+						<option value="0" selected disabled>---Select Business Name---</option>
+						<option *ngFor="let br of userbranch" value="{{br[0]}}">{{br[1]}}</option>
+					</select>
+				
+			</div>
+			<div class="col-sm-6">
+				
+					<label class="form-label">Business Name</label>
+					<select name="select" class="form-control" formControlName="shopid">
+						<option value="0" selected>---Select Business Type---</option>
+						<option *ngFor="let sh of userShop" value="{{sh[0]}}">{{sh[1]}}</option>
+					</select>
+				
+			</div>
+		</div>
+	
+	<div class="modal-footer">
+	<label id="enter" class="btn modbtn" (click)="chooseModel()">Enter</label>				
+	</div>
+
+		<button (click)="closeMyModal($event);loader=false" aria-label="Close" class="md-close-btn">
+			<em class="icofont icofont-ui-close" style="font-size:12px"></em>
+		</button>
+	</app-modal-animation>
+</form>

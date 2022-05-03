@@ -1,0 +1,294 @@
+<style>
+	tr.selectrow:hover{
+        background-color: #e9ecef;
+    }
+
+	.modalcont1{
+      width:48%;
+      background-color: white;
+      margin-top: 9em;
+      border-radius: 25px;
+      border: 2px solid #5aa02c;
+      max-height:350px;
+  	}
+
+	.modal-header1 {
+    position: absolute;margin: 12px -30px 0px;
+    color: grey;
+    font-size: 15px;
+    cursor: pointer;
+  	}
+</style>
+<app-card>
+
+	<div class="sub-title">Sales Order Details
+		<em class="fa fa-bar-chart ficon"></em>
+	</div>
+	<div class="panels">
+	<div class="panel1" style="width:95%;float:left">
+		<div class="mr-2" align="right">
+			<button type="button" class="btn-round" (click)="viewOrder()">{{'salesordernew.viewsalesorder' | translate}}r</button>
+		</div>
+		<!--(keydown.enter)="$event.preventDefault()"-->
+		<form [formGroup]="salesOrderForm" class="mx-2">
+
+			<div class="form-group row">
+					<div class="col-sm-4">
+					
+						<label class="form-label">{{'salesordernew.customername' | translate}}
+							<span class="fontlangifbel">*</span>
+						</label>
+						<select name="select" class="form-control" formControlName="patientid">
+							<option value="opt1" selected disabled>---{{'salesordernew.selectcustomername' | translate}}---</option>
+							<option *ngFor="let cust of patientlist" value={{cust[0]}}>{{cust[1]}}</option>
+						</select>
+					
+				</div>
+	
+				<div class="col-sm-4">
+					
+						<label class="form-label">{{'salesordernew.deliverytype' | translate}}
+							<span class="fontlangifbel">*</span>
+						</label>
+						<select name="select" class="form-control" formControlName="deliverytype">
+							<option value="opt1" selected disabled>---{{'salesordernew.selectdeliverytype' | translate}}---</option>
+							<option value="Home Delivery">Home Delivery</option>
+							<option value="Courier Service">Courier Service</option>
+						</select>
+					
+				</div>		
+	
+				<!-- <div class="col-sm-4" hidden>
+						
+							<label class="form-label">Customer Mobile No</label>
+							<input type="number" class="form-control" formControlName="mobileno">
+						
+				</div>-->
+				<div class="col-sm-4">
+					
+						<label class="form-label">{{'salesordernew.salesordertype' | translate}}
+							<span class="fontlangifbel">*</span>
+						</label>
+						<select name="select" class="form-control" formControlName="sotype" (change)="setprodfocus()">
+							<option value="opt1" selected disabled>---{{'salesordernew.selectsOtype' | translate}}---</option>
+							<option *ngFor="let sales of sotype" value="{{sales[0]}}">{{sales[1]}}</option>
+						</select>
+					
+				</div><br>
+
+				<div class="col-sm-4">
+					<label class="form-label">{{'salesordernew.orderdate' | translate}}</label>
+					<input type="date" class="form-control" formControlName="orderdate">
+				</div>
+				
+			</div>
+			<!--
+			<div class="form-group row">
+				
+				<div class="col-sm-4">
+					<label class="form-label">Search Product</label>
+					<ng-select [options]="searchProducts" formControlName="drugproductid"
+						placeholder="Search By Product Name"
+						(input)="searchProduct($event.target.value)"></ng-select>
+				</div>
+	
+				<div class="col-sm-4">
+					<label class="form-label">Quantity</label>
+					<input type="text" #qty class="form-control"
+						placeholder="Total Quantity" formControlName="quantity" (blur)="getProductInfo()">
+					<span class="messages text-danger" *ngIf="salesOrderForm.controls.quantity.errors?.pattern">Numerical
+						Only Accepts!</span>
+				</div>	
+			</div>-->
+			<div class="px-2" align="center">
+				<label class="form-label mt-1" style="color:#5aa02c;font-weight: bold;text-align: center;">{{selecteddrug}}</label>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-1 col-lg-1 col-xl-1"></div>
+				<div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+					<input type="text" class="search mt-1"  style="width:100%;text-align: left;" 
+					placeholder="{{'salesordernew.searchproduct' | translate}}"  (input)="searchProduct($event.target.value)" 
+					(keydown)="drugkeyselect($event,$event.target.value)" autocomplete="off" id="drugfocus1" #drugfocus/>   
+					<div class="sdruglabel" *ngIf="searcheddrugvalues.length>0">
+						<table aria-describedby="mydesc" class="table">
+							<thead class="lhead">
+							<tr>
+								<th scope="col"> Drug Code </th>
+								<th scope="col"> Drug Name </th>
+								<th scope="col"> Batch No </th>
+								<th scope="col"> Qty </th>
+							</tr>
+							</thead>
+							<tbody class="lbody">
+							<tr *ngFor="let drugdata of searcheddrugvalues; let i=index" class="selectrow"
+							[style.background-color]="i == selectedIndex ? '#e9ecef':'' " (click)="selecteddrugdata(drugdata)">
+							<td><label> {{drugdata[1]}} </label></td>
+							<td><label style="width:310px;overflow: hidden;"> {{drugdata[0]}} </label></td>
+							<td><label> {{drugdata[6]}} </label></td>    
+							<td><label> {{drugdata[3]}} </label></td>    
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-xs-8 col-sm-7 col-md-3 col-lg-3 col-xl-3">
+					<input type="text" class="search ml-1 mt-1" style="background: white;width:85px;padding:7px 0px" placeholder="Qty" 
+					formControlName="quantity" (blur)="blurviewproducts($event)" #boxqtyfocus>
+				</div>
+				<div class="col-md-1 col-lg-1 col-xl-1"></div>
+			</div>
+			<div class="mr-2" align="right">
+				<label style="color: #5aa02c;font-weight: bold;cursor: pointer;"
+				(click)="addNewProduct()"><em class="fa fa-plus mr-1"></em>Add New Product</label>
+			</div>
+			<div class="flow" formArrayName="products">
+				<table aria-describedby="mydesc" class="table styletab">
+					<thead class="stylehead">
+						<tr>
+							<th scope="col">{{'common.snum' | translate}}</th>
+							<th scope="col"><em class="fa fa-close"></em></th>
+							<th scope="col">{{'salesordernew.prodcode' | translate}}</th>
+							<th scope="col">{{'salesordernew.prodname' | translate}}</th>
+							<th scope="col">{{'salesordernew.dosage' | translate}}</th>
+							<th scope="col">{{'salesordernew.formulation' | translate}}</th>
+							<th scope="col"> {{'salesordernew.qty' | translate}}</th>
+							
+						</tr>
+					</thead>
+	
+					<tbody class="stylebody">
+	
+						<tr *ngFor="let sald of salesOrderForm.controls.products.controls; let i = index"
+							[formGroupName]="i">
+	
+							<td id="width2">{{i+1}}</td>
+							<td><em class="fa fa-trash text-secondary" (click)="removeRow(i)" style="cursor:pointer"></em></td>
+							<td>
+								<input type="text" formControlName="drugproductid" readonly>
+							</td>
+							<td>
+								<input type="text" formControlName="productname" id="width6" style="text-align:left" id="width4" readonly>
+							</td>
+							<td>
+								<input type="text" formControlName="dosage" id="width4" style="text-align:left" readonly>
+							</td>
+							<td>
+								<input type="text" formControlName="formulation" id="width5" style="text-align:left" id="width4" readonly>
+							</td>
+	
+							<td>
+								<input type="text" formControlName="totalqty">
+							</td>
+	
+						</tr>
+	
+	
+						<tr *ngFor="let item of itemlength; let i = index">
+	
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+							<td>
+								<input type="text" id="width1" readonly>
+							</td>
+						</tr>
+	
+					</tbody>
+				</table>
+			</div>
+			<div class="" align="center">
+				<img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+			</div><br>
+			<div class="form-group row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-3">
+					<button type="button" [disabled]="salesOrderForm.controls.products.controls.length==0  || !salesOrderForm.valid"
+						class="btn-round" (click)="onSubmit()">{{'common.save'}}</button>
+				</div>
+				<!-- <div class="col-lg-3">
+					<button class="btn-round" (click)="timecalculate()"  >Time</button>
+				</div>
+			 -->
+			</div>
+			   <!--side panel for New Product-->
+			   <div  [ngClass]="newproductflag?'showtop':'hidetop'" align="center">
+				<div class="modalcont1 animated fadeindown">
+				 <div class="" align="right">
+				 <em class="fa fa-close modal-header1" (click)="newproductflag=false"></em>
+				 </div>
+				 <div class="py-2">
+					 <label class="form-label" style="text-align: center;color:#5aa02c;font-weight:bold">Enter New Product</label>
+				 </div>
+			   <!--. table  start-->
+			   <div class="popflow mx-2" align="center" style="max-height: 180px;">
+			   <table aria-describedby="mydesc" class="table popstyletab px-2" formArrayName="newproducts">
+				   <thead class="popstylehead">
+					   <tr>
+						   <th scope="col"> S.No</th>
+						   <th scope="col">New Product Name</th>
+						   <th scope="col">Remarks</th>
+						   <th scope="col">Add</th>
+					   </tr>
+				   </thead>
+				   <tbody class="popstylebody">
+					   <tr *ngFor="let address of salesOrderForm.controls.newproducts.controls; let i=index"
+					   [formGroupName]="i">
+					   <td>
+						   <input value={{i+1}} readonly id="width1" />
+					   </td>
+					   <td>
+						   <input type="text" formControlName="brandname" id="width5" style="text-align:left" />
+					   </td>
+					   <td>
+						   <input type="text" formControlName="remarks"  style="text-align:left" />
+					   </td>
+					   <td id="width3">
+						   <em class="fa fa-plus" style="color:#5aa02c;font-weight: bold;cursor: pointer;" (click)="insertnewrow()"></em>
+						   <em class="fa fa-close ml-3" style="color:brown;font-weight: bold;cursor: pointer;" (click)="removenewprodrow(i)"></em>
+					   </td>
+				   </tr>
+				   <tr *ngFor="let item of newprodlength; let i=index">
+					 <td>
+						 <input readonly id="width1" readonly/>
+					 </td>
+					 <td>
+						 <input type="text" id="width5" readonly/>
+					 </td>
+					 <td>
+						 <input type="text"  style="text-align:left" readonly/>
+					 </td>
+					 <td id="width3">
+					 </td>
+				  </tr>
+				 </tbody>
+			   </table>
+				</div><br>
+				<div class="savebtn mr-4" align="right">
+				   <button class="btn-round" (click)="saveNewProduct()">Save Product</button>
+			   </div><br>
+			   </div> <!--Modal Content End-->
+   
+		   </div> <!--New Product Side panel end-->
+		</form>
+	</div>
+	<div class="panel2" style="width:5%;float:right">
+	<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+	</div>
+	</div>	
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

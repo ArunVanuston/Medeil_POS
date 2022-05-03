@@ -1,0 +1,123 @@
+<app-card>
+  <div class="sub-title">Bonus Loyalty Settings
+    <em class="fa fa-heart ficon"></em>
+  </div>
+ 
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <div align="right">
+
+        <button type="submit" class="btn-round" [routerLink]="['/BonusLoyalty/ViewBonusLoyalty']">View Bonus Loyalty</button>
+    
+      </div>
+     
+      <form [formGroup]="BonusForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <div class="col-lg-4">
+            
+              <label class="form-label">
+                <h6>Bonus Loyalty Reason<span style="color: red;">*</span></h6>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Bonus Loyalty" formControlName="bonus_loyality"
+                autofocus>
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.hospitalname.errors?.required">Enter Hospital Name*</div> -->
+            
+          </div>
+          <div class="col-lg-4">
+            
+              <label class="form-label" style="font-weight:bold">Validate From Date<span style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="from_date">
+            
+          </div>
+    
+          <div class="col-lg-4">
+            
+              <label class="form-label" style="font-weight:bold">Validate To Date<span style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="to_date">
+            
+          </div>
+        </div>
+    
+    
+    
+    
+        <div class="form-group row">
+          <div class="col-lg-4">
+            <label class="form-label">
+              <h6>Minimum Purchase Amount</h6>
+            </label>
+            <input type="number" class="form-control" placeholder="Enter Min purch Amt" formControlName="min_purchase_amt">
+          </div>
+          <div class="col-lg-1 mt-2">
+            <label class="form-label" for="exampleInput">Select</label><br>
+            <input type="checkbox"  formControlName="percentageflag"
+                (change)="enablecontrol1()" />
+        </div>
+          <div class="col-lg-2">
+            <label class="form-label">
+              <h6>Discount %</h6>
+            </label>
+            <input type="number" maxlength="2" class="form-control" placeholder="Enter disc % "  formControlName="discount_percent">
+          </div>
+    
+          <div class="col-lg-1 mt-2">
+            <label class="form-label" for="exampleInput">Select</label><br>
+            <input type="checkbox"  formControlName="amountflag" (change)="enablecontrol2()" />
+        </div>
+    
+          <div class="col-lg-2">
+            <label class="form-label">
+              <h6>Discount Amount</h6>
+            </label>
+            <input type="number" class="form-control" placeholder="Enter Disc Amt " formControlName="discount_amount">
+          </div>
+        </div>
+    
+        <div class="form-group row">
+          <div class="col-lg-4">
+            
+              <label class="form-label">
+                <h6>Select Customer Type<span style="color: red;">*</span></h6>
+              </label>
+              <select name="select" class="form-control" placeholder="Select Customer Type " formControlName="customer_type">
+                <option value="opt1" selected disabled>---Select Schedule---</option>
+                <option value="0">Select All</option>
+                <option *ngFor="let ct of ctype" value={{ct[0]}}> {{ct[1]}}</option>
+              </select>
+            
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label">
+              <h6>Select Discount Products<span style="color: red;">*</span></h6>
+            </label>
+            <angular2-multiselect [data]="mulList" [settings]="mulSettings" formControlName="produc_code">
+            </angular2-multiselect>
+            <!-- <input type="number" class="form-control" placeholder="Enter the Minimum " formControlName="minimum_points"> -->
+          </div>
+        </div>
+    
+    
+      
+        <div align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-5">
+            <div class="form-group">
+              <button type="submit" class=" btn-round">Save</button>
+              <button type="button" class=" btn-round ml-3" [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+            </div>
+          </div>
+        </div> 
+      </form>
+    
+    
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+    <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+    </div>	
+</app-card>
+
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

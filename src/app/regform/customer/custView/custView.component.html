@@ -1,0 +1,113 @@
+<style>
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}	
+</style>
+<app-card>
+	<div class="sub-title">View Customer Details
+		<em class="fa fa-eye ficon"></em>
+	</div>
+	<!--<button (click)="setFocus()">Set Custom Focus</button>
+	<ng-select #select
+	[items]="cities"
+			 bindLabel="name"
+			 placeholder="Select city"
+			 [(ngModel)]="selectedCity">
+  	</ng-select> -->
+	<div class="panels">
+	<div class="panel1" style="width:95%;float:left">
+		<div class="row">
+			<div class="col-lg-6">
+				<button type="button" class="btn-round" [routerLink]="['/CustomerRegistration/ViewRefillCustomer']">Refill Customers</button>
+			</div>
+			<div class="col-lg-6" align="right">
+				<button type="button" class="btn-round" [routerLink]="['/CustomerRegistration/AddCustomer']">Add Customer</button>
+			</div>
+		</div>
+		<div class="mr-2" align="right">
+			<label class="text-secondary mr-2" [routerLink]="['/SalesInvoice/SalesInvoice']"
+			style="font-weight:bold;cursor: pointer;"><u>Back to S-Invoice</u></label>
+		</div>
+		<div class="searchbox" align="center">
+			<input type="search" [(ngModel)]="filterQuery" class="search" placeholder="Search Customer Name" autofocus>
+			<!-- <input type="search" [(ngModel)]="filterQuery1" class="form-control w-50" placeholder="Search Customer Mobile" autofocus> -->
+		</div>
+		<div align="center">
+			<img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+		</div>
+		<div class="mr-2" align="right">
+			<select class="form-control countwidth" [(ngModel)]="rowsOnPage">
+				<option [ngValue]="10">10</option>
+				<option [ngValue]="25">25</option>
+				<option [ngValue]="50">50</option>
+				<option [ngValue]="100">100</option>
+			</select>
+		</div><br>
+		<div class="dt-responsive">
+			<div style="overflow-x: auto">
+				<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+				   <thead>
+					   <tr>
+						   <th scope="col">S.No</th>
+						   <th scope="col">Customer First Name</th>
+						   <!-- <th scope="col">Customer Last Name</th> -->
+						   <th scope="col">Mobile Number</th>
+						   <th scope="col">Email</th>
+						   <th scope="col">Address</th>
+						   <!-- <th scope="col">Phone Number</th> -->
+						   <th scope="col">Edit</th>
+						   <th scope="col">Delete</th>
+					   </tr>
+				   </thead>
+				   <tbody>
+					   <tr *ngFor="let item of data | dataFilter:filterQuery | paginate: { id: 'listing_pagination',
+					   itemsPerPage: rowsOnPage, currentPage: page };let i=index">
+						   <td>{{i+1}} </td>
+						   <td>{{item[5]}} </td>
+						   <!-- <td>{{item[6]}} </td> -->
+						   <td>{{item[18]}} </td>
+						   <td> {{item[20] | lowercase }}</td>
+						   <td>{{item[11]}} </td>
+						   <td>
+							   <span [routerLink]="['/CustomerRegistration/custEdit',item[0]]" class="viewbtn">Edit</span>
+						   </td>
+						   <td>
+							<em class="fa fa-trash text-secondary pt-2" (click)="deleterec(item[0])" style="cursor: pointer;"></em>
+							</td>
+						   </tr>
+	
+					   <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+						   <td></td>
+						   <td></td>
+						   <td></td>
+						   <td class="nodata">No Data Available</td>
+						   <td></td>
+						   <td></td>
+						   <td></td>
+					   </tr>
+				   </tbody>
+				   <tfoot>
+					   <tr>
+						   <td colspan="7">
+							   <!-- <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator> -->
+							   <pagination-controls id="listing_pagination" directionLinks="true"
+							   (pageChange)="page = $event" style="float: right;"></pagination-controls>
+						   </td>
+					   </tr>
+				   </tfoot>
+			   </table>
+			</div>
+		</div>
+	</div>
+	<div class="panel2" style="width:5%;float:right">
+	<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+	</div>
+	</div>	
+	<ng2-toasty [position]="'center-center'"></ng2-toasty>
+</app-card>

@@ -1,0 +1,66 @@
+.line-container {
+  height: 300px;
+  width: 100%;
+  display: block;
+}
+
+.gauge-container {
+  height: 300px;
+  width: 100%;
+  display: block;
+}
+
+/* Kishore */
+
+.morris-hover {
+  position: absolute;
+  z-index: 1000;
+}
+
+.morris-hover.morris-default-style {
+  border-radius: 10px;
+  padding: 6px;
+  color: #666;
+  background: rgba(255, 255, 255, 0.8);
+  border: solid 2px rgba(230, 230, 230, 0.8);
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 25px;
+  margin-right: 25px;
+}
+
+.morris-hover.morris-default-style .morris-hover-row-label {
+  font-weight: bold;
+  margin: 0.25em 0;
+}
+
+.morris-hover.morris-default-style .morris-hover-point {
+  white-space: nowrap;
+  margin: 0.1em 0;
+}
+
+svg {
+  width: 100%;
+}
+
+.colgap{
+  grid-column-gap: -20px;
+}
+
+.card-body-big {
+  padding:0.7em 2em 0.1em 2em;
+}
+
+.dashsales .table td {
+  padding: 0.7em;
+  border-top: 1px solid lightgrey;
+  text-align:left;
+}
+
+
+.dashsales .table th {
+  text-align:left;
+}
+
+

@@ -1,0 +1,82 @@
+.border {
+    border-radius: 10px;
+}
+
+.btnalign {
+    margin-left: 10px;
+    border-radius: 10px;
+    height: 20px;
+    padding-top: -0px;
+    margin-bottom: 5px;
+}
+
+.spanclass {
+    padding: 0px 9px 0px 8px;
+    border: 1px solid grey;
+    border-radius: 7px;
+    background: orange;
+    margin-left: 3px;
+}
+
+select.form-control {
+    width: 16em !important;
+}
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+}
+
+td span.badge {
+    border-radius: 5px;
+}
+
+.table-striped td:nth-child(3) {
+    text-align: center !important;
+}
+
+/* .table td span div .togglealign{
+
+    margin-top: 3em !important;
+} */
+
+.togglealign {
+    margin-left: 24px;
+    margin-top: 7px;
+}
+
+.border-right {
+    border-right: 1px solid #e3eaef!important;
+}
+
+thead {
+    background: #002e86;
+    color: white;
+}
+
+.icon-cog {
+    color: #002e86;
+}
+
+.fa-play, .fa-envelope-open-o, .fa-spinner, .fa-stop, .fa-list-alt {
+    color: #002e86;
+}
+
+select .border {
+    height: 100px;
+    overflow: none;
+}
+
+.compbtn {
+    margin-bottom: 7px;
+    margin-top: 1px;
+}
+
+label {
+    /* Other styling... */
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+}

@@ -1,0 +1,84 @@
+<app-card>
+  <div class="sub-title" style="font-size: 20px;">{{'generatebarcode.adddecimalsetting'| translate}}
+    <i style="float:right" class="ti-more"></i>
+  </div>
+  <div class="panels">
+  <div class="panel1" style="width:95%;float:left">
+    <form [formGroup]="DecimalForm">
+      <div class="" align="right">
+        <button class="btn btn-round" [routerLink]="['/GeneralSettings/GeneralSettings']">{{'common.back'| translate}}</button>
+      </div><br>
+      <div class="form-group row ml-5">
+        <div class="col-sm-4">
+          <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="decimalcheckbox($event,1)"
+            formControlName="decimaltwo"> <label class="form-check-label">
+            <h6>0.00</h6>
+          </label>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="decimalcheckbox($event,2)"
+            formControlName="decimalthree"> <label class="form-check-label">
+            <h6>0.000</h6>
+          </label>
+        </div>
+      </div>
+      <div class="row bform m-2">
+        <label style="text-align:left">NOTE: If you are from Algeria,Bahrain,Iraq, Jordan, Kuwait, Libya and
+          Tunisia.Please select three decimal.It will reflect in all your Financial Transactions</label>
+      </div>
+    
+      <hr>
+      <h5>{{'generatebarcode.roundedoffsetting'| translate}}</h5><br><br>
+      <div class="form-group row">
+        <div class="col-sm-4">
+          <label class="form-label ml-5">{{'generatebarcode.do'| translate}}</label>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="roundedcheckbox2($event,1)"
+            formControlName="expectedamt"> <label class="form-check-label">
+            <h6>{{'generatebarcode.actualamount'| translate}}</h6>
+          </label>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="checkbox" class="form-check-input mr-2" (click)="roundedcheckbox2($event,2)"
+            formControlName="roundoffamt"> <label class="form-check-label">
+            <h6>{{'generatebarcode.round'| translate}}</h6>
+          </label>
+        </div>
+        <!-- <input type="checkbox" class="mr-2" (click)="roundedcheckbox2($event,1)" formControlName="roundedabove">
+          Rounded Amount Above 1.5<br>
+          <input type="checkbox" class="mr-2" (click)="roundedcheckbox2($event,2)" formControlName="roundedbelow">
+          Rounded Amount Below 1.5 -->
+    
+      </div>
+      <!-- <div class="form-group row" *ngIf="roundenable == 1">
+        <div class="col-sm-8">
+          <label class="form-label ml-4">If the amount is less than > 0.50,</label>
+          <label class="form-label ml-5">(Do you want the value,(ex)0.00),If yes</label>&nbsp;&nbsp;&nbsp;&nbsp;
+          <input type="checkbox" name="checkbox" formControlName="roundedabove" (click)="roundedcheckbox1($event,1)">
+        </div>
+    
+      </div>
+      <div class="form-group row" *ngIf="roundenable == 1">
+        <div class="col-sm-8">
+          <label class="form-label ml-4">If the amount is more than < 0.50,</label>
+              <label class="form-label ml-5">(Do you want the value,(ex)1.00),If yes</label>&nbsp;&nbsp;&nbsp;&nbsp;
+              <input type="checkbox" name="checkbox" formControlName="roundedbelow"
+                (click)="roundedcheckbox1($event,2)">
+        </div>
+    
+      </div> -->
+      <div class="" align="center">
+        <img src="assets/images/saveload.gif" class="mt-2" *ngIf="saveprocess">
+       </div><br>
+      <div class="mr-4" align="right">
+          <button type="button" class="btn btn-round" (click)="savedecimalsetup()">{{'common.save'| translate}}</button>
+      </div>
+      </form>
+  </div>
+  <div class="panel2" style="width:5%;float:right">
+  <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+  </div>
+  </div>	
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

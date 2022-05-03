@@ -1,0 +1,252 @@
+<style>
+	/*
+[placeholder], input[placeholder] {
+	color: #021016;
+	border-width: 0 0 2px 0;
+	border-color: #b2b6b7;
+}
+
+[placeholder], input[placeholder]:focus {
+	border-color: #C0C0C0;
+}
+*/
+	input[type="radio"] {
+		-ms-transform: scale(1.5);
+		-webkit-transform: scale(1.5);
+		transform: scale(1.5);
+		margin-right: 0;
+	}
+</style>
+
+<div class="row">
+	<div class="col-sm-12">
+		<app-card >
+				<div class="sub-title">Edit Details
+				<em class="fa fa-edit ficon"></em></div>
+			<form [formGroup]="drugForm" (ngSubmit)="onSubmit()" class="mx-3">
+				
+				<div class="col-lg-4">
+					
+						<input type="hidden" class="form-control" formControlName="id" placeholder="Drug Id">
+					
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Drug Name</label>
+							<input type="text" class="form-control" placeholder="Enter Drug Name" formControlName="brandname" disabled>
+						
+					</div>
+
+					<div class="col-lg-4">
+						
+							<label class="form-label">Generic Name
+							</label>
+							<ng-select [options]="generic" placeholder="Search Generic Name" formControlName="genericids" (input)="getGeneric($event.target.value)">
+							</ng-select>
+						
+					</div>
+					
+					<div class="col-lg-4">
+						
+							<label class="form-label">Dosage Value
+							</label>
+							<input type="text" class="form-control" placeholder="Dosage Value" formControlName="genericnamedosage">
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Unit Of Messurement(UOM)
+							</label>
+							<input type="text" class="form-control" placeholder="Unit Of Messurement(UOM)" formControlName="uom">
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Formulation</label>
+							<select name="select" class="form-control" formControlName="formulationid" placeholder="">
+								<option value="0" selected disabled>---Select Formulation---</option>
+								<option *ngFor="let formu of formulation" value={{formu[0]}}>{{formu[1]}}</option>
+							</select>
+						
+					</div>
+				</div>
+				
+				<div class="sub-title">Other Settings</div><br>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Schedule</label>
+							<select name="select" class="form-control" formControlName="schudletype" placeholder="">
+								<option value="0" selected disabled>---Select Schedule---</option>
+								<option *ngFor="let sch of schedule" value={{sch[0]}}>{{sch[1]}}</option>
+							</select>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">MRP</label>
+							<input type="text" class="form-control" id="mrp" placeholder="Maximum Retail Price" formControlName="mrp" step="0.02">
+							<div class="messages text-danger" *ngIf="drugForm.controls.mrp.errors?.pattern">Numerical Only Accepts!</div>
+							<div class="messages text-danger" *ngIf="drugForm.controls.mrp.errors?.required">This Field is Required</div>
+							<!-- <div class="messages text-danger" *ngIf="drugForm.get('mrp').hasError('required') && formSubmitAttempt"> 
+							This Field is Required
+							</div>-->
+						
+					</div>
+
+					<div class="col-lg-4">
+						
+							<label class="form-label">Banded Drug</label>
+							<br>
+							<input type="radio" (click)="changeValue(true)" formControlName="banneddrug" [value]="1" value="1" />&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" (click)="changeValue(false)" formControlName="banneddrug" value="0" [checked]="true" />&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+							<div *ngIf="isValid">
+								<textarea rows="2" cols="50" formControlName="banneddrugreason"></textarea>
+							</div>
+							<div *ngIf="!isValid"></div>
+
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Min Quantity</label>
+							<input type="text" class="form-control" id="minqty" placeholder="Minimum Quantity" formControlName="minqty">
+							<div class="messages text-danger" *ngIf="drugForm.controls.minqty.errors?.pattern">Numerical Only Accepts!</div>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Max Quantity</label>
+							<input type="text" class="form-control" id="maxqty" placeholder="Maximum Quantity" formControlName="maxqty">
+							<div class="messages text-danger" *ngIf="drugForm.controls.maxqty.errors?.pattern">Numerical Only Accepts!</div>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Insurance Type</label>
+							<angular2-multiselect class="form-control" [data]="insurancetype" [settings]="dropdownSettings" formControlName="insuranceid">
+							</angular2-multiselect>
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Box/Cartone </label>
+							<input type="text" class="form-control" id="boxpercartoon" placeholder="Box per Cartone" formControlName="boxpercartoon">
+							<div class="messages text-danger" *ngIf="drugForm.controls.boxpercartoon.errors?.pattern">Numerical Only Accepts!</div>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Strip/Box</label>
+							<input type="text" class="form-control" id="stripperbox" placeholder="Strip per Box" formControlName="stripperbox">
+							<div class="messages text-danger" *ngIf="drugForm.controls.stripperbox.errors?.pattern">Numerical Only Accepts!</div>
+						
+					</div> 
+					<div class="col-lg-4">
+						
+							<label class="form-label">Quantity/Strip</label>
+							<input type="text" class="form-control" id="quantityperstrip" placeholder="Quantity per Box" formControlName="quantityperstrip">
+							<div class="messages text-danger" *ngIf="drugForm.controls.quantityperstrip.errors?.pattern">Numerical Only Accepts!</div>
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Barcode</label>
+							<input type="text" class="form-control" id="barcode" placeholder="Barcode" formControlName="barcode">
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Product Register Number</label>
+							<input type="text" class="form-control" id="productregno" placeholder="Product Register Number" formControlName="productregno">
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Distributor Channel</label>
+							<select name="select" class="form-control" formControlName="distimporterid" placeholder="">
+								<option value="0">---Select Importer---</option>
+
+
+								<option value *ngFor="let distchn of distchannel" value={{distchn[0]}}> {{distchn[1]}}</option>
+							</select>
+						
+					</div>
+				</div>
+
+
+				<div class="sub-title">Tax Settings</div><br>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">VAT</label>
+							<select name="select" class="form-control" formControlName="vat" placeholder="">
+								<option value="0" selected disabled>---Select VAT---</option>
+								<option *ngFor="let vatTax of vat" value={{vatTax[0]}}>{{vatTax[1]}}</option>
+							</select>
+						
+					</div>
+
+
+					<!-- <div class="col-lg-4">
+						
+							<label class="col-form-label">Goods & Service Tax(GST)</label>
+							<select name="select" class="form-control" formControlName="gst" placeholder="">
+								<option value="0" selected disabled>---Select Goods And ServiceTax---</option>
+								<option *ngFor="let gstTax of gst" value={{gstTax[0]}}>{{gstTax[1]}}</option>
+							</select>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="col-form-label">SGST</label>
+							<select name="select" class="form-control" formControlName="sgst" placeholder="">
+								<option value="0" selected disabled>---Select SGST---</option>
+								<option *ngFor="let sgstTax of sgst" value={{sgstTax[0]}}>{{sgstTax[1]}}</option>
+							</select>
+						
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="col-form-label">CGST</label>
+							<select name="select" class="form-control" formControlName="cgst" placeholder="">
+								<option value="0" selected disabled>---Select CGST---</option>
+								<option *ngFor="let cgstTax of cgst" value={{cgstTax[0]}}>{{cgstTax[1]}}</option>
+							</select>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="col-form-label">IGST</label>
+							<select name="select" class="form-control" formControlName="igst" placeholder="">
+								<option value="0" selected disabled>---Select IGST---</option>
+								<option *ngFor="let igstTax of igst" value={{igstTax[0]}}>{{igstTax[1]}}</option>
+							</select>
+						
+					</div> -->
+
+
+				</div>
+
+
+				<div class="form-group row">
+					<div class="col-lg-4"><!--[disabled]="!drugForm.valid"-->
+						<button type="submit" class="btn-round">Update</button>
+					</div>
+				</div>
+			</form>
+		</app-card>
+	</div>
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>

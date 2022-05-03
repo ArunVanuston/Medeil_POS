@@ -1,0 +1,122 @@
+<app-card>
+
+    <div class="container bform">
+    <div align="right">
+        <button class="btn-round" (click)="viewmodule()">ViewModules</button>
+      </div><br><br>
+      <form [formGroup]="mymodules" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <h6>Country Name</h6>
+            <select type="text" class="form-control" formControlName="countryid" placeholder="Select Country" id="countryid" name="countryid"
+              (change)="getproduct()" (click)="getproduct()">
+              <option value="opt1" selected disabled>--Select Country-- </option>
+              <option *ngFor="let country of countrylist" value={{country[0]}}>{{country[1]}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <h6>Product Name</h6>
+            <select type="text" class="form-control" formControlName="productid" placeholder="Select Product Name" id="productid" name="productid"
+              (change)="getdomain()" (click)="getdomain()">
+              <option value="opt1" selected disabled>--Select Product-- </option>
+              <option *ngFor="let cust of product" value={{cust[0]}}>{{cust[1]}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <h6>Domain Name</h6>
+            <select type="text" class="form-control" formControlName="domainrefid" placeholder="Select Domain Name" id="domainrefid"
+              name="domainrefid" (change)="getsubdomain()" (click)="getsubdomain()">
+              <option value="opt1" selected disabled>--Selec Domaint-- </option>
+              <option *ngFor="let cust of domain" value={{cust[0]}}>{{cust[1]}}</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+
+          <div class="col-sm-4">
+            <h6>Sub Domain</h6>
+            <select type="text" class="form-control" formControlName="subdomainrefid" (change)="getlabelname()">
+              <option value="opt1" selected disabled>--Select Sub-Domain-- </option>
+              <option *ngFor="let cust of subdomain" value={{cust[0]}}>{{cust[1]}}</option>
+            </select>
+          </div>
+
+          <div class="col-sm-4">
+            <h6>Label Name </h6>
+            <select class="form-control" formControlName="label" (change)="labelpopup($event.target.value,newlabelname)">
+              <option value="opt1" selected disabled> --Select Label Name-- </option>
+              <option value="newlabelname" style="background-color: #002e86;color:white">Add Label-Name</option>
+              <option *ngFor="let cust of labels" value={{cust[1]}}>{{cust[1]}}</option>
+            </select>
+            <label class="text-danger" style="font-weight:bold;font-size:16px" *ngIf="newlabel">New Label: {{mymodules.controls.label.value}}</label>
+          </div>
+
+          <div class="col-sm-4">
+            <h6>Module Name</h6>
+            <select type="text" class="form-control" formControlName="modulename" (change)="modulepopup($event.target.value,newmodulename)">
+              <option value="opt1" selected disabled> --Select Module-Name-- </option>
+              <option value="newmodulename" style="background-color: #002e86;color:white">Add Module Name</option>
+              <option *ngFor="let cust of module" value={{cust[1]}}>{{cust[1]}}</option>
+            </select>
+            <label class="text-danger" style="font-weight:bold;font-size:16px" *ngIf="newmodule">New Module: {{mymodules.controls.modulename.value}}</label>
+          </div>
+        </div>
+
+        <div class="form-group row">
+
+          <div class="col-sm-4">
+            <h6>Icon </h6>
+            <input type="text" class="form-control" formControlName="icon" placeholder="">
+          </div>
+
+          <div class="col-sm-4">
+            <h6>Status</h6>
+            <select name="select" class="form-control" formControlName="status">
+              <option value="0">Active</option>
+              <option value="1">InActive</option>
+            </select>
+          </div>
+
+        </div><br>
+        <button type="submit" class="btn-round" [disabled]="!mymodules.valid">Submit</button>
+
+        <!--Pop up-->
+        <ng-template #newlabelname let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <label class="form-label"> Add New Label</label>
+            <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+          </div>
+          <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+      
+          <div class="modal-body mx-5">
+            <input class="form-control" id="maingroupnumber" formControlName="newlabel" placeholder="Enter Label Name" />
+          </div>
+          <div class="modal-footer">
+            <label class="btn modbtn" id="typemain" (click)="SaveNewLabel(c)">Save
+            </label>
+          </div>
+        </ng-template>
+
+        <ng-template #newmodulename let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <label class="form-label"> Add New Module</label>
+            <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+          </div>
+          <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+      
+          <div class="modal-body mx-5">
+            <input class="form-control" id="maingroupnumber" formControlName="newmodule" placeholder="Enter Module Name" />
+          </div>
+          <div class="modal-footer">
+            <label class="btn modbtn" id="typemain" (click)="SaveNewModule(c)">Save
+            </label>
+          </div>
+        </ng-template>
+      </form>
+      </div>
+      <ng2-toasty [position]="position"></ng2-toasty>
+</app-card>

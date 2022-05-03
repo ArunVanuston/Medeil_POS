@@ -1,0 +1,50 @@
+<app-card>
+  <div class="sub-title">Membership Customer List
+    <i class="fa fa-print ficon"></i>
+  </div><br>
+  <form [formGroup]="myForm">
+  
+    <div class="col-lg-3">
+      <label class="title1"><u>Selected Membership List</u></label><br>
+    </div><br>
+    <div class="row">
+    <div class='col-lg-3'>
+      <div class='date' id='datetimepicker6'>
+        <label class="form-label">
+          <h6>From Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="from_date" />
+      </div>
+    </div>
+
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+      </div>
+  
+  </div>
+  <div class=" col-lg-11" align="right">
+
+    <button class="btn btn-round" (click)="membership()">View </button>
+  </div>
+
+
+</form>
+</app-card>
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:205%">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+<style>
+#swidth{
+    width:270px;
+}
+</style>
+<app-card>
+    <div class="sub-title">{{'finance.trialbalance'| translate}}
+        <em class="fa fa-balance-scale ficon"></em>
+    </div>
+    <form [formGroup]="registerForm">
+        <div align="center">
+            <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+        </div>
+        <div class="box-typical box-typical-padding">
+           
+            <div formArrayName="trialbal" class="flow">
+                    <table aria-describedby="mydesc" class="table styletab">
+                        <thead class="stylehead">
+                            <tr>
+                                <th scope="col">S. No </th>
+                                <!-- <th scope="col">Account Type</th> -->
+                                <th scope="col">{{'finance.accountname'| translate}}</th>
+                                <th scope="col">{{'finance.creditbalance'| translate}}</th>
+                                <th scope="col">{{'finance.debitbalance'| translate}}</th>
+                                <!-- <th scope="col">Opening Balance</th> -->
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+                        <tr *ngFor="let address of registerForm.controls.trialbal.controls; let i=index"
+                            [formGroupName]="i">
+                            <td><input value={{i+1}} id="width1" readonly /></td>
+                            <!-- <td><input formControlName="acctype" class="left" id="width5" readonly /></td> -->
+                            <td><input formControlName="accname" class="left" id="width6" readonly /></td>
+                            <td><input formControlName="drbalance" class="right" id="width5" readonly /></td>
+                            <td><input formControlName="crbalance" class="right" id="width5" readonly /></td>
+                            <!-- <td><input formControlName="openingbal" class="right" id="width5" readonly /></td> -->
+                        </tr>
+                        </tbody>
+                    </table>
+            </div><br>
+        
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-3">
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.creditbalance'| translate}}</label>
+                    <input type="text" class="form-control" formControlName="debitbal" disabled/>
+                </div>        
+                       
+                <div class="col-lg-3">
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.debitbalance'| translate}}</label>
+                    <input type="text" class="form-control" formControlName="creditbal" disabled/>
+                </div>           
+                
+            </div> <!-- splitcolumn  end-->
+        </div>
+        <!-- box-typical-->
+    </form>
+</app-card>

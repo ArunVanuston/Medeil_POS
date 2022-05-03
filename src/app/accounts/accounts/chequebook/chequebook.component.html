@@ -1,0 +1,100 @@
+<app-card>
+  <div class="sub-title">Cheque Registration
+    <em class="ti-agenda ficon"></em>
+</div>
+  <form [formGroup]="chequeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Account Number</h6>
+        </label>
+        <select class="form-control" (change)="getbank($event.target.value)">
+        <option value="opt1" >---Select Account Number---</option>
+        <option *ngFor="let val of bankdetails" value="{{val[0]}}" >{{val[2]}}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Cheque Book Id</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter Cheque Book Id" formControlName="chqbookno" />
+
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>First No</h6>
+        </label>
+        <input type="text" class="form-control" formControlName="startno" >
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Last No</h6>
+        </label>
+        <input type="text" class="form-control"  formControlName="endno" />
+
+      </div>
+     
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>No of Cheques</h6>
+          </label>
+  
+          <input type="text" class="form-control" placeholder="0.00" formControlName="noofcheques" />
+        
+      </div>
+
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            Issued Date </label>
+            <input type="date" class="form-control" formControlName="issueddate" >  
+      </div>
+      
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Bank Name</h6>
+          </label>
+          <input type="text" class="form-control" placeholder="Enter Bank Name" formControlName="bankname" />
+        
+        <!-- <div class="messages text-danger" *ngIf="editionForm.controls.version.errors?.pattern">Numbers Only Allowed.. -->
+        </div>
+    
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Branch</h6>
+          </label>
+          <input type="text" class="form-control" placeholder="Enter Branch Name" formControlName="branch" />
+        
+      </div>
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Remarks</h6>
+          </label>
+          <textarea  class="form-control" placeholder="Add Remarks" formControlName="remarks" ></textarea>
+        
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <button [disabled]="!chequeForm.valid" type="submit" class="btn btn-success btn-round button btnlinklist"
+            style="margin: 26px;">Save</button>
+        
+      </div>
+    </div>
+
+   
+  </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

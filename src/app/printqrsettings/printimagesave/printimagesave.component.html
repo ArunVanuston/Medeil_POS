@@ -1,0 +1,71 @@
+<style>
+  .printlabel{
+    padding:0.5em 0em;
+    cursor: pointer;
+  }
+</style>
+<app-card>
+  <div class="container">
+  <form [formGroup]="printimageForm">
+    <div class="" align="right">
+      <button type="button" class="mr-1 btn-round" style="font-size:18px" [routerLink]="['/psettings/viewprintimage']">View Saved Images & URL</button>
+    </div><br><br>
+    <div class="px-2">
+      <h5 style="font-weight: bold;font-family: Montserrat;"><u>Conditions for Save Print Model:</u></h5><br><br>
+      <table aria-describedby="mydesc">
+        <tbody>
+          <tr>
+            <td>1) Given Image Size Should be Same & Clear View</td>
+          </tr>
+          <tr>
+            <td>2) Given URL Must be a Same Syntax or Format</td>
+          </tr>
+        </tbody>
+      </table><br>
+    </div><br>
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="form-label">Form Name</label>
+        <select class="form-control" formControlName="formid" (change)="typeselect()">
+          <option value="opt1">--Select Form--</option>
+          <option *ngFor="let item of printforms; let i = index" value={{item[0]}}>{{item[1]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label class="form-label">Print Type</label>
+        <select class="form-control" formControlName="printtype" (change)="modelselect()">
+          <option value="opt1">--Select Type--</option>
+          <option value="1">Basic</option>
+          <option value="2">Advanced</option>
+          <option value="3">Cusstomize</option>
+          <option value="4">Pre-Print</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <label class="form-label">Print Label</label>
+        <input type="text" class="form-control" formControlName="printlabel">
+      </div> 
+    </div>
+    <div class="row">
+      <div class="col-lg-4 mt-2">
+        <label class="form-label">Print Image</label><br>
+        <div class="form-inline">
+          <input type="file" class="form-control" formControlName="printimage" id="imagefile"
+          (change)="PrintImageChange($event)" #fileInput accept="image/*"/>
+          <span class="fa fa-trash mt-2 ml-2" style="cursor: pointer" (click)="reset()"></span>
+        </div><br>
+        <img [src]="imgURL" alt="altitem" height="250" width="260"/><br>
+        <span style="color:red;" *ngIf="message">{{message}}</span>
+      </div>
+      <div class="col-lg-4 mt-2">
+        <label class="form-label">Print URL</label><br>
+        <input type="text" class="form-control" formControlName="printurl"/>
+      </div>
+      <div classs="col-lg-4">
+        <button type="button" class="btn-round ml-1 mt-4" (click)="SaveImageRecord()">Save Image</button>
+      </div>
+    </div>
+  </form><br>
+  </div>
+  <ng2-toasty [position]="'center-center'"></ng2-toasty>
+</app-card>

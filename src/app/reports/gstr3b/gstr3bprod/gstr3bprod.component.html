@@ -1,0 +1,47 @@
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u>GSTR 3B Year Report </u>
+
+        </div>
+      </label>
+    </div>
+  </div>
+<br>
+  <form [formGroup]="GSTR3BYearForm" >
+
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="form-label">
+          <h6>Select Year:</h6>
+        </label>
+        <input type="date" id='date' name='date' (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="months" />
+        
+         </div>
+
+
+
+      <div class=" col-lg-8" align="right">
+         <button class="btn btn-round" (click)="gstr3byear()">View </button>
+      </div>
+    </div>
+  </form>
+
+
+</app-card>
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:550%">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

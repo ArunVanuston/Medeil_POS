@@ -1,0 +1,180 @@
+<style>
+#swidth{
+    width:270px;
+}
+</style>
+
+<app-card>
+    <div class="sub-title">{{'finance.generaljournal'| translate}}
+        <em class="ti-receipt ficon"></em>
+    </div>
+    <form [formGroup]="registerForm">
+        <div class="box-typical box-typical-padding">
+            <!-- <div class="row">
+                <div class="col-lg-4">
+                    <input type="radio" name="radio" [checked]="jrnlmodel == 1" value = "1"  (change)="test($event.target.value)" formControlName="adjbalflag">
+                    <label class="form-label semibold" for="exampleInput">Genral Journal</label>
+                    <input type="radio" name="radio" [checked]="jrnlmodel == 0" value = "0" (change)="test($event.target.value)" formControlName="adjbalflag">
+                    <label class="form-label semibold" for="exampleInput"  >Adjustment Journal  </label>
+                            <!-- <select class="form-control" formControlName="adjbalflag">
+                                <option value="true">AdjJrnl</option>
+                                <option value="false">GenJrnl</option>
+                            </select> 
+
+                </div>
+            </div> -->
+       <div class="form-group row" *ngIf="jrnlmodel == 1">
+             
+              
+
+                <div class="col-lg-4" >
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.journalmode'| translate}}</label>
+                    <select class="form-control" (change)="genmode($event.target.value)">
+                        <option value="opt1" disabled>--Select Mode--</option>
+                        <option value="1">Vendor</option>
+                        <option value="2">Customer</option>
+                        <option value="3">Employee</option>
+                        
+                    </select>
+                </div>
+
+
+
+                <div class="col-lg-4" *ngIf="journalmode == 1">
+                    <label class="form-label semibold" for="exampleInput">{{'finance.name'| translate}}</label>
+                    <ng-select [options]="distributors" placeholder="Search Vendor"
+                        formControlName="journalperson" (click)="journalpersonfn()">
+                    </ng-select>
+                </div>
+                <div class="col-lg-4" *ngIf="journalmode == 2">
+                    <label class="form-label" for="exampleInput">{{'finance.name'| translate}}</label>
+                    <ng-select [options]="customers" class="inputstyle" placeholder="Search Customer"
+                        formControlName="journalperson" (click)="journalpersonfn()"></ng-select>
+                </div>
+                
+                <div class="col-lg-4" *ngIf="journalmode == 3">
+                    <label class="form-label" for="exampleInput">{{'finance.name'| translate}}</label>
+                    <ng-select [options]="employee" class="inputstyle" placeholder="Search Employee"
+                     formControlName="journalperson" (click)="journalpersonfn()"></ng-select>
+                </div>
+                <div class="col-lg-4">
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.journaldate'| translate}}</label>
+                    <input type="date" class="form-control" formControlName="date" />
+                </div>
+
+            </div>
+            <div class="form-group row" >
+                <div class="col-lg-4" *ngIf="jrnlmodel == 1">
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.refperson'| translate}}
+                    </label>
+                    <input type="text" class="form-control" (blur)="journaldetails()"
+                        formControlName="personame" />
+                </div>
+                <div class="col-lg-4" *ngIf="jrnlmodel == 1">
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.paymenttype'| translate}}</label>
+
+                    <select class="form-control" formControlName="paymenttype">
+                        <option value="opt1" disabled>--Select Type--</option>
+                        <option value="cash">Cash</option>
+                        <option value="card">Card</option>
+                        <option value="cheque">Cheque</option>
+                        <option value="onlinepay">Online Pay</option>
+                        <option value="upi">upi</option>
+                    </select>
+                </div>
+                <div class="col-lg-4" *ngIf="jrnlmodel == 0">
+                    <label class="form-label semibold" for="exampleInput"> {{'finance.journaldate'| translate}}</label>
+                    <input type="date" class="form-control" formControlName="date" />
+                </div>
+  
+            </div>
+
+            <br>
+    
+                <div class="flow" formArrayName="journalDetails">
+                        <table aria-describedby="mydesc" class="table styletab">
+                            <thead class="stylehead">
+                                <tr >
+                                    <!--        <th scope="col">S.No</th>  -->
+                                    <th scope="col" *ngIf="jrnlmodel == 1">{{'finance.name'| translate}}</th>
+                                    <th scope="col">{{'finance.debitaccount'| translate}}</th>
+                                    <th scope="col">{{'finance.creditaccount'| translate}} </th>
+                                    <th scope="col">{{'finance.debitamount'| translate}}</th>
+                                    <th scope="col">{{'finance.creditamount'| translate}}</th>
+                                    <!--         <th scope="col">Bal Amt  </th>   -->
+                                    <th scope="col" *ngIf="jrnlmodel == 1">{{'finance.refperson'| translate}}</th>
+                                    <th scope="col">{{'finance.remove'| translate}}</th>
+                                </tr>
+                            </thead>
+                            <tbody class="stylebody">
+                            <tr *ngFor="let val of registerForm.controls.journalDetails.controls; let i = index" [formGroupName]="i"> 
+                                <!--<td><input   value={{i+1}}  readonly/></td>     -->
+                                <td *ngIf="jrnlmodel == 1"> <input formControlName="journalperson" class="left" id="width6"/> </td>
+                                <td>
+                                    <select formControlName="debitaccountemp" (change)="viewDebitAcc()"  id="width5">
+                                        <option *ngFor="let item of accounts ; let i = index" value={{i}}>{{item[1]}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select formControlName="creditaccountemp" (change)="viewCreditAcc()"  id="width5">
+                                        <option *ngFor="let item of accounts ; let i = index" value={{i}}>{{item[1]}}
+                                        </option>
+                                    </select>
+                                </td>
+                                <td> <input formControlName="debitamount" type="number" (blur)="getSum()" id="width4"/> </td>
+                                <td> <input formControlName="creditamount" type="number" (blur)="getSum()" id="width4"/> </td>
+                                <!--        <td><input  formControlName="invoicebalamt"   /></td>  -->
+                                <td *ngIf="jrnlmodel == 1"> <input formControlName="personame" class="left" id="width6"/> </td>
+                                <td> <input type = "button" value="Remove" class="btn viewbtn" (click)="removerow(i)"/> </td>
+                            </tr>
+
+                            <tr *ngFor="let item of itemlength; let i=index">
+                                <td><input /> </td>
+                                <td *ngIf="jrnlmodel == 1"> </td>
+                                <td *ngIf="jrnlmodel == 1"> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                                <td> </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+        </div> <br> <!-- box-typical-->
+        <div class="pl-5 pr-3" style="border:2px solid #002e86">
+            <div class="row">
+                <div class="col-lg-3 px-2 py-4">
+                    <th scope="col" style="font-weight: normal;font-size:1.2em">{{'finance.refno'| translate}}</th>
+                    <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                        <input type="text" class="form-control" formControlName = "ptrefno">
+                    </td>
+                </div>
+                <!-- <div class="col-lg-3 px-2 py-4"></div> -->
+                <div class="col-lg-3 px-2 py-4">
+                    <th scope="col" style="font-weight: normal;font-size:1.2em">{{'finance.totaldebitamount'| translate}}</th>
+                    <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                        {{debittotal}}</td>
+                </div>
+                <div class="col-lg-3 px-2 py-4">
+                    <th scope="col" style="font-weight: normal;font-size:1.2em;">{{'finance.totalcreditamount'| translate}}</th>
+                    <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                        {{credittotal}}</td>
+                </div>
+            </div>
+        </div><br>
+        <div class="row">
+
+            <div class="col-lg-1"></div>
+            <div class="col-lg-5">
+                <button type="button" class="btn-round" (click)="onSubmit()"> {{'finance.save'| translate}} </button>
+                <!-- <button type="button" class="btn-round" [routerLink]="['/GenJournal/EditGenJournal' ]"> Edit </button> -->
+            </div>
+           
+        </div>
+        <ng2-toasty [position]="position"></ng2-toasty>
+
+    </form>
+</app-card>

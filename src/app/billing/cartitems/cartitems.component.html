@@ -1,0 +1,70 @@
+<style>
+  .styletabing tr th:first-child{
+   text-align:center!important
+  }
+
+  .styletabing tr th:last-child{
+    text-align:center!important
+   }
+   .styletabing tr td:first-child{
+   text-align:center!important
+  }
+
+  .styletabing tr td:last-child{
+    text-align:center!important
+   }
+
+   /* .styletabing tr th:nth-child(2){
+    text-align:center!important
+   } */
+
+</style>
+
+<app-card>
+  <div class="sub-title">My-Cart 
+  <em class="fa fa-shopping-cart ficon"></em></div><br>
+  <div class="mx-2" align="center">
+    <img src="assets/images/loading.gif" alt="loading" height="110px" *ngIf="gifLoad">
+  </div>
+  <div class="px-3 py-2" *ngIf="!gifLoad">
+    <table aria-describedby="mydesc" class="table styletabing">
+      <tbody>
+        <tr>
+          <th scope="col">Action</th>
+          <th scope="col">Image</th>
+          <th scope="col">Particulars</th>
+          <th scope="col">Price</th>
+          <th scope="col">Qty</th>
+          <th scope="col">Tax Pay</th>
+          <th scope="col">Total</th>
+        </tr>
+        <tr *ngFor="let item of cartdata;let i=index">
+          <td style="padding-top:35px;color:lightgrey;cursor:pointer" (click)="removeitem(i)"><em class="fa fa-close"></em></td>
+          <td><img [src]="item.itempic" style="height:90px;width:80px" alt="altitem"></td>
+          <td style="padding-top:35px">{{item.itemname}}</td>
+          <td style="padding-top:35px;font-weight:bold">{{item.itemrate}}</td>
+          <td style="padding-top:35px">{{item.itemqty}}</td>
+          <td style="padding-top:35px;font-weight:bold">{{item.itemtax}}</td>
+          <td style="padding-top:35px;font-weight:bold">{{item.itemtotal}}</td>
+        </tr><br>
+      </tbody>
+    </table><hr>
+    <div align="right">
+      <h5 style="font-size:23px">Sub Total: <span>{{subtotal}}</span></h5>
+    </div><br><br>
+    <div class="" align="right">
+      <h5 style="font-size:19px;padding:0.5em 2.3em;border-radius:5px;cursor:pointer;background-color:#002e86" class="text-white" (click)="payment()">Pay Now</h5>
+    </div><br>
+  </div>
+
+  <div [ngClass]="underprocess?'showtop':'hidetop'" style="background-color:white" id="mouseclick">
+    <div class="container" style="margin-top:3em;" align="center">
+      <h2 style="color:darkgray" *ngIf="statuschange">We are Assigning your Modules!..</h2><br>
+        <h3 style="color:darkgray" *ngIf="!statuschange">Payment Processing!..</h3>
+        <h3 class="text-success" *ngIf="statuschange">Payment Completed!...</h3><br>
+        <h4 style="color:darkgray">Please Wait!..</h4>
+        <img src="assets/images/grayload.gif" alt="grayload" height="90px"><br>
+    </div>
+  </div>  
+  <ng2-toasty [position]="position"></ng2-toasty>
+</app-card>

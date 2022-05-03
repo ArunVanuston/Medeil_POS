@@ -1,0 +1,154 @@
+
+<app-card>
+  <div class="sub-title">Vendor Reports
+    <em class="fa fa-print ficon"></em></div><br>
+    <table aria-describedby="mydesc" style="width:100%">
+      <tbody>
+       <tr>
+       <td style="width:95%">
+        <app-card>
+      
+          <div class="row">
+              <div class="col-lg-4">
+                  <label class="title1"><u>Distributor List</u></label>
+              </div>
+          </div>
+        
+           <div class="row">
+              <div class=" col-lg-11" align="right">
+                  <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/DitributorList/distributor_info.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&status=0"
+                  class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+              -->
+                  <button class="btn-round" 
+                  (click)="DistributorList()">View </button> 
+             
+                </div>
+              </div>
+        </app-card>
+        
+        <app-card>
+          <div class="row">
+                  <div class=" col-lg-4">
+                      <label class="title1"><u>Distributor Company List</u></label>
+                       </div>
+                  </div><br>
+                
+                      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                              <div class ="row">
+                              <div class="col-lg-3">
+              
+                                      <label class="form-label"><h6>Distributor Name</h6></label>
+                                      <select name="select" class="form-control"
+                                        formControlName="distname" (change)="getDistributor()">
+                                        <option value="opt1" >---Select Distributor Name---</option>
+                                        <option *ngFor="let dist of distributorId" value={{dist[0]}}>{{dist[1]}}</option>
+                                      </select>
+                                  
+                                  </div>
+                   
+                     
+                          <div class='col-lg-3'>
+               
+                       
+                              <div class='date' id='datetimepicker6'>
+                                
+                                <label class="form-label"><h6>From Date:</h6></label>
+                                     
+                                   <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+                           
+                              </div>
+                        
+                      </div>
+                      <div class='col-lg-3'>
+                 
+                          <div class='date' id='datetimepicker7'>
+                             
+                              <label class="form-label"><h6>To Date:</h6></label>
+                                 
+                                   <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+                         
+                          
+                          </div>
+                    
+                  </div>
+                  
+                      <div class=" col-lg-2" align="right">
+                        <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/Distributor By mfr/DistCompanyList.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&from_date={{reportvar}}&to_date={{reportvar1}}&distributorid={{dname}}&status=0"
+                        class="btn  btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+                     -->
+                     <button class="btn-round" 
+                     (click)="DistributorCompanyList()">View </button> 
+                      </div>
+                   </div>
+                  </form>
+    </app-card>
+    
+      </td>
+        <td style="width:5%" valign="top">
+       <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+       </td>
+       </tr>
+      </tbody>
+      </table>			 			 			 			 						
+    
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+      <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">               
+  <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>
+
+
+
+
+<!-- <app-card>
+    <div class="row">
+    <div class=" col-lg-4">
+        <label class="form-label semibold"><h6>3.HQ Distributorwise Sales</h6></label>
+         </div>
+    </div>
+  
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+     
+        <div class ="row">
+            <div class='col-lg-4'>
+ 
+         
+                <div class='date' id='datetimepicker6'>
+                  
+                  <label class="col-form-label"><h6>From Date:</h6></label>
+                       
+                     <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+             
+                </div>
+          
+        </div>
+        <div class='col-lg-4'>
+   
+            <div class='date' id='datetimepicker7'>
+               
+                <label class="col-form-label"><h6>To Date:</h6></label>
+                   
+                     <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+           
+            
+            </div>
+      
+    </div>
+   
+  
+  
+        <div class=" col-lg-3" align="right">
+          <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/HqDistributorwiseSales/DistributorwiseSales.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn  btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+        </div>
+     </div>
+    </form>
+   
+</app-card> -->
+

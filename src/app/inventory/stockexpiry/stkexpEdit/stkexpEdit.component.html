@@ -1,0 +1,139 @@
+<style>
+#swidth{
+    width:325px;
+}
+</style>
+<app-card>
+        <div class="sub-title">{{'formtitle.editdetails'| translate}}
+                <em class="fa fa-edit ficon"></em>
+            </div>
+            <div align="right">
+                <button type="submit" class="btn-round" [routerLink]="['/ExpiredStock/ViewExpiredStock']">{{'expiredstock.viewexpirystocks'| translate}}</button>
+            </div><br>
+    <form [formGroup]="registerForm">
+
+        <div class="box-typical box-typical-padding">
+            
+                    <div class="row">
+                          <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='0' ">
+                                <label class="form-label semibold" for="exampleInput">{{'expiredstock.expiryno'| translate}}</label>
+                            <select class="form-control" (change)="viewEdit()" formControlName="id">
+                                <option *ngFor="let item of editdata; let i = index" value={{item[0]}}>{{item[1]}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+                                <label class="form-label semibold" for="exampleInput">{{'expiredstock.expiryno'| translate}}
+                                    </label>
+                            <input type="text" class="form-control" formControlName="formno" />
+                        </div>
+
+                       
+                        <div class="col-md-4">
+                                <label class="form-label semibold" for="exampleInput">Date
+                                    </label>
+        
+                            <input type="date" class="form-control" formControlName="date" />
+                        </div>
+
+            </div> <!-- splitcolumn  end--><br>
+
+            <div formArrayName="stkexp" style="max-height:280px"  class="flow">
+                <!--. table  start-->
+                <div>
+                    <table aria-describedby="mydesc" class="table styletab">
+                        <thead class="stylehead">
+                            <tr>
+                                <th scope="col">{{'common.select'| translate}} </th>
+                               <th scope="col">  {{'common.sno'| translate}}</th>
+                        
+                                    <th scope="col">{{'common.prodname'| translate}}</th>
+                                <th scope="col">{{'salesinvoice.batchno'| translate}}</th>
+                                <th scope="col">{{'expiredstock.stockqty'| translate}}</th>
+                                <!-- <th scope="col">Box</th>
+                                <th scope="col">Strip </th> -->
+                                <th scope="col">{{'expiredstock.no'| translate}} </th>
+                                <th scope="col">{{'expiredstock.expqty'| translate}} </th>
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+                        <tr *ngFor="let address of registerForm.controls.stkexp.controls; let i=index"
+                            [formGroupName]="i">
+                            <td><input type="checkbox" class="tabcheck" id="width1" formControlName="delflag" /></td>
+                            <td><input value={{i+1}} id="width2"/></td>
+                            <td><input formControlName="drugname" id="swidth" style="text-align:left" /></td>
+                            <td><input formControlName="batchnumber" id="width4" style="text-align:left"  /></td>
+                            <td><input formControlName="actualstockqty" (keydown)="calc($event)" /></td>
+                            <!-- <td><input formControlName="expboxqty" /></td>
+                            <td><input formControlName="expstripqty" (keydown)="calc($event)" /></td> -->
+                            <td><input formControlName="exptabqty" (keydown)="calc($event)" /></td>
+                            <td><input formControlName="expstockqty" /></td>
+                        </tr>
+                    </tbody>
+                    </table>
+                </div>
+            </div><br>
+            <!--. table     end-->
+
+            <div class="col-lg-3">
+                    <button class="btn-round" (click)="remove()" >{{'common.remove'| translate}}</button>
+            </div><br>
+            
+            <!-- <div class="row ml-3">
+                    <div class="col-lg-4">
+                            <label class="form-label"> To Loc Type
+                            </label>
+                            <select class="form-control" formControlName="tolocname" (change)="getlocrefname()">
+                                <option value="opt1" selected disabled>---Select Loc Type---</option>
+                                <option *ngFor="let coun of tolocname1 " value={{coun[0]}}>{{coun[1]}}</option>
+                            </select>
+                        </div>
+                    <div class="col-lg-4">
+                            <label class="form-label"> To Loc Name</label>
+                       
+                            <select class="form-control" formControlName="tolocrefid">
+                                <option value="opt1" selected disabled>---Select Loc Name---</option>
+                                <option *ngFor="let coun of tolocrefid1 " value={{coun[0]}}>{{coun[1]}}</option>
+                            </select>
+                        </div>
+                
+               
+            </div>
+           -->
+           <br>
+            <div class="row    ">
+                <!-- splitcolumn  start-->
+                <div class="col-lg-4">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <ng2-toasty [position]="position"></ng2-toasty>
+                    </div>
+                </div>
+            </div> <!-- splitcolumn   end-->
+
+        </div>
+        <!-- box-typical-->
+        <div align="center">
+            <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+          </div>
+        <div class="row">
+            <!-- row Start-->
+           
+            <div class="col-lg-2">
+            <button class="btn-round" (click)="onSubmit()">{{'common.update'| translate}}</button>
+            </div>
+            <div class="col-lg-2">
+            <button class="btn-round" (click)="opensaveSwal()">{{'common.delete'| translate}}</button>
+            </div>
+        </div> <!-- row end-->
+    </form>
+</app-card>
+<div class="scrollnew"> </div>

@@ -1,0 +1,208 @@
+<style>
+
+.stylebody td{
+  border:1px solid #dcdcdc;
+  font-family:Montserrat;
+  text-align:center;
+  font-size:18px;
+  padding:0em;
+  vertical-align: middle;
+  }
+
+  .stylebody td input{
+    text-align:center;
+    border:none;
+    height:35px;
+    font-size:18px;
+    vertical-align: middle;
+  }
+
+
+  tr.myClass {
+    background-color:  #eefce3;
+}
+
+ .myClass td input {
+        background-color:  #eefce3;
+       
+        padding:0px !important;
+    }
+
+    #swidth{
+        width:350px;
+    }
+
+    #swidthmin{
+        width:350px;
+    }
+    
+</style>
+<app-card>
+    <div class="sub-title">Reorder Details
+        <em class="fa fa-history ficon"></em>
+    </div><br>
+    <form [formGroup]="registerForm">
+            <div class="title1"><u>Reorder Type</u></div><br>
+
+        <div class="row">
+            <!-- row Start-->
+    
+            <div class="col-lg-1">
+               
+            </div>
+            <!-- <div class="col-lg-3">
+                <select class="form-control" (change)="viewProd()" formControlName="minstockflag">
+                    <option value="1">Load Min Stock</option>
+                    <option value="2"> Load New Product </option>
+                </select>
+            </div> -->
+            <div class="col-lg-4">
+                <label class="form-label">
+                    <input type="radio" value="1" style="margin-right:.5em" (change)="viewProd()"
+                        formControlName="minstockflag" checked> Load Min Stock
+                </label> &nbsp;&nbsp;&nbsp;
+                <label class="form-label">
+                    <input type="radio" value="2" style="margin-right:.5em" (change)="viewProd()"
+                        formControlName="minstockflag"> Load New Product
+                </label>
+            </div>
+           
+        </div> <br><br>
+        
+        <div formArrayName="stkminqty" class="flow" *ngIf="vflag==0">
+            <!--. table  start-->
+            <!-- <label class="form-label semibold" for="exampleInput"> Reorder Table
+                </label> -->
+            <table aria-describedby="mydesc" class="table styletab" width="auto-align">
+                <thead class="stylehead">
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" id="selectall" style="height:1.3em;width:1.4em" (click)="selectAll($event.target.checked)" /></th>
+                        <th scope="col"> S.No </th>
+                        <th scope="col"> Prod Code </th>
+                        <th scope="col"> Prod Name </th>
+                        <th scope="col">Available Qty </th>
+                        <th scope="col"> Last Received Qty </th>
+                        <th scope="col"> Min Qty </th>
+                        <th scope="col"> Ageing Time </th>
+                        <th scope="col">ABC Analysis</th>
+                        <th scope="col"> Required Qty</th>
+                        <th scope="col">Remarks </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let address of registerForm.controls.stkminqty.controls; let i=index" class="stylebody">
+                   
+                    <tr [ngClass]="{'myClass':registerForm.controls.stkminqty.controls[i].controls.gridcolor.value===1}"
+                        [formGroupName]="i">
+
+                    <!-- <tr [ngStyle]="{'background-color':registerForm.controls.stkminqty.controls[i].controls.gridcolor.value==1? '#84de49':'white'}"
+                        [formGroupName]="i"> -->
+                        <!-- [ngStyle]="{'background-color':registerForm.controls.stkminqty.controls[i].controls.gridcolor.value==1 ? 'pink':'red'}" -->
+                        <!-- <td width="5%">
+                            <input formControlName="selectflag" name="selecttag" type="checkbox" style="width:30%" 
+                            
+                            [attr.disabled]="registerForm.controls.stkminqty.controls[i].controls.drugname.value='Ubit'?'':null"
+                            style="width:30%"/>
+                        </td> -->
+                        <td>
+                            <input formControlName="selectflag" name="selecttag" class="myclass"  style="height:1em;width:1em;" type="checkbox" 
+                                [attr.disabled]="registerForm.controls.stkminqty.controls[i].controls.gridcolor.value==1?'':null" />
+                        </td>
+                        <td>
+                            <input value={{i+1}} id="width2" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="drugproductid" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="drugname" id="swidthmin" style="text-align:left" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="qty" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="receivedqty" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="minqty" id="width3" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="ageingtime" readonly />
+                        </td>
+                        <td>
+                            <input formControlName="abcanalysis" readonly />
+                        </td>
+                        <td><input formControlName="reqqty" /> </td>
+                        <td>
+                            <input formControlName="remarks" id="width4" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        <div formArrayName="stkminqty1" class="flow" *ngIf="vflag==1">
+            <table aria-describedby="mydesc" class="table styletab" width="auto-align">
+                <thead class="stylehead">
+                    <tr>
+                        <th scope="col"> <input type="checkbox" id="selectall1" style="height:1.3em;width:1.4em"
+                                (click)="selectAll1($event.target.checked)" /> </th>
+                        <th scope="col"> S.No </th>
+                        <th scope="col"> Prod Name </th>
+                        <th scope="col">Required Qty</th>
+                        <th scope="col">Remarks </th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let address1 of registerForm.controls.stkminqty1.controls; let i=index"
+                    class="stylebody">
+                    <!-- <tr [ngStyle]="{'background-color':registerForm.controls.stkminqty1.controls[i].controls.gridcolor.value==1?'#84de49':'white'}" 
+                        [formGroupName]="i"> -->
+                    <tr [ngClass]="{'myClass':registerForm.controls.stkminqty1.controls[i].controls.gridcolor.value===1}"
+                        [formGroupName]="i">
+                        <td>
+                            <input formControlName="selectflag1" type="checkbox" class="myclass" style="height:1em;width:1em" name="selecttag1"
+                                [attr.disabled]="registerForm.controls.stkminqty1.controls[i].controls.gridcolor.value==1?'':null" />
+                        </td>
+                        <td>
+                            <input value={{i+1}}  readonly />
+                        </td>
+                        <td>
+                            <input formControlName="newproductname" id="swidth" style="text-align: left"  />
+                        </td>
+                        <td>
+                            <input type="number" formControlName="reqqty" id="width6"/>
+                        </td>
+                        <td>
+                            <input formControlName="remarks" id="swidth" style="text-align:left"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <br>
+        <!--. table     end-->
+        <ng2-toasty [position]="position"></ng2-toasty>
+
+           <!-- row Start-->
+        <div class="row button">
+            <div class="col-lg-1"></div>
+         
+            <div class="col-lg-3">
+
+                <button type="button" class="btn-round" (click)="onSubmit()"
+                    [disabled]="!registerForm.get('minstockflag').value==1 || !registerForm.get('minstockflag').value==2">
+                    Save
+                </button>
+
+                <button type="button" class="btn btn-round ml-3" [routerLink]="['/ReorderForm/ViewReorderForm']">
+                Back </button>
+            </div>
+        
+         
+        </div>
+        <!-- row end-->
+    </form>
+</app-card>

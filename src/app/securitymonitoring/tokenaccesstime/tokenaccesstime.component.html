@@ -1,0 +1,64 @@
+<app-card>
+  <div class="sub-title">Token Access Time Settings
+  <em class="fa fa-print ficon"></em>
+ </div><br>
+
+<form  [formGroup] = "TokenaccesstimForm" (ngSubmit)="onSubmit()" >
+  
+
+  <div class="form-group row">
+    <div class="col-lg-4">
+      
+      <label class="form-label"><h6>Client Id</h6></label>
+      <input type="text" class="form-control" placeholder="" formControlName="client_id" readonly autofocus>
+     
+    </div>
+
+    <div class="col-lg-4">
+      
+      <label class="form-label"><h6>Access Token Validity/Minutes</h6></label>
+      <input type="text" class="form-control " required="true" placeholder="" step='0.01' value='0.00' formControlName="access_token_validity">
+      
+   
+  </div>
+  <div class="col-lg-4">
+    
+      <label class="form-label" >Refresh Token Validity/Minutes</label>
+      <input type="text" class="form-control" step='0.01' value='0.00' formControlName="refresh_token_validity">
+    
+  </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-lg-6">
+      
+        <label class="form-label" >Resource Id</label>
+        <div class="col-sm-9 mt-3">
+          <textarea rows="3" cols="3" style="margin-left:-10px;width:140%" formControlName="resource_ids" class="form-control1" placeholder="" readonly></textarea>
+        </div>
+        <!-- <textarea rows="3" type="text" class="form-control" formControlName="resource_ids"> -->
+      
+    </div>
+
+ <div class="col-lg-6">
+      
+      <label class="form-label"><h6>Scope</h6></label>
+      <div class="col-sm-9 mt-3">
+        <textarea rows="3" cols="3" style="margin-left:-10px;width:140%" formControlName="scope" class="form-control1" placeholder="" readonly></textarea>
+      </div>
+      <!-- <textarea rows="3" type="text" class="form-control " required="true"  placeholder="" formControlName="scope"> -->
+       <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.registrationno.errors?.required">Enter Registration No*</div>  -->
+      
+   </div> 
+
+</div>
+
+  <div class="col-lg-4">
+    <div class="form-group">
+        <button type="submit" class="btn-round" >Update</button>
+    </div>
+  </div>
+
+</form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

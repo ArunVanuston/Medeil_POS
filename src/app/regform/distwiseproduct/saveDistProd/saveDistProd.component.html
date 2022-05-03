@@ -1,0 +1,205 @@
+<style>
+    #swidth {
+        width: 295px !important;
+    }
+    #ptdlist {
+        padding-left: 5px;
+        text-align: center;
+        font-size: 15px;
+        font-family: Montserrat;
+    }
+
+    tr.selectrow:hover{
+      background-color: #e9ecef;
+    }
+    input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+<app-card>
+    <div class="sub-title">{{'formtitle.vendorwiseproduct'| translate}}
+        <em class="fa fa-users ficon"></em>
+    </div>
+    <table aria-describedby="mydesc" style="width:100%">
+        <tbody>
+            <tr>
+                <td style="width:95%">
+                    <form [formGroup]="registerForm">
+                        <div class="mr-2" align="right">
+                            <button type="button" class="btn-round"
+                                [routerLink]="['/VendorwiseProduct/ViewVendorwiseProduct']">{{'distributor.viewvendorproducts'| translate}}</button>
+                        </div><br>
+                        <div class="box-typical box-typical-padding">
+                            <div class="form-group row">
+                                <!--.row1start-->
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3">
+                                    <label class="form-label semibold" for="exampleInput"> {{'distributor.vendorname'| translate}}
+                                    </label>
+                                    <select class="form-control" (change)="clearProd()" formControlName="distrefid">
+                                        <option value="" disabled>--Select Distributors--</option>
+                                        <option *ngFor="let item of distributors; let i = index" value={{item[0]}}>
+                                            {{item[1]}}
+                                        </option>
+                                    </select>
+                                    <p class="messages text-danger marginzero"
+                                        *ngIf="registerForm.controls.distrefid.touched && registerForm.controls.distrefid.errors?.required"> {{'distributor.selectvendor'| translate}}
+                                    </p>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label semibold" for="exampleInput"> {{'distwiseproduct.manufacturername'| translate}}
+                                    </label>
+                                    <select class="form-control" (change)="viewProductPhComp()"
+                                        formControlName="phcompanyid">
+                                        <option *ngFor="let item of phcompany; let i = index" value={{item[0]}}>
+                                            {{item[1]}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label semibold mt-1" for="exampleInput"> {{'distwiseproduct.productname'| translate}}
+                                    </label>
+                                    <input type="text" class="form-control" id="autoname" autocomplete="off"
+                                    (input)="searchdrugdata($event.target.value)" formControlName="autonamenew"
+                                    placeholder="Type Search Product Name" />
+                                    <div class="sdruglabel" *ngIf="autodata.length>0" style="width:100%">
+                                        <table aria-describedby="mydesc" class="table">
+                                            <thead class="lhead">
+                                            <tr>
+                                                <th scope="col">Prodcut Name</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="lbody">
+                                            <tr *ngFor="let address of autodata; let i=index" class="selectrow"
+                                            (click)="selecteddrugdata(address)">
+                                            <td><label> {{address[1]}} </label></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> 
+                                    <p class="messages text-danger marginzero"
+                                    *ngIf="registerForm.controls.autonamenew.touched && registerForm.controls.autonamenew.errors?.required"> {{'distributor.selectproduct'| translate}}
+                                </p>                                       
+                                </div>
+                                <div class="col-md-2"></div>
+                            </div><br>
+                            <!-- rrghghf 1-->
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-9">
+                                    <div formArrayName="distprod" class="flow">
+                                        <!--. table  start-->
+                                        <div>
+                                            <table aria-describedby="mydesc" class="table styletab" id="hishowtable">
+                                                <!---Id not be Delete & alter It's create for hide & Show options to create customize grid-->
+                                                <thead class="stylehead">
+                                                    <tr>
+                                                        <!-- <th scope="col">{{'common.select'| translate}} </th> -->
+                                                        <th scope="col">{{'common.sno'| translate}}</th>
+                                                        <th scope="col">{{'common.action'| translate}}</th>
+                                                        <th scope="col">{{'distwiseproduct.productcode'| translate}}</th>
+                                                        <th scope="col">{{'distwiseproduct.productname'| translate}}</th>
+                                                        <th scope="col">{{'distwiseproduct.vendorprice'| translate}}</th>
+                                                        <th scope="col">Remarks</th>
+                                                        <!--        <th scope="col">CreditDays</th>
+                                                 <th scope="col">LeadTime</th>    -->
+                                                        <!--     <th scope="col">Select </th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="stylebody">
+                                                    <tr *ngFor="let address of registerForm.controls.distprod.controls; let i=index"
+                                                        [formGroupName]="i">
+                                                        <!-- <td>
+                                                            <input type="checkbox" class="tabcheck"
+                                                                formControlName="delflag" id="width1" />
+                                                        </td> -->
+                                                        <td>
+                                                            <input value={{i+1}} id="width2" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <em class="fa fa-trash text-secondary" 
+                                                            style="cursor:pointer" (click)="removeRow(i)"></em>
+                                                            <!-- <button type="button" class="btn viewbtn"
+                                                                (click)="removeRow(i)">{{'common.remove'| translate}}</button> -->
+                                                        </td>
+                                                        <td>
+                                                            <input readonly formControlName="drugprdid" id="width4" />
+                                                        </td>
+                                                        <td>
+                                                            <input readonly formControlName="productname" id="swidth"
+                                                                style="text-align:left" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" formControlName="distprice" />
+                                                        </td>
+                                                        <td>
+                                                            <input formControlName="remarks"id="width6" />
+                                                        </td>
+                                                       
+                                                    </tr>
+                                                    <tr *ngFor="let item of itemlength; let i=index">
+                                                        <!-- <td>
+                                                            <input id="width1" readonly />
+                                                        </td> -->
+                                                        <td>
+                                                            <input id="width1" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input id="width1" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input id="width1" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input id="width1" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input id="width1" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input id="width1" readonly />
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div><br>
+                                    <!--Table End-->
+                                    <!-- <button type="button" class="btn-round" (click)="remove()"> Remove </button> -->
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                            </div><br>
+                            <!--Row End-->
+                        </div>
+                        <!-- box-typical-->
+                        <div class="" align="center">
+                            <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                        </div>
+                        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+                        <div class="row button mb-3">
+                            <!-- row Start-->
+                            <div align=right class="col-lg-10">
+                                <button type="button" class="btn-round" (click)="onSubmit()"
+                                    [disabled]="!registerForm.valid"> {{'common.save'| translate}} </button>
+                            </div>
+                        </div>
+
+                        
+                    </form>
+                </td>
+                <td style="width:5%" valign="top">
+                    <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- row end -->
+</app-card>

@@ -1,0 +1,73 @@
+<app-card>
+  <div class="sub-title">User Module Details
+    <em class="fa fa-cog ficon"></em>
+  </div>
+
+    <div align="right">
+        <button class="btn-round" (click)="viewUserModule()">View User Module</button>
+      </div><br>
+  <form [formGroup]="usermoduleForm" (ngSubmit)="onSubmit()" class="mx-2">
+    <div class="form-group row">
+      <div class="col-sm-4"> 
+        <label class="form-label semibold"><h6>Company Name</h6></label>
+        <select name="select" class="form-control" formControlName="companyrefid" autofocus (change)="getUser()">
+          <option value="opt1" selected disabled>---Select Company---</option>
+          <option *ngFor="let coun of companylist" value={{coun[0]}}> {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>User Name</h6></label>
+        <select name="select" class="form-control" formControlName="suserrefid" (change)="getUsermodule()">
+          <option selected disabled value="opt1">---Select User Name---</option>
+          <option *ngFor="let coun of userlist" value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Modules</h6></label>
+
+        <!-- <select name="select" class="form-control" formControlName="moduleid1" (change)="getuserSubmodule()">
+          <option selected disabled value="opt1">---Select Modules---</option>
+          <option *ngFor="let coun of mulservList" value={{coun[0]}}>{{coun[1]}}</option>
+        </select> -->
+
+        <angular2-multiselect [data]="mulList" [settings]="mulSettings" [(ngModel)]="selectedItems" (click)="getuserSubmodule()" formControlName="moduleid">
+          </angular2-multiselect>
+      </div>
+    </div>
+    
+    <div class="form-group row mt-2">
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Sub Module</h6></label>
+        <!-- <select multiple name="select" class="form-control" formControlName="submoduleid">
+          <option selected disabled value="opt1">---Select SubModules---</option>
+          <option *ngIf="submodulelist==''" value="noData" style="color: black">SubModule Not Available</option>
+          <option *ngFor="let sub of submodulelist" value={{sub[0]}}>{{sub[1]}}</option>
+        </select> -->
+
+        <angular2-multiselect [data]="submulList" [settings]="mulSettings" [(ngModel)]="selectedItems1" formControlName="submoduleid">
+        </angular2-multiselect>
+      </div>
+
+
+
+      <div class="col-lg-4  mt-4">
+
+        <input type="checkbox" name="chk" id="chkk" style="height:1.4em;width:1.5em"  value = false;
+          formControlName="is_approver" (click)="isCheck($event.target.checked)" />
+        <label class="form-label ml-1">Is Approver</label>
+
+      </div>
+
+
+      <div class="col-lg-4 mt-4">
+        
+          <label class="form-label semibold"></label>
+          <button type="submit" class="btn-round">Save</button>
+       
+      </div>
+
+    </div>
+    
+  </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

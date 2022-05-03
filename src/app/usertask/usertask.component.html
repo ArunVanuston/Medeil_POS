@@ -1,0 +1,134 @@
+<app-card>
+  <div class="sub-title">User Task Management
+    <em  class="fa fa-cog ficon"></em>
+  </div>
+
+  <form [formGroup]="usertaskForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+
+      <div class="col-sm-4"> 
+        <label class="form-label semibold"><h6>Task Type</h6></label>
+        <select name="select" class="form-control" placeholder="Select Task" formControlName="TaskType">
+					<option value="opt1" selected disabled>---Select Task Type---</option>
+          <option *ngFor="let coun of tasktype" value={{coun[0]}}> {{coun[1]}}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Task Title</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter your Task Title" minlength="5"
+          formControlName="tasktitle" />
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Department</h6>
+        </label>
+        <select name="select" class="form-control" placeholder="Select Dept" formControlName="Department">
+          <option selected disabled value="opt1">---Select Department---</option>
+          <option *ngFor="let coun of deptlist" value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Employee Name</h6>
+        </label>
+        <select name="select" class="form-control" placeholder="Select Task" formControlName="EmployeeName">
+          <option value="opt1" selected disabled>---Select Employee Name---</option>
+          <option *ngFor="let coun of empname" value={{coun[0]}}> {{coun[1]}}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Task Start Date[MM/DD/YYYY]</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter your Task Start Date" minlength="5"
+          formControlName="taskstartdate" />
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Task Start Time</h6>
+        </label>
+        <input type="time" class="form-control" formControlName="taskstarttime" />
+      </div>
+
+    </div>
+
+    <div class="form-group row">
+
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Task Due Date[MM/DD/YYYY]</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter your Task Due Date" minlength="5"
+          formControlName="taskstartdate" />
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Task Due Time</h6>
+        </label>
+        <input type="time" class="form-control" formControlName="taskstarttime" />
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Priority</h6>
+        </label>
+        <select name="select" class="form-control" placeholder="Select Priority" formControlName="Priority">
+          <option value="opt1" selected disabled>---Select---</option>
+          <option *ngFor="let coun of Priority" value={{coun[0]}}> {{coun[1]}}</option>
+        </select>
+      </div>
+    </div>
+
+
+    <div class="form-group row">
+
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Document Title</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter your Doc Title" minlength="5"
+          formControlName="Documenttitle" />
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Related Document</h6>
+        </label>
+        <input type="file" class="form-control" placeholder="Select File" formControlName="RelatedDocument" />
+      </div>
+
+    </div>
+
+    <div class="col-lg-4 mt-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold"></label>
+        <button type="submit" class="btn btn-round">Save</button>
+      </fieldset>
+    </div>
+
+
+
+  </form>
+
+</app-card>

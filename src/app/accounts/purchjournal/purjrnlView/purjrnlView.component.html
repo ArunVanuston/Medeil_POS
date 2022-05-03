@@ -1,0 +1,110 @@
+<style>
+	.nodata {
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		font-size: 25px;
+		color: rgb(245, 50, 50);
+		font-family: Verdana, Geneva, sans-serif;
+	}
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+	.data-search {
+		width: 70%;
+		margin-left: 0.5em;
+		display: inline-block;
+		max-width: 150px;
+	}
+   .table td{
+        padding-top: 0.46em ;
+       padding-bottom:  0.46em ;
+       }
+</style>
+<app-card >
+	<br>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+			<div>
+				<label class="label-control">{{'finance.show'| translate}}
+					<select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+						<option [ngValue]="1">1</option>
+						<option [ngValue]="25">25</option>
+						<option [ngValue]="50">50</option>
+						<option [ngValue]="100">100</option>
+					</select>
+					{{'finance.entries'| translate}}
+				</label>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+			<div style="text-align:right;">
+				<label>
+					<strong>{{'finance.search'| translate}}</strong>
+					<input type="search" [(ngModel)]="filterQuery" class="form-control input-sm data-search" placeholder="Search Journal">
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="dt-responsive">
+		<div style="overflow-x: scroll">
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+			 #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+				<thead>
+				<tr>
+				<th scope="col">S. No</th>  
+                <th scope="col">{{'finance.journalno'| translate}}</th>
+                <th scope="col">{{'finance.journaldate'| translate}}</th>
+				<th scope="col">{{'finance.draccname'| translate}}</th>
+                <th scope="col">{{'finance.craccname'| translate}}</th>
+				<th scope="col">{{'finance.debitamount'| translate}}</th>
+				<th scope="col">{{'finance.creditamount'| translate}}</th>
+				<th scope="col">{{'finance.invoiceno'| translate}}</th>
+				<th scope="col">{{'finance.edit'| translate}}</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr *ngFor="let item of mf.data;let i=index">
+				<td>{{i+1}}  </td> 
+                <td>{{item[1  ]}} </td>
+                <td>{{item[2  ]}} </td>
+				<td>{{item[5  ]}} </td>
+				<td>{{item[6  ]}} </td>
+				<td>{{item[3  ] | number:'3.2'}} </td>
+				<td>{{item[4  ] | number:'3.2'}} </td>
+				<td>{{item[7  ]}} </td>
+                <td><a [routerLink]="['/PurchaseJournal/PurchaseJournalEdit',item[0  ]]"
+                        class="viewbtn">{{'finance.edit'| translate}}</a>
+				</td>
+				</tr>
+				<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+					<td></td>
+					<td></td>
+					<td></td>
+					<td class="nodata">No matching Records found....</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>		
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="7">
+							<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</app-card>

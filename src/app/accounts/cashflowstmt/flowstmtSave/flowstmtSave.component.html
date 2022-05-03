@@ -1,0 +1,75 @@
+<style>
+
+</style>
+<app-card>
+    <div class="sub-title">{{'finance.cashFlowstatement'| translate}}
+        <em class="ti-receipt ficon"></em>
+      </div>
+      <div class="panels">
+        <div class="panel1" style="width:95%;float:left">
+            <div align="center">
+                <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+              </div>
+            <form [formGroup]="registerForm">
+                <div class="box-typical box-typical-padding">
+                    <div formArrayName="flowstmt" class="flow">
+                        <table aria-describedby="mydesc" class="table styletab">
+                          <thead class="stylehead">
+                            <tr>
+                                <th scope="col">S.No</th>
+                              <th scope="col">{{'finance.accounttype'| translate}}</th>
+                              <th scope="col">{{'finance.accountname'| translate}}</th>
+                              <th scope="col">{{'finance.balance'| translate}}</th>
+                            </tr>
+                          </thead>
+                          <tbody class="stylebody">
+                            <tr *ngFor="let address of registerForm.controls.flowstmt.controls; let i=index"
+                            [formGroupName]="i">
+                            <td><input value={{i+1}} readonly /></td>
+                            <td><input formControlName="acctype" id="width5" /></td>
+                            <td><input formControlName="accname" id="width5"  /></td>
+                            <td><input formControlName="balance" id="width5" /></td>
+                            </tr>
+                            <tr *ngIf = "registerForm.controls.flowstmt.controls == undefined">
+                              <td></td>
+                              <td class="nodata">No Data Available..</td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+
+                          </tbody>
+                        </table>
+                      </div><!--. table  end-->
+                </div><!-- box-typical-->
+            </form></div>
+        <div class="panel2" style="width:5%;float:right">
+        <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </div>
+        </div>
+   
+</app-card>
+
+<!-- <div formArrayName="flowstmt" class="tablenew ">
+    <!--. table  start--
+    <div>
+        <label class="form-label semibold"> Cash Flow Statement
+        </label>
+        <table aria-describedby="mydesc" class="table ">
+            <thead class="thead-default">
+                <tr>
+                    <th scope="col">S. No </th>
+                    <th scope="col">Account Type</th>
+                    <th scope="col">Account Name </th>
+                    <th scope="col">Balance</th>
+                </tr>
+            </thead>
+            <tr *ngFor="let address of registerForm.controls.flowstmt.controls; let i=index"
+                [formGroupName]="i">
+                <td><input value={{i+1}} readonly /></td>
+                <td><input formControlName="acctype" id="inputwidth1" /></td>
+                <td><input formControlName="accname" id="inputwidth2" /></td>
+                <td><input formControlName="balance" /></td>
+            </tr>
+        </table>
+    </div>
+</div>-->

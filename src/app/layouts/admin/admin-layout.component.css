@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+
+aside.pcoded-slider.ng-sidebar {
+    top: 56px;
+}
+
+.slimscroll-wrapper, .scroll-window {
+    width: 100% !important;
+}
+
+.userlist-box.show {
+    display: -webkit-box;
+}
+
+.userlist-box.hide {
+    display: none;
+}
+
+
+#google_translate_element {
+    width: 300px;
+    float: right;
+    text-align: right;
+    display: block;
+}
+
+.goog-te-banner-frame.skiptranslate {
+    display: none !important;
+}
+
+body {
+    top: 0px !important;
+}
+
+#goog-gt-tt {
+    display: none !important;
+    top: 0px !important;
+}
+
+.goog-tooltip skiptranslate {
+    display: none !important;
+    top: 0px !important;
+}
+
+.activity-root {
+    display: hide !important;
+}
+
+.status-message {
+    display: hide !important;
+}
+
+.started-activity-container {
+    display: hide !important;
+}

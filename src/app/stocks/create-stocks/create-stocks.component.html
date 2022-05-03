@@ -1,0 +1,237 @@
+<app-card>
+  <div class="sub-title">{{'stock.addstocks'| translate}}
+    <em class="fa fa-stack-overflow ficon"></em>
+  </div>
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <div class="mr-2" align="right">
+        <button type="button" class="btn-round" [routerLink]="['/StockEntryForm/ViewStockList']">{{'stock.viewstocks'| translate}}</button>
+      </div>
+      <form [formGroup]="stockForm">
+        <div class="form-group row">
+          <div class="col-sm-12 col-xl-4">
+            <label class="form-label">{{'stock.productname'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <ng-select [options]="characters" placeholder="Search Drug Name" (change)="getProvalues()" (click)="getProvalues()"
+              (input)="getProduct($event.target.value)" (blur)="focusrack()" formControlName="drugproductid">
+            </ng-select>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.dosagevalue'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="Dosage" disabled formControlName="dosageid">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.formulationname'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="Formulation" disabled formControlName="formulationname"
+            id="rackfocus">
+            <!-- <select name="select" class="form-control" formControlName="formulationid">
+              <option value="opt1">---Select Formulation---</option>
+              <option *ngFor="let form of stockFormulation" value="{{form[0]}}">{{form[1]}}</option>
+            </select> -->
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.racknumber'| translate}}</label>
+            <input type="text" class="form-control" placeholder="Rack Number" formControlName="rackno">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.shelfnumber'| translate}}</label>
+            <input type="text" class="form-control" placeholder="Shelf Number" formControlName="shelfno">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.expirydate'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="date" class="form-control" placeholder="Expiry Date" formControlName="expirydate"
+            (blur)="expiryselcalculate($event.target.value)" id="expiryfocus">
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.lotbatchnumber'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="Batch Number" formControlName="batchno"
+              onkeyup="this.value = this.value.toUpperCase();" maxlength="15" id="batchfocus" (blur)="packfocus()">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.coldstorage'| translate}}</label>
+            <select name="select" class="form-control" formControlName="coldstorage">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <!-- <input type="text" class="form-control" placeholder="Cold Storage" formControlName="coldstorage"> -->
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.minimumquantity'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="Min-Qty" formControlName="minqty">
+            <div class="messages text-danger" *ngIf="stockForm.controls.minqty.errors?.pattern">Numerical Only Allowed
+              Here</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.packagingtype'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label> 
+            <select (change)="packingevent($event.target.value)" formControlName="packageunit" id="packfocus">
+              <option value="opt1">---Select Package---</option>
+              <option value="box">Box</option>
+              <option value="strips">Strips</option>
+              <option value="bottles">Bottles</option>
+              <option value="pack">Pack</option>
+              <option value="containers">Containers</option>
+              <option value="injectable">Injectable</option>
+              <option value="cartoons">Cartoons</option>
+              <option value="lamitubes">Lamitubes</option>
+              <option value="sachets">Sachets</option>
+              <option value="polybags">PolyBags</option>
+            </select>
+            <input type="text" class="form-control" placeholder="Enter Quantity" 
+            id="myText" formControlName="boxqty" (blur)="quantitycalculation()">
+          </div>
+         
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.noofqtypack'| translate}}</label>
+            <input type="text" class="form-control" placeholder="As per Package type Qty" formControlName="boxperstrip"
+              (blur)="quantitycalculation()" id="qtyfocus">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.totalwithfree'| translate}}</label>
+            <input type="text" class="form-control" placeholder="Total Quantity" formControlName="qty" readonly>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.acquisitioncost'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="Acquisition Cost" formControlName="purchaseprice">
+            <div class="messages text-danger" *ngIf="stockForm.controls.purchaseprice.errors?.pattern">Numerical Only
+              Allowed Here</div>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.mrp'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="" formControlName="mrp" id="mrpfocus">
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.sellingprice'| translate}}
+              <span class="fontlangifbel">*</span>
+            </label>
+            <input type="text" class="form-control" placeholder="Selling Price" formControlName="sellingprice"
+            (input)="showPrice()" (blur)="showUnitprice($event.target.value)" id="sellpricefocus">
+            <div class="messages text-danger" *ngIf="stockForm.controls.sellingprice.errors?.pattern">Numerical Only
+              Allowed Here</div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.packagefreequantity'| translate}}</label>
+            <input type="text" class="form-control" placeholder="Enter Quantity" formControlName="freetabletqty"
+              (blur)="getFreeQuantity($event.target.value)">
+            <div class="messages text-danger" *ngIf="stockForm.controls.freetabletqty.errors?.pattern">Numerical Only Allowed Here</div>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.totalfreequantity'| translate}}</label>
+            <input type="text" class="form-control" placeholder="Total Free-Quantity" formControlName="freetotalqty" readonly>
+          </div>
+          <!-- <div class="col-sm-4">
+          
+            <label class="form-label">Strip Free-Quantity</label>
+            <input type="text" class="form-control" placeholder="Strip Free-Quantity" formControlName="freestripqty">
+          
+          <div class="messages text-danger" *ngIf="stockForm.controls.freestripqty.errors?.pattern">Numerical Only Allowed Here</div>
+        </div>  -->
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.margin'| translate}}</label>
+            <input type="number" class="form-control" placeholder="Margin Percentage" formControlName="margin"
+              (blur)="showMargin($event.target.value)">
+            <!-- <div class="messages text-danger" *ngIf="stockForm.controls.margin.errors?.pattern">Numerical Only Allowed
+              Here</div> -->
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.marginamount'| translate}}</label> <!-- (input)="showmarginAmt($event.target.value)"-->
+            <input type="text" class="form-control" placeholder="Margin Amount" formControlName="marginamt" readonly>
+            <div class="messages text-danger" *ngIf="stockForm.controls.marginamt.errors?.pattern">Numerical Only
+              Allowed Here</div>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.unitprice'| translate}}</label>
+            <input type="text" class="form-control" placeholder="Unit Price" formControlName="unitprice" readonly>
+            <!--Unit price-->
+            <div class="messages text-danger" *ngIf="stockForm.controls.unitprice.errors?.pattern">Numerical Only
+              Allowed Here</div>
+          </div>
+          <!--<div class="col-sm-4">
+            <label class="form-label">Whole Selling-Price</label>
+            <input type="text" class="form-control" placeholder="Whole Selling-price"
+              formControlName="wholesellingprice" readonly>
+            <div class="messages text-danger" *ngIf="stockForm.controls.wholesellingprice.errors?.pattern">Numerical
+              Only Allowed Here</div>
+          </div>
+          <div class="col-sm-4">
+            <label class="form-label">Retailer Selling-Price</label>
+            <input type="text" class="form-control" placeholder="Retailer Selling-Price"
+              formControlName="retailersellingprice" readonly>
+            <div class="messages text-danger" *ngIf="stockForm.controls.retailersellingprice.errors?.pattern">Numerical
+              Only Allowed Here</div>
+          </div>-->
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-4">
+            <label class="form-label">{{'stock.manufactureddate'| translate}}</label>
+            <input type="date" class="form-control" placeholder="Manufactured Date" formControlName="manufactureddate"
+            (blur)="manufselcalculate($event.target.value)">
+          </div>
+          <div class="col-sm-4" *ngIf="fieldhide == 0">
+            <label class="form-label">VAT</label>
+            <input type="text" class="form-control" placeholder="%" formControlName="vat">
+          </div>
+          <div class="col-sm-4" *ngIf="fieldhide == 1">
+            <label class="col-form-label">GST</label>
+            <input type="text" class="form-control" placeholder="%" formControlName="unitgst">
+          </div>
+          <div class="col-sm-4" *ngIf="taxgstid==1 || taxgstid==2">
+            <label class="col-form-label">CGST</label>
+            <input type="text" class="form-control" placeholder="%" formControlName="unitcgst">
+          </div> 
+          <div class="col-sm-4" *ngIf="taxgstid==1">
+            <label class="col-form-label">SGST</label>
+            <input type="text" class="form-control" placeholder="%" formControlName="unitsgst">
+          </div>
+          <div class="col-sm-4" *ngIf="taxgstid==2">
+            <label class="col-form-label">UTGST</label>
+            <input type="text" class="form-control" placeholder="%" formControlName="unitutgst">
+          </div>
+          
+          <div class="col-sm-4" *ngIf="taxid == 2">
+              <label class="col-form-label">IGST</label>
+              <input type="text" class="form-control" placeholder="%" formControlName="unitigst">
+          </div>
+        </div>
+        <div class="" align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        <div class="col-sm-3 ml-4">
+          <button [disabled]="!stockForm.valid" type="button" class="btn-round" (click)="onSubmit()">Save</button>
+        </div><br>
+      </form>
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

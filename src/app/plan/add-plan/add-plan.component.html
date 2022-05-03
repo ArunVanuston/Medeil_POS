@@ -1,0 +1,216 @@
+<style>
+  .sub-title1 {
+    border-bottom: 1px solid rgba(204, 204, 204, 0.35);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    /* text-transform: uppercase; */
+    /* sankar */
+    /* font-size: 14px; */
+    /* font-weight: 400;  */
+    /* sankar */
+    /* color: #2c3e50; */
+  }
+</style>
+
+<app-card>
+  <form [formGroup]="planForm" (ngSubmit)="onSubmit()">
+  <div class="sub-title">Add Plan
+    <em class="fa fa-tasks ficon"></em>
+  </div>
+  <div align="right">
+		<button class="btn-round" [routerLink]="['/Plan/ViewPlan']" >View Plan</button>
+	</div>
+  <!-- <div class="row sub-title1">
+    <label class="col-lg-3" style="text-align: center;">Plan Name
+      <span style="color:red">*</span></label>
+    <!-- <input type="text" class="col-lg-3 form-control" placeholder="plan name" formControlName="planname"/>
+    <div class="col-lg-3">
+      <select type="text" class="form-control" formControlName="planname" (change)="planselect($event.target.value,newplanname)">
+        <option value="opt1" selected disabled>---Select Edition Name---</option>
+        <option value="newplanname" style="background-color: #002e86;color:white">Add Plan Name</option>
+        <option *ngFor="let plan of planlist" value="{{plan[0]}}">{{plan[1]}} </option>
+      </select>
+      <label class="text-danger" style="font-weight:bold;font-size:16px" *ngIf="newplanshow">New Plan: {{planForm.controls.planname.value}}</label>
+    </div>
+    <label class="col-lg-3" style="text-align: center;">Plan Description</label>
+    <textarea class="col-lg-3 form-control" placeholder="Optional" formControlName="description"></textarea>
+  </div><br> -->
+
+  <div class="form-group row">
+    <div class="col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          Country Name </label>
+          <select name="select" class="form-control" formControlName="countryid" (change)="getProduct()" >
+            <option value="opt1" disabled>---Select Country Name---</option>
+            <option *ngFor="let coun of country" value={{coun[0]}}>{{coun[1]}} </option>
+          </select>
+        <!-- <input type="text" class="form-control" placeholder="Enter Country Name" /> -->
+      </fieldset>
+    </div>
+
+    <div class="col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          Product Name </label>
+          <select name="select" class="form-control" formControlName="productid" (change)="getDomains()">
+            <option value="opt1" selected disabled>---Select Product Name---</option>
+            <option *ngFor="let product of prodcutlist" value="{{product[0]}}">{{product[1]}}</option>
+          </select>
+        <!-- <input type="text" class="form-control" placeholder="Enter Product Name" /> -->
+      </fieldset>
+    </div>
+
+    <div class="col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          Domain Name </label>
+          <select name="select" class="form-control" formControlName="domainrefid" (change)="getSubdomain()">
+            <option value="opt1" selected disabled>---Select Domain Name---</option>
+            <option *ngFor="let dname of domainlist" value="{{dname[0]}}">{{dname[1]}}
+            </option>
+          </select>
+        <!-- <input type="text" class="form-control" placeholder="Enter Domain Name" /> -->
+      </fieldset>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          Subdomain Name </label>
+          <select type="text" class="form-control" formControlName="subdomainrefid" (click)="getedition()">
+            <option value="opt1" selected disabled>---Select Sub-Domain Name---</option>
+            <option *ngFor="let subdomain of subdomainlist" value="{{subdomain[0]}}">{{subdomain[1]}} </option>
+          </select>
+        <!-- <input type="text" class="form-control" placeholder="Enter Subdomain Name" /> -->
+      </fieldset>
+    </div>
+    <div class="col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          <h6>Edition Type</h6>
+        </label>
+        <br>
+        <label>
+          <input type="radio" value="0" name="editiontype"  (click)="geteditiontype($event.target.value)" checked>Trial
+        </label>
+        <label>
+          <input type="radio" value="1" name="editiontype"  (click)="geteditiontype($event.target.value)">Paid
+        </label>
+        <!-- <input type="radio" class="form-control" placeholder="Add Currency" formControlName="currency" /> -->
+      </fieldset>
+    </div>
+    <div class="col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          Period</label>
+          <select name="select" class="form-control" formControlName="period" (change)="getcurrency($event.target.value)">
+            <option value="opt1" selected disabled>---Select Period---</option>
+            <option value="weekly" *ngIf="saveflag==0">Weekly</option>
+            <option value="yearly" *ngIf="saveflag==1">Yearly</option>
+            <option value="monthly" *ngIf="saveflag==1">Monthly</option>
+            <!-- <option value="weekly">Weekly</option>
+            <option value="daily">Daily</option> -->
+          </select>
+        <!-- <input type="text" class="form-control" placeholder="Enter Period" formControlName="period"/> -->
+      </fieldset>
+    </div>
+  </div>
+
+<div class="form-group row" id="translate">
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label semibold">
+        Edition </label><!---geteditionDetails();-->
+        <select type="text" class="form-control" formControlName="editionrefid" (change)="getplan()">
+          <option value="opt1" selected disabled>---Select Edition Name---</option>
+          <option *ngFor="let edition of editionlist" value="{{edition[0]}}">{{edition[1]}} </option>
+        </select>
+      <!-- <input type="text" class="form-control" placeholder="Enter Interval" /> -->
+    </fieldset>
+  </div>
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label semibold">
+        Plan Name </label>
+        <select type="text" class="form-control" formControlName="planname" (change)="planselect($event.target.value,newplanname)">
+          <option value="opt1" selected disabled>---Select Plan Name---</option>
+          <option value="newplanname" style="background-color: #002e86;color:white">Add Plan Name</option>
+          <option *ngFor="let plan of planlist" value="{{plan[1]}}">{{plan[1]}} </option>
+        </select>
+        <label class="text-danger" style="font-weight:bold;font-size:16px" *ngIf="newplanshow">New Plan: {{planForm.controls.planname.value}}</label>
+      <!-- <input type="text" class="form-control" placeholder="Enter Interval" /> -->
+    </fieldset>
+  </div>
+ 
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label semibold">
+        Interval</label>
+      <input type="number" class="form-control" placeholder="Enter Interval" formControlName="interval"/>
+    </fieldset>
+  </div>
+</div>
+    
+<div class="form-group row">
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label semibold">
+        <h6>Add Currency {{currency}}</h6>
+      </label>
+      <!-- <select type="text" class="form-control" formControlName="currency" (change)="planselect($event.target.value,newplanname)">
+        <option value="opt1" selected disabled>---Select Currency---</option>
+        <option *ngFor="let cur of currency" value="{{cur}}">{{cur}} </option>
+      </select> -->
+      <input type="text" class="form-control" placeholder="Add Currency" formControlName="currency" readonly/> 
+    </fieldset>
+  </div>
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label semibold">
+        <h6>Add Amount</h6>
+      </label>
+      <input type="text" class="form-control" placeholder="Add Amount" formControlName="amount" />
+    </fieldset>
+    <!-- <div class="messages text-danger" *ngIf="planForm.controls.amount.errors?.pattern">Numbers Only Allowed..
+    </div> -->
+  </div>
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label semibold">
+        Plan Description </label>
+        <textarea class="form-control" placeholder="Optional" formControlName="description"></textarea>
+      <!-- <input type="text" class="form-control" placeholder="Enter Interval" /> -->
+    </fieldset>
+  </div>
+</div>
+
+<div class="form-group row">
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <button type="submit" class="btn-round">Create Plan</button>
+      <!-- <button type="button" class="btn-round" (click)="translate()">Translate</button> -->
+    </fieldset>
+  </div>
+</div> 
+ <!--New Plan Popup-->
+ <ng-template #newplanname let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <label class="form-label"> Add New Plan</label>
+    <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+  </div>
+  <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="newplan" placeholder="Enter Plan Name" />
+  </div>
+  <div class="modal-footer">
+    <label class="modbtn" id="typemain" (click)="SaveNewPlan(c)">Save
+    </label>
+  </div>
+</ng-template>
+</form>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>
+</app-card>

@@ -1,0 +1,112 @@
+<app-card>
+  <div class="sub-title">{{'finance.bankregistration'| translate}}
+    <em class="ti-agenda ficon"></em>
+</div>
+  <form [formGroup]="bankForm" (ngSubmit)="onSubmit()">
+    <div align="right">
+      <button [routerLink]="'/Accounts/viewbank'" class="btn-round">{{'finance.viewbank'| translate}}</button>
+  </div>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>{{'finance.accountnumber'| translate}}</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter Account Number" formControlName="accnumber" />
+
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>{{'finance.accountholder'| translate}}</h6>
+        </label>
+        <input type="text" class="form-control" placeholder="Enter Account Holder" formControlName="accholder" />
+
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>{{'finance.accounttype'| translate}}</h6>
+        </label>
+        <select name="select" class="form-control" formControlName="acctype" >
+          <option value="opt1" >---Select Account Type---</option>
+          <option value="Savings Account" >Savings Account</option>
+          <option value="Current Account" >Current Account</option>
+        
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>{{'finance.dateopened'| translate}}</h6>
+        </label>
+        <input type="date" class="form-control"  formControlName="opendate" />
+
+      </div>
+     
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>{{'finance.openingbalance'| translate}}</h6>
+          </label>
+  
+          <input type="text" class="form-control" placeholder="0.00" formControlName="openingbal" />
+        
+      </div>
+
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            {{'finance.status'| translate}} </label>
+            <select type="text" class="form-control" formControlName="accstatus" >
+              <option value="opt1" selected disabled>---Select Status---</option>
+              <option value="IsOpened">Is Opened</option>
+              <option value="IsClosed" >Is Closed</option>
+            </select>
+        
+     
+      </div>
+      
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>{{'finance.bankname'| translate}}</h6>
+          </label>
+          <input type="text" class="form-control" placeholder="Enter Bank Name" formControlName="bankname" />
+        
+        <!-- <div class="messages text-danger" *ngIf="editionForm.controls.version.errors?.pattern">Numbers Only Allowed.. -->
+        </div>
+    
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>{{'finance.branch'| translate}}</h6>
+          </label>
+          <input type="text" class="form-control" placeholder="Enter Branch Name" formControlName="branch" />
+        
+      </div>
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>{{'finance.address'| translate}}</h6>
+          </label>
+          <textarea  class="form-control" placeholder="Add Address" formControlName="address1" ></textarea>
+        
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <button [disabled]="!bankForm.valid" type="submit" class="btn btn-success btn-round button btnlinklist"
+            style="margin: 26px;">{{'finance.save'| translate}}</button>
+        
+      </div>
+    </div>
+
+   
+  </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

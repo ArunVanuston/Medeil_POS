@@ -1,0 +1,130 @@
+<style>
+  
+
+  .borderform {
+      border: 2px solid #b3b3b3;
+      border-radius: 5px;
+      padding: 0.8em;
+  }
+
+  #swidth{
+    width:270px;
+  }
+ 
+  .sdruglabel{
+      border: 2px solid grey;
+      border-radius: 8px;
+      background-color: white;
+      position: absolute;
+      z-index: 1;
+      overflow-y: auto;
+      max-height: 310px;
+  }
+
+  .sdruglabel .lhead{
+      background-image: linear-gradient(to right,#002e86,orange);
+      font-family: Montserrat;
+      font-size: 16px;
+      font-weight: bold;
+      color: #FFFFFF;
+      padding:3px;
+  }
+
+  .sdruglabel .lbody{
+      font-family: Montserrat;
+      font-size: 14px;
+      text-align: left
+  }
+
+  .table td, .table th {
+      padding: 4px;
+  }
+
+  .sdruglabel .lbody td input {
+      border: transparent;
+      width:240px;
+  }
+
+  tr.selectrow:hover{
+      background-color: #e9ecef;
+  }
+</style>
+
+<app-card>
+  <form [formGroup]="drugspecifyForm" (ngSubmit)="onSubmit()" class="mx-2">
+    <div class="form-group row">
+    <div class="col-lg-4">
+      <div class="form-group">
+        <label class="form-label semibold"><h6>Employee Name</h6></label>
+        <select class="form-control" formControlName="employeeid" (change)="getUserList()">
+          <option value="opt1" selected disabled>---Select Employee---</option>
+          <option *ngFor="let emp of employeelist" value={{emp[1]}}>{{emp[0]}} </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      
+        <label class="form-label semibold"><h6>Drug Name</h6></label>
+        <input type="text" placeholder="searchdrug" class="form-control" (input)="searchdrug($event.target.value,1)"/>
+     
+      <div *ngIf="salesinvproducts.length>0" class="sdruglabel">
+        <table aria-describedby="mydesc" class="table">
+            <thead class="lhead">
+            <tr>
+                <th scope="col"> Drug Name </th>
+                <th scope="col"> Generic Name </th>
+                <th scope="col"> Expiry Date </th>
+            </tr>
+            </thead>
+            <tbody class="lbody">
+            <tr *ngFor="let drugdata of salesinvproducts; let i=index" class="selectrow" (click)="insertproducts(drugdata);">
+               <td><label style="width:260px;overflow: hidden;"> {{drugdata[0]}} </label></td> 
+               <td><label> {{drugdata[8]}} </label></td>
+               <td><label> {{drugdata[7]}} </label></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>  
+    </div>
+  </div><br>
+
+  <div class="flow mx-2" align="center">
+    <table aria-describedby="mydesc" class="table styletab" formArrayName="drugproducts">
+        <thead class="stylehead">
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Drug Name</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Remove</th>
+            </tr>
+        </thead>
+        <tbody class="stylebody">
+            <tr *ngFor="let address of drugspecifyForm.controls.drugproducts.controls; let i=index"
+                [formGroupName]="i">
+                <td>
+                    <input value={{i+1}} readonly id="width1" />
+                </td>
+                <td>
+                    <input type="text" formControlName="drugname" id="swidth" style="text-align:left" />
+                </td>
+                <td>
+                  <input type="text" formControlName="amount" id="width3" style="text-align:left" />
+              </td>
+                <td id="width3">
+                    <em class="fa fa-close" style="color:brown;font-weight: bold;cursor: pointer;" (click)="removerow(i)"></em>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+     </div><br><br>
+
+  <div class="row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-2">
+     
+        <button (click)="savedrugspecify()" class="btn-round">Save</button>
+     
+    </div>
+  </div>
+</form>
+</app-card>

@@ -1,0 +1,262 @@
+<style>
+.billtd1{
+  padding:2em 0.2em;
+  width:55%;
+}
+
+.billtd2{
+  padding:2em 0.2em;
+  width:45%;
+}
+
+.planclass{
+  background-color:gray;
+    padding: 5px 8px;
+    color: white;
+    border-radius: 15px;
+}
+</style>
+<app-card>
+  <div class="sub-title">Pricing Plans</div>
+  <div class="px-1" style="overflow: auto;">
+    <table aria-describedby="mydesc" style="width:100%;background-color:whitesmoke">
+      <tbody>
+        <tr>
+          <td class="billtd1">
+              <div class="px-3 py-1">
+                <tr>
+                <td class="px-3">
+                    <h4 class="planclass"><span style="color:lightgray">Plan:</span>{{planname}}</h4>
+                    <h6 class="pl-2">Admin User - 1</h6>
+                    <h6 class="pl-2" *ngIf="editionrank>5">Additional Users - {{currentusercount}}</h6>
+                    <label class="ml-2 btn-round" (click)="addnewuser=true" *ngIf="editionrank>5">Add New Users</label>
+                </td>
+                <td style="border-left:1px solid darkgray" class="px-3">
+                    <h3><span class="mr-1">{{usercurrency}}</span>{{planamount}}</h3>
+                    <h6 class="text-danger">Expires with in {{expdays}}</h6><br>
+                </td>
+              </tr>
+              </div>
+          </td>
+          <td class="billtd2" style="border-left:1px solid darkgray"  valign="top">
+            <div class="px-2 py-1">
+              <h6 style="font-weight:bold">Payment Information:</h6>
+              <div class="pl-3">
+                <label>Payment Mode: {{paymentmode}}</label><br>
+                <label>Card Type: {{paymentcard}}</label><br>
+                <label>Card No: ************{{paymentcardno}}</label><br>
+                <label>Mail ID: {{paymentmail}}</label><br>
+                <!-- <label>Payment Mode: {{paymentdetails[2]}}</label><br>
+                <label>Card Type: {{paymentdetails[0]}}</label><br>
+                <label>Card No: ************{{paymentdetails[1]}}</label><br>
+                <label>Mail ID: {{paymentdetails[3]}}</label><br>
+                <label>Mobile No: {{paymentdetails[6]}}</label> -->
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sub-title pt-1">Choose Other Plans</div><br>
+  <!-- <div class="pl-3 mt-2 mb-4">
+    <h5 (click)="chooseplan()" style="cursor:pointer" [style.color]="showbillings?'#002e86':'gray'">Choose Other Plan's
+      <em class="fa fa-angle-down ml-2" style="font-weight:bold;position:absolute;padding-top:2px"></em></h5>
+  </div><br> -->
+
+  <!-- *********************************** Medeil HQ *************************************************** -->
+
+  <div class="container mt-3"><!--*ngIf="showbillings"-->
+    <div class="tab-content pricing-tab-content" id="pricing-tab-content">
+      <div class="tab-pane active" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card pricing-card" [ngClass]="[editionrank== 1 ?'pricing-card-highlighted':editionrank==6 ?'pricing-card-highlighted':'']">
+              <div class="card-body">
+                <!-- {{(edition == 6) ? "Bronze" : "Bronze Trial"}} -->
+                <!--<h3 class="pricing-plan-title d-flex align-items-center">Bronze<span class="badge badge-pill offer-badge ml-auto">20% off</span></h3>
+                <p class="h1 pricing-plan-original-cost"><del>$23.00</del></p> -->
+                <h3 class="pricing-plan-title d-flex align-items-center">Bronze</h3>
+                <p class="h1 pricing-plan-cost">{{ editionrankbuy==6 ? (selplanamount | number:'1.2-2') : '0'}}</p>
+                <!--{{(editionrankbuy==6 && plantypebuy==1) ? '10' : (editionrankbuy==6 && plantypebuy== 2) ? '25' : '0'}}-->
+                <ul class="pricing-plan-features">
+                  <li>Suitable for small Pharmacy</li>
+                  <li>Inventory Control</li>
+                  <li>Basic Invoicing</li>
+                  <li>Basic Accounting</li>
+                  <li>No mobile App</li>
+                  <li>51 Reports</li>
+                </ul><!-- -->
+                <div align="center"><!--
+                  *ngIf="editionrank<=6 && plantype<=2"
+                  *ngIf="editionrank<=6 && plantype==1"
+                  ngIf="editionrank<=6 && plantype<=2"
+                -->
+                  <button class="py-1 px-2 mr-1 plantypebtn" (click)="plantypechange(6,1)"  
+                    [ngClass]="[editionrank>6 ?'buyhide' : editionrank==6 && plantype>=1 ?'buyhide' :'']" 
+                    [style.background-color]="editionrankbuy==6 && plantypebuy==1 ? 'gray':'#00d7b5' ">Monthly</button>
+                  <button class="py-1 px-2 plantypebtn" (click)="plantypechange(6,2)" 
+                    [ngClass]="[editionrank>6 ? 'buyhide': editionrank==6 && plantype>=2 ?'buyhide':'']" 
+                    [style.background-color]="editionrankbuy==6 && plantypebuy==2 ? 'gray':'#00d7b5' ">Yearly</button>
+                </div><br>
+                <a href="javascript::;" class="btn pricing-plan-purchase-btn" (click)="getbuy(6)" 
+                [ngClass]="[editionrank>6 ? 'buyhide' :editionrank==6 && plantype>=2 ?'buyhide':'']" >Buy</a>
+                <div class="text-center">
+                  <a href="javascript::;" class="pricing-plan-link">Learn more</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card pricing-card" [ngClass]="[editionrank== 2 ?'pricing-card-highlighted':editionrank== 7 ?'pricing-card-highlighted':'']">
+              <div class="card-body">
+                <!-- <h3 class="pricing-plan-title d-flex align-items-center">Silver <span class="badge badge-pill offer-badge ml-auto">20% off</span></h3>
+                <p class="h1 pricing-plan-original-cost"><del>$23.00</del></p>
+                <p class="h1 pricing-plan-cost">10.99 <span class="currency">USD</span></p> -->
+                <h3 class="pricing-plan-title d-flex align-items-center">Silver</h3>
+                <p class="h1 pricing-plan-cost">{{editionrankbuy==7 ? (selplanamount | number:'1.2-2') : '0'}}</p>
+                <!--{{(editionrankbuy==7 && plantypebuy==1) ? '15' : (editionrankbuy==7 && plantypebuy== 2) ? '50' : '0'}}-->
+                <ul class="pricing-plan-features">
+                  <li>Suitable for Medium size Pharmacy</li>
+                  <li>Standard Inventory Control</li>
+                  <li>Standard Invetory & Billing</li>
+                  <li>Short Expiry Management</li>
+                  <li>Android version</li>
+                  <li>75 Reports</li>
+                </ul>
+                <div align="center">
+                  <button class="py-1 px-2 mr-1 plantypebtn" (click)="plantypechange(7,1)" 
+                  [ngClass]="[editionrank>7 ?'buyhide' : editionrank==7 && plantype>=1 ?'buyhide' :'']" 
+                  [style.background-color]="editionrankbuy==7 && plantypebuy==1 ? 'gray':'#00d7b5' ">Monthly</button>
+                  <button class="py-1 px-2 plantypebtn" (click)="plantypechange(7,2)"
+                  [ngClass]="[editionrank>7 ?'buyhide' : editionrank==7 && plantype>=2 ?'buyhide' :'']" 
+                  [style.background-color]="editionrankbuy==7 && plantypebuy==2 ? 'gray':'#00d7b5' ">Yearly</button>
+                </div><br>
+                <a href="javascript::;" class="btn pricing-plan-purchase-btn" (click)="getbuy(7)" 
+                [ngClass]="[editionrank>7 ?'buyhide' : editionrank==7 && plantype>=2 ?'buyhide' :'']">Buy</a>
+                <div class="text-center">
+                  <a href="javascript::;" class="pricing-plan-link">Learn more</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card pricing-card" [ngClass]="[editionrank== 3 ?'pricing-card-highlighted':editionrank==8 ?'pricing-card-highlighted':'']">
+              <div class="card-body">
+                <!-- <h3 class="pricing-plan-title d-flex align-items-center">Gold <span
+                    class="badge badge-pill offer-badge ml-auto">20% off</span></h3>
+                <p class="h1 pricing-plan-original-cost"><del>$23.00</del></p>
+                <p class="h1 pricing-plan-cost">10.99 <span class="currency">USD</span></p> -->
+                <h3 class="pricing-plan-title d-flex align-items-center">Gold</h3>
+                <p class="h1 pricing-plan-cost">{{editionrankbuy==8 ? (selplanamount | number:'1.2-2') : '0'}}</p> 
+                <!--{{(editionrankbuy==8 && plantypebuy==1) ? '25' : (editionrankbuy==8 && plantypebuy== 2) ? '75' : '0'}}-->
+                <ul class="pricing-plan-features">
+                  <li>Suitable for Professional Pharmacies</li>
+                  <li>Intelligent Inventory Management</li>
+                  <li>Standards & Compliances inbuild</li>
+                  <li>Loyality & Gift Card</li>
+                  <li>Both Android / IOS Version</li>
+                  <li>137 Report</li>
+                </ul>
+                <div align="center">
+                  <button class="py-1 px-2 mr-1 plantypebtn" (click)="plantypechange(8,1)"  
+                  [ngClass]="[editionrank>8 ?'buyhide' : editionrank==8 && plantype>=1 ?'buyhide' :'']" 
+                  [style.background-color]="editionrankbuy==8 && plantypebuy==1 ? 'gray':'#00d7b5' ">Monthly</button>
+                  <button class="py-1 px-2 plantypebtn" (click)="plantypechange(8,2)"  
+                  [ngClass]="[editionrank>8 ?'buyhide' : editionrank==8 && plantype>=2 ?'buyhide' :'']" 
+                  [style.background-color]="editionrankbuy==8 && plantypebuy==2 ? 'gray':'#00d7b5' ">Yearly</button>
+                </div><br>
+                <a href="javascript::;" class="btn pricing-plan-purchase-btn" (click)="getbuy(8)" 
+                [ngClass]="[editionrank>8 ?'buyhide' : editionrank==8 && plantype>=2 ?'buyhide' :'']">Buy</a>
+                <div class="text-center">
+                  <a href="javascript::;" class="pricing-plan-link">Learn more</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lmd-3"></div>
+          <!-- <div class="col-md-3">
+            <div class="card pricing-card" [ngClass]="[editionrank== 4 ?'pricing-card-highlighted':editionrank== 9 ?'pricing-card-highlighted':'']">
+              <div class="card-body">
+                <h3 class="pricing-plan-title d-flex align-items-center">Platinum <span
+                    class="badge badge-pill offer-badge ml-auto" (click)="openEvent1()">20% off</span></h3>
+                <p class="h1 pricing-plan-original-cost"><del>$23.00</del></p>
+                <p class="h1 pricing-plan-cost">10.99 <span class="currency">USD</span></p>
+                <ul class="pricing-plan-features">
+                  <li>5GB file storage</li>
+                  <li>File manager</li>
+                  <li>Upgrade any time</li>
+                  <li>5GB file storage</li>
+                  <li>File manager</li>
+                  <li>Upgrade any time</li>
+                  <li>5GB file storage</li>                  
+                </ul>
+                <a href="javascript::;" class="btn pricing-plan-purchase-btn" (click)="getbuy(9)" [ngClass]="[editionrank>=9 ?'buyhide':'']">Buy</a>
+                <div class="text-center">
+                  <a href="javascript::;" class="pricing-plan-link">Learn more</a>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <!---****************************************** Add Users Pop Start **************************************-->
+  <div [ngClass]="addnewuser?'showtop':'hidetop'" align="center">
+    <br>
+    <div class="mr-2" align="right">
+        <em class="fa fa-close fa-2x mr-2" (click)="addnewuser=false" style="cursor:pointer;color:white"></em>
+    </div>
+    <div class="container1 bform py-5" style="overflow-y:auto;background-color:white;max-height:450px;width:45%">
+      <h4 class="text-secondary"><u>Additional Users</u></h4><br>
+      <table aria-describedby="mydesc">
+        <tbody>
+          <!-- <tr>
+            <label style="color:whitesmoke" class="mr-3">User:</label>
+            <label style="font-weight:bold" class="text-info"> User Count * Per Day Amount * Remain Days</label>
+          </tr> -->
+          <tr>
+            <label style="font-weight:bold" class="mr-3">User: </label>
+            <input type="text" style="width:45px;text-align:center" (blur)="calculateusers($event.target.value)" #usercountchange/>
+            <label class="ml-1" title="Perday Amount * Remaining Days"> * {{perdayamount}} * {{remaindays}}</label>
+          </tr><br>
+          <tr>
+            <label style="font-weight:bold;">Total: </label>
+            <label><h4 class="text-danger ml-3">{{totalamount}}</h4></label>
+          </tr><br>
+          <tr>
+            <label type="button" class="btn-round" (click)="clearusers()">Cancel</label><!--getuser('user')-->
+            <label type="button" class="btn-round ml-3" (click)="addusercart()">Add to Cart</label>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div><br><!--Add Users End-->
+<app-modal-animation [modalID]="'effect-1'" [modalClass]="'md-effect-1'">
+  <h3>Alert!</h3>
+  <div>
+      <!-- <p>This is a modal window. You can do the following things with it:</p> -->
+      <ul>
+          <li> Check your registered emailid , we have to send your defalut username and password..</li>
+          <li>Please click <a [routerLink]="['/userlogin/login']">here</a> to open login page</li>
+          <!-- <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
+          <li><strong>Close:</strong> click on the button below to close the modal.</li> -->
+      </ul>
+      <!-- <button (click)="closeMyModal($event)" class="btn btn-primary md-close">Close Me!!</button> -->
+  </div>
+  <button (click)="closeMyModal($event)" aria-label="Close" class="md-close-btn"><em class="icofont icofont-ui-close"></em></button>
+</app-modal-animation>
+
+<div [ngClass]="underprocess?'showtop':'hidetop'" style="background-color:white" id="mouseclick">
+  <div class="container" style="margin-top:3em;" align="center">
+    <h2 style="color:darkgray" *ngIf="statuschange">{{(getbuytype=='user') ? "Update Users!.." : "We are Assigning your Modules!.."}}</h2><br>
+      <h3 style="color:darkgray" *ngIf="!statuschange">Payment Processing!..</h3>
+      <h3 class="text-success" *ngIf="statuschange">Payment Completed!...</h3><br>
+      <h4 style="color:darkgray">Please Wait!..</h4><br>
+      <img src="assets/images/grayload.gif" alt="grayload" height="190px"><br>
+  </div>
+</div>  
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

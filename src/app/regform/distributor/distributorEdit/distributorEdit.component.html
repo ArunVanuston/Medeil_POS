@@ -1,0 +1,332 @@
+<style>
+    /*  .row label {
+font-size: 1.2em; 
+font-family: sans-serif  ;
+font-stretch: expanded ;
+font-weight: 500 ; 
+ }       */
+        </style>
+<app-card>
+    <div class="sub-title">{{'formtitle.edit'| translate}}
+        <i class="fa fa-edit ficon"></i>
+    </div>
+    <table style="width:100%">
+        <tbody>
+         <tr>
+         <td style="width:95%">
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off">
+                <div class="mr-2" align="right">
+                    <button type="button" class="btn-round" [routerLink]="['/VendorRegistration/ViewVendor']">View Vendor</button>
+                </div>
+                <div class="box-typical box-typical-padding">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">
+                                    {{'distributor.vendorid'| translate}}  
+                                </label> <input type="text" name="doctorName" class="form-control" id="docid" placeholder=""
+                                    formControlName="id" readonly/>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'distributor.vendorname'| translate}}  <font color="red" class="fontlangifbel">*</font>
+                                </label> <input type="text" class="form-control" id="docregistrationid" placeholder=" "
+                                    formControlName=distributorname autocomplete="off"/>
+                                <!-- <p class="messages text-danger" *ngIf="registerForm.controls.distributorname.errors?.required">This
+                                    Field is
+                                    Required*</p> -->
+                                <p class="messages text-danger" *ngIf="registerForm.controls.distributorname.errors?.pattern">
+                                    Accepts Only Text!</p>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'distributor.vendorshortname'| translate}} 
+                                </label> <input type="text" class="form-control" id="docname" placeholder="" 
+                                autocomplete="off" formControlName="dshortname" />
+                               
+                                <p class="messages text-danger" *ngIf="registerForm.controls.dshortname.errors?.pattern">
+                                    Accepts Only Text!</p>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4" id="country">
+                            <label class="form-label" for="country">
+                                {{'distributor.vendortype'| translate}} 
+                            </label>
+                            <select class="select2" class="form-control" formControlName="dcompnaytype">
+                                <option *ngFor="let item of allergies" value={{item[0]}}>{{item[1]}}</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'distributor.creditterms'| translate}} 
+                                </label> <input type="text" class="form-control" placeholder="" 
+                                autocomplete="off" formControlName="creditdays" />
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'distributor.leadtime'| translate}}
+                                </label> <input type="text" class="form-control" placeholder="" 
+                                autocomplete="off" formControlName="leadtime" />
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'common.address'| translate}}<font color="red" class="fontlangifbel">*</font>
+                                </label> <input type="text" class="form-control" id="doc_address1" placeholder=""
+                                    formControlName="address1" autocomplete="off"/>
+                                <!-- <p class="messages text-danger" *ngIf="registerForm.controls.address1.errors?.required">This
+                                    Field is
+                                    Required*</p> -->
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4" id="country">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="country">
+                                    {{'common.country'| translate}}<font color="red" class="fontlangifbel">*</font>
+                                </label>
+                                <div id="country">
+                                    <select class="select2" id="doccountry" class="form-control" (change)="viewState()" (click)="viewState()"
+                                        formControlName="country">
+                                        <option *ngFor="let item of countries; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4" id="state">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="state">
+                                    {{'common.state'| translate}} <font color="red" class="fontlangifbel">*</font>
+                                </label>
+                                <div id="state">
+                                    <select class="select2" id="docstate" class="form-control" (change)="viewCity()" (click)="viewCity()"
+                                        formControlName="state">
+                                    
+                                        <option *ngFor="let item of states; let i = index" value={{item[0]}}>{{item[2]}}</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4" id="state">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="state">
+                                    City <font color="red" class="fontlangifbel">*</font>
+                                </label>
+                                <div id="state">
+                                    <select class="select2" id="docstate" class="form-control" formControlName="city">
+                                        <option *ngFor="let item of cities; let i = index" value={{item[0]}}>{{item[2]}}</option>
+                                    </select>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" type="number" for="exampleInput">
+                                    {{'common.pincode'| translate}}
+                                </label> <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" id="docpincode" placeholder="  "
+                                    formControlName="pincode" autocomplete="off"/>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">
+                                    {{'common.mobile'| translate}}<font color="red" class="fontlangifbel">*</font>
+                                </label> <input class="form-control" id="docphonenumber" type="number" placeholder="  "
+                                    formControlName="mobileno" autocomplete="off"/>
+                                    <!-- <p class="messages text-danger" *ngIf="registerForm.controls.mobileno.errors?.required">This Field is Required*</p> -->
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInputEmail1">
+                                    {{'common.email'| translate}} <font color="red" class="fontlangifbel">*</font>
+                                </label> <input type="text" class="form-control" id="docemail" placeholder="  " 
+                                autocomplete="off" formControlName="email" />
+                                <p class="messages text-danger" *ngIf="registerForm.controls.email.errors?.email">
+                                  Enter Correct Mail!
+                                </p>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label">
+                                    {{'distributor.selectpharmacompany'| translate}} 
+                                </label>
+                                <angular2-multiselect [data]="mulList" [(ngModel)]="mulsellist" [settings]="mulSettings"
+                                    formControlName="phcompany">
+                                </angular2-multiselect>
+                            </fieldset>
+                        </div>
+                    </div>
+                    <div class="sub-title">Others & Bank Details
+                        <i class="icofont icofont-rounded-down" cardToggleEvent (click)="toggleCard($event)" 
+                        style="float:right;cursor:pointer"></i>
+                    </div>
+                    <div class="row" [@cardToggle]="cardToggle">
+                        <!--.row2start-->
+                        <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label class="form-label" for="exampleInput">
+                                        {{'distributor.personname'| translate}}
+                                    </label> <input type="text" class="form-control" id="docpincode" placeholder="  "
+                                        formControlName="contactperson" autocomplete="off"/>
+                                </fieldset>
+                            </div>
+        
+                            <div class="col-lg-4">
+                                    <fieldset class="form-group">
+                                        <label class="form-label semibold" for="exampleInput">
+                                            {{'distributor.designation'| translate}}
+                                        </label> <input class="form-control" id="docphonenumber" 
+                                        autocomplete="off" placeholder="  " formControlName="designationid" />
+                                    </fieldset>
+                            </div>
+        
+                        
+                        
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" type="number" for="exampleInput">
+                                    {{'common.phone'| translate}}
+                                </label> <input class="form-control" id="docmobile" type="number" placeholder="  "
+                                    formControlName="phoneno" autocomplete="off"/>
+                            </fieldset>
+                        </div>
+                        
+                        <!-- <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label class="form-label" for="exampleInput"><h6>PAN No</h6></label> <input
+                                        type="text" class="form-control" id="docpincode"
+                                        placeholder="  " formControlName="panno" />
+                
+                
+                                </fieldset>
+                            </div> -->
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">
+                                    {{'common.tinno'| translate}}
+                                </label> <input class="form-control" id="docphonenumber" placeholder="  " 
+                                autocomplete="off" formControlName="tinno" />
+                            </fieldset>
+                        </div>
+                                            
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">{{'common.taxno'| translate}}</label> 
+                                <input type="text" class="form-control" id="docpincode"
+                                autocomplete="off"   placeholder="  " formControlName="gstno" />
+                            </fieldset>
+                        </div>                      
+                
+                        
+                        <!-- <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label class="form-label semibold" for="exampleInput"><h6>IEC Code </h6>
+                                        </label> <input  class="form-control" id="docphonenumber"
+                                        placeholder="  " formControlName="ieccode" />
+                
+                
+                                </fieldset>
+                            </div>
+                             -->
+                    </div>
+                    <div class="row" [@cardToggle]="cardToggle">
+                        <!--.row3start-->
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'common.bankname'| translate}}
+                                </label> <input type="text" class="form-control" id="docpincode" placeholder="  "
+                                    formControlName="bankname" autocomplete="off"/>
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">
+                                    {{'common.bankbranch'| translate}}
+                                </label> <input class="form-control" id="docphonenumber" placeholder="  " 
+                                autocomplete="off" formControlName="bankbranch" />
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput">
+                                    {{'common.accountnumber'| translate}}
+                                </label> <input type="text" class="form-control" id="docpincode" placeholder="  "
+                                    formControlName="accountnumber" autocomplete="off"/>
+                            </fieldset>
+                        </div>
+                       <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label class="form-label semibold" for="exampleInput">{{'common.ifsccode'| translate}}
+                                        </label> <input class="form-control" id="docphonenumber"
+                                        placeholder="  " formControlName="ifsccode" autocomplete="off"/>
+                
+                
+                                </fieldset>
+                            </div>
+                
+                            <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label class="form-label" for="exampleInput">{{'common.swiftcode'| translate}}</label> <input
+                                        type="text" class="form-control" id="docpincode"
+                                        placeholder="  " formControlName="swiftcode" autocomplete="off"/>
+                
+                
+                                </fieldset>
+                            </div>
+                        </div>
+                        <!--    <div class="col-lg-4">
+                                <fieldset class="form-group">
+                                    <label class="form-label semibold" for="exampleInput"><h6>MISC Code</h6> 
+                                        </label> <input class="form-control" id="docphonenumber"
+                                        placeholder="  " formControlName="misccode" />
+                
+                
+                                </fieldset>
+                            </div> -->
+                        <!-- <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput">
+                                    <h6>Phone
+                                        Number</h6>
+                                </label> <input class="form-control" id="docphonenumber" placeholder="  " formControlName="misccode" />
+                            </fieldset>
+                        </div> -->
+                   
+                    
+                    <div class="" align="center">
+                        <img src="assets/images/saveload.gif" class="mt-2" *ngIf="saveprocess">
+                    </div>
+                    <div class="row">
+                        <!--.row4 start-->
+                        <div class="col-lg-3" style="text-align: center">
+                            <div class="form-group">
+                                <button type="submit" class="btn-round" [disabled]="!registerForm.valid">{{'common.update'| translate}}</button>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-3" style="text-align: center">
+                            <button type="button" class="btn btn-round" (click)="deleteDistributor()"> Delete</button>
+                        </div> -->
+                    </div>
+                    <!--row4 end -->
+                </div><!-- box-typical-->
+                <ng2-toasty [position]="'center-center'"></ng2-toasty>
+            </form>
+        </td>
+          <td style="width:5%" valign="top">
+         <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+         </td>
+         </tr>
+        </tbody>
+        </table>			 			 			 			 						
+    
+</app-card>

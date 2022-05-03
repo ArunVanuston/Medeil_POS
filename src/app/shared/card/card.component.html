@@ -1,0 +1,20 @@
+<div class="card" [@cardClose]="cardClose" [ngClass]="cardClass">
+  <div class="card-header" *ngIf="title">
+    <h5>{{ title }}</h5>
+    <span *ngIf="!classHeader">{{ headerContent }}</span>
+    <span *ngIf="classHeader">
+      <ng-content select=".code-header"></ng-content>
+    </span>
+    <div class="card-header-right">
+      <em class="icofont icofont-rounded-down" cardToggleEvent (click)="toggleCard($event)"></em> <!--(click)="toggleCard($event)-->
+      <em class="icofont icofont-refresh" cardRefresh></em>
+     <!-- <em class="icofont icofont-close-circled" (click)="closeCard($event)"></em>  -->
+    </div>
+  </div>
+
+  <div [@cardToggle]="cardToggle">
+    <div class="card-body" [ngClass]="blockClass" style="padding:0.5rem 1.25rem">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

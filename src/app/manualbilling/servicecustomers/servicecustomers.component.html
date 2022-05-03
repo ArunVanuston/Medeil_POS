@@ -1,0 +1,194 @@
+<app-card>
+  <div class="sub-title">Service Customer Details
+    <em class="fa fa-user ficon"></em>
+  </div><br>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mx-3">
+    <div class="mr-2" align="right">
+        <button type="button" class="btn-round" [routerLink]="['/ManualBilling/ViewSerivceCustomers']">View Customer</button>
+    </div><br>
+    <div class="box-typical box-typical-padding">
+         <div class="form-group row">
+                        
+            <div class="col-lg-4" style="display: none;">
+                
+                    <label class="form-label semibold" for="exampleInput">Patient Id </label> <input type="text" name="doctorName" class="form-control" id="docid"
+                        placeholder="" formControlName="ptid" />
+                
+            </div>
+            <div class="col-lg-4">
+                <label class="form-label semibold" for="exampleInput">Customer First Name
+                    <span class="fontlangifbel">*</span></label> 
+                    <input type="text" name="doctorName" class="form-control"
+                    id="docid" placeholder="" formControlName="patientfirstname" autofocus/>
+                <!-- <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.required">
+                    This Field is Required*</p> -->
+                <p class="messages text-danger" *ngIf="registerForm.controls.patientfirstname.errors?.pattern">
+                    Text Only Accepts!</p>
+            </div>
+            <div class="col-lg-4">
+                <label class="form-label" for="exampleInput">Business Name 
+                    <span class="fontlangifbel">*</span>
+                </label>
+                    <input type="text" class="form-control" id="docregistrationid" placeholder=""
+                        formControlName="patientlastname" />
+                    <p class="messages text-danger" *ngIf="registerForm.controls.patientlastname.errors?.pattern">
+                        Text Only Accepts!</p>
+            </div>
+
+            <div class="col-lg-4">
+                <label class="form-label mb-2">Gender</label><br>
+                <input type="radio" value="Male" name="gender" formControlName="gender" checked> Male
+                <input type="radio" class="ml-2" value="Female" name="gender" formControlName="gender"> Female
+             </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4">
+                <label class="form-label semibold" for="exampleInput">Date of Birth
+                </label> 
+                    <input type="date" class="form-control" id="docphonenumber"
+                    formControlName="dob" (change)="agecalculate($event.target.value)"/>
+                <!-- <div class="messages text-danger" *ngIf="registerForm.controls.dob.errors?.required">
+                        This Field is Required*</div> -->
+                <div class="messages text-secondary" style="font-weight:bold">Age: {{calculatedage}}</div>  
+            </div>    
+
+
+            <div class="col-lg-4">
+                <label class="form-label semibold" for="exampleInput">GST Number
+                </label> 
+                <input class="form-control" id="docphonenumber" placeholder="Goods & Service Tax"
+                onkeyup="this.value = this.value.toUpperCase();" formControlName="gstno" />
+                    <div class="messages text-danger" *ngIf="registerForm.controls.gstno.errors?.pattern">
+                        Text & Numbers & 20 Characters Only!..</div>
+            </div>
+            <!-- <div class="col-lg-4">
+                
+                    <label class="form-label" for="exampleInput">GST Number</label> <input type="text"
+                        class="form-control" formControlName="gstno" />
+                
+                 <div class="col-lg-4 mt-2">
+                    
+                        <label class="form-label semibold" for="exampleInput">Age
+                        </label> <input type="number" class="form-control" id="docphonenumber"
+                            formControlName="age" />
+                    
+                </div>    
+
+            </div> -->
+            <div class="col-lg-4">
+                <label class="form-label" for="exampleInput">VAT Number</label>
+                <input type="text" class="form-control" formControlName="vatno" />
+                <div class="messages text-danger" onkeyup="this.value = this.value.toUpperCase();" *ngIf="registerForm.controls.vatno.errors?.pattern">
+                    Text & Numbers & 20 Characters Only!..</div>
+            </div>
+         </div>            
+                    <br>
+                    <div class="sub-title">Contact Details</div><br>
+                    <div class="form-group row">
+                        <!--.row2start-->
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">Address1
+                                <span class="fontlangifbel">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="doc_address1" placeholder=""
+                                formControlName="address1" />
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.address1.errors?.required">
+                                This Field is Required*</p> -->
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">Address2</label>
+                            <input type="text" class="form-control" id="doc_address1" placeholder=""
+                                formControlName="address2" />
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">ZIP/PIN Code</label>
+                            <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" id="docpincode"
+                                 placeholder="  " formControlName="pincode" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4" id="country">
+                            <label class="form-label" for="country">Country
+                                <span class="fontlangifbel">*</span>
+                            </label>
+                            <select class="select2" id="doccountry" class="form-control" (change)="viewState()"
+                            formControlName="country">
+                            <option value="opt1" disabled selected>-- Select Country --</option>
+                            <option *ngFor="let item of countries; let i = index" value={{item[0]}}>{{item[1]}}
+                            </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4" id="state">
+                            <label class="form-label" for="state">State
+                                <span class="fontlangifbel">*</span>
+                            </label>
+                            <select class="select2" id="docstate" class="form-control" (change)="viewCity()"
+                            formControlName="state">
+                            <option value="opt1" disabled selected>-- Select State --</option>
+                            <option *ngFor="let item of states; let i = index" value={{item[0]}}>{{item[2]}}
+                            </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4" id="state">
+                            <label class="form-label" for="state">City
+                                <span class="fontlangifbel">*</span>
+                            </label>
+                            <select class="select2" id="docstate" class="form-control" formControlName="city">
+                                <option value="opt1" disabled selected>-- Select City --</option>
+                                <option *ngFor="let item of cities; let i = index" value={{item[0]}}>{{item[2]}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">Mobile Number
+                                <span class="fontlangifbel">*</span>
+                            </label>
+                             <input type="number" class="form-control" id="docmobile" placeholder=" " formControlName="mobile"/>
+                            <!--<p class="messages text-danger" *ngIf="registerForm.controls.mobile.errors?.required">
+                                    This Field is Required*</p> -->
+                        </div>
+
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInputEmail1">Email Id
+                            </label> <input type="text" class="form-control" id="docemail" placeholder="  "
+                                formControlName="email" />
+                            <p class="messages text-danger" *ngIf="registerForm.controls.email.errors?.pattern">
+                                Enter Correct Mail!
+                            </p>
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Phone Number</label> 
+                            <input type="number" class="form-control" id="docphonenumber"
+                                placeholder="  " formControlName="phone" />
+                        </div>
+                    </div>
+                   
+                    <div class="" align="center">
+                        <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                    </div>
+                    <div class="form-group row">
+                      
+                        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn-round"
+                                    [disabled]="!registerForm.valid">Submit</button>
+                            </div>
+                        </div>
+                        <!--    <div class="col-lg-4" style="text-align: center">
+                            <div class="form-group">
+                
+                                <a [routerLink]="['/Customer/custView']"
+                                    class="btn btn-primary">Customer View </a>
+                
+                            </div>
+                        </div>  -->
+                    </div>
+        </div>
+        <!-- box-typical-->
+    </form>
+</app-card>

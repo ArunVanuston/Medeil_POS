@@ -1,0 +1,70 @@
+
+
+
+#flip {
+    padding: 5px;
+    width: 40px;
+    text-align: center;
+    background-color: #d7d8d3;  
+    cursor: pointer;
+}
+
+.sucess {
+    color: rgb(90, 94, 89);
+    background-color: rgb(62, 240, 17);   
+    }
+
+ .sucess{
+    border: 1px solid;
+    margin: 10px 0px;
+    margin-left: 350px;
+    padding:15px 10px 15px 25px;
+    background-repeat: no-repeat;
+    background-position: 10px center;        
+    }
+    
+    .btn-success:disabled{
+        background-color: red;
+        border-color: #eb7373;
+    }
+/*   Forms Css End  */
+/*   Table Css Start */
+  .pane {    
+    overflow-y: scroll;
+    max-height:350px;
+    width: 100%; 
+}
+
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;   
+    }
+ .error{
+    border: 1px solid;
+    margin: 10px 0px;
+    margin-left: 350px;
+    padding:15px 10px 15px 25px;
+    background-repeat: no-repeat;
+    background-position: 10px center;   
+    color: #D8000C;
+    background-color: #FFBABA;   
+    }
+
+    .action
+    {
+        font-size: 15px;
+        color: green;
+    }
+    .action1
+    {
+        font-size: 15px;
+        color: red;
+    } 
+
+    .dropDownbutton
+    {
+        font-size: 16px;
+        color: rgb(245, 250, 253);
+        color: indianred;
+    }
+   

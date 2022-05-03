@@ -1,0 +1,123 @@
+<style>
+    .btnprop{
+    background-color: #002e86 ;
+    padding: 7px 23px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+<app-card>
+<!--Add ons-->
+  <div class="sub-title">Add-Ons</div>
+  <div style="background-color: whitesmoke;" align="center">
+    <br>
+    <div class="row justify-content-center animated fadeinright" *ngIf="showaddons==0">
+      <div class="flex px-1 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+        <div class="smallview">
+          <label style="font-weight:bold;font-size:17px;color:#002e86">Drug Specification</label><br>
+          <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug1.png" style="height:90px;width:85px"><br>
+          <h5 style="color:#00d7b5">$ 580</h5>
+          <label style="font-size:16px;color:gray">Drug Specification help Healthcare Professionals
+            to assist Patients for drug related queries </label><br>
+          <div class="mt-1" align="center">
+            <h5 class="btnprop" (click)="drugspecifycart()">Buy Now</h5>
+          </div>     
+        </div>
+      </div>
+      <div class="flex px-1 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+        <div class="smallview">
+          <label style="font-weight:bold;font-size:17px;color:#002e86">Drug Interaction</label><br>
+          <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug3.png" style="height:90px;width:85px"><br>
+          <h5 style="color:#00d7b5">$ 450</h5>
+          <label style="font-size:16px;color:gray">Drug interaction effects will help 
+              to reduce the medication error and improve the quality of care </label><br>
+          <div class="mt-1" align="center">
+            <h5 class="btnprop" (click)="druginteractcart()">Buy Now</h5>
+          </div>     
+        </div>
+      </div>
+      <div class="flex px-1 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+        <div class="smallview">
+          <label style="font-weight:bold;font-size:17px;color:#002e86">Drug-Food Interaction</label><br>
+          <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug2.png" style="height:90px;width:85px"><br>
+          <h5 style="color:#00d7b5">$ 310</h5>
+          <label style="font-size:16px;color:gray">Drug-Food Interaction help us to avoid to taking 
+            Such kind of medication </label><br>
+          <div class="mt-1" align="center">
+            <!-- <h5 class="btnprop" (click)="changesettings()">Buy Now</h5> -->
+          </div>     
+        </div>
+      </div>
+      <em class="fa fa-angle-double-right fa-3x" style="cursor:pointer;padding-top:3em;color:#002e86" (click)="addonspaginate(1)"></em>
+  </div>
+  <div class="row justify-content-center animated fadeinleft" *ngIf="showaddons==1">
+    <em class="fa fa-angle-double-left fa-3x mr-1" style="cursor:pointer;padding-top:3em;color:#002e86" (click)="addonspaginate(0)"></em>
+    <div class="flex px-2 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+      <div class="smallview">
+        <label style="font-weight:bold;font-size:17px;color:#002e86">Pharmacist Advice</label><br>
+        <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug4.png" style="height:90px;width:85px"><br>
+        <h5 style="color:#00d7b5">$ 250</h5>
+        <label style="font-size:16px;color:gray">Pharmacist advice help us educate the knowledge 
+          About specific medicines </label><br>
+        <div class="mt-1" align="center">
+          <!-- <h5 class="btnprop" (click)="changesettings()">Buy Now</h5> -->
+        </div>     
+      </div>
+    </div>
+    <div class="flex px-2 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+      <div class="smallview">
+        <label style="font-weight:bold;font-size:17px;color:#002e86">WHO-ATC Mapping</label><br>
+        <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug5.png" style="height:90px;width:85px"><br>
+        <h5 style="color:#00d7b5">$ 180</h5>
+        <label style="font-size:16px;color:gray">WHO-ATC mapping with generic help us to identify the 
+          products and its ATC Classification</label><br>
+        <div class="mt-1" align="center">
+          <!-- <h5 class="btnprop" (click)="changesettings()">Buy Now</h5> -->
+        </div>     
+      </div>
+    </div>
+    <div class="flex px-2 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+      <div class="smallview">
+        <label style="font-weight:bold;font-size:17px;color:#002e86">WHO-Disease Mapping</label><br>
+        <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug6.png" style="height:90px;width:85px"><br>
+        <h5 style="color:#00d7b5">$ 210</h5>
+        <label style="font-size:16px;color:gray">Disease-drug mapping help us to identify the specific drug
+          for specific treatment under practice</label><br>
+        <div class="mt-1" align="center">
+          <!-- <h5 class="btnprop" (click)="changesettings()">Buy Now</h5> -->
+        </div>     
+      </div>
+    </div>
+    <em class="fa fa-angle-double-right fa-3x" style="cursor:pointer;padding-top:3em;color:#002e86" (click)="addonspaginate(2)"></em>
+</div>
+<div class="row justify-content-center animated fadeinleft" *ngIf="showaddons==2">
+  <em class="fa fa-angle-double-left fa-3x mr-1" style="cursor:pointer;padding-top:3em;color:#002e86" (click)="addonspaginate(1)"></em>
+  <div class="flex px-2 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+    <div class="smallview">
+      <label style="font-weight:bold;font-size:17px;color:#002e86">Drug Calculators</label><br>
+      <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug7.png" style="height:90px;width:85px"><br>
+      <h5 style="color:#00d7b5">$ 250</h5>
+      <label style="font-size:16px;color:gray">Drug calculators help us to measure the right 
+        quantity and dosage for Neonatal and adult doses</label><br>
+      <div class="mt-1" align="center">
+        <!-- <h5 class="btnprop" (click)="changesettings()">Buy Now</h5> -->
+      </div>     
+    </div>
+  </div>
+  <div class="flex px-2 py-2 mr-2" style="width:340px;height:285px;background-color:white;">
+    <div class="smallview">
+      <label style="font-weight:bold;font-size:17px;color:#002e86">WHO-Defined Daily Dose</label><br>
+      <img  alt= "drug" class="img-fluid zoom" src="assets/images/addons/drug6.png" style="height:90px;width:85px"><br>
+      <h5 style="color:#00d7b5">$ 180</h5>
+      <label style="font-size:16px;color:gray">Defined Daily Dose of particular drug help us to over 
+        dosage of particular medicine and avoid severe side effects
+        </label><br>
+      <div class="mt-1" align="center">
+        <!-- <h5 class="btnprop" (click)="changesettings()">Buy Now</h5> -->
+      </div>     
+    </div>
+  </div>
+</div><br>
+</div>
+</app-card>

@@ -1,0 +1,120 @@
+<style>
+  input[type=text],
+  select {
+    width: 75%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .bg {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Add Customer Type
+    <em class="fa fa-cogs ficon"></em>
+  </div>
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <form [formGroup]="CusttypeForm" (ngSubmit)="onSubmit()">
+        <div align="right">
+
+          <button type="submit" class="btn-round" [routerLink]="['/CustomerType/ViewCustomerType']">View Customer
+            Type</button>
+
+        </div>
+
+
+        <div class="bg">
+
+          <label><strong>Customer Type Based On</strong></label>
+          <div class='row'>
+
+            <div class="radio">
+              <label>
+                &nbsp;&nbsp;
+                <input type="radio" name="ctype" value="Amount" (click)="setradio('Amount')" [checked]='true'>
+                Amount
+              </label>
+            </div>
+            <div class="radio ml-2">
+              <label>
+                <input type="radio" name="ctype" value="Loyality" (click)="setradio('Loyality')">
+                Loyalty
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="title1">&nbsp;&nbsp;<u>Customer Type:</u></div><br>
+        <div formArrayName="custtype" class="flow" class="bg">
+
+          <table aria-describedby="mydesc" class="table styletab">
+            <thead class="stylehead">
+              <tr>
+                <th scope="col">S.No </th>
+                <th scope="col" *ngIf="isSelected('Amount')">Amount Limit</th>
+                <th scope="col" *ngIf="isSelected('Loyality')">Loyalty Limit</th>
+                <th scope="col">Customer Type</th>
+                <th scope="col">Action</th>
+
+              </tr>
+            </thead>
+
+            <tbody class="stylebody">
+              <tr *ngFor="let address of CusttypeForm.controls.custtype.controls; let i=index" [formGroupName]="i">
+
+                <td><input value={{i+1}} id="width2" readonly /></td>
+                <td *ngIf="isSelected('Amount')"><input type="number" formControlName="min_amount" /></td>
+
+                <td *ngIf="isSelected('Loyality')"><input type="number" formControlName="min_loyality" /></td>
+                <td id="width3"><input type="text" formControlName="cust_type" /></td>
+
+                <td id="width3">
+                  <em class="fa fa-plus" style="color:green;font-weight: bold;cursor: pointer;"
+                    (click)="insertnewloyaltyrow()"></em>
+                  <em class="fa fa-close ml-3" style="color:brown;font-weight: bold;cursor: pointer;"
+                    (click)="removenewloyaltyrow(i)"></em>
+                </td>
+              </tr>
+              <tr>
+            
+                <td><input type="number" id="width2"></td>
+                <td *ngIf="isSelected('Amount')"> <input type="number"></td>
+                <td *ngIf="isSelected('Loyality')"> <input type="number"></td>
+                <td><input type="text"></td>
+                <td><input type="text" id="width3"></td>
+          
+              </tr>
+
+            </tbody>
+          </table>
+        </div><br>
+        <div align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <button type="submit" class="btn-round">Save</button>
+              <button type="button" class="btn-round ml-3" [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

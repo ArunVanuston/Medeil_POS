@@ -1,0 +1,261 @@
+<style>
+	.nodata {
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		font-size: 25px;
+		color: rgb(245, 50, 50);
+		font-family: Verdana, Geneva, sans-serif;
+	}
+
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+
+	
+</style>
+<app-card>
+		<div class="sub-title">{{'formtitle.editdetails'| translate}}
+				<em class="fa fa-edit ficon"></em>
+			</div>
+			<div align="right">
+				<button class="btn-round" [routerLink]="['/DamageStock/ViewDamageStock']">{{'damagestock.viewdamagestocks'| translate}}</button>
+		</div>
+	<form [formGroup]="damagedstockForm" (ngSubmit)="onSubmit()">
+		<div class="form-group row">
+			<!-- <div class="col-lg-4">
+				<label class="form-label">Damage Stock NO</label>
+				<input type="text" class="form-control inputline" placeholder="Damage Stock_NO"
+					formControlName="damagestockno" disabled />
+			</div> -->
+			<div class="col-lg-4">
+				
+
+					<label class="form-label">{{'purchasedue.purchaseInvoiceno'| translate}}</label>
+					<input type="text" class="form-control inputline" placeholder="Invoice No" formControlName="invoiceno"
+						disabled />
+				</div>
+		
+			<div class="col-lg-4">
+					<label class="form-label">{{'damagestock.purchaseinvoicedate'| translate}}</label> <input type="date"
+						class="form-control inputline" placeholder="Date" formControlName="invoicedate" disabled>
+				</div>
+			
+			<div class="col-lg-4">
+				<label class="form-label">{{'damagestock.damagestockdate'| translate}}</label> <input type="date"
+					class="form-control inputline" placeholder="Date" formControlName="damagestockdate">
+			</div>
+		</div>
+
+
+		<div class="form-group row">
+			
+			<div class="col-lg-4">
+
+				<label class="form-label">{{'purchaseinvoice.distributorname'| translate}}</label>
+				<input type="text" class="form-control inputline" placeholder="Enter Distributor Name"
+					formControlName="distname">
+			</div>
+			<div class="col-lg-4">
+				<label class="form-label">{{'common.phone'| translate}}</label>
+				<input type="text" class="form-control inputline" placeholder="Enter your Contact Number"
+					formControlName="contactno">
+			</div>
+			<div class="col-lg-4">
+					<label class="form-label">{{'damagestock.dlnumber'| translate}}</label>
+					<input type="text" class="form-control inputline" placeholder="Enter Drug License Number"
+						formControlName="dlno">
+				</div>
+		</div>
+
+		<div class="form-group">
+				<div class="row">
+			
+<!-- 			
+				<div class="col-lg-4">
+					<label class="form-label" for="exampleInput"> To Loc Type</label>
+							<select class="form-control" formControlName="tolocname" (change)="getlocrefname()">
+									<option value="opt1" selected disabled>---Select Loc Type---</option>
+									<option *ngFor="let coun of tolocname " value={{coun[0]}}>{{coun[1]}}</option>
+								</select>
+					</div> -->
+			
+
+		<!-- <div class="col-lg-4">
+				<label class="form-label" for="exampleInput"> To Loc Name</label>
+				<select class="form-control" formControlName="tolocrefid">
+					<option value="opt1" selected disabled>---Select Loc Name---</option>
+					<option *ngFor="let coun of tolocrefid " value={{coun[0]}}>{{coun[1]}}</option>
+				</select>
+			</div> -->
+
+			<div class="col-lg-8">
+				<label class="form-label">{{'salesinvoice.remarks'| translate}}</label>
+				<input type="text" class="form-control inputline" placeholder="Enter your Remarks"
+					formControlName="remarks" />
+			</div>
+
+					
+		  </div>
+		</div>
+
+		  <div class="form-group row">
+
+				<div class="col-lg-4">
+				
+						<label class="form-label">{{'salesordernew.productname'| translate}}</label>
+						<ng-select [options]="characters" placeholder="Search Drug Name" (change)="getProvalues()"
+							(click)="getProvalues()" (input)="getProduct($event.target.value)" formControlName="productid">
+						</ng-select>
+				
+				</div>
+				<!-- <div class="col-lg-4">
+					<label class="col-form-label labal">Packing</label>
+					<input type="text" class="form-control inputline" placeholder="Enter Packing" formControlName="packing" />
+				</div> -->
+			</div><br>
+
+	
+
+		<div class="flow" style="overflow-x:auto;" formArrayName="proDetails">
+			<!--<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"  [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable">-->
+			<table aria-describedby="mydesc" class="table styletab">
+				<thead class="stylehead">
+					<tr>
+						
+						<th scope="col"> {{'common.sno'| translate}} </th>
+						<thead style='display:none;'>
+							<th scope="col"> {{'common.prodcode'| translate}}</th>
+						</thead>
+						<th scope="col"> {{'common.prodname'| translate}}</th>
+						<th scope="col"> {{'salesinvoice.batchno'| translate}}</th>
+						<th scope="col"> {{'salesinvoice.expirydate'| translate}} </th>
+						<th scope="col"> {{'salesdeliverychallan.tabqty'| translate}} </th>
+						<th scope="col">{{'damagestock.damagedqty'| translate}} </th>
+						<th scope="col"> {{'damagestock.purchasedqty'| translate}}  </th>
+						<th scope="col">{{'damagestock.total'| translate}}  </th>
+						<th scope="col"> {{'salesinvoice.unitprice'| translate}}</th>
+						<th class="colvathide"> {{'salesinvoice.vat'| translate}} </th>
+						<th class="colhide"> {{'salesinvoice.gst'| translate}}</th>
+						<th class="colhide"> {{'salesinvoice.sgst'| translate}} </th>
+						<th class="colhide"> {{'salesinvoice.cgst'| translate}} </th>
+						<th class="colhide"> {{'salesinvoice.igst'| translate}} </th>
+						<thead style='display:none;'>
+							<th scope="col"> {{'salesinvoice.utgst'| translate}} </th>
+						</thead>
+
+						<th scope="col"> {{'salesinvoice.dis'| translate}}</th>
+						<th scope="col"> {{'salesinvoice.subtotal'| translate}} </th>
+						<th scope="col"> {{'purchaseinvoice.totalamount'| translate}} </th>
+						<th scope="col">{{'common.action'| translate}}</th>
+					</tr>
+				</thead>
+				<tbody class="stylebody">
+					<tr *ngFor="let coun of damagedstockForm.controls.proDetails.controls; let i = index"
+						[formGroupName]="i">
+						
+						<td>{{i+1}}</td>
+						<thead style='display:none;'>
+							<td><input type="text" formControlName="productid"></td>
+						</thead>
+						<td><input type="text" formControlName="productname" id="width6" style="text-align:left" readonly></td>
+						<td><input type="text" formControlName="batchno" id="width4" style="text-align:left" readonly></td>
+						<td><input type="text" formControlName="expirydate" readonly></td>
+						<td><input type="text" formControlName="tabqty" id="width3" readonly></td>
+						<td><input type="text" formControlName="tabdamagedqty" id="width3"  (change)="calculation()"></td>
+						<td><input type="text" formControlName="qty" id="width3" readonly></td>
+						<td><input type="text" formControlName="damagedqty" id="width3" readonly></td>
+						<td><input type="text" formControlName="unitprice" class="right" readonly></td>
+						<td id="colvathide" *ngIf="setvatTax">
+							<input type="text" formControlName="unitvat" id="width1" readonly>
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitgst" id="width1" readonly>
+
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitsgst" id="width1" readonly>
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitcgst" id="width1" readonly>
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitigst" id="width1" readonly>
+						</td>
+						<thead style='display:none;'>
+							<td><input type="text" formControlName="unitutgst" id="width1" readonly></td>
+						</thead>
+
+						<td id="discount">
+							<input type="text" formControlName="unitdiscount" id="width1">
+						</td>
+						<td><input type="text" formControlName="subtotal" class="right"></td>
+						<td><input type="text" formControlName="total_amount" class="right"></td>
+						<td>
+							<div ngbDropdown class="dropdown-secondary dropdown">
+								<button ngbDropdownToggle
+									class="btn btn-mini dropdown-toggle waves-light b-none txt-muted dropDownbutton"
+									type="button" id="dropdown10" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"><em class="icofont icofont-navigation-menu"></em></button>
+								<div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown10"
+									data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+									<a class="dropdown-item waves-light waves-effect" href="javascript:;"><em											class="icofont icofont-ui-edit action1" title="Remove Row"
+											(click)="removeRow(i); claculation()">&nbsp;<span class="tdspan">RemoveRow</span></em></a>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						
+						
+						<td><input type="text" id="width2"></td>
+
+						<td><input type="text" readonly></td>
+						<td><input type="text"  id="width3" readonly></td>
+						
+						<td><input type="text" id="width3" readonly></td>
+						<td><input type="text" id="width3" readonly></td>
+						<td><input type="text" id="width2"></td>
+						<td><input type="text" id="width3"></td>
+						<td>
+							<input type="text"  id="width3" readonly>
+						</td>
+
+						<td>
+							<input type="text" id="width3" >
+						</td>
+						
+						
+						<td><input type="text" id="width1" ></td>
+						<td><input type="text" id="width1"></td>
+						<td><input type="text" ></td>
+						<td><input type="text" ></td>
+						<td><input type="text" id="width1"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div><br>
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<label class="form-label">{{'purchaseinvoice.totalamount'| translate}} </label>
+				<input type="text" style="font-weight: bold;font-size:21px" class="form-control inputline" placeholder="Enter Total Amount"
+					formControlName="totalamount" disabled/>
+			</div>
+		</div>
+		<div align="center">
+            <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+          </div>
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<button type="submit" class="btn-round">{{'common.update'| translate}} </button>
+			</div>
+		</div>
+	</form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

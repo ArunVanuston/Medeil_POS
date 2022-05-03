@@ -1,0 +1,210 @@
+<app-card>
+  <div class="sub-title">Employee Evaluation Review
+    <em  class="fa fa-cog ficon"></em>
+  </div>
+
+
+
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <h5>Employee Information</h5>
+    </div>
+  </div>
+
+  <div class="row backc">
+
+    <div class="col-md-4">
+      <h6 class="alignitem"> Employee Code</h6>
+      <h6 class="alignitem"> {{empCode}}</h6>
+    </div>
+
+    <div class="col-md-4">
+      <h6 class="alignitem"> Employee Name</h6>
+      <h6 class="alignitem"> {{empName}}</h6>
+    </div>
+
+    <div class="col-md-4">
+      <h6 class="alignitem"> Review Period</h6>
+      <h6 class="alignitem"> {{term}}</h6>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <h5>Ratings</h5>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <div class="col-sm-3"> </div>
+    <div class="col-sm-9">
+
+      <h6 class="garage-title"> 1 = Poor</h6>
+      <h6 class="garage-titlef">2 = Fair</h6>
+      <h6 class="garage-title"> 3 = Satisfactory </h6>
+      <h6 class="garage-title"> 4 = Good</h6>
+      <h6 class="garage-title"> 5 = Excellent</h6>
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <label class="form-label semibold checkbox-inline alignLabel">
+          <h6>Job Knowledge</h6>
+        </label>
+
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxj"
+          (click)="jobKnowledge($event.target,$event.target.value);overAllRating()" value="1">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxj"
+          (click)="jobKnowledge($event.target,$event.target.value);overAllRating()" value="2">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxj"
+          (click)="jobKnowledge($event.target,$event.target.value);overAllRating()" value="3">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxj"
+          (click)="jobKnowledge($event.target,$event.target.value);overAllRating()" value="4">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxj"
+          (click)="jobKnowledge($event.target,$event.target.value);overAllRating()" value="5">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <label class="form-label semibold checkbox-inline alignLabelW">
+          <h6>Work Quality </h6>
+        </label>
+
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxw"
+          (click)="workQuality($event.target,$event.target.value);overAllRating()" value="1">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxw"
+          (click)="workQuality($event.target,$event.target.value);overAllRating()" value="2">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxw"
+          (click)="workQuality($event.target,$event.target.value);overAllRating()" value="3">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxw"
+          (click)="workQuality($event.target,$event.target.value);overAllRating()" value="4">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxw"
+          (click)="workQuality($event.target,$event.target.value);overAllRating()" value="5">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <label class="form-label semibold checkbox-inline alignLabelA">
+          <h6>Attendance </h6>
+        </label>
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxa"
+          (click)="attendance($event.target,$event.target.value);overAllRating()" value="1">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxa"
+          (click)="attendance($event.target,$event.target.value);overAllRating()" value="2">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxa"
+          (click)="attendance($event.target,$event.target.value);overAllRating()" value="3">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxa"
+          (click)="attendance($event.target,$event.target.value);overAllRating()" value="4">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxa"
+          (click)="attendance($event.target,$event.target.value);overAllRating()" value="5">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <label class="form-label semibold checkbox-inline alignLabelc">
+          <h6>Communication </h6>
+        </label>
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxc"
+          (click)="Communication($event.target,$event.target.value);overAllRating()" value="1">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxc"
+          (click)="Communication($event.target,$event.target.value);overAllRating()" value="2">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxc"
+          (click)="Communication($event.target,$event.target.value);overAllRating()" value="3">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxc"
+          (click)="Communication($event.target,$event.target.value);overAllRating()" value="4">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxc"
+          (click)="Communication($event.target,$event.target.value);overAllRating()" value="5">
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <label class="form-label semibold checkbox-inline alignLabelD">
+          <h6>Dependability </h6>
+        </label>
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxd"
+          (click)="Dependability($event.target,$event.target.value);overAllRating()" value="1">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxd"
+          (click)="Dependability($event.target,$event.target.value);overAllRating()" value="2">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxd"
+          (click)="Dependability($event.target,$event.target.value);overAllRating()" value="3">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxd"
+          (click)="Dependability($event.target,$event.target.value);overAllRating()" value="4">
+        <input type="checkbox" class="checkbox-inline" name="myCheckboxd"
+          (click)="Dependability($event.target,$event.target.value);overAllRating()" value="5">
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <div class="col-sm-1"> </div>
+    <div class="col-sm-10">
+      <div class="form-check form-check-inline">
+        <h6 style="float: left;">Overall Rating (average the rating numbers above) </h6>
+        <h4 style="float: right;" class="alignRating">{{overAllRatings}} </h4>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="form-group row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-8">
+      <label class="form-label semibold">
+        <h6>Evaluation</h6>
+      </label>
+      <br>
+      <textarea rows="4" cols="50" class="textareaalign form-control border" style="min-width: 100%"
+        [(ngModel)]="comment" placeholder="Please leave your comment here!...." maxlength="2000"
+        (keydown)="maxlengthTxtArea()"></textarea>
+
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-lg-1"></div>
+    <div class="col-lg-6 mt-4">
+
+      <button (click)="onSubmit()" class="btn btn-round">Save</button>
+
+    </div>
+  </div>
+
+
+
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

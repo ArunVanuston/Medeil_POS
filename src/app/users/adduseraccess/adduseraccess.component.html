@@ -1,0 +1,169 @@
+<app-card>
+ 
+  <div class="sub-title">Access Details
+    <em class="fa fa-universal-access ficon"></em>
+  </div><br>
+
+  <form [formGroup]="userAccessForm" (ngSubmit)="saveBranch()" class="mx-2">
+    <div class="sub-title">Branch Access</div>
+      <div align="right">
+        <button class="btn-round" (click)="viewAccess('branch')" >View Branch Access</button>
+      </div><br>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Company Name</h6></label>
+        <select name="select" class="form-control" formControlName="companyid" (change)="getUser()">
+          <option selected disabled value="opt1">---Select Company Name---</option>
+          <option *ngFor="let comp of companylist " value={{comp[0]}}>{{comp[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>User Name</h6></label>
+        <select name="select" class="form-control" formControlName="suserrefid" (change)="getuserBranch()">
+          <option selected disabled value="opt1">---Select user Name---</option>
+          <option *ngFor="let ulist of userlist" value={{ulist[0]}}>{{ulist[1]}} </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Branch</h6></label>
+        <select name="select" class="form-control" formControlName="branchrefid">
+          <option selected disabled value="opt1">---Select Branch---</option>
+          <option *ngIf="branchlist==''" value="noData">--Branch data Not Available--</option>
+          <option *ngFor="let br of branchlist" value={{br[0]}}>{{br[1]}} </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+   
+      <div class="col=lg-2 ml-4">
+      <button type="submit" class="btn-round">Save Branch</button>
+    </div>
+    </div>
+  </form>
+
+
+
+  <form [formGroup]="userAccessForm" (ngSubmit)="saveShop()" class="mx-2">
+
+    <div class="sub-title">Shop Access</div>
+    <div align="right">
+        <button class="btn-round" (click)="viewAccess('shop')" >View Shop Access</button>
+      </div><br>
+  
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Company Name</h6></label>
+        <select name="select" class="form-control" formControlName="companyid" (change)="getUser()">
+          <option selected disabled value="opt1">---Select Company Name---</option>
+          <option *ngFor="let comp of companylist " value={{comp[0]}}>{{comp[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>User Name</h6></label>
+        <select name="select" class="form-control" formControlName="suserrefid" (change)="getuserShop()">
+          <option selected disabled value="opt1">---Select user Name---</option>
+          <option *ngFor="let ulist of userlist" value={{ulist[0]}}>{{ulist[1]}} </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Shop</h6></label>
+        <select name="select" class="form-control" formControlName="storerefid">
+          <option selected  value="opt1">---Select Shop---</option>
+          <option *ngIf="shoplist==''" value="noData">--Shop data Not Available--</option>
+          <option *ngFor="let shop of shoplist" value={{shop[0]}}>{{shop[1]}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+     
+      <div class="col-lg-2 ml-4">
+      <button type="submit" class="btn-round">Save Shop</button>
+    </div>
+    </div>
+  </form>
+
+
+  <form [formGroup]="userAccessForm" (ngSubmit)="saveWarehouse()" class="mx-2">
+
+    <div class="sub-title">Warehouse Access</div>
+    
+   <div align="right">
+      <button class="btn-round" (click)="viewAccess('ware')" >View Warehouse</button>
+    </div><br>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Company Name</h6></label>
+        <select name="select" class="form-control" formControlName="companyid" (change)="getUser()">
+          <option selected disabled value="opt1">---Select Company Name---</option>
+          <option *ngFor="let comp of companylist " value={{comp[0]}}>{{comp[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>User Name</h6></label>
+        <select name="select" class="form-control" formControlName="suserrefid" (change)="getuserWarehouse()">
+          <option selected disabled value="opt1">---Select user Name---</option>
+          <option *ngFor="let ulist of userlist" value={{ulist[0]}}>{{ulist[1]}} </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Warehouse</h6></label>
+        <select  name="select" class="form-control" formControlName="warehouserefid">
+          <option selected disabled value="opt1">---Select Warehouse---</option>
+          <option *ngIf="warehouselist==''" value="noData">--Warehouse data Not Available--</option>
+          <option *ngFor="let ware of warehouselist" value={{ware[0]}}> {{ware[1]}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+  
+      <div class="col-lg-2 ml-4">
+      <button type="submit" class="btn-round">Save Warehouse</button>
+    </div>
+    </div>
+  </form>
+
+
+
+  <form [formGroup]="userAccessForm" (ngSubmit)="saveHospital()" class="mx-2">
+    <div class="sub-title">Hospital Access</div>
+    
+  <div align="right">
+      <button class="btn-round" (click)="viewAccess('hospital')" >View Hospital Access</button>
+    </div><br>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Company Name</h6></label>
+        <select name="select" class="form-control" formControlName="companyid" (change)="getUser()">
+          <option selected disabled value="opt1">---Select Company Name---</option>
+          <option *ngFor="let comp of companylist " value={{comp[0]}}>{{comp[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>User Name</h6></label>
+        <select name="select" class="form-control" formControlName="suserrefid" (change)="getuserHospital()">
+          <option selected disabled value="opt1">---Select user Name---</option>
+          <option *ngFor="let ulist of userlist" value={{ulist[0]}}>{{ulist[1]}} </option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold"><h6>Hospital</h6></label>
+        <select name="select" class="form-control" formControlName="hospitalrefid">
+          <option selected disabled value="opt1">---Select Hospital---</option>
+          <option *ngIf="hospitallist==''" value="noData">--Hospital data Not Available--</option>
+          <option *ngFor="let hosp of hospitallist" value={{hosp[0]}}> {{hosp[1]}} </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+     
+      <div class="col-lg-2 ml-4">
+      <button type="submit" class="btn-round">Save Hospital</button>
+    </div>
+    </div>
+  </form>
+
+</app-card>
+
+<ng2-toasty [position]="position"></ng2-toasty>

@@ -1,0 +1,22 @@
+input[select=select] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+.inputline 
+{
+    color: #021016;
+	border-width: 0 0 2px 0;
+	border-color: #b2b6b7;
+}
+.lable
+{
+    font-size: 30px;
+    font-family: "Italic", 
+}
+#gridContainer{      
+    height:350px;
+    width: 100%;    
+}
+

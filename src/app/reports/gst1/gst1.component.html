@@ -1,0 +1,64 @@
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u>Invoicewise GSTR1 Report </u>
+
+        </div>
+      </label>
+    </div>
+  </div>
+
+
+
+  <br>
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="form-label">
+        <h6>Select Month:</h6>
+        <!-- <input type="date" id='date' name='date' (change)="datefetch($event.target.value)" class="form-control" /> -->
+        <select name="select" class="form-control" (change)="datefetch($event.target.value)">
+          <option value="0" selected disabled>---Select Month---</option>
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June </option>
+          <option value="07">July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+      </label>
+
+    </div>
+
+
+
+    <div class=" col-lg-8" align="right">
+
+      <button class="btn-round" (click)="gstmonth()">View </button>
+
+    </div>
+  </div>
+
+
+
+</app-card>
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:205%">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

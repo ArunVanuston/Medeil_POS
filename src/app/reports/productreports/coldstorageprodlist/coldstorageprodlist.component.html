@@ -1,0 +1,40 @@
+<app-card>
+  <div class="sub-title">Product Reports
+    <i class="fa fa-print ficon"></i>
+  </div><br>
+
+
+
+
+  <br>
+
+  <div class="row">
+    <div class="col-lg-3">
+      <label class="title1"><u>Cold Storage Product</u></label><br>
+
+
+
+    </div>
+
+
+    <div class=" col-lg-11" align="right">
+
+      <button class="btn btn-round" (click)="coldstorageprod()">View </button>
+    </div>
+  </div>
+
+
+
+
+</app-card>
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:205%">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

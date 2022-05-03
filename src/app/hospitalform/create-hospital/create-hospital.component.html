@@ -1,0 +1,182 @@
+<app-card>
+  <div class="sub-title">{{'hospital.addhospital'| translate}}
+    <em class="fa fa-hospital-o ficon"></em></div>
+    <table aria-describedby="mydesc" style="width:100%">
+      <tbody>
+       <tr>
+       <td style="width:95%">
+        <form [formGroup]="hospitalForm" (ngSubmit)="onSubmit()" autocomplete="off">
+          <div class="" align="right">
+            <button type="button" class="btn-round" [routerLink]="['/HospitalRegistration/ViewHospital']">{{'hospital.viewhospital'| translate}}</button>
+          </div><br>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'hospital.hospitalname'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Hospital Name" formControlName="hospitalname"
+                autofocus autocomplete="off">
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.hospitalname.errors?.required">Enter Hospital
+                Name*</div> -->
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'hospital.registrationno'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter the Registration Number"
+                formControlName="registrationno" autocomplete="off">
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.registrationno.errors?.required">Enter
+                Registration No*</div> -->
+                <div class="text-danger" *ngIf="hospitalForm.controls.registrationno.errors?.pattern">Enter only number*</div>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'hospital.speciality'| translate}}
+              </label>
+              <select name="select" class="form-control" placeholder="Select Country" formControlName="specialityid"
+                (change)="getState()">
+                <option selected disabled value="0">---Select Speciality---</option>
+                <option *ngFor="let sp of speciality" value={{sp[0]}}>{{sp[1]}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'hospital.headquarters'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Head Quarters" 
+              autocomplete="off" formControlName="hosheadquarters">
+              <div class="text-danger" *ngIf="hospitalForm.controls.hosheadquarters.errors?.pattern">Enter only Texts*</div>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.adress1'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Your Address 1" formControlName="hosaddress1">
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.hosaddress1.errors?.required">Enter Address*
+              </div> -->
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.adress2'| translate}}
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Your Address 2" 
+              autocomplete="off" formControlName="hosaddress2">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.pincode'| translate}}
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Your Zip/Pin Code" formControlName="hospincode"
+                maxlength="10" onkeyup="this.value = this.value.toUpperCase();" (keydown)="maxPinCodeLength()">
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.country'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <select name="select" class="form-control" placeholder="Select Country" formControlName="countryid"
+                (change)="getState()">
+                <option selected disabled value="0">---Select Country---</option>
+                <option *ngFor="let coun of country" value={{coun[0]}}>{{coun[1]}}</option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.state'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <select name="select" class="form-control" placeholder="Select State" formControlName="stateid"
+                (change)="getCity()">
+                <option selected disabled value="0">---Select State---</option>
+                <option *ngFor="let coun of state" value={{coun[0]}}>{{coun[2]}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.city'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <select name="select" class="form-control" placeholder="Select City" formControlName="city">
+                <option selected disabled value="0">---Select City---</option>
+                <option *ngFor="let coun of city" value={{coun[0]}}> {{coun[1]}} </option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+               {{'hospital.countrycode'| translate}}
+              </label>
+              <select name="select" class="form-control form-control-default" formControlName="countrycode">
+                <option selected disabled value="0">---Select Country Code---</option>
+                <option *ngFor="let coun of countrycode" value={{coun}}>{{coun}} </option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.phone'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control phone" placeholder="Enter Phone Number" formControlName="phoneno"
+                maxlength="15" (keydown)="maxMobLength()" autocomplete="off">
+      
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.phoneno.errors?.required">Enter Phone Number*</div> -->
+      
+              <div *ngIf="(f.phoneno.touched || f.phoneno.untouched) && f.phoneno.invalid" class="messages text-danger">
+                <!-- <div *ngIf="f.phoneno.errors.required">This Field is Required*</div> -->
+                <div *ngIf="f.phoneno.errors.pattern">Enter only number*</div>
+              </div>
+      
+      
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'hospital.helplinenumber'| translate}}
+              </label>
+              <input type="text" class="form-control phone" placeholder="Enter Help Line Number" formControlName="helpline"
+                maxlength="15" (keydown)="maxMobLength()" autocomplete="off">
+                <div class="text-danger" *ngIf="hospitalForm.controls.helpline.errors?.pattern">Enter only number*</div>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'common.email'| translate}}<span class="fontlangifbel">*</span>
+              </label>
+              <input type="text" class="form-control" placeholder="Enter Your Email ID" 
+              autocomplete="off" formControlName="email">
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.email.errors?.required">Enter Mail ID*</div> -->
+              <div class="messages text-danger" *ngIf="hospitalForm.controls.email.errors?.pattern">Invalid Email Address..
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label">
+                {{'salesinvoice.status'| translate}}
+              </label>
+              <select name="select" class="form-control" placeholder="Select Status" formControlName="status">
+                <option value="0">Active</option>
+                <option value="1">In-Active</option>
+              </select>
+            </div>
+          </div>
+          <div class="" align="center">
+						<img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+					</div><br>
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <button type="submit" class="btn-round" [disabled]="!hospitalForm.valid">  {{'common.save'| translate}}</button>
+            </div>
+          </div>
+        </form>
+      </td>
+        <td style="width:5%" valign="top">
+       <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+       </td>
+       </tr>
+      </tbody>
+    </table>			 			 			 			 						
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

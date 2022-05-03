@@ -1,0 +1,57 @@
+<app-card>
+  <div class="sub-title">
+    Common GST List
+    <i class="fa fa-print ficon"></i>
+  </div><br>
+  <form [formGroup]="CommonGstRepForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6><b>Purchase Common GST List</b></h6>
+          </label>
+          <input type="date" (click)="getmonth()" (change)="getmonth()" class="form-control" formControlName="month" />
+       
+        </div>
+      
+      </div>
+      <div class="col-lg-7" align="right">
+        <button class="btn btn-round" (click)="getcommongst()">View</button>
+      </div>
+    </div>
+<br><br><br>
+
+     <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6><b>Purchase Common GST Product List</b></h6>
+          </label>
+          <input type="date" (click)="getmonth()" (change)="getmonth()" class="form-control" formControlName="month" />
+       
+        </div>
+      
+      </div>
+      <div class="col-lg-7" align="right">
+        <button class="btn btn-round" (click)="getcommongst()">View</button>
+      </div>
+    </div>
+
+  </form>
+</app-card>
+
+
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:230%;">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

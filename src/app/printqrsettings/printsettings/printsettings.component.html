@@ -1,0 +1,171 @@
+<style>
+  .printlabel{
+    padding:0.5em 0em;
+    cursor: pointer;
+  }
+
+  .btnprop{
+    /*background-color: #868e96; /*#2ecc71 ; */
+    padding: 7px 23px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .normal{
+    border:2px solid #868e96;
+    border-radius:4px;
+  }
+  .highlight{
+    border:2px solid #2ecc71;
+    border-radius:4px;
+  }
+
+  .smallview img{
+    height:180px;
+    width:165px;
+    cursor:pointer;
+  }
+
+  .customicon{
+    position: absolute;
+    margin-top: -4px;
+    color:#e74c3c ;
+    font-weight:bold;
+  }
+
+  .showmodel {
+  width: 100%;
+  top:12px;
+  left:15px;
+  position: absolute;
+  z-index: 1;
+  background-color:white;
+  font-family: Montserrat;
+  overflow: auto;
+  }
+
+  .arrowset{
+    margin-top:180px;
+    cursor:pointer;
+  }
+
+  .hidemodel {
+  display: none;
+  }
+
+  @media (max-width: 650px) { 
+    .showmodel{
+      height:100%;
+    }
+
+    .arrowset{
+      display:none;
+    }
+
+  }
+  
+</style>
+<app-card>
+  <div class="sub-title">Print Models
+    <em class="fa fa-print ficon"></em>
+</div><br>
+
+  <div class="p-2">
+    <div class="col-lg-12 mr-3" align="right">
+      <button type="button" class="btn-round" [routerLink]="['/psettings/viewprintsettings']">Back</button>
+    </div>
+  <div class="" *ngIf="printforms.length==0" align="center">
+    <h4 class="mt-5 text-secondary">Print Forms not be Loaded!...</h4>
+    <h5  class="text-secondary">Re-load it..!</h5>
+  </div> 
+  <form [formGroup]="printForm">
+  <div class="" align="center" *ngIf="printforms.length>0">
+    <br><br>
+    <h4 align="center" class="text-secondary mt-3"><u>Select Model</u></h4><br>
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-4">
+        <select class="form-control" formControlName="formid">
+          <option value="opt1">--Select Form--</option>
+          <option *ngFor="let item of printforms; let i = index" value={{item[1]}}>{{item[2]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-4">
+        <select class="form-control" formControlName="printtypeid">
+          <option value="opt1">--Select Type--</option>
+          <option *ngFor="let item of printtypes; let i = index" value={{item[0]}}>{{item[1]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-2"></div>
+    </div><br>
+    <div class="" align="center">
+      <button type="button" class="btn-round" (click)="imageload()"><em class="fa fa-search mr-1"></em>Search</button>
+    </div>
+    <div align="center">
+      <img src="assets/images/loading.gif" alt="loading" height="120px" *ngIf="gifload">
+    </div>
+    <h4 class="text-secondary mt-5" style="text-align:center" *ngIf="imageshow && imagelist.length==0">No Print Models to Select</h4>
+  </div><!--Print modles end-->
+  </form><br>
+  </div>
+  <ng2-toasty [position]="'center-center'"></ng2-toasty>
+</app-card>
+
+  <!---loaded image models popup-->
+    <div class="mb-5 py-2" [ngClass]="imageshow && imagelist.length>0?'showmodel':'hidemodel'">
+      <div class="sub-title px-5 mx-2" style="font-weight:bold">Print Models
+        <em class="fa fa-print ficon"></em>
+     </div>
+      <div class="container" align="center">
+        <h4 class="text-secondary"><u>{{selectedform}} Print Models</u></h4>
+        <div class="col-lg-12 mr-3" align="right">
+          <button type="button" class="btn-round" (click)="imageshow=false">Back</button>
+        </div>
+        <div class="" align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div><br>
+        <div class="row justify-content-center mx-2">
+          <em class="fa fa-angle-double-left fa-3x text-success mr-5 arrowset" *ngIf="modelpage>1" (click)="pagebackchange(modelpage)"></em>
+          <div class="flex px-2 py-2 mr-3" *ngFor="let images of imagelist | paginate: { id: 'listing_pagination',
+          itemsPerPage:4, currentPage: modelpage }  let i=index" [ngClass]="[classindex==i?'highlight':'normal']">
+            <div class="smallview" (mouseover)="imageselect(i)" (click)="imageselect(i)">
+              <img [src]="images.imageurl" alt="altitem" class="img-fluid zoom"><br>
+                <label class="text-secondary" style="font-size:16px;font-weight:bold;cursor:pointer" (click)="viewfullimage(images.imageurl)"><u>Full View</u></label><br>
+                <table aria-describedby="mydesc">
+                  <tbody>
+                    <tr>
+                      <th scope="col">{{selectedform}}</th>
+                    </tr>
+                    <tr>
+                      <th scope="col">{{selectedtype}}</th>
+                    </tr>
+                  </tbody>
+                </table><br>
+              <label style="font-weight:bold;font-size:17px;color:green">{{images.imagelabel}}</label><br>
+              <div class="mt-1" align="center">
+                <h5 class="btnprop"  [style.background-color]="[classindex==i?'#2ecc71':'#868e96']" (click)="changesettings(images.imageid,images.imagelabel)">Install</h5>
+              </div>
+            </div>      
+          </div>
+          <em class="fa fa-angle-double-right text-success fa-3x ml-5 arrowset"  *ngIf="modelpage<imagelist.length/4" (click)="pagefrontchange(modelpage)"></em>
+        </div>
+        <div class="mr-2" align="right">
+          <pagination-controls id="listing_pagination" directionLinks="true" *ngIf="imagelist.length>0"
+          (pageChange)="modelpage = $event"  (pageChange)="paginatechange(page = $event)" style="float: right;"></pagination-controls>
+        </div><br><br>
+      </div>
+      <!--Image Full View *ngIf="imagefullview" -->
+      <div [ngClass]="imagefullview?'showtop':'hidetop'" style="height:auto !important">
+        <br>
+        <div class="mr-4" align="right">
+            <em class="fa fa-close fa-2x mr-3" (click)="imagefullview=false" style="cursor:pointer;color:white"></em>
+        </div>
+        <div class="container" style="overflow-y:auto;max-height:548px" align="center">               
+          <img [src]="fullimageurl" alt="altitem"><br>
+        </div>
+      </div><!--full view end-->
+    </div>
+ 
+
+      

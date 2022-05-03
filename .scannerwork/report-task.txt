@@ -1,0 +1,6 @@
+projectKey=mash-able
+serverUrl=http://localhost:9000
+serverVersion=7.1.0.11001
+dashboardUrl=http://localhost:9000/dashboard/index/mash-able
+ceTaskId=AXdSMF7JaIJd_UTq_RHp
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AXdSMF7JaIJd_UTq_RHp

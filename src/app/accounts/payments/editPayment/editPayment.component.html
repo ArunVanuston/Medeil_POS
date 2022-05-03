@@ -1,0 +1,87 @@
+<style>
+  #swidth{
+    width:270px;
+  }
+</style>
+<app-card>
+  <div class="sub-title">{{'finance.editdetails'| translate}}
+    <em class="fa fa-edit ficon"></em>
+  </div>
+  <form [formGroup]="registerForm" class="mx-2">
+    <div class="box-typical box-typical-padding">
+     
+          <div class="row">
+            <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='0' ">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.journalno'| translate}} </label>
+              <select class="form-control" (change)="viewEdit()" formControlName="id">
+                <option *ngFor="let item of editdata; let i = index" value={{item[0]}}>{{item[1]}}</option>
+              </select>
+            </div>
+            <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.referenceno'| translate}}</label>
+              <input type="text" class="form-control" formControlName="formno" />
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.paymenttype'| translate}} </label>
+              <select class="form-control" formControlName="paymenttype">
+                <option value="1">Cash</option>
+                <option value="2">Card</option>
+                <option value="3">Cheque</option>
+              </select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.journaldate'| translate}}</label>
+              <input type="date" class="form-control" formControlName="date" />
+            </div>
+            <div class="col-lg-4 mt-3">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.referenceno'| translate}} </label>
+              <input type="text" class="form-control" formControlName="ptrefno" />
+            </div>
+          </div><br>
+        
+     
+      <div formArrayName="journal" class="flow">
+          <table aria-describedby="mydesc" class="table styletab">
+            <thead class="stylehead">
+              <tr>
+                <th scope="col">S. No </th>
+                <th scope="col">{{'finance.debitaccount'| translate}}</th>
+                <th scope="col">{{'finance.creditaccount'| translate}}</th>
+                <th scope="col">{{'finance.debitamount'| translate}}</th>
+                <th scope="col">{{'finance.invoiceno'| translate}}</th>
+              </tr>
+            </thead>
+            <tbody class="stylebody">
+            <tr *ngFor="let address of registerForm.controls.journal.controls; let i=index" [formGroupName]="i">
+              <td><input value={{i+1}} id="width1" readonly /></td>
+              <td><input formControlName="draccname" class="left" id="width6" readonly /></td>
+              <td><input formControlName="craccname" class="left" id="width6" readonly /></td>
+              <td><input formControlName="debitamount" type="number" class="right" id="width5" /></td>
+              <!--         <td><input      formControlName="creditamount"    type="number"  /></td>  -->
+              <td><input formControlName="invoicename" class="left" id="swidth" readonly/></td>
+              <!--     <td><input      formControlName="invoicebalamt"     /></td>  -->
+            </tr>
+            <tr *ngFor="let item of itemlength; let i=index">
+              <td> <input /> </td>
+              <td> <input /> </td>
+              <td> <input /> </td>
+              <td> <input /> </td>
+              <td> <input /> </td>
+          </tr>
+            </tbody>
+          </table>
+      </div><br>
+     
+    </div> <!-- box-typical-->
+    <div class="row">
+     
+      <div class="col-lg-1"></div>
+      <div class="col-lg-5">
+         <button type="button" class="btn-round" (click)="onSubmit()"> {{'finance.update'| translate}} </button>
+         <!-- <button type="button" class="btn btn-round ml-3" (click)="deletePayment()"> Delete </button> -->
+         <!-- <button type="button" class="btn btn-round ml-3" [routerLink]="['/Payment/Payment' ]"> Back </button> -->
+      </div>
+    </div> 
+    <ng2-toasty [position]="position"></ng2-toasty>
+  </form>
+</app-card>

@@ -1,0 +1,59 @@
+<!-- <h1> HRMS Reports</h1>  -->
+<app-card>
+
+  <div class="sub-title">HRMS Reports
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+  <table aria-describedby="mydesc" style="width:100%">
+    <tbody>
+      <tr>
+        <td style="width:95%">
+          <app-card>
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+              <label class="Title1"><u>Employee List</u></label><br>
+              <div class="col-lg-11" align="right">
+                <button class="btn-round" (click)="employeereport()">View </button>
+
+              </div>
+            </form>
+          </app-card>
+          <app-card>
+
+            <label class="title1"><u>Employee Salary List</u></label><br>
+
+            <div class="col-lg-11" align="right">
+              <button class="btn-round" (click)="employeesalaryreport()">View </button>
+            </div>
+
+          </app-card>
+
+
+          <app-card>
+
+            <label class="title1"><u>User Task Report</u></label><br>
+
+            <div class="col-lg-11" align="right">
+              <button class="btn-round" (click)="usertaskreport()">View </button>
+
+            </div>
+
+          </app-card>
+        </td>
+        <td style="width:5%" valign="top">
+          <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

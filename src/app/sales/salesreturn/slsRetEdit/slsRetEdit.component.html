@@ -1,0 +1,402 @@
+
+<style>
+      
+  .borderform{
+
+    border: 2px solid #b3b3b3 ;
+    border-radius: 5px;  
+    padding:1em;
+  }
+
+
+  .form-control:disabled,
+   .form-control[readonly] {
+                                
+         background-color: transparent ;
+                           
+      }
+
+                            
+  </style>
+          
+        
+          <app-card>
+
+            <div class="sub-title">Edit Details
+              <em class="fa fa-edit ficon"></em>
+            </div><br>
+            <div class="panels">
+              <div class="panel1" style="width:95%;float:left">
+                <form [formGroup]="registerForm" >
+          
+          
+                  <div class="box-typical box-typical-padding">
+              
+               <div   class="borderform"   > <!-- splitcolumnbefore1   start-->
+                   
+                                  <div class="row">
+                  
+                                
+                                    <div class="col-lg-4"  *ngIf="registerForm.controls.invdispflag.value=='0' " >
+                                        <label class="form-label semibold" for="exampleInput">Invoice No </label> 
+                                
+                                          <select  class="form-control"  (change)="viewEdit()"    formControlName="id">
+                                            
+                                              <option *ngFor="let item of editdata; let i = index"    value={{item[0]}}>{{item[1]}}</option>
+                                                
+                                          </select>
+                                   </div> 
+          
+    
+                                   <div class="col-md-4"  *ngIf="registerForm.controls.invdispflag.value=='1' " >
+                                    
+                            
+                                  <label class="form-label semibold" for="exampleInput">Sales Return No 
+                                                               </label> 
+                                                    
+                                             
+                                    <input type="text" 
+                                    class="form-control"    formControlName="srno"    />
+                              
+                            
+                                </div> 
+    
+    
+          
+                                          <div class="col-md-4">
+                                              
+                                      
+                                                                  <label class="form-label semibold" for="exampleInput">Invoice Date 
+                                                                         </label> 
+                                                         
+                                                <input type="date" 
+                                                class="form-control"      formControlName="date"
+                                                 />
+                                        
+                                      
+                                          </div> 
+          
+                                     
+                                                   
+                                                      
+                                              <div class="col-md-4">
+    
+                                          
+                                                                      <label class="form-label semibold" for="exampleInput">Customer Name
+                                                                             </label> 
+                                                                  
+                                                           
+                                                    <input type="text"  
+                                                    class="form-control"   formControlName="customername"  />
+                                                
+                                            
+                                          
+                                              </div> 
+                                                       
+                                      </div>
+          
+                       
+                          </div><br> <!-- splitcolumnbefore1   start-->     
+             
+    
+                          <label class="title1"><u>Return Products</u>
+                            </label><br>
+                                           <div formArrayName="invoice"  class="flow"   >  <!--. table  start--> 
+                                        
+                                                   
+                                         
+                                                <table aria-describedby="mydesc" class="table "  id="knowledgeTreeTable"     (keydown)="autocleartable1()" >
+                                                 <thead class="stylehead">
+                                                 <tr >
+    
+                                                    <th scope="col">Select  </th>
+    
+                                                     <th scope="col">S. No </th>  
+                                                       <th scope="col">Prod Code</th>                                        
+                                                     <th scope="col">Prod Name</th>
+                                                     <th scope="col">  Batch No  </th>
+                                                  <!--      <th scope="col">B/S/T</th>    -->   
+    
+                                                  <th scope="col">
+                                                        Expiry Date 
+                                                     </th>
+    
+    
+                                                     <th scope="col">Invoice Qty</th>
+                                                    <th scope="col">Unit Return </th>
+                                                   <!-- <th scope="col">Total Return </th> -->
+                                                     <th scope="col">Sales Price </th>
+                                                   
+                                                     <th scope="col"> Unit Dis % </th>
+                                                     <th  scope="col" *ngIf="registerForm.controls.vatdispflag.value=='0'">VAT % </th>    
+    
+    
+                                                 <th  scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">SGST </th>
+                                                     <th  scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">CGST </th>
+                                                     <th  scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">IGST </th> 
+                                                     <th scope="col">Amount </th>
+    
+                                                 <!--       <th scope="col">SiQty </th>
+                                                     <th scope="col">StkQty </th>  -->
+                                               
+    
+    
+                                                 </tr>
+                                             </thead>
+                                             <tbody class="stylebody">
+                                            
+                                             <tr *ngFor="let address of registerForm.controls.invoice.controls; let i=index" [formGroupName]="i">
+                                            <td   ><input   type="checkbox" class="tabcheck" id="width1"    formControlName="delflag"   /></td>
+                                        
+                                             <td><input   value={{i+1}} id="width2"  readonly/></td> 
+                                               <td><input  formControlName="drugproductid"    readonly/></td>  
+                                             <td><input  formControlName="productname"    id="width6" style="text-align:left"    readonly  class="boldnew"/></td>
+                                             <td><input  formControlName="batchname"    id="width4" style="text-align:left"     readonly /></td>
+                                         <!--       <td ><input  formControlName="drgtyp"   /></td>  -->
+    
+                                         <td><input  formControlName="expirydate"   readonly/></td>  
+    
+    
+                                             <td><input  formControlName="siqty"       readonly/></td>
+    
+                                       
+                                             <td><input  formControlName="indvqty" id="width3"   (keydown)="calc($event)"  type="text"/></td>
+                                             <!-- <td><input  formControlName="totalqty" id="width3"    readonly /></td> -->
+                                             <td><input  formControlName="unitprice" class="right"  (keydown)="calc($event)"  type="text"/></td>
+                                             <td><input  formControlName="unitdiscount"  id="width2"   readonly/></td>
+                        
+                            <td  *ngIf="registerForm.controls.vatdispflag.value=='0'"><input  formControlName="unitvat" id="width2" /></td>
+                                          <td  *ngIf="registerForm.controls.vatdispflag.value=='1'"><input  formControlName="unitsgst" id="width2" /></td>
+                         <td  *ngIf="registerForm.controls.vatdispflag.value=='1'"><input  formControlName="unitcgst" id="width2"/></td>
+                           <td  *ngIf="registerForm.controls.vatdispflag.value=='1'"><input  formControlName="unitigst" id="width2" /></td>  
+                                             <td><input  formControlName="subtotal" class="right"  readonly/></td>
+    
+                                          <!--      <td><input  formControlName="crntsiqty" /></td>
+                                             <td><input  formControlName="crntstkqty" /></td>  -->
+                        
+                             
+             
+                                              </tr>
+    
+                                              <tr>
+                                                <td><input  class="tabcheck" id="width1" /></td>
+                                                <td><input id="width2" readonly /></td>
+                                                <td><input readonly /></td>
+                                                <td><input id="width6" style="text-align:left" readonly /></td>
+                                                <td><input id="width4" style="text-align:left" readonly /></td>
+                                                <td><input  readonly /></td>
+                                                <!--      <td ><input  formControlName="drgtyp"   /></td>  -->
+                                                <td><input  readonly /></td>
+                                                <td><input  id="width3" (keydown)="calc($event)" type="text" /></td>
+                                                <td><input id="width3" readonly /></td>
+                                                <td><input  class="right" (keydown)="calc($event)" type="number" /></td>
+                                                <td><input  id="width2" readonly /></td>
+                                                <td *ngIf="taxid == 0"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxid == 1"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxgstid==1"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxgstid==2"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxgstid==1 || taxgstid==2"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxid == 2"><input id="width2" />
+                                                </td>
+                                                <td><input class="right" /></td>
+                                                <!--     <td><input  formControlName="crntsiqty" /></td>
+                                                                           <td><input  formControlName="crntstkqty" /></td>  -->
+                                              </tr>
+                                              <tr>
+                                                <td><input  class="tabcheck" id="width1" /></td>
+                                                <td><input id="width2" readonly /></td>
+                                                <td><input readonly /></td>
+                                                <td><input id="width6" style="text-align:left" readonly /></td>
+                                                <td><input id="width4" style="text-align:left" readonly /></td>
+                                                <td><input  readonly /></td>
+                                                <!--      <td ><input  formControlName="drgtyp"   /></td>  -->
+                                                <td><input  readonly /></td>
+                                                <td><input  id="width3" (keydown)="calc($event)" type="text" /></td>
+                                                <td><input id="width3" readonly /></td>
+                                                <td><input  class="right" (keydown)="calc($event)" type="number" /></td>
+                                                <td><input  id="width2" readonly /></td>
+                                                <td *ngIf="taxid == 0"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxid == 1"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxgstid==1"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxgstid==2"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxgstid==1 || taxgstid==2"><input id="width2" />
+                                                </td>
+                                                <td *ngIf="taxid == 2"><input id="width2" />
+                                                </td>
+                                                <td><input class="right" /></td>
+                                                <!--     <td><input  formControlName="crntsiqty" /></td>
+                                                                           <td><input  formControlName="crntstkqty" /></td>  -->
+                                              </tr>
+                                              </tbody>
+                                         
+                                             </table>
+                        
+                                   
+                                    </div>   <br>  <!--. table     end--> 
+        
+    
+         <div class="col-lg-2 ml-4">   
+            <button  type="button" class="btn-round"   (click)="remove()"  > Remove  </button>    
+        </div>  <br>
+        
+    
+    
+                                 <div class="borderform"> <!-- splitcolumnbefore1   start-->
+    
+                        
+    
+                                                  <div class="row">
+    
+    
+                                                              <div class="col-md-3">
+                                                                
+                                                        
+                                                                                    <label class="form-label semibold" for="exampleInput">Total Product 
+                                                                                           </label> 
+                                                                    
+                                                                          <input type="text" 
+                                                                          class="form-control"  formControlName="totalitems"  disabled />
+                                                                      
+    
+                                                                    </div> 
+                                                     
+                                                                    <div class="col-md-3">
+                                                                      
+                                                              
+                                                                         <label class="form-label semibold" for="exampleInput">Grand Total
+                                                                                                 </label> 
+                                                                               
+                                                                    <input type="text" 
+                                                                    class="form-control"  formControlName="grandtotal" disabled/>
+                                                                
+                                                            
+                                                                </div> 
+    
+                                                        
+                                                                <div class="col-md-3">
+                                                                
+                                                        
+                                                                    <label class="form-label semibold" for="exampleInput">Sub Total 
+                                                                                        </label> 
+                                                                                      
+                                                                               
+                                                                              
+                                                                                <input type="text" 
+                                                                                class="form-control"  formControlName="subtotal"  disabled/>
+                                                                     
+                                                                      
+                                                                          </div> 
+    
+    
+                                                                <div class="col-md-3">
+                                                                        
+                                                                
+                                                                    <label class="form-label semibold" for="exampleInput">Total Discount Amt  
+                                                                           </label> 
+                                              
+                                                  <input type="text" 
+                                                  class="form-control"   formControlName="totaldiscount"  disabled/>
+                                          
+                                        
+                                                    </div>  
+    
+                                                                   
+                                                    
+                                                        </div>   <!-- subcolumn  end--> 
+                          
+                          
+                                        
+                                                  <div class="row mt-2">
+    
+    
+    
+                                                      <div class="col-md-3">
+                                                                            
+                                                                    
+                                                          <label class="form-label semibold" for="exampleInput">Taxable Amt
+                                                                                </label> 
+                                                                              
+                                                                 
+                                                            <input type="text" 
+                                                            class="form-control"  formControlName="taxableamt"  disabled/>
+                                                   
+                                                  
+                                                      </div> 
+    
+                                                          <div class="col-md-3">
+                                                                  
+                                                          
+                                                                  <label class="form-label semibold" for="exampleInput">Total Tax Amt
+                                                                                    </label> 
+                                                                                  
+                                                             
+                                                            <input type="text" 
+                                                            class="form-control"  formControlName="totaltaxamt"  disabled/>
+                                                      
+                                                  
+                                                      </div> 
+    
+     
+                                                             <div class="col-md-3">
+                                                                    
+                                                            
+                                                                                        <label class="form-label semibold" for="exampleInput">Rounded Off 
+                                                                                               </label> 
+                                                                                    
+                                                                            
+                                                                          <input type="text" 
+                                                                          class="form-control"   formControlName="roundoff"  disabled/>
+                                                                      
+                         
+                                                                    </div> 
+                        
+                                                            
+                      
+                                  
+                                             </div>   <!-- subcolumn  end--> 
+                                             
+                            
+                           
+                          
+                                          </div>    <!-- Border form end--> 
+                                   
+                <ng2-toasty [position]="'center-center'"></ng2-toasty>
+               
+                </div>
+                  <!-- box-typical-->
+    
+               
+              
+              </form>
+              <!--addresses-->
+        
+           
+              <div class="row">   <!-- row Start--> 
+                <div class="col-lg-1"></div>
+              <div class="col-lg-2">   <button  type="button" class="btn-round"  (click)="onSubmit()"    > Update  </button>  </div>     
+              <div class="col-lg-2">    <button  type="button" class="btn-round"  (click)="deleteSalesRetn()"    > Delete  </button>   </div> 
+
+             <div class="col-lg-2">     <button  type="button" class="btn-round"  
+                 [routerLink]="['/SalesReturn/ViewSalesReturn' ]"    > Back  </button>  </div>     
+          
+                                                                                               
+           </div>  <!-- row end--> 
+
+              </div>
+              <div class="panel2" style="width:5%;float:right">
+              <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+              </div>
+              </div>	 
+          </app-card>
+          
+          
+        

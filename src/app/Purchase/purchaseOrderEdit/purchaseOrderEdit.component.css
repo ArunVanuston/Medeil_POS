@@ -1,0 +1,188 @@
+/* input[select=select] {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #000000;
+}
+
+.inputline 
+{
+    color: #021016;
+	border-width: 0 0 2px 0;
+	border-color: #b2b6b7;
+}
+.lable
+{
+    font-size: 30px;
+    font-family: "Italic", 
+}
+#gridContainer{      
+    height:350px;
+    width: 100%;    
+} */
+
+
+#message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+#flip {
+    padding: 5px;
+    width: 40px;
+    text-align: center;
+    background-color: #d7d8d3;  
+    cursor: pointer;
+}
+.index
+{
+    background-color: #ffffff;
+}
+.sucess {
+    color: rgb(90, 94, 89);
+    background-color: rgb(62, 240, 17);   
+    }
+ .sucess{
+    border: 1px solid;
+    margin: 10px 0px;
+    margin-left: 350px;
+    padding:15px 10px 15px 25px;
+    background-repeat: no-repeat;
+    background-position: 10px center;        
+    }
+    .btn-success:disabled{
+        background-color: red;
+        border-color: #eb7373;
+    }
+/*   Forms Css End  */
+/*   Table Css Start */
+  .pane {    
+    overflow-y: scroll;
+    max-height:350px;
+    width: 100%; 
+}
+table {
+    text-align: left;    
+    width: 100%; 
+    border-color: #1b1b1a;
+}
+th {
+   /* background-color:rgb(151, 156, 151);*/
+    color:black;
+    text-align: center;    
+    font-weight: normal;
+    font-size:14px;
+}
+
+.header  {
+    text-align: left;   
+   /* font-size: 20px;
+    padding: 1px !important;
+    height: 20px;
+    font-family: Georgia; */
+    color:black;
+ }
+.chkbox
+{  
+    zoom: 1.8;  
+    column-width: 5px;   
+    text-align: center;  
+}
+.chkboxs
+{      
+    column-width: 5px; 
+    zoom: 1.8;
+     text-align: center;  
+} 
+
+.tds {  
+    height: 35px;
+    margin: 0px;            
+    display: inline-block;  
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color:  #FFFFFF ;
+    border: rgb(124, 119, 119);   
+    text-align: left;
+   /* width: 90px;*/
+   width: 100%;
+}
+.tds[_ngcontent-c3]:focus
+{
+    border:1px solid rgb(126, 223, 81); 
+
+}
+td{
+    background-color:  #FFFFFF ;   
+    height: 1%;
+    text-align: center;
+    font-family: Times;   
+}
+tr
+{
+    height: 40px;    
+}​
+.error {
+    color: #D8000C;
+    background-color: #FFBABA;   
+    }
+ .error{
+    border: 1px solid;
+    margin: 10px 0px;
+    margin-left: 350px;
+    padding:15px 10px 15px 25px;
+    background-repeat: no-repeat;
+    background-position: 10px center;   
+    color: #D8000C;
+    background-color: #FFBABA;   
+    }
+    .action
+    {
+        font-size: 32px;
+        color: green;
+    }
+    .action1
+    {
+        font-size: 32px;
+        color: red;
+    } 
+    .dropDownbutton
+    {
+        font-size: 26px;
+        color: rgb(245, 250, 253);
+        margin-left: 50px;
+        color: indianred;
+    }
+    .tdspan
+    {
+        font-size: 15px;
+    }
+/*   Table Css End */
+
+/*   Search Css Start */
+
+.form75:focus{    
+   background-color:  rgba(0,0,0,.15);
+        }
+ .orderlist {
+  border: transparent;
+        }
+#searchorder {            
+     border: 1px solid rgba(0,0,0,.15);
+     position: absolute;
+     z-index: 21;
+     background-color: #aaa8a8;
+     widows: 15em;
+     max-height: 200px;
+     overflow-y: scroll;             
+                }
+       
+.form75
+{
+    width: 380px;
+}
+
+
+/*   Search Css End */
+

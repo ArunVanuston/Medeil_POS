@@ -1,0 +1,115 @@
+<style>
+  .nodata {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    color: rgb(245, 50, 50);
+    font-family: Verdana, Geneva, sans-serif;
+  }
+
+  .action {
+    font-size: 15px;
+    color: green;
+  }
+
+  .action1 {
+    font-size: 15px;
+    color: red;
+  }
+
+</style>
+
+<app-card>
+  <div class="sub-title">View Loyalty Points
+    <em class="fa fa-print ficon"></em>
+   </div><br>   
+   <div align="right">
+   
+    <button type="submit" class="btn-round" [routerLink]="['/Loyality/Loyalitypointsettings']">Add Loyalty Points</button>
+  
+</div>
+    
+  
+ 
+
+    <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+      <div>
+        <label class="label-control">Show
+          <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+            <option [ngValue]="1">1</option>
+            <option [ngValue]="25">25</option>
+            <option [ngValue]="50">50</option>
+            <option [ngValue]="100">100</option>
+          </select>
+          Entries
+        </label>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-6">
+      <div class="form-inline justify-content-end">
+        <strong class="searchlabel">Search:</strong>
+          <input type="search" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Enter Employee Name">
+      </div>
+    </div>
+
+
+
+
+  <div class="dt-responsive" style="overflow-x:auto">
+    <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+      #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th scope="col"> S.No </th>
+          <th scope="col"> Customor Name </th>        
+          <th scope="col"> Loyalty Scheme </th>
+          <th scope="col"> Last Bill Amount </th>
+          <th scope="col"> Total Purchase Price </th>
+          <th scope="col"> Total Points </th>
+          <th scope="col"> Current Available Points </th>
+          <!-- <th scope="col"> Browser </th> -->
+         
+        </tr>
+        <tr>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+          <td></td>
+          <td class="nodata">No matching Records found....</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <!-- <td></td> -->
+       
+        </tr>
+        <tr *ngFor="let val of mf.data;let i=index">
+          <td>{{i+1}}</td>
+          <td>{{val[0]}}</td>
+          <td>{{val[1]}}</td>
+          <td>{{val[2]}}</td>
+          <td>{{val[3]}}</td>
+          <td>{{val[4]}}</td>
+          <td>{{val[5]}}</td>
+          <!-- <td>{{val[6]}}</td>
+          <td>{{val[7]}}</td> -->
+      
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="9">
+            <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  
+  
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

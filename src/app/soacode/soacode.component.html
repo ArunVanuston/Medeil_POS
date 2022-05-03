@@ -1,0 +1,310 @@
+<app-card>
+  <div class="sub-title">Assign SAC Code
+		<i class="fa fa-code ficon"></i>
+	</div><br>
+
+  <table style="width:100%">
+		<tbody>
+		  <tr>
+      <td style="width:95%">
+        <form [formGroup]="SoaForm" class="mx-3">
+<!-- ============================================================================= -->
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-label semibold">
+                <h6>Section Code</h6>
+              </label>
+              <select name="select" class="form-control"  formControlName="sectioncode" placeholder="Select Section Code"  (change)="seccodedes($event.target.value);getgroupid()" (click)="getsectionid()">
+                <!-- formControlName="md_ref_id" (click)="getidescription()" -->
+                <!-- <option selected disabled value="opt1">---Select Section Code---</option> -->
+                <option *ngFor="let coun of section" value={{coun[1]}}>{{coun[1]}}</option>
+              
+              </select>
+              <button type="button" class="addnew" (click)="searchwithsection('nonechapter',contenetsection)" id="comdivision">Add Section Code</button>
+            </div>
+            <div class="col-sm-8">
+              <label class="form-label semibold">
+                <h6>Section Name</h6>
+              </label>
+              <input name="tex" class="form-control" formControlName="secdesription">
+            </div>
+          </div>
+ <!-- ===========================================================   -->
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label class="form-label semibold">
+                <h6>Group Code</h6>
+              </label>
+              <select name="select" class="form-control"  formControlName="groupcode" (change)="getgroupdesc($event.target.value);getsacid()">
+               
+                <!-- <option selected disabled value="opt1">---Select Group Code---</option> -->
+                <!-- <option *ngIf="submodulelist==''" value="noData" style="color: black">SubModule Not Available</option> -->
+                <option *ngFor="let sub of group" value={{sub[1]}}>{{sub[1]}}</option>
+                <!-- <option value="nonegrp1" id="sacvision2" style="background-color: #52aa0c;color:white"> -->
+              </select>
+              <button type="button" class="addnew" (click)="searchwithgroup('nonechapter',contenetGroup)" id="comdivision">Add Group Code</button>
+  
+            </div>
+            <div class="col-sm-8">
+              <label class="form-label semibold">
+                <h6>Group Name</h6>
+              </label>
+              <input name="text" class="form-control"  formControlName="groupdes"> 
+            </div>
+          </div>
+<!-- ==================================================== -->
+
+
+
+<div class="form-group row">
+  <div class="col-sm-4">
+    <label class="form-label semibold">
+      <h6>SAC Code</h6>
+    </label>
+    <select name="select" class="form-control" formControlName="saccode" (change)="getsaciddes($event.target.value);getsaccode1()" >
+      <!-- <option selected disabled value="opt1">---Select SAV Code---</option> -->
+      <!-- <option *ngIf="submodulelist==''" value="noData" style="color: black">SubModule Not Available</option> -->
+      <option *ngFor="let sub of sac" value={{sub[0]}}>{{sub[0]}}</option>
+      <!-- <option value="nonesac1" id="sacvision3" style="background-color: #52aa0c;color:white"> -->
+    </select>
+    <button type="button" class="addnew" (click)="searchwithsac('nonechapter',contenetsac)" id="comdivision">Add SAC Code</button>
+  
+  </div>
+  <div class="col-sm-8">
+    <label class="form-label semibold">
+      <h6>SAC Description</h6>
+    </label>
+    <input name="text" class="form-control" formControlName="sacdes">
+
+  </div>
+</div>
+<!-- ======================================= -->
+<div class="form-group row">
+  <div class="col-sm-4">
+    <label class="form-label semibold">
+      <h6>SAC Subcode1</h6>
+    </label>
+    <select name="select" class="form-control" formControlName="subcode1code" (change)="sub1desc($event.target.value);getsaccode2()">
+      <!-- <option selected disabled value="opt1">---Select SAC SubCode1---</option> -->
+      <!-- <option *ngIf="submodulelist==''" value="noData" style="color: black">SubModule Not Available</option> -->
+      <option *ngFor="let sub of sacsubcode1" value={{sub[0]}}>{{sub[0]}}</option>
+      <!-- <option value="nonesac2" id="sacvision4" style="background-color: #52aa0c;color:white"> -->
+    </select>
+    <button type="button" class="addnew" (click)="searchwithsacsub1('nonechapter',contenetsacsub1)" id="comdivision">Add SubCode2</button>
+  
+  </div>
+  <div class="col-sm-8">
+    <label class="form-label semibold">
+      <h6>SAC Subcode1 Description</h6>
+    </label>
+    <input name="text" class="form-control" formControlName="subcode1desc" >
+     
+    
+
+  </div>
+</div>
+<!-- =========================================== -->
+<div class="form-group row">
+  <div class="col-sm-4">
+    <label class="form-label semibold">
+      <h6>SAC Subcode2 </h6>
+    </label>
+    <select name="select" class="form-control"  formControlName="subcode2code" (change)="getsubdesc2($event.target.value)" >
+      <!-- <option selected disabled value="opt1">---Select SAC Subcode2---</option> -->
+      <!-- <option *ngIf="submodulelist==''" value="noData" style="color: black">SubModule Not Available</option> -->
+      <option *ngFor="let sub of sacsubcode2" value={{sub[0]}}>{{sub[0]}}</option>
+      <!-- <option value="nonesac3" id="sacvision5" style="background-color: #52aa0c;color:white"> -->
+    </select>
+    <button type="button" class="addnew" (click)="searchwithsacsub2('nonechapter',contenetsacsub2)" id="comdivision">Add SubCode2</button>
+  
+  </div>
+  <div class="col-sm-8">
+    <label class="form-label semibold">
+      <h6>SAC Subcode2 Description</h6>
+    </label>
+    <input name="text" class="form-control" formControlName="subcode2desc" >
+    </div>
+</div>
+
+<!-- =============================================== -->
+<div class="form-group row">
+  <div class="col-sm-4">
+    <label class="form-label semibold">
+      <h6>Enter Gst % </h6>
+    </label>
+    <input type="number" class="form-control"  formControlName="gstrate"> 
+  </div>
+  <div class="col-sm-8">
+    <label class="form-label semibold">
+      <h6>Enter CESS Rate %</h6>
+    </label>
+    <input type="number" class="form-control" formControlName="cess" >
+    </div>
+</div>
+
+      
+      
+          <div class="form-group row mt-2">
+           
+            <div class="col-lg-4 mt-4">
+              <fieldset class="form-group">
+                <label class="form-label semibold"></label>
+                <button (click)="onSubmit()" class="btn-round">Save</button>
+            </fieldset>
+            </div>
+      
+          </div>
+
+
+
+<!-- =======================Add New Section ====================== -->
+          <ng-template #contenetsection let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <label class="form-label"> Add Section Code</label>
+              <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+            </div>
+            <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+    
+            <div class="modal-body mx-5">
+              <input class="form-control" id="maingroupnumber" formControlName="sectioncode" placeholder="Enter Section Code" maxlength="5"/>
+            </div>
+            <div class="modal-body mx-5">
+              <input class="form-control" id="maingroupnumber" formControlName="secdesription" placeholder="Enter Section Description" />
+            </div>
+            <div class="modal-footer">
+              <label class="btn modbtn" id="typemain" (click) = "savesc(c)" >Save Section
+              </label>
+    
+            </div>
+          </ng-template>
+
+
+  <!-- =================Add New Group ================= -->
+  
+  <ng-template #contenetGroup let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <label class="form-label"> Add Group Code</label>
+      <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+    </div>
+    <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+    <div class="modal-body mx-5">
+      <input class="form-control" id="maingroupnumber" formControlName="sectioncode" placeholder="Enter Section Code" maxlength="5"/>
+    </div>
+    <div class="modal-body mx-5">
+      <input class="form-control" id="maingroupnumber" formControlName="groupcode" placeholder="Enter Group Code" maxlength="6"/>
+    </div>
+    <div class="modal-body mx-5">
+      <input class="form-control" id="maingroupnumber" formControlName="groupdes" placeholder="Enter Group Description" />
+    </div>
+    <div class="modal-footer">
+      <label class="modbtn" id="typemain" (click) = "savegc(c)" >Save Group
+      </label>
+
+    </div>
+  </ng-template>
+
+
+<!-- ===============Add SAC Code ================= -->
+  <ng-template #contenetsac let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <label class="form-label"> Add SAC Code</label>
+      <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+    </div>
+    <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+    <div class="modal-body mx-5">
+      <label>Section Id</label>
+      <input class="form-control" id="maingroupnumber" formControlName="sectioncode" placeholder="Enter Section Code" maxlength="5"/>
+    </div>
+    <div class="modal-body mx-5">
+      <input class="form-control" id="maingroupnumber" formControlName="groupcode" placeholder="Enter Group Code" maxlength="6"/>
+    </div>
+    <div class="modal-body mx-5">
+      <input class="form-control" id="maingroupnumber" formControlName="saccode" placeholder="Enter Sac Code" maxlength="7"/>
+    </div>
+    <div class="modal-body mx-5">
+      <input class="form-control" id="maingroupnumber" formControlName="sacdes" placeholder="Enter Sac Description" />
+    </div>
+    <div class="modal-footer">
+      <label class="modbtn" id="typemain" (click) = "savesac(c)" >Save Group
+      </label>
+
+    </div>
+  </ng-template>
+
+
+<!-- ===============Add SubCode1 ================= -->
+<ng-template #contenetsacsub1 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <label class="form-label"> Add SAC SubCode1</label>
+    <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+  </div>
+  <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="sectioncode" placeholder="Enter Section Code" maxlength="5"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="groupcode" placeholder="Enter Group Code" maxlength="6"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="saccode" placeholder="Enter Sac Code" maxlength="7"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="subcode1code" placeholder="Enter SubCode1" maxlength="12"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="subcode1desc" placeholder="Enter SubDescription1" />
+  </div>
+  <div class="modal-footer">
+    <label class="modbtn" id="typemain" (click) ="savesacsub1(c)" >Save Group
+    </label>
+
+  </div>
+</ng-template>
+
+
+
+<!-- ===============Add SubCode2 ================= -->
+<ng-template #contenetsacsub2 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <label class="form-label"> Add SAC SubCode2</label>
+    <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+  </div>
+  <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="sectioncode" placeholder="Enter Section Code" maxlength="5"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="groupcode" placeholder="Enter Group Code" maxlength="6"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="saccode" placeholder="Enter Sac Code" maxlength="7"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="subcode1code" placeholder="Enter SubCode1" maxlength="12"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="subcode2code" placeholder="Enter SubCode2" maxlength="14"/>
+  </div>
+  <div class="modal-body mx-5">
+    <input class="form-control" id="maingroupnumber" formControlName="subcode2desc" placeholder="Enter SubDescription2" />
+  </div>
+  <div class="modal-footer">
+    <label class="modbtn" id="typemain" (click) = "savesacsub2(c)" >Save Group
+    </label>
+
+  </div>
+</ng-template>
+        </form>
+      
+      
+      
+      
+      </td>
+      <td style="width:5%" valign="top">
+        <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

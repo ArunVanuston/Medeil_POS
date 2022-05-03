@@ -1,0 +1,77 @@
+<style>
+  
+
+  .table-striped tr td:last-child {
+    text-align: left !important;
+  }
+</style>
+
+<app-card>
+  <div class="sub-title">Today Account Payable
+    <em class="fa fa-print ficon"></em>
+   </div><br> 
+  <div class="row">
+
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6">
+      <div class="form-inline justify-content-end">
+        <strong class="searchstyle">Search:</strong>
+        <input type="text" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Search Distributor"
+          autofocus />
+      </div>
+    </div>
+
+  </div><br>
+
+  <div align="center">
+    <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+  </div><br>
+
+  <div class="dt-responsive" style="overflow: auto;">
+    <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"
+      [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowOnPage" [(mfSortBy)]="sortBy"
+      [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+          <th scope="col">S.No</th>
+          <th scope="col">Invoice No</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Distributor Name</th>
+          <th scope="col">Payment Status</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+
+          <td></td>
+          <td></td>
+          <td class="nodata">No Data Available..</td>
+          <td></td>
+          <td></td>
+        </tr>
+
+
+        <tr *ngFor="let item of mf.data;let i=index">
+          <td>{{i+1}}</td>
+          <td>{{item[0]}}</td>
+          <td>{{item[1]}}</td>
+          <td>{{item[2]}}</td>
+          <td><button class="btn btn-success">Pay</button></td>
+     
+
+     
+        </tr>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="13">
+            <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</app-card>

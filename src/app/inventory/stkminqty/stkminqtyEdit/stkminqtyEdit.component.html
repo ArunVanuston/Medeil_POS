@@ -1,0 +1,385 @@
+<style>
+    .row input,
+    .row label,
+    .row select {
+        margin-bottom: 6px;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    /*  .row label {
+font-size: 1.2em; 
+font-family: sans-serif  ;
+font-stretch: expanded ;
+font-weight: 500 ; 
+ }       */
+    .tablenew {
+        border: 1px solid rgba(0, 0, 0, .15);
+        height: 300px;
+        max-width: 100%;
+        box-sizing: border-box;
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+
+    .tablenew table th {
+        padding: 0.43em 0em 0.43em 0em;
+        margin: 0em;
+        text-align: center;
+        vertical-align: top;
+        /*    border: 1px solid rgba(0,0,0,.15);
+    font-family: sans-serif  ;
+    color: black;
+    background-color: rgb(151, 156, 151);  */
+    }
+
+    .tablenew table td {
+        vertical-align: top;
+        padding: 0.43em 0em 0.43em 0em;
+        text-align: center;
+        margin: 0em;
+        border: 1px solid rgba(0, 0, 0, .15);
+    }
+
+    .tablenew table p {
+        padding: 0em;
+        margin: 0em;
+    }
+
+    .tablenew table td input {
+        width: 4em;
+        text-align: center;
+        border: #FFFFFF;
+    }
+
+    .tablenew table th label {
+        text-align: center;
+        border: #FFFFFF;
+    }
+
+    .tablenew table td label {
+        margin: 0em;
+        padding: 0em;
+        text-align: center;
+        border: #FFFFFF;
+    }
+
+    .tablenew table tr {
+        margin: 0em;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, .15);
+    }
+
+    .tablenew table td input:focus {
+        background-color: rgba(0, 0, 0, .15);
+    }
+
+    .tablenew input[type="checkbox"] {
+        width: 1.7em;
+        height: 1.7em;
+        padding: 0em;
+        margin: 0em;
+    }
+
+    .button input {
+        background-color: #0073aa;
+        color: #FFFFFF;
+        cursor: pointer;
+        width: 7.34em;
+    }
+
+    .button {
+        padding-top: 16px;
+    }
+
+    .cursorremove {
+        width: 4.23em;
+        background-color: #0073aa;
+        color: #FFFFFF;
+        cursor: pointer;
+        border: #FFFFFF;
+        text-align: center;
+        margin-left: -2em;
+        margin-right: -2em;
+    }
+
+    #rem {
+        background-color: #FFFFFF;
+    }
+
+    #inputwidth1,
+    #inputwidth2 {
+        width: 9.23em;
+        margin-left: -2em;
+        margin-right: -2em;
+    }
+
+    .table th:nth-child(1) {
+        width: 1.5em;
+        margin-left: -2em;
+        margin-right: -2em;
+    }
+</style>
+<app-card [title]='"Edit Reorder Form"'>
+    <form [formGroup]="registerForm">
+
+        <div class="row">
+
+
+            <!-- row Start-->
+            <div class="col-lg-2">
+                <label class="form-label semibold" for="exampleInput">Reorder Type
+                </label>
+            </div>
+
+
+            <!-- <div class="col-lg-3">
+                        <select class="form-control" (change)="viewProd()" formControlName="minstockflag">
+                            <option value="1">Load Min Stock</option>
+                            <option value="2"> Load New Product </option>
+                        </select>
+                    </div> -->
+
+
+
+            <div class="col-lg-4" Style="margin-left: -7em">
+
+                <label class="radio">
+                    <input type="radio" value="1" style="margin-right:.5em" (change)="viewProd()"
+                        formControlName="minstockflag" checked> Load Min Stock
+                </label> &nbsp;&nbsp;&nbsp;
+                <label class="radio">
+                    <input type="radio" value="2" style="margin-right:.5em" (change)="viewProd()"
+                        formControlName="minstockflag"> Load New Product
+                </label>
+            </div>
+
+
+
+
+            <br><br>
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="row    ">
+            <!-- splitcolumn  start-->
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-5" *ngIf="registerForm.controls.invdispflag.value=='0'  ">
+                        <label class="form-label semibold" for="exampleInput"> Reorder No</label>
+                    </div>
+                    <div class="col-lg-7" *ngIf="registerForm.controls.invdispflag.value=='0'  ">
+                        <select class="form-control" (change)="viewEdit()" formControlName="id">
+                            <option *ngFor="let item of editdata; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+                        <label class="form-label semibold" for="exampleInput"> Reorder No
+                        </label>
+                    </div>
+                    <div class="col-md-7" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+                        <input type="text" class="form-control" formControlName="formno" />
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label semibold" for="exampleInput">Reorder Date
+                        </label>
+                    </div>
+                    <div class="col-md-7">
+                        <input type="Date" class="form-control" formControlName="date" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row">
+                </div>
+            </div>
+        </div>
+        <!-- splitcolumn  end-->
+        <div formArrayName="stkminqty" class="tablenew" *ngIf="vflag==0">
+            <!--. table  start-->
+            <div>
+                <label class="form-label semibold" for="exampleInput"> Reorder Table
+                </label>
+                <table aria-describedby="mydesc" class="table ">
+                    <thead class="thead-default">
+                        <tr>
+                            <th scope="col"> S. No </th>
+                            <th scope="col"> Product Code </th>
+                            <th scope="col"> Product Name </th>
+                            <th scope="col">Current Qty</th>
+                            <th scope="col"> Last Received Qty </th>
+                            <th scope="col"> Min Qty </th>
+                            <th scope="col"> Ageing Time </th>
+                            <th scope="col">Remarks </th>
+                        </tr>
+                    </thead>
+
+                    <tr *ngFor="let address of registerForm.controls.stkminqty.controls; let i=index"
+                        [formGroupName]="i">
+
+
+                        <td>
+                            <input value={{i+1}} />
+                        </td>
+
+
+                        <td>
+                            <input formControlName="drugproductid" />
+                        </td>
+                        <td>
+                            <input formControlName="drugname" id="inputwidth1" />
+                        </td>
+                        <td>
+                            <input formControlName="qty" />
+                        </td>
+                        <td>
+                            <input formControlName="receivedqty" />
+                        </td>
+                        <td>
+                            <input formControlName="minqty" />
+                        </td>
+                        <td>
+                            <input formControlName="ageingtime" />
+                        </td>
+                        <td>
+                            <input formControlName="remarks" id="inputwidth2" />
+                        </td>
+                    </tr>
+
+
+
+                </table>
+            </div>
+        </div>
+        <!--. table     end-->
+
+
+
+
+
+
+
+
+
+
+        <div formArrayName="stkminqty1" class="tablenew" *ngIf="vflag==1">
+
+            <table aria-describedby="mydesc" class="table">
+
+
+                <thead class="thead-default">
+                    <tr>
+
+
+                        <!-- <th scope="col"> <input type="checkbox" id="selectall1" (click)="selectAll1($event.target.checked)" /> </th> -->
+
+
+
+                        <th scope="col"> S.No </th>
+                        <th scope="col"> Product Name </th>
+                        <th scope="col">Required Qty</th>
+                        <th scope="col">Remarks </th>
+
+                    </tr>
+                </thead>
+
+
+                <!-- <tbody> -->
+
+                <tr *ngFor="let address1 of registerForm.controls.stkminqty1.controls; let i=index" [formGroupName]="i">
+
+                    <!-- [ngStyle]="{'background-color':registerForm.controls.stkminqty1.controls[i].controls.gridcolor1.value==1?'pink':'white'}"   
+                            <td width="5%">
+                                <input formControlName="selectflag1" type="checkbox" name="selecttag1" 
+                                  
+                                    style="width:30%" />
+    
+                                    [attr.disabled]="registerForm.controls.stkminqty1.controls[i].controls.gridcolor1.value==1?'':null" 
+        
+                                </td> -->
+
+
+
+
+                    <td width="5%">
+                        <input value={{i+1}} />
+                    </td>
+                    <td>
+                        <input formControlName="newproductname" />
+                    </td>
+                    <td>
+                        <input formControlName="reqqty" />
+                    </td>
+                    <td>
+                        <input formControlName="remarks" />
+                    </td>
+
+                </tr>
+
+                <!-- </tbody> -->
+
+            </table>
+
+
+
+
+
+        </div>
+
+
+
+
+
+    </form>
+    <div class="row button">
+
+        <div class="col-lg-3">
+            <button type="button" class="btn-round" (click)="onSubmit()"
+                [disabled]="!registerForm.get('minstockflag').value==1 || !registerForm.get('minstockflag').value==2">
+                Update
+            </button>
+        </div>
+
+
+
+        <!-- row Start-->
+        <div class="col-lg-3">
+            <button type="button" class="btn-round" [routerLink]="['/ReorderForm/ReorderForm' ]"> Back
+            </button>
+        </div>
+    </div>
+    <!-- row end-->
+</app-card>

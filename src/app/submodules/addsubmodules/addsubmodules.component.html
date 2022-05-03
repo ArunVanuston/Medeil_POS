@@ -1,0 +1,102 @@
+
+  <app-card>
+    <div class="container bform">
+        <div align ="right">	
+          <button class="btn-round" (click)="view()">view Sub Modules</button>
+        </div><br>
+        <form [formGroup]="mysubmodules" (ngSubmit)="onSubmit()">
+        <div class="form-group row">
+          <div class="col-sm-4">
+          <h6>Country Name</h6>
+            <select type="text" class="form-control" formControlName="countryid"   (change)="getsubmoduleproduct()" (click)="getsubmoduleproduct()">
+              <option   value="opt1" selected disabled>--Select Country--  </option>
+              <option *ngFor="let coun of submoduleid" value={{coun[0]}}>{{coun[1]}}</option>  
+            </select>
+          </div>
+          <div class="col-sm-4">
+          <h6>Product Name</h6>
+            <select type="text" class="form-control" formControlName="productid"   (change)="getsubmoduledomain()" (click)="getsubmoduledomain()">
+              <option  value="opt1" selected disabled >--Select Product--  </option>
+              <option *ngFor="let coun of subproduct" value={{coun[0]}}>{{coun[1]}}</option></select>
+          </div>
+          <div class="col-sm-4">
+          <h6>Domain Name</h6>
+            <select type="text" class="form-control" formControlName="domainrefid" placeholder="Select Domain Name"   (change)="getsubmodulesubdomain()" (click)="getsubmodulesubdomain()"><!-- (change)="getsubmdomain()" -->
+              <option  value="opt1"  selected  disabled >--Select Domain--  </option>
+              <option *ngFor="let coun of subdomain" value={{coun[0]}}>{{coun[1]}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+        <div class="col-sm-4">
+          <h6>Sub Domain</h6>
+            <select type="text" class="form-control" formControlName="subdomainrefid" placeholder="Enter Module folder" id="subdomainrefid"  name="subdomainrefid" (change)="getsubmodulemodules()" (click)="getsubmodulemodules()"> 
+              <option value="opt1" selected disabled >--Select Sub-Domain--  </option>
+              <option *ngFor="let coun of submodulesubdomain" value={{coun[0]}}>{{coun[1]}}</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+          <h6>Module Name</h6>
+           <select type="text" class="form-control" formControlName="modulerefid" (change)="getsubmodulesubmodules()">
+            <option  value="opt1" selected  >--Select Module--  </option>
+            <option *ngFor="let coun of submodulemodules" value={{coun[0]}}>{{coun[1]}}
+            </option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+          <h6>Sub Module Name</h6>
+          <select type="text" class="form-control" formControlName="submodulename" (change)="submodulepopup($event.target.value,newsubmodulename)">
+            <option  value="opt1" selected  >--Select Sub-Module--  </option>
+            <option value="newsubmodulename" style="background-color: #002e86;color:white">Add Sub-Module Name</option>
+            <option *ngFor="let coun of submodulesubmodules" value={{coun[1]}}>{{coun[1]}}</option>
+          </select>
+          <label class="text-danger" style="font-weight:bold;font-size:16px" *ngIf="newsubmodule">New Sub-Module: {{mysubmodules.controls.submodulename.value}}</label>
+          </div>
+        </div>
+
+        <div class="form-group row"> 
+         <div class="col-sm-4">
+          <h6>Url /Action</h6>
+           <input type="text" class="form-control" formControlName="url" placeholder="Enter Url" id="url"  name="url">
+          </div>
+          <div class="col-sm-4">
+          <h6>Status</h6>
+            <select name="select" class="form-control" formControlName="status" placeholder="Select Status" id="status"   name="status">
+            <option value="0">Active</option>
+            <option value="1">InActive</option>
+          </select>
+          </div>
+          <div class="col-sm-4">
+            <h6>Approval Process</h6>
+            <select name="select" class="form-control" formControlName="approvalprocess" placeholder="Select Approval" id="approvalprocess"   name="approvalprocess">
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>  
+          <div class="col-sm-4 mt-3">
+            <h6>Icon</h6>
+             <input type="text" class="form-control" formControlName="icon"   name="submodulecode">
+          </div>
+        </div><br>
+        <button type="submit" class="btn-round" [disabled]="!mysubmodules.valid">Submit</button>
+
+        <ng-template #newsubmodulename let-c="close" let-d="dismiss">
+          <div class="modal-header">
+            <label class="form-label"> Add New Sub-Module</label>
+            <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+          </div>
+          <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+      
+          <div class="modal-body mx-5">
+            <input class="form-control" id="maingroupnumber" formControlName="newsubmodule" placeholder="Enter Sub-Module Name" />
+          </div>
+          <div class="modal-footer">
+            <label class="btn modbtn" id="typemain" (click)="SaveNewSubModule(c)">Save
+            </label>
+          </div>
+        </ng-template>
+  </form>
+  </div>
+  <ng2-toasty [position]="position"></ng2-toasty>
+</app-card>

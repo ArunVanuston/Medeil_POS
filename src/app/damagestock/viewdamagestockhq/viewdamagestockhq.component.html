@@ -1,0 +1,205 @@
+<style>
+	.nodata {
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		font-size: 25px;
+		color: rgb(245, 50, 50);
+		font-family: Verdana, Geneva, sans-serif;
+	}
+
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+
+	.row input,
+	.row label,
+	.row select {
+		margin-bottom: 6px;
+		padding-right: 0px;
+		padding-left: 0px;
+		margin-right: 0px;
+		margin-left: 0px;
+
+	}
+</style>
+<app-card>
+	<form [formGroup]="damagedstockForm" (ngSubmit)="onSubmit()">
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<label class="col-form-label labal">Damage Stock NO</label>
+				<input type="text" class="form-control inputline" placeholder="Damage Stock_NO"
+					formControlName="damagestockno" disabled />
+			</div>
+			<div class="col-lg-4">
+
+				<label class="col-form-label labal">Invoice No</label>
+				<input type="text" class="form-control inputline" placeholder="Invoice No" formControlName="invoiceno"
+					disabled />
+			</div>
+			<div class="col-lg-4">
+				<label class="col-form-label labal">Damage Stock Date</label> <input type="date"
+					class="form-control inputline" placeholder="Date" formControlName="damagestockdate">
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<label class="col-form-label labal">Invoice Date</label> <input type="date"
+					class="form-control inputline" placeholder="Date" formControlName="invoicedate" disabled>
+			</div>
+			<div class="col-lg-4">
+
+				<label class="col-form-label labal">Distributor Name</label>
+				<input type="text" class="form-control inputline" placeholder="Enter Distributor Name"
+					formControlName="distname">
+			</div>
+			<div class="col-lg-4">
+				<label class="col-form-label labal">Contact Number</label>
+				<input type="text" class="form-control inputline" placeholder="Enter your Contact Number"
+					formControlName="contactno">
+			</div>
+		</div>
+		<div class="form-group row">
+
+			<div class="col-lg-4">
+				<label class="col-form-label labal">Remarks</label>
+				<input type="text" class="form-control inputline" placeholder="Enter your Remarks"
+					formControlName="remarks" />
+			</div>
+			<!-- <div class="col-lg-4">
+				<label class="col-form-label labal">Packing</label>
+				<input type="text" class="form-control inputline" placeholder="Enter Packing" formControlName="packing" />
+			</div> -->
+		</div>
+		<div class="form-group row">
+			<div class="col-lg-5">
+				<div class="row">
+					<div class="col-md-5">
+						<label class="col-form-label labal" for="exampleInput"> To Loc Type
+						</label>
+					</div>
+					<div class="col-md-7">
+						<select class="form-control" formControlName="tolocname" (change)="getlocrefname()">
+							<option value="opt1" selected disabled>---Select Loc Type---</option>
+							<option *ngFor="let coun of tolocname " value={{coun[0]}}>{{coun[1]}}</option>
+						</select>
+					</div>
+					<div class="col-md-5">
+						<label class="col-form-label labal" for="exampleInput"> To Loc Name</label>
+					</div>
+					<div class="col-md-7">
+						<select class="form-control" formControlName="tolocrefid">
+							<option value="opt1" selected disabled>---Select Loc Name---</option>
+							<option *ngFor="let coun of tolocrefid " value={{coun[0]}}>{{coun[1]}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row" style="overflow-x:auto;" formArrayName="proDetails">
+			<!--<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"  [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable">-->
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+				<thead class="header">
+					<tr>
+						<th scope="col"><input type="checkbox" class="checkAll chkboxs" name="checkAll" /></th>
+						<th width="10px"> S.No </th>
+						<thead style='display:none;'>
+							<th scope="col"> Product ID </th>
+						</thead>
+						<th scope="col"> Product Name </th>
+						<th scope="col"> Batch No </th>
+						<th scope="col"> Expiry date </th>
+						<th scope="col"> TabQty </th>
+						<th scope="col"> TabDamagedQty </th>
+						<th scope="col"> Strip Qty </th>
+						<th scope="col"> Damaged StripQty </th>
+						<th scope="col"> Box Qty </th>
+						<th scope="col"> Damaged BoxQty </th>
+						<th scope="col"> Purchased Qty </th>
+						<th scope="col"> Damaged Qty </th>
+						<th scope="col"> UnitPrice </th>
+						<th class="colvathide"> Unit Vat </th>
+						<th class="colhide"> Unit Gst </th>
+						<th class="colhide"> Unit SGST </th>
+						<th class="colhide"> Unit CGST </th>
+						<th class="colhide"> Unit IGST </th>
+						<thead style='display:none;'>
+							<th scope="col"> Unit UTGST </th>
+						</thead>
+
+						<th scope="col"> Unit Discount </th>
+						<th scope="col"> SubTotal </th>
+						<th scope="col"> Total Amount </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let coun of damagedstockForm.controls.proDetails.controls; let i = index"
+						[formGroupName]="i">
+						<td><input type="checkbox" name="check" class="chkbox" />
+						<td>{{i+1}}</td>
+						<thead style='display:none;'>
+							<td><input type="text" formControlName="productid"></td>
+						</thead>
+						<td><input type="text" formControlName="productname" readonly></td>
+						<td><input type="text" formControlName="batchno" readonly></td>
+						<td><input type="text" formControlName="expirydate" readonly></td>
+						<td><input type="text" formControlName="tabqty" readonly></td>
+						<td><input type="text" formControlName="tabdamagedqty"></td>
+						<td><input type="text" formControlName="stripqty" readonly></td>
+						<td><input type="text" formControlName="stripdamagedqty" (change)="getstripqty()"></td>
+						<td><input type="text" formControlName="boxqty" readonly></td>
+						<td><input type="text" formControlName="damagedboxqty" (change)="getBoxqty()"
+								(click)="getBoxqty()" (onkeypress)="getBoxqty()"></td>
+						<td><input type="text" formControlName="qty" readonly></td>
+						<td><input type="text" formControlName="damagedqty"></td>
+						<td><input type="text" formControlName="unitprice"></td>
+						<td id="colvathide" *ngIf="setvatTax">
+							<input type="text" formControlName="unitvat" readonly>
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitgst" readonly>
+
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitsgst" readonly>
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitcgst" readonly>
+						</td>
+						<td id="colhide" *ngIf="setgstTax">
+							<input type="text" formControlName="unitigst" readonly>
+						</td>
+						<thead style='display:none;'>
+							<td><input type="text" formControlName="unitutgst" readonly></td>
+						</thead>
+
+						<td id="discount">
+							<input type="text" formControlName="unitdiscount">
+						</td>
+						<td><input type="text" formControlName="subtotal"></td>
+						<td><input type="text" formControlName="total_amount"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<label class="col-form-label labal">Total Amount</label>
+				<input type="text" class="form-control inputline" placeholder="Enter Total Amount"
+					formControlName="totalamount" disabled />
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<button type="submit" class="btn btn-success btn-round">Destroy Damage_Stock</button>
+			</div>
+		</div>
+	</form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

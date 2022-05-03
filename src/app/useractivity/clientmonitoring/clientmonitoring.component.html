@@ -1,0 +1,102 @@
+<style>
+  .nodata {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    color: red;
+    font-family: Arial;
+  }
+</style>
+
+<app-card>
+  <br>
+  <div class="row">
+
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6">
+      <div class="form-inline justify-content-end">
+        <strong class="searchstyle">Search:</strong>
+        <input type="text" [(ngModel)]="filterQuery" class="form-control w-50"
+          placeholder="Search By client Monitoring No" autofocus />
+      </div>
+    </div>
+
+  </div><br>
+
+  <div class="dt-responsive" style="overflow: auto;">
+    <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"
+      [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy"
+      [(mfSortOrder)]="sortOrder">
+
+      <thead>
+        <tr>
+
+
+
+          <th scope="col">S.No</th>
+          <!-- <th scope="col">Ship Id</th> -->
+          <th scope="col">Performed By</th>
+          <th scope="col">Client</th>
+          <th scope="col">Description</th>
+          <th scope="col"> Date</th>
+
+
+          <th scope="col">IP Address</th>
+          <th scope="col">Browser Type</th>
+          <th scope="col">OS Type</th>
+          <th scope="col">OS version</th>
+        
+        
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr *ngIf="(data | dataFilter: filterQuery) === 0">
+
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="nodata">No matching Records found....</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+
+
+        </tr>
+
+
+        <tr *ngFor="let item of mf.data;let i=index">
+          <td>{{i+1}}</td>
+          <!-- <td>{{item[0]}}</td> -->
+          <td>{{item[0]}}</td>
+          <td>{{item[1]}}</td>
+          <td>{{item[2]}}</td>
+          <td style="text-align: center">{{item[3]}}</td>
+
+
+          <td>{{item[4]}}</td>
+          <td>{{item[5]}}</td>
+
+          <td>{{item[6]}}</td>
+          <td>{{item[7]}}</td>
+       
+
+        </tr>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="15">
+            <!-- <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page = $event" style="float: right;"></pagination-controls> -->
+            <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</app-card>

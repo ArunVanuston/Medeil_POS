@@ -1,0 +1,818 @@
+<style>
+a:hover{
+  color:white;
+}
+.btn.btn-round{
+    margin-top: 35px;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Doctor Reports
+    <em class="fa fa-print ficon"></em>
+  </div>
+ 
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-lg-3">
+     
+          <label class="form-label">
+            Company Name
+          </label>
+          <select name="select" class="form-control" formControlName="company" (change)="getBranch()">
+            <option value="opt1">---Select Company---</option>
+            <option *ngFor="let companies of companyrefid" value={{companies[0]}}>{{companies[1]}}</option>
+          </select>
+        
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Branch
+        </label>
+        <select name="select" class="form-control" placeholder="Select Branch" (change)="getShop()" (click)="view()" formControlName="branchname">
+          <option value="opt1">---Select Branch Name---</option>
+          <option *ngFor="let coun of branchrefid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Shop
+        </label>
+        <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" (click)="view()" formControlName="shop">
+          <option value="opt1">---Select shop Name---</option>
+          <option *ngFor="let coun of shopid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/DoctorList/Doctorinfo.rptdesign&branchrefid={{branchref}}&locname={{locname}}&locrefid={{varshop}}&companyrefid={{companyref}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="sub-title">Distributor Reports</div>
+  
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-lg-3">
+        
+          <label class="form-label">
+            Company Name
+          </label>
+          <select name="select" class="form-control" formControlName="company" (change)="getBranch()">
+            <option value="opt1">---Select Company---</option>
+            <option *ngFor="let companies of companyrefid" value={{companies[0]}}>{{companies[1]}}</option>
+          </select>
+        
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Branch
+        </label>
+        <select name="select" class="form-control" placeholder="Select Branch" (change)="getShop()" (click)="view()" formControlName="branchname">
+          <option value="opt1">---Select Branch Name---</option>
+          <option *ngFor="let coun of branchrefid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Shop
+        </label>
+        <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" (click)="view()" formControlName="shop">
+          <option value="opt1">---Select shop Name---</option>
+          <option *ngFor="let coun of shopid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/DitributorList/distributor_info.rptdesign&branchrefid={{branchref}}&locname={{locname}}&locrefid={{varshop}}&companyrefid={{companyref}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="sub-title">Employee Reports</div>
+ 
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-lg-3">
+        
+          <label class="form-label">
+            Company Name
+          </label>
+          <select name="select" class="form-control" formControlName="company" (change)="getBranch()">
+            <option value="opt1">---Select Company---</option>
+            <option *ngFor="let companies of companyrefid" value={{companies[0]}}>{{companies[1]}}</option>
+          </select>
+        
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Branch
+        </label>
+        <select name="select" class="form-control" placeholder="Select Branch" (change)="getShop()" (click)="view()" formControlName="branchname">
+          <option value="opt1">---Select Branch Name---</option>
+          <option *ngFor="let coun of branchrefid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Shop
+        </label>
+        <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" (click)="view()" formControlName="shop">
+          <option value="opt1">---Select shop Name---</option>
+          <option *ngFor="let coun of shopid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/EmployeeList/Employeeinfo.rptdesign&branchid={{branchref}}&locname={{locname}}&locrefid={{varshop}}&companyid={{companyref}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+    <br>
+
+  <div class="sub-title">Customer Reports</div>
+ 
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-lg-3">
+        
+          <label class="form-label">
+            Company Name
+          </label>
+          <select name="select" class="form-control" formControlName="company" (change)="getBranch()">
+            <option value="opt1">---Select Company---</option>
+            <option *ngFor="let companies of companyrefid" value={{companies[0]}}>{{companies[1]}}</option>
+          </select>
+        
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Branch
+        </label>
+        <select name="select" class="form-control" placeholder="Select Branch" (change)="getShop()" (click)="view()" formControlName="branchname">
+          <option value="opt1">---Select Branch Name---</option>
+          <option *ngFor="let coun of branchrefid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Shop
+        </label>
+        <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" (click)="view()" formControlName="shop">
+          <option value="opt1">---Select shop Name---</option>
+          <option *ngFor="let coun of shopid " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/Customerlist/Customerlist.rptdesign&branchrefid={{branchref}}&locname={{locname}}&locrefid={{varshop}}&companyrefid={{companyref}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+    <br>
+
+  <div class="sub-title">Purchase Report:</div><br>
+  <div class="title1">
+    
+       <u> Distributor's Purchase Report </u>
+      
+  </div>
+  <br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row">
+      <div class='col-lg-4'>
+
+
+        <div class='date' id='datetimepicker6'>
+
+          <label class="form-label">
+            From Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+
+        <div class='date' id='datetimepicker7'>
+
+          <label class="form-label">
+            To Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+
+
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteDistributorPurchase/CompleteDistributorPurchase.rptdesign&branchrefid=15&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="title1">
+  <u> Shop's Purchase Report </u>
+</div>
+<br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row">
+      <div class='col-lg-4'>
+
+
+        <div class='date' id='datetimepicker6'>
+
+          <label class="form-label">
+            From Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+
+        <div class='date' id='datetimepicker7'>
+
+          <label class="form-label">
+            To Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+
+
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteShopwisePurchase/CompleteShopwiseReport.rptdesign&branchrefid=16&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="title1">  
+   <u>Distributorwise Purchase Report</u>
+</div>
+<br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row">
+      <div class='col-lg-3'>
+
+
+        <div class='date' id='datetimepicker6'>
+
+          <label class="form-label">
+            From Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+
+        <div class='date' id='datetimepicker7'>
+
+          <label class="form-label">
+            To Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Distributor
+        </label>
+        <select name="select" class="form-control" placeholder="Select distributor" (change)="view()" formControlName="distributor">
+          <option value="opt1">---Select distributor Name---</option>
+          <option *ngFor="let coun of distlist " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqDistributorwisePurchase/DistributorwisePurchaseReport.rptdesign&branchrefid=15&locname={{locname}}&locrefid={{distvar}}&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="title1">  
+    <u>Shopwise Purchase Report</u>
+ </div>
+ <br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group row">
+      <div class='col-lg-3'>
+
+
+        <div class='date' id='datetimepicker6'>
+
+          <label class="form-label">
+            From Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+
+        <div class='date' id='datetimepicker7'>
+
+          <label class="form-label">
+            To Date:
+          </label>
+
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+
+
+        </div>
+
+      </div>
+
+      <div class="col-lg-3">
+        <label class="form-label semibold">
+          Shop
+        </label>
+        <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" formControlName="shopwise">
+          <option value="opt1">---Select shop Name---</option>
+          <option *ngFor="let coun of shoplist " value={{coun[0]}}>
+            {{coun[1]}}</option>
+        </select>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqShopwisePurchase/ShopwisePurchaseReport.rptdesign&branchrefid=16&locname={{locname}}&locrefid={{shopvar}}&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+    <br>
+
+    <div class="title1">  
+      <u>OverAll Purchase Report</u>
+   </div>
+   <br>
+ 
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompletePurchase/HqCompletePurchase.rptdesign&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+  <div class="sub-title">
+  Sales Reports:</div>
+
+  <div class="title1">  
+    <u>Distributor's Sales Report</u>
+ </div>
+ <br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteDistributorSales/CompleteDistributorSalesreport.rptdesign&branchrefid=15&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="title1">  
+    <u>Shop's Sales Report</u>
+ </div>
+ <br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteShopSales/CompleteShopSalesReport.rptdesign&branchrefid=16&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+  <div class="title1">  
+    <u>Distributorwise Sales Report</u>
+ </div>
+ <br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class="col-lg-3">
+          <label class="form-label semibold">
+            Distributor
+          </label>
+          <select name="select" class="form-control" placeholder="Select distributor" (change)="view()" formControlName="distributor">
+            <option value="opt1">---Select distributor Name---</option>
+            <option *ngFor="let coun of distlist " value={{coun[0]}}>
+              {{coun[1]}}</option>
+          </select>
+        </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqDistributorwiseSales/DistributorwiseSales.rptdesign&branchrefid=15&companyrefid={{companyid}}&locname={{locname}}&locrefid={{distvar}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+    <br>
+
+    <div class="title1">  
+      <u>Shopwise Sales Report</u>
+   </div>
+   <br>
+  
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class="col-lg-3">
+          <label class="form-label semibold">
+            Shop
+          </label>
+          <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" formControlName="shopwise">
+            <option value="opt1">---Select shop Name---</option>
+            <option *ngFor="let coun of shoplist " value={{coun[0]}}>
+              {{coun[1]}}</option>
+          </select>
+        </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqShopwiseSales/ShopwiseSalesReport.rptdesign&branchrefid=16&companyrefid={{companyid}}&locname={{locname}}&locrefid={{shopvar}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="title1">  
+    <u>OverAll Sales Report</u>
+ </div>
+ <br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteSales/HqCompleteSales.rptdesign&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+    <br>
+    <div class="sub-title">Stock Reports:</div>
+  
+    <div class="title1">  
+      <u>Distributor's Stock Report</u>
+   </div>
+   <br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteDistributorStockReport/CompleteDistributorStockReport.rptdesign&branchrefid=15&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+    <br>
+    <div class="title1">  
+      <u>Shop's Stock Report</u>
+   </div>
+   <br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+           To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteShopStock/CompleteShopStockReport.rptdesign&branchrefid=16&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+
+  <div class="title1">  
+    <u>Distributorwise Stock Report</u>
+ </div>
+ <br>
+
+    <form [formGroup]="myForm">
+      <div class="form-group row">
+  
+        <div class='col-lg-3'>
+          <div class='date' id='datetimepicker6'>
+            <label class="form-label">
+              From Date:
+            </label>
+            <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+          </div>
+  
+        </div>
+        <div class='col-lg-3'>
+          <div class='date' id='datetimepicker7'>
+            <label class="form-label">
+              To Date:
+            </label>
+            <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+          </div>
+  
+        </div>
+        <div class="col-lg-3">
+            <label class="form-label semibold">
+              Distributor
+            </label>
+            <select name="select" class="form-control" placeholder="Select distributor" (change)="view()" formControlName="distributor">
+              <option value="opt1">---Select distributor Name---</option>
+              <option *ngFor="let coun of distlist " value={{coun[0]}}>
+                {{coun[1]}}</option>
+            </select>
+          </div>
+        <div class=" col-lg-2" align="right">
+          <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqDistributorwiseStock/DistributorwiseStockReport.rptdesign&branchrefid=15&companyrefid={{companyid}}&locname={{locname}}&locrefid={{distvar}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+            class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+        </div>
+      </div>
+    </form>
+  
+ <br>
+
+ <div class="title1">  
+  <u>Shopwise Stock Report</u>
+</div>
+<br>
+
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+           To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class="col-lg-3">
+          <label class="form-label semibold">
+            Shop
+          </label>
+          <select name="select" class="form-control" placeholder="Select Shop" (change)="view()" formControlName="shopwise">
+            <option value="opt1">---Select shop Name---</option>
+            <option *ngFor="let coun of shoplist " value={{coun[0]}}>
+              {{coun[1]}}</option>
+          </select>
+        </div>
+      <div class=" col-lg-2" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqShopwiseStock/ShopwiseStockReport.rptdesign&branchrefid=16&companyrefid={{companyid}}&locname={{locname}}&locrefid={{shopvar}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+  <br>
+  <div class="title1">  
+    <u>OverAll Stock Report</u>
+ </div>
+ <br>
+  
+  
+  <form [formGroup]="myForm">
+    <div class="form-group row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            From Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            To Date:
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io:8080/birt/frameset?__report=MedeilReports/HqCompleteStock/HqCompleteStock.rptdesign&companyrefid={{companyid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+

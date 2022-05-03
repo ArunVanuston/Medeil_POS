@@ -1,0 +1,163 @@
+
+<style>
+    
+    .action
+      {
+          font-size: 15px;
+          color: green;
+      }
+      .action1
+      {
+          font-size: 15px;
+          color: red;          
+      }
+      .toolers
+      {
+       
+        display : none;
+       
+      
+      } 
+  </style>
+
+      <app-card>  
+        <div class="sub-title">View Shop Details
+          <em class="fa fa-eye ficon"></em>
+        </div>
+        <div class="panels">
+        <div class="panel1" style="width:95%;float:left">
+          <div align="center">
+            <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+          </div><br>
+             
+          <div style="overflow-x:auto">
+            <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" 
+            [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable"
+                   [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+              <thead>
+              <tr> 
+                <th scope="col"> 
+                  S.No
+                </th>
+                <th scope="col">
+                  Shop Name
+                </th>
+                <th scope="col">
+                Owner Name
+                </th>
+                <th scope="col">
+                 Address
+                </th>                 
+                <th scope="col">
+                  Country
+                </th>
+               
+                <th scope="col">
+                  Mobile Number
+                </th>
+                <th scope="col">
+                 Email ID
+                </th>
+                <th scope="col">
+                  Logo
+                 </th>
+                <!-- <th scope="col">
+                  <mfDefaultSorter by="dlno"><h6>DL Number</h6></mfDefaultSorter>
+                </th>  -->
+  
+                <!-- <th scope="col">
+                  <mfDefaultSorter  by="gstno"><h6>GST</h6></mfDefaultSorter>
+                </th>
+                 -->
+                <th scope="col">
+                   Action
+                  </th>                           
+              </tr>
+              <tr>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                      <td class="nodata">No Data Available..</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td> 
+                      <!-- <td></td> -->
+                      <!-- <td></td>
+                      <td></td>           -->
+                    </tr>                              
+              <tr *ngFor="let val of mf.data;let i=index"> 
+                <td>{{i+1}}</td>
+                <td>{{val.shopname}}</td>
+                <td>{{val.ownerName}}</td>
+                <td>{{val.address}}</td>
+                <td>{{val.country}}</td>
+               
+                <td>{{val.mobilenumber}}</td>
+                <td>{{val.emailid}}</td>
+                <td>
+                  <img [src]="val.logo" alt="altitem" height = "50" width = "100" *ngIf="val.logo != 'noimage'">
+                  <img  src="assets/images/noimage.png" height = "50" width = "100" *ngIf="val.logo=='noimage'">
+                </td>
+                <!-- <td>{{val[7]}}</td> -->
+                <!-- <td>{{val[8]}}</td>                 -->
+                <td>                
+                    <div ngbDropdown class="dropdown-secondary dropdown" >
+                            <button style="color:rgb(224, 78, 230);" ngbDropdownToggle class="btn btn-mini dropdown-toggle waves-light b-none txt-muted dropDownbutton" type="button" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><em class="icofont icofont-navigation-menu"></em></button>
+                            <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown10" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                              <a class="dropdown-item waves-light waves-effect" href="javascript:;" [routerLink]="['/ShopRegistration/ViewShopDetails']"skipLocationChange> <em class="icofont icofont-ui-edit action" title="Edit Company">&nbsp;<span class="tdspan">Edit</span></em></a>
+                              <!-- <a class="dropdown-item waves-light waves-effect" href="javascript:;" (click)="deleteShop(val[9])"><em class="icofont icofont-delete-alt action1" title="Delete">&nbsp;<span class="tdspan">delete</span></em></a> -->
+                              </div>
+                              </div> 
+                </td> 
+              </tr> 
+              </tbody>
+              <tfoot>              
+              <tr>
+                <td colspan="11">
+                  <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="panel2" style="width:5%;float:right">
+        <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </div>
+        </div> 
+
+        <!--<div class="dt-responsive">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+              <div>
+                <label class="label-control">Show
+                  <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                    <option [ngValue]="1">1</option>
+                    <option [ngValue]="25">25</option>
+                    <option [ngValue]="50">50</option>
+                    <option [ngValue]="100">100</option>
+                  </select>
+                  Entries
+                </label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+              <div class="form-inline justify-content-end" >
+	
+                <strong class="searchstyle">Search :</strong>
+                <input type="search" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Search Shop Name">
+              
+            </div>
+            </div>
+
+          </div> <br>
+        </div>-->
+      </app-card>
+      <ng2-toasty [position]="'center-center'"></ng2-toasty>
+   

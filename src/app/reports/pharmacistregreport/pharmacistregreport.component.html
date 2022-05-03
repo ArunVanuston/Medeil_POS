@@ -1,0 +1,74 @@
+<app-card>
+
+  <div class="sub-title">CRM Reports
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+
+  <form [formGroup]="PharmacistReport">
+
+
+    <div class="row">
+
+      <div class="col-lg-3">
+
+        <label class="form-label">Schedule</label>
+        <select name="select" class="form-control" formControlName="scheduleid">
+          <option value="opt1">---Select Customer Name---</option>
+          <option value=0>Select All</option>
+          <option *ngFor="let sch of data" value={{sch[0]}}>{{sch[1]}}</option>
+        </select>
+
+      </div>
+
+
+      <div class='col-lg-3'>
+
+
+        <div class='date' id='datetimepicker6'>
+
+          <label class="form-label">From Date:</label>
+
+          <input type="date" (click) = "setvalue()" (change)="setvalue()" class="form-control"
+            formControlName="fromdate" />
+
+        </div>
+
+      </div>
+
+      <div class='col-lg-3'>
+
+        <div class='date' id='datetimepicker7'>
+
+          <label class="form-label">To Date:</label>
+
+          <input type="date" (click) = "setvalue()" (change)="setvalue()" class="form-control"
+            formControlName="todate" />
+
+
+        </div>
+
+      </div>
+
+      <div class=" col-lg-2" align="right">
+        <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/Sales Register/PharmacistReg.rptdesign&scheduleid={{scheduleid}}&fromdate={{fromdate}}&todate={{todate}}&companyrefid={{companyrefid}}&locrefid={{locrefid}}"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+          <button class="btn-round" (click)="schedulerep()">View </button>
+
+        </div>
+    </div>
+
+
+
+  </form>
+</app-card>
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:205%">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

@@ -1,0 +1,106 @@
+
+<app-card>
+  <div class="sub-title">{{'finance.daybookdetails'| translate}}
+		<em class="ti-receipt ficon"></em>
+    </div>
+    <div class="panels">
+      <div class="panel1" style="width:95%;float:left">
+ 
+          <div class="row">
+        
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-1"></div>
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-4">
+              <form [formGroup]="registerForm">
+              
+                <label class="form-label semibold" for="exampleInput">Select Date </label>
+                <input type="date" (change)="viewdayBook()" class="form-control" formControlName="date" />
+              
+            </form>  
+           </div>
+            <div class="col-xs-12 col-sm-12 col-sm-12 col-md-7"></div>
+            
+          </div><br>
+          
+          <div align="center">
+            <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+          </div>
+        
+          <div class="dt-responsive">
+            <div style="overflow-x: auto">
+              <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+               #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+                <thead>
+                <tr>
+                <th scope="col">S. No </th>  
+                <th scope="col">{{'finance.debitaccount'| translate}}</th>
+                <th scope="col">{{'finance.creditaccount'| translate}}</th>
+                <th scope="col">{{'finance.debitamount'| translate}}</th>
+                <th scope="col">{{'finance.creditamount'| translate}}</th>
+                </tr>
+                </thead>
+        
+                <tbody>
+                <tr *ngFor="let item of mf.data;let i=index">
+                  <td>{{i+1}}  </td> 
+                  <td>{{item[4]}} </td>
+                  <td>{{item[5]}} </td>
+                  <td>{{item[2] | number:'1.2-2'}} </td>
+                  <td>{{item[3] | number:'1.2-2'}} </td>
+                </tr>
+                    
+                <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+                  <td></td>
+                  <td class="nodata">No Data Available..</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                </tbody>
+        
+                <tfoot>
+                  <tr>
+                    <td></td> 
+                    <td></td>
+                    <td></td>
+                    <td>Total: {{totdebit}}</td>
+                    <td>Total: {{totcredit}}</td>
+                  </tr>
+                  <tr>
+                    <td colspan="9">
+                      <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                    </td>
+                  </tr>
+              
+                </tfoot>
+        
+              </table>
+            </div>
+          </div>
+          <div class="pl-5 pr-3" style="border:2px solid #002e86">
+            <div class="row">
+              <div class="col-lg-3 px-2 py-4">
+                <th scope="col" style="font-weight: normal;font-size:1.2em">{{'finance.openingbalance'| translate}}</th>
+                <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                  {{openbal}}</td>
+              </div>
+              <div class="col-lg-3 px-2 py-4">
+                <th scope="col" style="font-weight: normal;font-size:1.2em;">{{'finance.closingbalance'| translate}}</th>
+                <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                  {{closebal}}</td>
+              </div>
+              <!-- <div class="col-lg-2 py-4" align="right">
+              <th scope="col" style="font-weight: normal;font-size:1.2em;"> Net Profit:</th>
+            </div> -->
+              <!-- <div class="col-lg-4" style="background-color: #002e86;color:white;">
+              <label class="" style="font-weight:bold; font-size: 3.1em;">
+                {{registerForm.controls.netprofit.value}}</label><br>
+            </div> -->
+            </div>
+          </div><br>
+        </div>
+      <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+      </div>
+      </div>
+ 
+</app-card>

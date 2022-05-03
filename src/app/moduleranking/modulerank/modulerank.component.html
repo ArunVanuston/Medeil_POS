@@ -1,0 +1,131 @@
+    <style>
+    #swidth{
+        width:275px;
+    }
+
+    .form-control-default {
+         border:2px solid blueviolet;
+    }
+    </style>
+    
+    <app-card>
+        
+        <div class="sub-title">Module Ranking
+            <em class="fa fa-star ficon"></em>
+        </div>
+        <div class="panels">
+        <div class="panel1" style="width:95%;float:left">
+            <form [formGroup]="modulerankForm" (ngSubmit)="onSubmit()">
+          <div class="container">
+              <div class="" align="right">
+                  <button type="button" class="btn-round" [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+              </div><br>
+                <div class="conditions">
+          
+                    <h5 style="font-weight: bold;font-family: Montserrat;">Conditions for Give Ranking:</h5><br><br>
+                    <ol style="font-size: 16px;font-family: Montserrat;">
+                            <li>Ranking Value Not to be Empty (or) Null</li>
+                            <li>Ranking Value Not to be Zero</li>
+                            <li>Ranking Value Not to be Higher than your Module Count (eg: If S.No 15 Value Must be 15 or Below)</li>
+                            <li>Ranking Value Not to be Occur Duplicate</li>
+                    </ol> 
+          
+                </div><br>
+          
+              
+            <div class="row">
+          
+                <div class="col-lg-2"></div> 
+                
+            <div class="col-lg-6">
+           
+              <div class="col-lg-6">
+                  
+                      <label class="form-label">Label Names</label>
+          
+                      <select  formControlName="foldername" (change)="getmodules()" 
+                      class="form-control" placeholder="Select Division">
+                          <option selected disabled value="opt1">---Select Label---</option>
+                          <option *ngFor="let module of modulelist" value="{{module}}"> {{module}}
+                          </option>
+                      </select> 
+          
+                      <!-- <div class="messages text-danger" *ngIf="myForm.controls.division.errors?.pattern">Text only Allowed!</div> -->
+          
+                 
+              </div><br>
+          
+             
+                <div class="flow" formArrayName="moduleDetails">
+                    <table aria-describedby="mydesc" rz-table class="table styletab">
+                        <thead class="stylehead">
+                            <tr>
+                            
+                                <th scope="col">S.No</th>                        
+                                <th scope="col">Module Name</th>
+                                <th scope="col">Ranking</th>
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+                
+                            <tr *ngFor="let rank of modulerankForm.controls.moduleDetails.controls; let i = index"
+                            [formGroupName]="i">
+                            
+                                <td id="width2">{{i+1}}</td>
+                            
+                                <td>
+                                  <input formControlName="modulename" style="text-align:left" id="swidth" readonly>
+                                  
+                               </td>
+          
+                                <td>
+                                    <input formControlName="ranking" id="width2">
+                                </td>
+                
+                
+                            </tr>
+                            
+                            
+                        
+                            <tr *ngFor="let rank of itemlength; let i = index">
+                            
+                                <td>
+                                    <input type="text" id="width2" >
+                                </td>
+                                <td>
+                                  <input type="text" id="swidth">
+                              </td>
+                                <td>
+                                    <input type="text" id="width2" >
+                                </td>
+                
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>      
+                  </div><br>
+                  <div class="" align="center">
+                      <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                  </div><br>
+          
+                  <div class="ml-4">
+                      <button type="submit" class="btn-round">Save</button>
+                  </div>           
+                          
+                      
+                </div><!--Col-lg-6 End-->
+                <div class="col-lg-4"></div>
+          
+                </div><!--Row Complete-->
+             </div><!---Container Complete-->
+             <ng2-toasty [position]="'center-center'"></ng2-toasty>
+              </form>
+        </div>
+        <div class="panel2" style="width:5%;float:right">
+        <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </div>
+        </div>	
+    
+  </app-card>
+ 

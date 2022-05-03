@@ -1,0 +1,291 @@
+<style>
+  #swidth {
+    width: 270px;
+  }
+
+  #autolist {
+    height: 150px;
+    position: absolute;
+    overflow: auto;
+  }
+
+  #autolistdata :focus {
+    background-color: blue;
+    color: white;
+  }
+</style>
+<app-card>
+  <div class="sub-title">{{'finance.receipts'| translate}}
+    <em class="ti-receipt ficon"></em>
+  </div>
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <div align="right">
+        <button [routerLink]="'/Receipt/ViewReceipt'" class="btn-round">{{'finance.viewreceipts'| translate}}</button>
+      </div><br>
+      <form [formGroup]="registerForm">
+        <div class="box-typical box-typical-padding">
+          <div class="form-group row">
+            <div class="col-lg-4">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.receiptmode'| translate}}</label>
+              <select class="form-control" (change)="receiptmode($event.target.value)">
+                <option value="opt1" disabled>--Select Mode--</option>
+                <option value="1">Vendor</option>
+                <option value="2">Customer</option>
+                <option value="3">Employee</option>
+                <option value="4">Invoice</option>
+                <option value="5">Others</option>
+              </select>
+            </div>
+
+            <div class="col-lg-4" *ngIf="receipt == 4">
+              <label class="form-label semibold" for="exampleInput">{{'finance.invoicetype'| translate}}</label>
+              <select class="form-control" (change)="selectinvoice($event.target.value)" formControlName="typeflag">
+                <option value="1">Sales Invoice</option>
+                <option value="2">Purchase Return</option>
+              </select>
+            </div>
+
+
+            <div class="col-lg-4" *ngIf="receipt == 1">
+              <label class="form-label semibold" for="exampleInput">{{'finance.name'| translate}}</label>
+              <ng-select [options]="distributors" placeholder="Search Vendor" (change)="getcustomerinvdetails()"
+                (click)="getcustomerinvdetails()" formControlName="vendornoref">
+              </ng-select>
+            </div>
+            <div class="col-lg-4" *ngIf="receipt == 2">
+              <label class="form-label" for="exampleInput">{{'finance.name'| translate}}</label>
+              <ng-select [options]="customerdata" placeholder="Search Customer" (change)="getcustomerpendinglists()"
+                (click)="getcustomerpendinglists()" formControlName="customerid">
+              </ng-select>
+            </div>
+            <div class="col-lg-4" *ngIf="receipt == 5">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.name'| translate}} </label>
+              <input type="text" class="form-control" (blur)="otherreceiptdetails()" formControlName="personame" />
+            </div>
+            <div class="col-lg-4" *ngIf="receipt == 3">
+              <label class="form-label" for="exampleInput">{{'finance.name'| translate}}</label>
+              <ng-select [options]="employee" class="inputstyle" placeholder="Search Employee"
+                (click)="getEmployeedetails()" formControlName="employeeid"></ng-select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.journaldate'| translate}}</label>
+              <input type="date" class="form-control" formControlName="date" />
+            </div>
+
+          </div>
+          <div class="form-group row">
+            <div class="col-lg-4" *ngIf="invoiceno && receipt == 4">
+              <label class="form-label semibold" for="exampleInput">{{'finance.invoiceno'| translate}}
+                <span style="color:red">*</span></label>
+              <ng-select [options]="invoicenodata" placeholder="Type: SIV0000" (change)="getinvoicedetails()"
+                (click)="getinvoicedetails()" (input)="getinvoiceno($event.target.value)"
+                formControlName="invoicenoref">
+              </ng-select>
+            </div>
+            <div class="col-lg-4" *ngIf="returnno && receipt == 4">
+              <label class="form-label semibold" for="exampleInput">{{'finance.returnno'| translate}}
+                <span style="color:red">*</span></label>
+              <ng-select [options]="returnnodata" placeholder="Type: PR/RET/0000" (change)="getreturndetails()"
+                (click)="getreturndetails()" (input)="getreturnno($event.target.value)" formControlName="invoicenoref">
+              </ng-select>
+            </div>
+            <div class="col-lg-4">
+              <label class="form-label semibold" for="exampleInput"> {{'finance.receipttype'| translate}}</label>
+
+              <select class="form-control" formControlName="paymenttype">
+                <option value="opt1" disabled>--Select Type--</option>
+                <option value="1">Cash</option>
+                <option value="2">Card</option>
+                <option value="3">Cheque</option>
+              </select>
+            </div>
+
+
+          </div>
+
+          <br> <!-- splitcolumn   end-->
+
+          <!-- table start-->
+          <div class="flow" formArrayName="invoiceDetails" *ngIf="receipt != 2">
+            <table aria-describedby="mydesc" class="table styletab">
+              <thead class="stylehead">
+                <tr>
+                  <th scope="col"><input type="checkbox" (click)="selectallprod($event)" /></th>
+                  <th scope="col">{{'finance.name'| translate}}</th>
+                  <th scope="col">{{'finance.invoiceno'| translate}}</th>
+                  <th scope="col">{{'finance.creditaccount'| translate}}</th>
+                  <!-- <th scope="col" *ngIf="receipt !== 3 || receipt !== 5">Debit Account</th> -->
+                  <th scope="col">{{'finance.creditamount'| translate}}</th>
+                  <!-- <th scope="col" *ngIf="receipt == 5">Debit Amount</th> -->
+
+                  <!--            <th scope="col">Bal Amt  </th>   -->
+
+                </tr>
+              </thead>
+              <tbody class="stylebody">
+                <tr *ngFor="let val of registerForm.controls.invoiceDetails.controls; let i = index"
+                  [formGroupName]="i">
+                  <td>
+                    <input type="checkbox" formControlName="checklist"
+                        id="width1" (click)="selecprod($event,i)" />
+                    <!--(click)="selecprod($event,i)"-->
+                  </td>
+                  <td><input formControlName="personame" class="left" id="width6" /></td>
+                  <td><input formControlName="invoicename" class="left" id="swidth" /></td>
+                  <!--    <td><input   value={{i+1}}  readonly/></td>      -->
+                  <!-- [style.display]="none" -->
+                  <td *ngIf="receipt != 5 && receipt != 3 ">
+                    <input formControlName="craccname" class="left" id="width5"  />
+                  </td>
+                  <!-- <td *ngIf="receipt != 3 && receipt != 5">
+                    <input formControlName="draccname" class="left" id="width5" readonly />
+                  </td> -->
+                  <td *ngIf="receipt == 3 || receipt == 5" id="width3">
+                    <select formControlName="creditaccountemp" (change)="viewCreditAcc()">
+                      <option *ngFor="let item of accounts ; let i = index" value={{i}}>{{item[1]}}</option>
+                    </select>
+                  </td>
+                  <!-- <td *ngIf="receipt == 5" id="width3">
+                    <select formControlName="debitaccountemp" (change)="viewDebitAcc()">
+                      <option *ngFor="let item of   accounts ; let i = index" value={{i}}>{{item[1]}}</option>
+                    </select>
+                  </td> -->
+                  <td><input formControlName="creditamount" type="number" class="right" id="width4" /></td>
+                  <!-- <td *ngIf="receipt == 5"><input formControlName="debitamount" type="number" /></td> -->
+
+                  <!--         <td><input  formControlName="invoicebalamt"   /></td>  -->
+
+                </tr>
+                <tr *ngFor="let item of itemlength; let i=index">
+                  <td> <input id="width1" readonly/> </td>
+                  <td> <input id="width1" readonly/> </td>
+                  <td> <input id="width1" readonly/> </td>
+                  <td *ngIf="receipt != 5 && receipt != 3"> <input id="width1" readonly/> </td>
+                  <td *ngIf="receipt == 3 || receipt == 5"> <input id="width1" readonly/> </td>
+                  <td> <input id="width1" readonly/> </td>
+                  <!-- <td *ngIf="receipt == 5"> <input id="width1" readonly/> </td> -->
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- table  end-->
+
+          <div class="flow mx-2" align="center" style="max-height: 180px;" *ngIf="receipt == 2">
+            <table aria-describedby="mydesc" class="table popstyletab px-2" formArrayName="duepaytable">
+                <thead class="stylehead">
+                    <tr>
+                        <th scope="col">Select</th>
+                        <th scope="col">S.No</th>
+                        <th scope="col">{{'finance.invoiceno'| translate}}</th>
+                        <th scope="col">{{'finance.amount'| translate}}</th>
+                        <th scope="col">{{'finance.payamount'| translate}}</th>
+                    </tr>
+                </thead>
+                <tbody class="stylebody">
+                    <tr *ngFor="let address of registerForm.controls.duepaytable.controls; let i=index"
+                    [formGroupName]="i">
+                    <td>
+                     <input class="paycheck ml-2" formcontrolname="checklist" type="checkbox" 
+                     id="width1" (click)="checkeddue(i)">
+                    </td>
+                    <td>
+                        <input value={{i+1}} readonly id="width1" />
+                    </td>
+                    <td>
+                        <input type="text" formControlName="invoicename" id="width5" style="text-align:left" readonly/>
+                    </td>
+                    <td>
+                     <input type="number" formControlName="creditamountdummy" id="width3"  readonly/>
+                     </td>
+                    <td>
+                        <input type="number" formControlName="creditamount" id="width3" 
+                        (blur)="paycalculate(i)"/>
+                    </td>
+                    <!-- <td>
+                     <input type="number" formControlName="invoicebalamt" id="width3"  />
+                    </td> -->
+                </tr>
+                <tr>
+                  <td>
+                      <input readonly id="width1" readonly/>
+                  </td>
+                  <td>
+                      <input type="text" id="width1" readonly/>
+                  </td>
+                  <td>
+                      <input type="number" id="width1"  readonly/>
+                  </td>
+                  <td>
+                      <input type="text"  id="width1" readonly/>
+                  </td>
+                  <td>
+                     <input type="text"  id="width1" readonly/>
+                 </td>
+              </tr>
+              <tr>
+                  <td>
+                      <input readonly id="width1" readonly/>
+                  </td>
+                  <td>
+                      <input type="text" id="width1" style="text-align:left" readonly/>
+                  </td>
+                  <td>
+                      <input type="number" id="width1"  readonly/>
+                  </td>
+                  <td>
+                     <input type="text"  id="width1" readonly/>
+                 </td>
+                  <td id="width1"></td>
+              </tr>
+              </tbody>
+            </table>
+             </div><br>
+
+          <div class="pl-5 pr-3" style="border:2px solid #002e86">
+            <div class="row">
+              <div class="col-lg-3 px-2 py-4">
+                <th scope="col" style="font-weight: normal;font-size:1.2em">{{'finance.referenceno'| translate}}</th>
+                <td class="ml-2" style="font-weight:bold; font-size: 1.6em;">
+                  <input type="text" class="form-control" formControlName = "ptrefno">
+                </td>
+              </div>
+              <div class="col-lg-3 px-2 py-4">
+
+              </div>
+
+              <div class="col-lg-2 py-4" align="right">
+                <th scope="col" style="font-weight: normal;font-size:1.2em;">{{'finance.total'| translate}}</th>
+              </div>
+              <div class="col-lg-4" style="background-color: #002e86;color:white;">
+                <label class="" style="font-weight:bold; font-size: 3.1em;">
+                  {{total}}</label><br>
+              </div>
+            </div>
+          </div>
+
+        </div><br> <!-- box-typical-->
+        <div align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        <div class="row">
+          <!-- row Start-->
+          <div class="col-lg-1"></div>
+          <div class="col-lg-3">
+            <button type="button" class="btn-round" (click)="onSubmit()" *ngIf="receipt != 2"> {{'finance.save'| translate}} </button>
+            <button type="button" class="btn-round" (click)="PayDue()" *ngIf="receipt == 2">{{'finance.rsave'| translate}}</button>
+            <!-- <button type="button" class="btn btn-round ml-4" [routerLink]="['/Receipt/receiptEdit' ]"> Edit </button> </div> -->
+          </div>
+
+        </div>
+        <!-- row end-->
+        <ng2-toasty [position]="'center-center'"></ng2-toasty>
+      </form>
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+
+
+</app-card>

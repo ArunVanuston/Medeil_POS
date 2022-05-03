@@ -1,0 +1,34 @@
+<app-card>
+  <div class="sub-title">
+    Disposal Stock List
+    <i class="fa fa-print ficon"></i>
+  </div><br>
+  <form [formGroup]="DistwiseForm">
+    <div class="row">
+      <div class="col-lg-4">
+        <label class="form-label">
+          <h6><B><u>Disposal Stock List</u></B></h6>
+        </label>
+      </div>
+      <div class="col-lg-7" align="right">
+        <button class="btn btn-round" (click)="getdisposalstocks()">View</button>
+      </div>
+    </div>
+
+
+  </form>
+</app-card>
+
+
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:230%;">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

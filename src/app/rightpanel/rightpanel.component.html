@@ -1,0 +1,94 @@
+<style>
+
+  .fcon{
+ cursor:pointer;
+ font-size:21px;
+ float:right;
+ }
+
+.show1 {
+height: 100%;
+width: 420px;
+position: absolute;
+z-index: 1;
+top: 0px;
+right: 4%;
+background-color: #FDFDFD;
+font-family: Montserrat;
+overflow-x: hidden;
+overflow-y: auto;
+transition: 0.5s;
+padding-top:10px;
+border-radius:8px;
+border-left:2px solid #E6E6E6;
+border-right: 2px solid#E6E6E6;
+}
+
+.hide1 {
+height: 100%;
+width: 0px;
+position: absolute;
+z-index: 1;
+top: 0px;
+right: 4%;
+background-color: #FDFDFD;
+font-family: Montserrat;
+overflow-x: hidden;
+transition: 0.5s;
+padding-top: 10px;
+border-radius:8px;
+}
+
+.guideinfo li{
+ font-size:12px;
+ margin:3px 0px;
+}
+
+@media (max-width: 512px) {
+  
+.show1 {
+width: 370px;
+right: 12%;
+}
+
+.hide1 {
+right: 12%;
+}
+
+}
+
+</style>
+
+  <div class="">
+  <span [title]="helpicon?'Hide Video!':'Show Video!'" [style.color]="helpicon ? 'brown':'#002e86'">
+  <em (click)="helpselect()" class="fa fa-file-video-o fcon"></em>
+  </span><br><br>
+
+  <span [title]="guideicon?'Hide Guide!':'Show Guide!'" [style.color]="guideicon ? 'brown':'#002e86'">
+  <em (click)="guideselect()" class="fa fa-book fcon"></em></span><br><br>    
+  
+  <span [title]="activityicon?'Hide Help!':'Show Help!'" [style.color]="activityicon ? 'brown':'#002e86'">
+  <em (click)="activityselect()" class="fa fa-question-circle fcon"></em></span>        
+
+  <div [ngClass]="helpicon?'show1':'hide1'"  *ngIf="!dummypanel">
+    <h4 class="mt-5 text-success" style="text-align:center;font-weight:bold" *ngIf="loadstatus">Loading!..</h4>
+    <div class="guidevideo mx-2 my-2">
+      <iframe width="400" height="300" [src]="videourl" frameborder="0" 
+      allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div><br><br>   
+  </div> 
+
+   <div [ngClass]="guideicon?'show1':'hide1'"  *ngIf="!dummypanel">
+    <h4 class="mt-5 text-success" style="text-align:center;font-weight:bold" *ngIf="loadstatus">Loading!..</h4>
+      <div class="guideinfo mx-2 my-4">
+          <ol *ngFor="let val of plists;let i=index">
+              <li>{{val}}</li>
+          </ol> 
+      </div>
+   </div> 
+
+   <div [ngClass]="activityicon?'show1':'hide1'"  *ngIf="!dummypanel">
+      <h4 class="mt-5" style="text-align:center;font-weight:bold">Update Soon!..</h4>         
+  </div> 
+
+</div>

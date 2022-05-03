@@ -1,0 +1,301 @@
+<style>
+  .nodata {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    color: rgb(245, 50, 50);
+    font-family: Verdana, Geneva, sans-serif;
+  }
+
+  .action {
+    font-size: 15px;
+    color: green;
+  }
+
+  .action1 {
+    font-size: 15px;
+    color: red;
+  }
+</style>
+<!-- <app-card>
+  <form [formGroup]="taxForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">Country</label>
+        <select name="select" class="form-control" formControlName="countryid" (change)="getCompany()">
+          <option value="opt1" selected disabled>---Select country---</option>
+          <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Company Name</label>
+        <select name="select" class="form-control" formControlName="companyrefid" (change)="getBranch()">
+          <option value="opt1" selected disabled>---Select Company---</option>
+          <option *ngFor="let coun of company " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Branch Name</label>
+        <select name="select" class="form-control" formControlName="branchrefid" (change)="getShopname()"
+          (change)="getWarehouse()" (change)="getHospital()">
+          <option value="opt1" selected disabled>---Select Branch---</option>
+          <option *ngFor="let coun of branch " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Shop Name</label>
+        <select name="select" class="form-control" formControlName="shoprefid">
+          <option value="0">---Select Shop---</option>
+          <option *ngFor="let coun of shopname " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Warehouse Name</label>
+        <select name="select" class="form-control" formControlName="warehouserefid">
+          <option value="0">---Select Warehouse---</option>
+          <option *ngFor="let coun of warehouse " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Hospital Name</label>
+        <select name="select" class="form-control" formControlName="hospitalrefid">
+          <option value="0">---Select Hospital---</option>
+          <option *ngFor="let coun of hospital " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="gstflag" checked="checked" formControlName="gstflag" [value]="0" value="0">
+              <em class="helper"></em>VAT
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" name="gstflag" formControlName="gstflag" [value]="1" value="1">
+              <em class="helper"></em>GST
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" id="2" name="radio">
+                <em class="helper"></em>Indian GST
+              </label>
+            </div>
+          </div>
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <button type="submit" class="btn btn-success btn-round">Save Taxtype</button>
+      </div>
+    </div>
+  </form>
+</app-card> -->
+
+<app-card>
+  <form [formGroup]="taxForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">Country</label>
+        <select name="select" class="form-control" formControlName="countryid" (click)="getCompany()">
+          <option value="opt1" selected disabled>---Select country---</option>
+          <option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Company Name</label>
+        <select name="select" class="form-control" formControlName="companyrefid" (change)="gettaxtype()">
+          <option value="opt1" selected disabled>---Select Company---</option>
+          <option *ngFor="let coun of company " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <!-- <div class="col-sm-4">
+        <label class="form-label semibold">Branch Name</label>
+        <select name="select" class="form-control" formControlName="branchrefid" (change)="getShopname()"
+          (change)="getWarehouse()" (change)="getHospital()">
+          <option value="opt1" selected disabled>---Select Branch---</option>
+          <option *ngFor="let coun of branch " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Shop Name</label>
+        <select name="select" class="form-control" formControlName="shoprefid">
+          <option value="opt1" selected disabled>---Select Shop---</option>
+          <option *ngFor="let coun of shopname " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Warehouse Name</label>
+        <select name="select" class="form-control" formControlName="warehouserefid">
+          <option value="opt1" selected disabled>---Select Warehouse---</option>
+          <option *ngFor="let coun of warehouse " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+      <div class="col-sm-4">
+        <label class="form-label semibold">Hospital Name</label>
+        <select name="select" class="form-control" formControlName="hospitalrefid">
+          <option value="opt1" selected disabled>---Select Hospital---</option>
+          <option *ngFor="let coun of hospital " value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div> -->
+    </div>
+    <!-- <div class="form-group row">
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" id="1" name="radio">
+              <em class="helper"></em>VAT
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-radio">
+          <div class="radio radio-inline">
+            <label>
+              <input type="radio" id="2" name="radio">
+              <em class="helper"></em>GST
+            </label>
+          </div>
+        </div>
+      </div>
+    -- <div class="col-sm-4">
+          <div class="form-radio">
+            <div class="radio radio-inline">
+              <label>
+                <input type="radio" id="2" name="radio">
+                <em class="helper"></em>Indian GST
+              </label>
+            </div>
+          </div>
+        </div>--
+    </div> -->
+    <div class="form-group row " *ngIf="tax == 0">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold control-label">VAT%</label>
+          <input type="text" class="form-control" placeholder="Please Enter VAT%" formControlName="vat" />
+        
+      </div>
+    </div>
+    <div class="form-group row " *ngIf="tax == 1">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold control-label">GST%</label>
+          <input type="text" class="form-control" placeholder="Please Enter GST%" formControlName="universalgst" />
+        
+      </div>
+    </div>
+    <div class="form-group row " *ngIf="tax == 2">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold control-label">GST TYPE</label>
+          <select name="select" class="form-control" formControlName="gsttype" (change)="getgsttype()" placeholder="---Select GST TYPE---">
+            <option value="0" selected disabled>---Select GST Type---</option>
+            <option value="1">GST</option>
+            <option value="2">SGST</option>
+            <option value="3">CGST</option>
+            <option value="4">IGST</option>
+            <option value="5">UTGST</option>
+          </select>
+        
+      </div>
+    </div>
+    <div class="Form-group row">
+      <div class="col-lg-4" *ngIf="gsttyposss == 1">
+        
+          <label class="form-label semibold control-label"></label>
+          <input type="text" class="form-control" placeholder="Please Enter GST%" formControlName="gst" />
+        
+      </div>
+      <div class="col-lg-4" *ngIf="gsttyposss == 2">
+        
+          <label class="form-label semibold control-label"></label>
+          <input type="text" class="form-control" placeholder="Please Enter SGST%" formControlName="sgst" />
+        
+      </div>
+      <div class="col-lg-4" *ngIf="gsttyposss == 3">
+        
+          <label class="form-label semibold control-label"></label>
+          <input type="text" class="form-control" placeholder="Please Enter CGST%" formControlName="cgst" />
+        
+      </div>
+      <div class="col-lg-4" *ngIf="gsttyposss == 4">
+        
+          <label class="form-label semibold control-label"></label>
+          <input type="text" class="form-control" placeholder="Please Enter IGST%" formControlName="igst" />
+        
+      </div>
+      <div class="col-lg-4" *ngIf="gsttyposss == 5">
+        
+          <label class="form-label semibold control-label"></label>
+          <input type="text" class="form-control" placeholder="Please Enter UTGST%" formControlName="utgst" />
+        
+      </div>
+    </div>
+
+    <!--  <div class="form-group row unigst">
+        <div class="col-lg-4">
+          
+            <label class="form-label semibold control-label">GST%</label>
+            <input type="text" class="form-control" placeholder="Please Enter GST%" formControlName="unigst" />
+          
+        </div>
+      </div>
+      <div class="form-group row gst">
+        <div class="col-lg-4">
+          
+            <label class="form-label semibold control-label">SGST%</label>
+            <input type="text" class="form-control" placeholder="Please Enter SGST%" formControlName="sgst" />
+          
+        </div>
+        <div class="col-lg-4">
+          
+            <label class="form-label semibold control-label">CGST%</label>
+            <input type="text" class="form-control" placeholder="Please Enter CGST%" formControlName="cgst" />
+          
+        </div>
+        <div class="col-lg-4">
+          
+            <label class="form-label semibold control-label">IGST%</label>
+            <input type="text" class="form-control" placeholder="Please Enter IGST%" formControlName="igst" />
+          
+        </div>
+        <div class="col-lg-4">
+          
+            <label class="form-label semibold control-label">UTGST%</label>
+            <input type="text" class="form-control" placeholder="Please Enter UTGST%" formControlName="utgst" />
+          
+        </div>
+        <div class="col-lg-4">
+          
+            <label class="form-label semibold control-label">GST%</label>
+            <input type="text" class="form-control" placeholder="Please Enter GST%" formControlName="gst" />
+          
+        </div>
+      </div>
+  
+      ---------------------------------
+    -->
+    <div class="form-group row">
+      <div class="col-lg-4">
+        <button type="submit" class="btn btn-success btn-round">Save</button>
+      </div>
+    </div>
+  </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

@@ -1,0 +1,136 @@
+<style>
+   #swidth{
+       width:250px;
+   }
+ 
+</style>
+
+<app-card>
+    <div class="sub-title">{{'finance.accountcharts'| translate}}
+        <em class="ti-agenda ficon"></em>
+    </div>
+    <div align="center">
+        <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+      </div>
+    <div class="panels">
+        <div class="panel1" style="width:95%;float:left">
+            <form [formGroup]="registerForm" class="mx-3">
+                <div class="box-typical box-typical-padding">
+        
+                   <br>
+                    <!-- splitcolumn  end-->
+                    <label class="title1"><u>{{'finance.accounts'| translate}}</u>
+                    </label><br>
+        
+                    <div formArrayName="accounts" class="flow" style="overflow-x:auto;">
+                        <!--. table  start-->
+                            <table aria-describedby="mydesc" class="table styletab">
+                                <thead class="stylehead">
+                                    <tr>
+                                        <th scope="col">S. No </th>
+                                        <th scope="col">{{'finance.accountnumber'| translate}}</th>
+                                        <th scope="col">{{'finance.accounttype'| translate}}</th>
+                                        <th scope="col">{{'finance.accountname'| translate}}</th>
+                                        <th scope="col">{{'finance.accountopeningbalance'| translate}}</th>
+                                        <th scope="col">{{'finance.accountclosingbalance'| translate}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="stylebody">
+                                <tr *ngFor="let address of registerForm.controls.accounts.controls; let i=index"
+                                    [formGroupName]="i">
+                                    <td>
+                                        <input value={{i+1}} readonly id="width2"/>
+                                    </td>
+                                    <td>
+                                        <input formControlName="accountno" id="width4"  />
+                                    </td>
+                                    <td>
+                                        <input formControlName="acctypename" class="left" id="width5" readonly />
+                                    </td>
+                                    <td>
+                                        <input formControlName="accname" class="left" id="swidth" readonly />
+                                    </td>
+                                    <td>
+                                        <input formControlName="openingbal" class="right" id="width4" />
+                                    </td>
+                                    <td>
+                                        <input formControlName="closingbal" class="right" id="width4" readonly />
+                                    </td>
+                                </tr>
+                                
+                                </tbody>
+                            </table>
+                    
+                    </div><br>
+                    <!--. table     end-->
+                
+                    <div class="row" *ngIf = "accountenable == 1">
+                        <!-- splitcolumn  start-->
+                            <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">{{'finance.accountnumber'| translate}}</label>
+                            <input type="text" class="form-control" formControlName="accountno"/>
+                            </div>
+                          
+                                <div class="col-lg-4">
+                                    <label class="form-label semibold" for="exampleInput">{{'finance.accounttype'| translate}} </label>
+                                    <select class="form-control" formControlName="accounttype" (change)="setBalflag()">
+                                        <option value="opt1" disabled>Select Type</option>
+                                        <option *ngFor="let item of acctype; let i = index" value={{item[0]}}>{{item[2]}}</option>
+                                    </select>
+                                </div>
+                               
+                                <div class="col-lg-4">
+                                    <label class="form-label semibold" for="exampleInput"> {{'finance.accountname'| translate}}</label>
+                                    <input type="text" (blur)="accountcheck()" formControlName="accountname" class="form-control"/>
+                                </div>
+        
+                                <div class="col-lg-4">
+                                    <label class="form-label semibold" for="exampleInput"> {{'finance.accountbalance'| translate}}</label>
+                                    <input type="number" formControlName="accbalance" class="form-control" />
+                                </div>
+                                <div class="col-lg-4">
+                                    <label class="form-label semibold" for="exampleInput">{{'finance.accountdescription'| translate}}</label>
+                                    <textarea formControlName="accdescription" class="form-control" (blur)="pushaccounttable()"></textarea>
+                                    <!-- <input type="number" formControlName="accbalance" class="form-control" (blur)="pushaccounttable()"/> -->
+                                </div>
+                               
+                                <!-- <div class="col-lg-4 mt-3">
+                                    <label class="form-label semibold" for="exampleInput">Cash Acc </label>
+                                    <select class="form-control" formControlName="cashflag">
+                                        <option value="true">True</option>
+                                        <option value="false">False</option>
+                                    </select>
+                                </div> -->
+                              
+                            </div><br>
+                            <div align="center">
+                                <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                            </div>
+                    <div class="row">
+        
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-3">
+                            <button type="button" class="btn-round" (click)="onSubmit()">{{'finance.createacc'| translate}}</button>
+                        </div>
+                        <div class="col-lg-3">
+                            <button type="button" class="btn-round" (click)="saveClosetempAccounts()">{{'finance.closeacc'| translate}}</button>
+                        </div>
+                        <div class="col-lg-3">    
+                            <button type="button" class="btn-round" (click)="addaccount()">{{'finance.addnewaccount'| translate}}</button>
+                        </div>
+                       
+                    </div>
+                    <!-- splitcolumn  end-->
+        
+                   
+                </div>
+                <!-- box-typical-->
+                <ng2-toasty [position]="'center-center'"></ng2-toasty>
+            </form>
+        </div>
+        <div class="panel2" style="width:5%;float:right">
+        <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </div>
+        </div>
+   
+</app-card>

@@ -1,0 +1,372 @@
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+</style>
+<app-card>
+    <div class="sub-title">{{'formtitle.vendor'| translate}}
+        <i class="fa fa-user ficon"></i>
+    </div>
+    <table style="width:100%">
+        <tbody>
+         <tr>
+         <td style="width:95%">
+            <form [formGroup]="registerForm"  class="mx-3"
+            autocomplete="off">
+                <div class="mr-2 mb-3" align="right">
+                    <button type="button" class="btn-round" [routerLink]="['/VendorRegistration/ViewVendor']">{{'formtitle.viewvendordetails'| translate}}</button>
+                </div>
+                <div class="box-typical box-typical-padding">
+                    <div class="form-group row">
+                        <div class="col-lg-4" style="display: none;">
+                            <label class="form-label semibold" for="exampleInput">
+                                {{'distributor.vendorid'| translate}}  
+                            </label>
+                            <input type="text" name="doctorName" class="form-control" id="docid" 
+                            autocomplete="off" placeholder="" formControlName="distid"
+                            />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'distributor.vendorname'| translate}}  <font color="red" class="fontlangifbel">*</font>
+                            </label>
+                            <input type="text" class="form-control" id="docregistrationid" autocomplete="off" placeholder=" " formControlName="distributorname" (input) ="searchdist($event.target.value)"
+                            autofocus/>
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.distributorname.errors?.required">
+                                This Field is Required*
+                            </p> -->
+                            <p class="messages text-danger" *ngIf="registerForm.controls.distributorname.errors?.pattern">
+                                Accepts Only Text!</p>
+                                <div class="mt-1" *ngIf="distp.length>0">
+                                    <table class="table" style="border: 2px solid grey;position: absolute;
+                                    background-color: white;z-index: 1;">
+                                        <tbody class="lbody">
+                                            <tr *ngFor = "let item of distp ; let index=i" >
+                                               <td>{{item[1]}} </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div> 
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'distributor.vendorshortname'| translate}} 
+                            </label>
+                            <input type="text" class="form-control" id="docname" placeholder="" autocomplete="off" formControlName="dshortname" />
+                           
+                            <p class="messages text-danger" *ngIf="registerForm.controls.dshortname.errors?.pattern">Accepts Only Text!</p>
+                        </div>
+                        <div class="col-lg-4" id="country">
+                            <label class="form-label" for="country">
+                                {{'distributor.vendortype'| translate}} 
+                            </label>
+                            <select name="select" class="form-control" formControlName="distributortypeid" (change)="getadddistributortype($event.target.value, contentadddis)">
+                                <option value="opt1" style="display: none;" disabled>--Select Vendor Type--</option>
+                                <option value="addditributor" id="comdivision2" (click)="open(contentaddis)" style="background-color: #52aa0c;color:white">                                 {{'distributor.vendortype'| translate}} </option>
+                                <option *ngFor="let item of disttypes ; let i = index" value={{item[0]}}>{{item[1]}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                        <!--  <div class="col-lg-1">
+                            <label style=" display: block;
+                            text-align: center;">Add </label>
+                    <label class="btn btn-primary" (click)="open(content)"  id="comdivision">Add</label>
+                     </div>           -->
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'distributor.creditterms'| translate}} 
+                            </label>
+                            <input 
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            type="number" class="form-control" placeholder="" formControlName="creditdays" 
+                            autocomplete="off" maxlength="4" (keydown)="maxcreditLength()"/>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'distributor.leadtime'| translate}}
+                            </label>
+                            <input 
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"                            
+                            type="number" class="form-control" placeholder="" formControlName="leadtime" maxlength="4" (keydown)="maxleadLength()"/>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'common.address'| translate}}<font color="red" class="fontlangifbel">*</font>
+                            </label>
+                            <input type="text" class="form-control" id="doc_address1" autocomplete="off" placeholder="" formControlName="address1"
+                            />
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.address1.errors?.required">This Field is Required*</p> -->
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4" id="country">
+                            <label class="form-label" for="country">
+                                {{'common.country'| translate}}<font color="red" class="fontlangifbel">*</font>
+                            </label>
+                            <select class="select2" id="doccountry" class="form-control" (change)="viewState()" formControlName="country">
+                                <option value="0" disabled>---Select Country---</option>
+                                <option *ngFor="let item of countries; let i = index" value={{item[0]}}>{{item[1]}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4" id="state">
+                            <label class="form-label" for="state">
+                                {{'common.state'| translate}}<font color="red" class="fontlangifbel">*</font>
+                            </label>
+                            <select class="select2" id="docstate" class="form-control" (change)="viewCity()" formControlName="state">
+                                <option value="0" disabled>---Select State---</option>
+                                <option *ngFor="let item of states; let i = index" value={{item[0]}}>{{item[2]}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4" id="state">
+                            <label class="form-label" for="state">
+                                {{'common.city'| translate}}<font color="red" class="fontlangifbel">*</font>
+                            </label>
+                            <select class="select2" id="docstate" class="form-control" formControlName="city">
+                                <option value="0" disabled>---Select City---</option>
+                                <option *ngFor="let item of cities; let i = index" value={{item[0]}}>{{item[2]}}
+                                </option>
+                            </select>
+                        </div>    
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'common.pincode'| translate}}
+                            </label>
+                            <input type="text" onkeyup="this.value = this.value.toUpperCase();" class="form-control" id="docpincode"
+                                 placeholder="  " formControlName="pincode" autocomplete="off"	maxlength="10" (keydown)="maxPinCodeLength()" />
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'common.mobile'| translate}}<font color="red" class="fontlangifbel">*</font>
+                            </label>                            
+                            <input  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" 
+                            class="form-control" id="docmobileno" type="number" placeholder="  " autocomplete="off" formControlName="mobileno"
+                            maxlength="15" (keydown)="maxMobLength()" />
+                            <div *ngIf="registerForm.controls.mobileno.errors?.pattern" class="text-danger">Enter only number*</div>
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.mobileno.errors?.required">This Field is Required*</p> -->
+                      
+                            <!-- <div *ngIf="(f.mobileno.touched || f.mobileno.untouched) && f.mobileno.invalid" class="messages text-danger">
+                             <div *ngIf="f.mobileno.errors.required">This Field is Required*</div>
+                            </div>    -->
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInputEmail1">
+                                {{'common.email'| translate}}<font color="red" class="fontlangifbel">*</font>
+                            </label>
+                            <input type="email" class="form-control"  placeholder="  " autocomplete="off" formControlName="email" />
+                            <div class="messages text-danger" *ngIf="registerForm.controls.email.errors?.pattern">Enter Correct Mail!</div>
+                        </div> 
+                        <div class="col-lg-4 mt-2">
+                            <label class="form-label semibold" for="exampleInput">
+                                {{'distributor.selectpharmacompany'| translate}} <span style="color:red">*</span>
+                            </label>
+                            <angular2-multiselect [data]="mulList" [settings]="mulSettings" formControlName="phcompany">
+                            </angular2-multiselect>
+                        </div>
+                    </div>
+                    <div class="bform"> 
+                    <div class="sub-title">Others & Bank Details
+                        <i class="icofont icofont-rounded-down" cardToggleEvent (click)="toggleCard($event)" 
+                        style="float:right;cursor:pointer"></i>
+                    </div>
+               
+                    <div class="form-group row mt-2" [@cardToggle]="cardToggle">
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'distributor.personname'| translate}}
+                            </label>
+                            <input type="text" onkeyup="this.value = this.value.toUpperCase();" autocomplete="off"  class="form-control" formControlName="contactperson"/>
+                            <p class="messages text-danger" *ngIf="registerForm.controls.contactperson.errors?.pattern">Accepts Only Text!</p>       
+                        </div>
+        
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">
+                                {{'distributor.designation'| translate}}
+                            </label>
+                            <input class="form-control" id="docphonenumber" placeholder="  " autocomplete="off" formControlName="designationid"/>
+                            <p class="messages text-danger" *ngIf="registerForm.controls.designationid.errors?.pattern">Accepts Only Text!</p>
+                        </div>    
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">
+                                {{'common.phone'| translate}}
+                            </label>
+                            <input
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            type="number" class="form-control" id="docphonenumber" placeholder="  " autocomplete="off" formControlName="phoneno"
+                            maxlength="15" (keydown)="maxPhnLength()"    />
+    
+                            <p class="messages text-danger" *ngIf="registerForm.controls.phoneno.errors?.pattern">
+                                Enter only number*</p>
+                        </div> 
+                           
+                    </div>
+                     
+                    <div class="form-group row" [@cardToggle]="cardToggle">
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">
+                                 {{'common.tinno'| translate}}
+                            </label>
+                            <input
+                            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                            type = "number" onkeyup="this.value = this.value.toUpperCase();" autocomplete="off" class="form-control" id="docphonenumber" maxlength="20" placeholder="  " formControlName="tinno" />
+                            <div class="messages text-danger" *ngIf="registerForm.controls.tinno.errors?.pattern">
+                                Text & Numbers & 20 Characters Only!..</div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput"> {{'common.taxno'| translate}}</label> <input
+                            type="number" class="form-control" id="docpincode" onkeyup="this.value = this.value.toUpperCase();"
+                            placeholder="  " maxlength="20" autocomplete="off" formControlName="gstno" />
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'common.bankname'| translate}}
+                            </label>
+                            <input type="text" class="form-control" id="docpincode" placeholder="  " autocomplete="off" formControlName="bankname" maxlength="100"
+                            />
+                            <p class="messages text-danger" *ngIf="registerForm.controls.bankname.errors?.pattern">Accepts Only Text!</p>
+                        </div>
+                    </div>
+                    <div class="form-group row" [@cardToggle]="cardToggle">
+                        <!--.row3start-->
+                       
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">
+                                {{'common.bankbranch'| translate}}
+                            </label>
+                            <input class="form-control" id="docphonenumber" placeholder="  " autocomplete="off" formControlName="bankbranch" maxlength="100" />
+                            <p class="messages text-danger" *ngIf="registerForm.controls.bankbranch.errors?.pattern">Accepts Only Text!</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">
+                                {{'common.accountnumber'| translate}}
+                            </label>
+                            <input type="number" class="form-control" id="docpincode" placeholder="  " autocomplete="off" formControlName="accountnumber"
+                            />
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">{{'common.ifsccode'| translate}}
+                            </label> <input class="form-control" id="docphonenumber" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();"               
+                            placeholder="  " formControlName="ifsccode" maxlength="50" />                       
+                            <p class="messages text-danger" *ngIf="registerForm.controls.ifsccode.errors?.pattern">
+                                Not allowed Special Characters</p>
+                            </div>
+        
+                    </div>
+        
+                    <div class="form-group row" [@cardToggle]="cardToggle">
+                       
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">{{'common.swiftcode'| translate}}</label> <input
+                            type="text" class="form-control" id="docpincode" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();"
+                            placeholder="  " formControlName="swiftcode" maxlength="50" /> 
+                            <p class="messages text-danger" *ngIf="registerForm.controls.swiftcode.errors?.pattern">
+                                Not allowed Special Characters</p>
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">{{'common.micrcode'| translate}}</label> <input
+                            type="text" class="form-control" id="docpincode" autocomplete="off" onkeyup="this.value = this.value.toUpperCase();"
+                            placeholder="  " formControlName="misccode" maxlength="50" /> 
+                            <p class="messages text-danger" *ngIf="registerForm.controls.misccode.errors?.pattern">
+                                Not allowed Special Characters</p>
+                        </div>
+                    </div>
+                </div>
+                        
+                       
+                        <!-- <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label" for="exampleInput"><h6>PAN Number</h6></label> <input
+                                    type="text" class="form-control" id="docpincode"
+                                    placeholder="  " formControlName="panno" />
+            
+            
+                            </fieldset>
+                        </div> -->
+                       
+
+                        <!-- <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput"><h6>IEC Code</h6>
+                                    </label> <input  class="form-control" id="docphonenumber"
+                                    placeholder="  " formControlName="ieccode" />
+            
+            
+                            </fieldset>
+                        </div>
+                         -->
+
+                     <!--     <div class="col-lg-4">
+                            <fieldset class="form-group">
+                                <label class="form-label semibold" for="exampleInput"><h6>MISC Code</h6>
+                                    </label> <input class="form-control" id="docphonenumber"
+                                    placeholder="  " formControlName="misccode" />
+            
+            
+                            </fieldset>
+                        </div> -->
+                   
+        
+        
+                    <div class="" align="center">
+                        <img src="assets/images/saveload.gif" class="mt-2" *ngIf="saveprocess">
+                    </div>
+        
+                    <!--.row3 end-->
+                    <div class="form-group row mt-3">
+                        <!--.row4 start-->
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-4">
+                            <button type="submit" class="btn-round" (click)="onSubmit()" [disabled]="!registerForm.valid">{{'common.submit'| translate}}</button>
+                        </div>     
+                    </div>
+                    <!--.row4 end-->
+                    <ng2-toasty [position]="'center-center'"></ng2-toasty>
+                    <ng-template #contentadddis let-c="close" let-d="dismiss">
+                        <div class="modal-header">
+                                <label class="form-label semibold" for="exampleInput">
+                                    {{'distributor.vendortype'| translate}}
+                                    </label>
+                                   <i class="fa fa-times" (click)="c('Close click')" style="cursor:pointer;color:white" ></i>
+                        </div>
+                        <img src="assets/images/potab1.jpg" class="mt-4 modimg"><br>
+                        <div class="modal-body">
+                           
+                            <input class="form-control" id="docphonenumber" formControlName="indvdisttype" placeholder=" Add Vendor Type " />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn modbtn " id="type" (click)="saveIndvDistType1(c)">Save DistType</button>
+                        </div>
+                    </ng-template>
+                </div>
+                <!-- box-typical-->
+            </form>
+        </td>
+          <td style="width:5%" valign="top">
+         <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+         </td>
+         </tr>
+        </tbody>
+        </table>	
+  
+</app-card>
+
+
+
+
+

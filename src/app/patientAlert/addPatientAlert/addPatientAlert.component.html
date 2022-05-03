@@ -1,0 +1,137 @@
+
+<app-card>
+
+	<div class="sub-title">{{'patientalert.patientalertdetails'| translate}}
+		<em class="fa fa-exclamation-triangle ficon"></em>
+	</div>
+	<div class="mr-2" align="right">
+		<button type="button" class="btn-round" [routerLink]="['/PatientAlert/ViewPatientAlert']">{{'patientalert.viewpatientalert'| translate}}</button>
+	</div>
+	<table aria-describedby="mydesc" style="width:100%">
+		<tbody>
+		 <tr>
+		 <td style="width:95%">
+			<form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+				<!-- <div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">Company Name</label>
+							<select name="select" class="form-control"  formControlName="companyrefid" (change)="getCompanyPatient()" (change)="getBranche()"
+							 (click)="getBranche()" 
+							 onfocus="if(this.options.length>5){this.size=5;}" onmousedown="if(this.options.length>5){this.size=5;}" onkeypress="if(this.options.length>5){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;" autofocus>
+								<option value="opt1" selected disabled>---Select Company Name---</option>
+								<option *ngFor="let companyid of companies" value={{companyid[0]}}>{{companyid[1]}}</option>
+							</select>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Branch Name</label>
+							<select name="select" class="form-control" formControlName="branchrefid" (change)="getBranchPatient()" (change)="getFirm()" 
+							onfocus="if(this.options.length>5){this.size=5;}" onmousedown="if(this.options.length>5){this.size=5;}" onkeypress="if(this.options.length>5){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
+								<option value="opt1" selected disabled>---Select Branch Name---</option>
+								<option *ngFor="let BranchRefID of branches" value={{BranchRefID[0]}}>{{BranchRefID[1]}}</option>
+							</select>
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">Firm Name</label>
+							<select name="select" class="form-control" formControlName="storerefid" (change)="getFirmPatient()"
+							 onfocus="if(this.options.length>5){this.size=5;}" onmousedown="if(this.options.length>5){this.size=5;}" onkeypress="if(this.options.length>5){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
+								<option value="opt1" selected disabled>---Select Firm Name---</option>
+								<optgroup label="Shop">
+									<option *ngFor="let storerefid of shops" value=SHOP{{storerefid[0]}}>{{storerefid[1]}}</option>
+								</optgroup>
+								<optgroup label="Warehouse">
+									<option *ngFor="let ware of warehouse" value=WARE{{ware[0]}}>{{ware[1]}}</option>
+								</optgroup>
+								<optgroup label="Hospital">
+									<option *ngFor="let hosp of hospital" value=HOSP{{hosp[0]}}>{{hosp[1]}}</option>
+								</optgroup>
+		
+							</select>
+						
+					</div>
+				</div> -->
+				<div class="form-group row">
+					<div class="col-lg-4">
+						
+							<label class="form-label">{{'patientalert.patientname'| translate}}</label>
+							<select name="select" class="form-control" formControlName="patientid" (change)='getPatientInfo()' 
+							onfocus="if(this.options.length>5){this.size=5;}" onmousedown="if(this.options.length>5){this.size=5;}" onkeypress="if(this.options.length>5){this.size=5;}" onchange='this.size=0;' onblur="this.size=0;">
+								<option value="opt1">---Select Patient Name---</option>
+								<option *ngFor="let pas of patient" value={{pas[0]}}>{{pas[1]}}</option>
+							</select>
+		
+							<p class="messages text-danger"
+							*ngIf="patientForm.controls.patientid.errors?.required">This Field is Required !  
+							</p>
+							
+						
+					</div>
+					<div class="col-lg-4">
+						
+							<label class="form-label">{{'patientalert.mobilenumber'| translate}}</label>
+							<input type="text" class="form-control" formControlName="mobile">
+							<p class="messages text-danger"
+							*ngIf="patientForm.controls.mobile.errors?.required">This Field is Required* 
+							</p>
+							
+						
+					</div>
+					<div class="col-lg-4">
+		
+							
+									<label class="form-label" for="exampleInputEmail1">{{'patientalert.emailid'| translate}}
+								</label> <input type="text" class="form-control" id="docemail"
+										placeholder="  " formControlName="email" />
+								
+										<p class="messages text-danger"
+										*ngIf="patientForm.controls.email.errors?.pattern">Enter Correct Mail!  
+										</p>
+				
+								
+					
+					</div>
+				</div>
+				<hr>
+				<div class="form-group row">
+					<div class="checkbox-fade fade-in-info">
+						<label  style="margin-left:58px">
+							<input type="checkbox"   (change)="checkemail($event)"  [checked]="false">
+							<span class="cr">
+								<em class="cr-icon icofont icofont-ui-check txt-info"></em>
+							</span>
+							<span>{{'patientalert.sendbyemail'| translate}}</span>
+						</label>
+					</div>
+					<div class="checkbox-fade fade-in-info">
+							<label  style="margin-left:80px">
+								<input type="checkbox"(change)="checkmobile($event)"  [checked]="false">
+								<span class="cr">
+									<em class="cr-icon icofont icofont-ui-check txt-info"></em>
+								</span>
+								<span>{{'patientalert.sendbymobile'| translate}}</span>
+							</label>
+					</div><br>
+		
+					<div class="col-sm-9 mt-3">
+						<textarea rows="3" cols="3" style="margin-left:45px;width:45%" formControlName="message" class="form-control1" placeholder="Type Description"></textarea>
+					</div>
+					
+					<div class="col-sm-3 mt-3">
+							<button type="submit"  class="btn-round" >{{'patientalert.send'| translate}}</button>
+				   </div>
+				</div>
+		
+			</form>
+		</td>
+		  <td style="width:5%" valign="top">
+		 <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+		 </td>
+		 </tr>
+		</tbody>
+	</table>			 			 			 			 						
+	<ng2-toasty [position]="'center-center'"></ng2-toasty>
+</app-card>

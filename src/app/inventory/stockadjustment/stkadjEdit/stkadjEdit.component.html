@@ -1,0 +1,308 @@
+<style>
+
+.btn-ghost-success {
+    /* color: #4dbd74; */
+    background-color: #002e86;
+    /* background-image: none; */
+    /* border-color: transparent; */
+}
+.btn-success {
+    color: #fff;
+    background-color: #002e86;
+    border-color: #4dbd74;
+}
+.btn-blocks {
+    display: white;
+    width: 8%;
+}
+.btn-block {
+    display: white;
+    width: 30%;
+}
+
+.btn-pill {
+    border-radius: 50em;
+}
+
+.btn {
+    /* display: inline-block; */
+    font-weight: 400;
+    /* color: #23282c; */
+    text-align: center;
+    vertical-align: middle;
+    /* -webkit-user-select: none; */
+    /* -moz-user-select: none; */
+    /* -ms-user-select: none; */
+    user-select: none;
+    /* background-color: transparent; */
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    /* border-radius: .25rem; */
+    transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+}
+
+    .row input,
+    .row label,
+    .row select {
+        margin-bottom: 6px;
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+     }
+     /*  .row label {
+font-size: 1.2em; 
+font-family: sans-serif  ;
+font-stretch: expanded ;
+font-weight: 500 ; 
+ }       */
+    .tablenew {
+         border: 1px solid rgba(0, 0, 0, .15);
+        /* height: 300px; */
+        max-width: 100%;
+        box-sizing: border-box;
+        max-height: 300px;
+        overflow-y: scroll;
+        overflow-x: scroll;
+     }
+     .tablenew table th {
+        padding: 0.43em 0em 0.43em 0em;
+         margin: 0em;
+        text-align: center;
+         vertical-align: top;
+        border: 1px solid rgba(0, 0, 0, .15);
+        font-family: sans-serif;
+        color: black;
+        background-color: rgb(151, 156, 151);
+     }
+     .tablenew table td {
+        vertical-align: top;
+        padding: 0.43em 0em 0em 0em;
+        text-align: center;
+        margin: 0em;
+        border: 1px solid rgba(0, 0, 0, .15);
+    }
+     .tablenew table p {
+        padding: 0em;
+        margin: 0em;
+    }
+     .tablenew table td input {
+        width: 4em;
+        text-align: center;
+        border: #FFFFFF;
+    }
+      .tablenew table th label {
+         text-align: center;
+        border: #FFFFFF;
+    }
+     .tablenew table td label {
+         margin: 0em;
+        padding: 0em;
+        text-align: center;
+        border: #FFFFFF;
+    }
+     .tablenew table tr {
+        margin: 0em;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, .15);
+    }
+     .tablenew table td input:focus {
+        background-color: rgba(0, 0, 0, .15);
+    }
+     .tablenew input[type="checkbox"] {
+        width: 1.7em;
+        height: 1.7em;
+        padding: 0em;
+        margin: 0em;
+    }
+      #autolist {
+         border: 1px solid rgba(0, 0, 0, .15);
+        position: absolute;
+        z-index: 21;
+        background-color: #ffffff;
+        width: 16.5em;
+        max-height: 200px;
+        overflow-y: scroll;
+     }
+      li input:nth-child(1):focus {
+         background-color: rgba(0, 0, 0, .15);
+    }
+     li input:nth-child(3):focus {
+         background-color: rgba(0, 0, 0, .15);
+    }
+     li input:nth-child(1) {
+         border: transparent;
+     }
+     li input:nth-child(3) {
+         width: 6em;
+        border: transparent;
+         text-align: center;
+    }
+     li input:nth-child(2) {
+         display: none;
+     }
+      #gridContainer {
+        height: 369px;
+    }
+     .scrollnew {
+        height: 3000px;
+        background-color: transparent;
+    }
+     .button input {
+        background-color: #0073aa;
+        color: #FFFFFF;
+        cursor: pointer;
+        width: 7.34em;
+    }
+     .button {
+        padding-top: 0px;
+    }
+      .cursorremove {
+         width: 5.23em;
+        background-color: #0073aa;
+        color: #FFFFFF;
+        cursor: pointer;
+         border: #FFFFFF;
+         text-align: center;
+         margin-left: -2em;
+         margin-right: -2em;
+      }
+       #rem {
+        padding-top: 0.5em;
+        padding-left: 2em;
+        background-color: #FFFFFF;
+     }
+     #inputwidth1,
+    #inputwidth2 {
+        width: 9.23em;
+        margin-left: -2em;
+        margin-right: -2em;
+    }
+     #input7width1,
+    #input7width2 {
+        width: 7em;
+        margin-left: -1em;
+        margin-right: -1em;
+    }
+</style>
+  <app-card>
+    <div align="right">
+   
+		<button type="button" class="btn-round" [routerLink]="['/StockAdjustment/ViewStockAdjustment']">{{'expiredstock.viewstockadjustment'| translate}}</button>
+	  
+    </div>
+    <div class="sub-title">{{'expiredstock.editstockadjustment'| translate}}
+		<em class="fa fa-edit ficon"></em>
+	</div>
+      <form [formGroup]="registerForm">
+          <div class="box-typical box-typical-padding">
+             
+                <!-- splitcolumn  start-->
+               
+                    <div class="row">
+                        <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='0'">
+                            <label class="form-label semibold" for="exampleInput">{{'expiredstock.stockadjustmentno'| translate}} </label>
+                              <select class="form-control" (change)="viewEdit()" formControlName="id">
+                                 <option *ngFor="let item of editdata; let i = index" value={{item[0]}}>{{item[1]}}
+                                </option>
+                             </select>
+                        </div>
+                         <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='1'">
+                              <label class="form-label semibold" for="exampleInput">{{'expiredstock.stockadjustmentno'| translate}} </label>
+                              <input type="text" class="form-control" formControlName="formno" />
+                        </div>
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">{{'expiredstock.stockadjustmentdate'| translate}} </label>
+                            <input type="date" class="form-control" formControlName="date" />
+                        </div>
+                    </div><br>
+            
+                 <div formArrayName="stkadj" class="flow">
+                    <table aria-describedby="mydesc" class="table styletab ">
+                        <thead class="stylehead">
+                            <tr>
+                                <th scope="col">{{'common.select'| translate}} </th>
+                                <th scope="col">{{'common.sno'| translate}} </th>
+                                <th scope="col">{{'common.prodname'| translate}}</th>
+                                <th scope="col">{{'salesinvoice.batchno'| translate}}</th>
+                                <th scope="col">{{'expiredstock.actualqty'| translate}}</th>
+                                 <th scope="col">{{'expiredstock.actualstkvalue'| translate}}</th>
+                                <!-- <th scope="col">Strip </th> -->
+                                <th scope="col">{{'expiredstock.nooftablet'| translate}} </th>
+                                <th scope="col">{{'expiredstock.physicalqty'| translate}}</th>
+                                <th scope="col">{{'expiredstock.adjuststkvalue'| translate}}</th>
+                                 </tr>
+                        </thead>
+                        <tbody class="stylebody">
+                         <tr *ngFor="let address of registerForm.controls.stkadj.controls; let i=index"
+                            [formGroupName]="i">
+                            <td><input type="checkbox" formControlName="delflag" id="width1"/></td>
+                            <td><input value={{i+1}} id="width1" /></td>
+                            <td><input formControlName="drugname" id="width5" /></td>
+                            <td><input formControlName="batchrefid" id="width3" /></td>
+                            <td><input formControlName="actualstock" id="width2"/></td>
+                             <!-- <td><input formControlName="physicalboxstock" /></td> -->
+                             <td><input formControlName="actualstkvalue" (change)="calc()" id="width2"/></td>
+                            <!-- <td><input formControlName="physicalstripstock"  /></td> -->
+                            <td><input formControlName="physicaltabstock" (change)="calc()" id="width2"/></td>
+                            <td><input formControlName="physicalstock" id="width2"/></td>
+                            <td><input formControlName="adjustedstkvalue" id="width2" /></td>
+                           </tr>
+
+                           <tr>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                            <td><input type="text" id="width1" readonly></td>
+                          
+                            <td><input type="text" id="width1" readonly></td>
+                        </tr>
+                        </tbody>
+                     </table>
+                </div>
+            <!--. table     end-->
+             <div class="col-lg-5" id="rem">
+                <button type="button" class="viewbtn" (click)="remove()">{{'common.remove'| translate}}</button>
+
+            </div>
+
+            <br>
+              <h5></h5>
+             <div class="row    ">
+                <!-- splitcolumn  start-->
+                  <div class="col-lg-4">
+                    <div class="row">
+                      </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="row">
+                       </div>
+                  </div>
+                   <div class="col-lg-4">
+                    <div class="row">
+                         <ng2-toasty [position]="position"></ng2-toasty>
+                       </div>
+                  </div>
+             </div> <!-- splitcolumn  end-->
+         </div>
+        <!-- box-typical-->
+         <div class="row button">
+            <!-- row Start-->
+             <div class="col-lg-3"> 
+                <button aria-pressed="true" class="btn btn-pill btn-block btn-success active" type="button" (click)="onSubmit()">{{'common.update'| translate}}</button> </div>
+            <div class="col-lg-3"> <button aria-pressed="true" class="btn btn-pill btn-block btn-success active" type="button" (click)="opensaveSwal()">{{'common.delete'| translate}} </button> </div>
+           
+          </div> <!-- row end-->
+     </form>
+  </app-card>
+  <ng2-toasty [position]="'center-center'"></ng2-toasty>  
+   <div class="scrollnew"> </div>

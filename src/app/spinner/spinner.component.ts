@@ -1,0 +1,51 @@
+import {Component, Input, OnDestroy, Inject, ViewEncapsulation} from '@angular/core';
+import {Spinkit} from "./spinkits";
+import {Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError} from "@angular/router";
+import {DOCUMENT} from "@angular/common";
+
+@Component({
+    selector: 'spinner',
+    templateUrl: './spinner.component.html',
+    styleUrls: [
+        './spinner.component.css',
+        './spinkit-css/sk-double-bounce.css',
+        './spinkit-css/sk-chasing-dots.css',
+        './spinkit-css/sk-cube-grid.css',
+        './spinkit-css/sk-rotating-plane.css',
+        './spinkit-css/sk-spinner-pulse.css',
+        './spinkit-css/sk-three-bounce.css',
+        './spinkit-css/sk-wandering-cubes.css',
+        './spinkit-css/sk-wave.css',
+        './spinkit-css/sk-line-material.css'
+    ],
+    encapsulation: ViewEncapsulation.None
+})
+export class SpinnerComponent implements OnDestroy {
+    public isSpinnerVisible = true;
+    public Spinkit = Spinkit;
+    session: any ="NA";
+    @Input() public backgroundColor: string = 'rgba(100, 115, 170, 0.69)'; //selva
+    @Input() public spinner = Spinkit.skLine;
+    private sub: any;
+    constructor(private router: Router, @Inject(DOCUMENT) private document: Document) {
+        if(this.session == "NA"){
+            this.session = sessionStorage.getItem("acctoken")
+         this.router.events.subscribe(event => {
+            if (event instanceof NavigationStart) {
+                this.isSpinnerVisible = true;
+            } else if ( event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
+                this.isSpinnerVisible = false;
+            }
+        }, (error: any) => {
+            this.isSpinnerVisible = false;
+        });
+    }
+    else if(this.session == null){
+        alert("session")
+    }
+}
+
+    ngOnDestroy(): void {
+        this.isSpinnerVisible = false;
+    }
+}

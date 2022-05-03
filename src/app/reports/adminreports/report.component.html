@@ -1,0 +1,60 @@
+
+<app-card [title]='"Admin Reports"'>
+
+  
+ <div class="row">
+      <div class=" col-lg-3">
+        <br>
+          <div class="sub-title" style="font-size: 20px;">Hospital List</div>
+      </div>
+   
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<div class="row">
+        <div class="col-lg-5">
+            
+              <label class="col-form-label"><h6>Company Name</h6></label> <select
+                name="select" class="form-control"
+                formControlName="company" (change)="getBranch()">
+                <option value="opt1" >---Select Company---</option>
+                <option *ngFor="let companies of companyrefid" value={{companies[0]}}>{{companies[1]}}</option>
+              </select>
+           
+          </div>
+
+        <div class="col-lg-5">
+            <label class="form-label semibold">
+              <h6>Branch</h6>
+            </label>
+            <select name="select" class="form-control" placeholder="Select Branch" (change)="view()" (click)="view()" formControlName="branchname">
+              <option value="opt1"  >---Select Branch Name---</option>
+              <option *ngFor="let coun of branchrefid " value={{coun[0]}}>
+                {{coun[1]}}</option>
+            </select>
+          </div>
+
+
+
+
+
+
+
+   
+        <!-- <div class="col-lg-4">
+            <button type="submit" class="btn btn-success btn-round button btnlinklist" style="margin: 26px;">Submit</button>
+          </div> -->
+          <div class=" col-lg-1" align="right">
+            <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/HospitalList/Hospitalinfo.rptdesign&companyrefid={{companyref}}&branchrefid={{branchref}}&status=0"
+            class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank" >View</a>
+          </div>
+        </div>
+        </form>
+      </div>
+   
+</app-card>
+
+
+
+
+
+
+

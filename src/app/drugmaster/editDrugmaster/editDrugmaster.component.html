@@ -1,0 +1,410 @@
+<style>
+	/*
+[placeholder], input[placeholder] {
+	color: #021016;
+	border-width: 0 0 2px 0;
+	border-color: #b2b6b7;
+}
+
+[placeholder], input[placeholder]:focus {
+	border-color: #C0C0C0;
+}
+*/
+	input[type="radio"] {
+		-ms-transform: scale(1.5);
+		-webkit-transform: scale(1.5);
+		transform: scale(1.5);
+		margin-right: 0;
+	}
+</style>
+
+<app-card >
+	<div class="sub-title">{{'productmaster.editproductdetails'| translate}}
+	<em class="fa fa-edit ficon"></em></div>
+	<table style="width:100%" aria-describedby="mydesc">
+		<tbody>
+		 <tr>
+		 <td style="width:95%">
+			<div class="" align="right">
+				<button type="button" class="btn-round" [routerLink]="['/ProductMaster/ViewProductList']">{{'productmaster.viewproductmaster'| translate}}</button>
+			</div>
+			<form [formGroup]="drugForm" (ngSubmit)="onSubmit()" class="mx-3">
+	
+				<div class="col-lg-4">
+				
+						<input type="hidden" class="form-control" formControlName="id" placeholder="Drug Id">
+				
+				</div>
+				<div class="form-group row">
+					<!-- <div class="col-lg-4">
+							<label class="form-label">Vertcial
+								<span class="fontlangifbel">*</span>
+							</label>
+							<select name="select" class="form-control" formControlName="verticalid" placeholder=""
+							(change)="verticalopen($event.target.value, contentvertical)">
+								<option value="opt1" selected disabled>---Select Vertical---</option>
+								<option *ngFor="let vertical of verticallist" value={{vertical[0]}}>{{vertical[1]}}</option>
+							</select>
+					</div> -->
+
+					<div class="col-lg-4">
+							<label class="form-label">{{'salesinvoice.drugname'| translate}}
+								<span class="fontlangifbel">*</span>
+							</label>
+							<input type="text" class="form-control" placeholder="Enter Drug Name" formControlName="brandname" disabled>
+					</div>
+			
+					<div class="col-lg-4">
+							<label class="form-label">{{'salesinvoice.genericname'| translate}}:{{getgenericname}}
+								<!-- <span class="fontlangifbel">*</span> -->
+							</label><br><br>
+							<ng-select [options]="generic" placeholder="Search Generic Name" formControlName="genericids" (input)="getGeneric($event.target.value)">
+							</ng-select>
+					</div>
+					<div class="col-lg-4">
+						<label class="form-label">{{'salesordernew.dosage'| translate}}
+							<span class="fontlangifbel">*</span>
+						</label>
+						<input type="text" class="form-control" placeholder="Dosage Value" formControlName="genericnamedosage">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-lg-4">
+							<label class="form-label">{{'productmaster.unitofmessurement'| translate}}(UOM)
+								<span class="fontlangifbel">*</span>
+							</label>
+							<input type="text" class="form-control" placeholder="Unit Of Messurement(UOM)" formControlName="uom">
+					</div>
+					<div class="col-lg-4">
+							<label class="form-label">{{'productmaster.formulation'| translate}}
+								<span class="fontlangifbel">*</span>
+							</label>
+							<select name="select" class="form-control" formControlName="formulationid" placeholder="">
+								<option value="0" selected disabled>---Select Formulation---</option>
+								<option *ngFor="let formu of formulation" value={{formu[0]}}>{{formu[1]}}</option>
+							</select>
+					</div>
+					<div class="col-lg-4">
+						<label class="form-label"> {{'productmaster.manufacturername'| translate}} :{{getmanufacturename}}</label><br>
+							<ng-select [options]="Manufacturername" placeholder="Search Manufacturer Name"
+								formControlName="pharmacompanyid" (input)="getmanufacturer($event.target.value)">
+							</ng-select>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-lg-4">
+						<label class="form-label">Main Group1</label>
+						<select name="select" class="form-control" placeholder="Select Sub Group 1"
+							formControlName="groupid" (change)="getSubgroup1()">
+							<option selected disabled value="0">---Select Sub Category1---</option>
+							<option *ngFor="let sub1 of maingroup" value={{sub1[0]}}>{{sub1[1]}}</option>
+						</select>
+					</div>
+					<div class="col-lg-4">
+						<label class="form-label">{{'productmaster.subcategory'| translate}}</label>
+						<select name="select" class="form-control" placeholder="Select Sub Group 1"
+							formControlName="subgroupid1" (change)="getSubgroup2()">
+							<option selected disabled value="0">---Select Sub Category1---</option>
+							<option *ngFor="let sub1 of subgroup1" value={{sub1[0]}}>{{sub1[1]}}</option>
+						</select>
+					</div>
+					<div class="col-lg-4">
+						<label class="form-label">{{'productmaster.subcategory'| translate}}</label>
+						<select name="select" class="form-control" placeholder="Select Sub Group 2"
+							formControlName="subgroupid2"
+							(change)="searchwithcodeforsub2()">
+							<option selected disabled value="0">---Select Sub Category2---</option>
+							<option *ngFor="let sub2 of subgroup2" value={{sub2[0]}}> {{sub2[1]}} </option>
+						</select>		
+					</div>				
+				</div>
+				
+				<div class="sub-title">{{'productmaster.OtherSettings'| translate}}</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.minquantity'| translate}}</label>
+							<input type="text" class="form-control" id="minqty" placeholder="Minimum Quantity" formControlName="minqty">
+							<div class="messages text-danger" *ngIf="drugForm.controls.minqty.errors?.pattern">Numerical Only Accepts!</div>
+					
+					</div>
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.maxquantity'| translate}}</label>
+							<input type="text" class="form-control" id="maxqty" placeholder="Maximum Quantity" formControlName="maxqty">
+							<div class="messages text-danger" *ngIf="drugForm.controls.maxqty.errors?.pattern">Numerical Only Accepts!</div>
+					
+					</div>
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.insurancedata'| translate}}</label>
+							<select name="select" class="form-control" formControlName="insuranceid" placeholder="">
+								<option value="0">---Select Insurence Company---</option>
+								<option *ngFor="let insure of insurance" value={{insure[0]}}> {{insure[1]}}
+								</option>
+							</select>
+							<!-- <angular2-multiselect class="form-control" [data]="insurancetype" [settings]="dropdownSettings" formControlName="insuranceid">
+							</angular2-multiselect> -->
+					
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.boxcartone'| translate}} </label>
+							<input type="text" class="form-control" id="boxpercartoon" placeholder="Box per Cartone" formControlName="boxpercartoon">
+							<div class="messages text-danger" *ngIf="drugForm.controls.boxpercartoon.errors?.pattern">Numerical Only Accepts!</div>
+					
+					</div>
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.stripbox'| translate}}</label>
+							<input type="text" class="form-control" id="stripperbox" placeholder="Strip per Box" formControlName="stripperbox">
+							<div class="messages text-danger" *ngIf="drugForm.controls.stripperbox.errors?.pattern">Numerical Only Accepts!</div>
+					
+					</div> 
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.quantitystrip'| translate}}</label>
+							<input type="text" class="form-control" id="quantityperstrip" placeholder="Quantity per Box" formControlName="quantityperstrip">
+							<div class="messages text-danger" *ngIf="drugForm.controls.quantityperstrip.errors?.pattern">Numerical Only Accepts!</div>
+					
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.schedule'| translate}}</label>
+							<select name="select" class="form-control" formControlName="schudletype" placeholder="">
+								<option value="0" selected disabled>---Select Schedule---</option>
+								<option *ngFor="let sch of schedule" value={{sch[0]}}>{{sch[1]}}</option>
+							</select>
+					
+					</div>
+
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.productregisternumber'| translate}}</label>
+							<input type="text" class="form-control" id="productregno" placeholder="Product Register Number" formControlName="productregno">
+					
+					</div>
+					<!-- <div class="col-lg-4">
+					
+							<label class="form-label">VAT</label>
+							<select name="select" class="form-control" formControlName="vat" placeholder="">
+								<option value="0" selected disabled>---Select VAT---</option>
+								<option *ngFor="let vatTax of vat" value={{vatTax[0]}}>{{vatTax[1]}}</option>
+							</select>
+					
+					</div> -->
+					
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.bannedproduct'| translate}}</label>
+							<br>
+							<input type="radio" (click)="changeValue(true)" formControlName="banneddrug" [value]="1" value="1" />&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" (click)="changeValue(false)" formControlName="banneddrug" value="0" [checked]="true" />&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+							<div *ngIf="isValid">
+								<textarea rows="2" cols="50" formControlName="banneddrugreason"></textarea>
+							</div>
+							<div *ngIf="!isValid"></div>
+					
+					</div>
+				</div>
+					<!--<div class="col-lg-4">
+					
+							<label class="form-label">Barcode</label>
+							<input type="text" class="form-control" id="barcode" placeholder="Barcode" formControlName="barcode">
+					
+					</div>
+					<div class="col-lg-4">
+					
+							<label class="form-label">Distributor Channel</label>
+							<select name="select" class="form-control" formControlName="distimporterid" placeholder="">
+								<option value="0">---Select Importer---</option>
+			
+			
+								<option value *ngFor="let distchn of distchannel" value={{distchn[0]}}> {{distchn[1]}}</option>
+							</select>
+					
+					</div>-->
+				
+			
+			
+				<div class="sub-title">Tax Settings
+					<em class="icofont icofont-rounded-down" cardToggleEvent (click)="TaxtoggleCard($event)"
+					style="float:right;cursor:pointer"></em>
+				</div><br>
+				<div class="form-group row" [@cardToggle]="taxcardToggle">
+					<div class="col-lg-4" *ngIf="fieldhide == 0">
+						
+							<label class="form-label">{{'salesinvoice.vat'| translate}}</label>
+							<select name="select" class="form-control" formControlName="vat" placeholder="">
+								<option value="0" selected >---Select VAT---</option>
+								<option *ngFor="let vatTax of vat" value={{vatTax[0]}}>{{vatTax[1]}}</option>
+							</select>
+						
+					</div>
+	
+					<div class="col-lg-4" *ngIf="fieldhide == 1">
+						
+							<label class="form-label">{{'salesinvoice.gst'| translate}}</label>
+							<input type="number" class="form-control" placeholder="--Enter the GST Value--" (blur)="gstcalc()" formControlName="gst">
+						
+					</div>
+					<div class="col-lg-4" *ngIf="taxgstid==1">
+						
+							<label class="form-label">{{'salesinvoice.sgst'| translate}}</label>
+							<input type="number" class="form-control" placeholder="" formControlName="sgst" >
+						
+					</div>
+					<div class="col-lg-4" *ngIf="taxgstid==2">
+						
+							<label class="form-label">{{'salesinvoice.ugst'| translate}}</label>
+							<input type="number" class="form-control" placeholder="" formControlName="ugst" >
+						
+					</div>
+					<!-- <div class="form-group row">-->
+					<div class="col-lg-4" *ngIf="taxgstid==1 || taxgstid==2">
+						
+							<label class="form-label">{{'salesinvoice.cgst'| translate}}</label>
+							<input type="number" class="form-control" placeholder="" formControlName="cgst" >
+						
+					</div>
+					<div class="col-lg-4" *ngIf="taxid == 2">
+						
+							<label class="form-label">{{'salesinvoice.igst'| translate}}</label>
+							<input type="number" class="form-control" placeholder="" formControlName="igst" >
+						
+					</div>
+
+				</div>
+			
+				<div class="sub-title">{{'productmaster.additionaldetails'| translate}}
+					<em class="icofont icofont-rounded-down" cardToggleEvent (click)="AdditionaltoggleCard($event)"
+					style="float:right;cursor:pointer"></em>
+				</div>
+				<div class="form-group row" [@cardToggle]="additionalcardToggle">
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.temperature'| translate}}</label>
+							<input type="text" class="form-control" placeholder="" formControlName="temperature">
+							<!-- <input type="radio" formControlName="temptype" value="C" (click)="temperjoin(2,'C')"/>
+							&nbsp;&nbsp;&nbsp;C&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="temptype" value="F" (click)="temperjoin(2,'F')"/> 
+							&nbsp;&nbsp;&nbsp;F&nbsp;&nbsp;&nbsp;-->
+					
+					</div>
+					<div class="col-lg-4">
+					
+							<label class="form-label">{{'productmaster.stockstoredin'| translate}}</label>
+							<select name="select" class="form-control" formControlName="stock_available">
+								<option value="nil" disabled>---Select Stock Stored---</option>
+								<option value="Nursing Home">Nursing Home</option>
+								<option value="Clinic">Clinic</option>
+								<option value="Pharmacy">Pharmacy</option>
+								<option value="Ambulance">Ambulance</option>
+							</select>
+					
+					</div>
+					<!-- <div class="col-lg-4">
+						<label class="form-label"> Upload photos (Max file upload 500kb)</label>
+						<div class="form-inline"><!--[multiple]="(maxFiles > 1)"--
+						<input type="file" formControlName="choosephotos" #fileInput class="form-control"
+							(change)="drugphotoChange($event)" accept="image/*">
+	
+							<span class="fa fa-eye mt-2" style="cursor: pointer" (click)="imageshow()" *ngIf="showeye"></span>
+							<span class="fa fa-eye-slash mt-2" style="cursor: pointer" (click)="hide()" *ngIf="showeyeslash"></span>
+							<span class="fa fa-trash mt-2 ml-2" style="cursor: pointer" (click)="reset()"></span>
+						</div><br>
+						<div class="imageview" *ngIf="showimage">
+								<img [src]="drugimgURL" alt="altitem" height="180" width="260"/>
+						</div>
+						<span style="color:red">{{errormessage}}</span>
+						<!-- <h5 (click)="savedrugimage()">Save</h5> --
+					</div> -->
+				</div>
+	
+				<div class="form-group row" [@cardToggle]="additionalcardToggle">
+					<div class="col-lg-3">
+					
+							<label class="form-label">{{'productmaster.narcoticproduct'| translate}}</label>
+							<br>
+							<input type="radio" formControlName="narcoticdrug" value="Yes"/>
+							&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="narcoticdrug" value="No"/>
+							&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+					
+					</div>
+					<div class="col-lg-3">
+					
+							<label class="form-label">{{'productmaster.emergencyproduct'| translate}}</label>
+							<br>
+							<input type="radio" formControlName="emergency_type" value="Yes"/>
+							&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="emergency_type" value="No"/>
+							&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+					
+					</div>
+					<div class="col-lg-3">
+					
+							<label class="form-label">{{'productmaster.hazordousproduct'| translate}}</label>
+							<br>
+							<input type="radio" formControlName="hanzoration_drug" value="Yes"/>
+							&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="hanzoration_drug" value="No"/>
+							&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+					
+					</div>
+					<div class="col-lg-3">
+					
+							<label class="form-label">{{'productmaster.protectfromsunlight'| translate}}</label>
+							<br>
+							<input type="radio" formControlName="production_sunlight" value="Yes"/>
+							&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="production_sunlight" value="No"/>
+							&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+					
+					</div>
+					<div class="col-lg-3">
+					
+							<label class="form-label">{{'productmaster.sanitizing'| translate}}</label>
+							<br>
+							<input type="radio" formControlName="sanitizing" value="Yes"/>
+							&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="sanitizing" value="No"/>
+							&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+					
+					</div>
+					<div class="col-lg-3">
+					
+							<label class="form-label">{{'productmaster.coldstorage'| translate}}</label>
+							<br>
+							<input type="radio" formControlName="coldstorage" value="Yes"/>
+							&nbsp;&nbsp;&nbsp;Yes&nbsp;&nbsp;&nbsp;
+							<input type="radio" formControlName="coldstorage" value="No"/>
+							&nbsp;&nbsp;&nbsp;No&nbsp;&nbsp;&nbsp;
+					
+					</div>
+				</div>
+				<div class="" align="center">
+					<img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+				</div><br>
+				<div class="form-group row">
+					<div class="col-lg-4"><!--[disabled]="!drugForm.valid"-->
+						<button type="submit" class="btn-round">{{'common.update'| translate}}</button>
+					</div>
+				</div>
+			</form>
+		</td>
+		  <td style="width:5%" valign="top">
+		 <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+		 </td>
+		 </tr>
+		</tbody>
+	</table>			 			 			 			 						
+
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

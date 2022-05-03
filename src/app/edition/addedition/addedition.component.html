@@ -1,0 +1,200 @@
+<app-card>
+  <div class="sub-title">Add Edition
+    <em class="fa fa-etsy ficon"></em>
+  </div>
+  <div align="right">
+    <button type="button" class="btn-round" (click)="view()">View</button>
+  </div>
+  <form [formGroup]="editionForm" (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Country Name</h6>
+        </label>
+        <select name="select" class="form-control" formControlName="countryid" (change)="getProduct();getCurrency()"  autofocus>
+          <option value="opt1" selected disabled>---Select Country Name---</option>
+          <option *ngFor="let coun of country" value={{coun[0]}}>{{coun[1]}} </option>
+        </select>
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Product Name</h6>
+        </label>
+        <select name="select" class="form-control" formControlName="productid" (change)="getDomains()">
+          <option value="opt1" selected disabled>---Select Product Name---</option>
+          <option *ngFor="let product of prodcutlist" value="{{product[0]}}">{{product[1]}}</option>
+        </select>
+      </div>
+
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Domain Name</h6>
+        </label>
+        <select name="select" class="form-control" formControlName="domainrefid" (change)="getSubdomain()">
+          <option value="opt1" selected disabled>---Select Domain Name---</option>
+          <option *ngFor="let dname of domainlist" value="{{dname[0]}}">{{dname[1]}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-4">
+        <label class="form-label semibold">
+          <h6>Sub-Domain Name</h6>
+        </label>
+        <select type="text" class="form-control" formControlName="subdomainrefid">
+          <option value="opt1" selected disabled>---Select Sub-Domain Name---</option>
+          <option *ngFor="let subdomain of subdomainlist" value="{{subdomain[0]}}">{{subdomain[1]}} </option>
+        </select>
+      </div>
+     
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Edition Type</h6>
+          </label>
+          <br>
+          <label>
+            <input type="radio" value="0" name="editiontype"  (click)="geteditiontype($event.target.value)">Trial
+          </label>
+          <label>
+            <input type="radio" value="1" name="editiontype"  (click)="geteditiontype($event.target.value)">Paid
+          </label>
+          <!-- <input type="radio" class="form-control" placeholder="Add Currency" formControlName="currency" /> -->
+        
+      </div>
+
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            Edition </label>
+            <select type="text" class="form-control" formControlName="editionname" (change)="editionselect($event.target.value,neweditionname)">
+              <option value="opt1" selected disabled>---Select Edition Name---</option>
+              <option value="neweditionname" style="background-color: #002e86;color:white">Add Edition Name</option>
+              <option *ngFor="let edition of editionlist" value="{{edition[0]}}">{{edition[1]}} </option>
+            </select>
+        
+        <label class="text-danger" style="font-weight:bold;font-size:16px" *ngIf="neweditionshow">New Edition: {{editionForm.controls.editionname.value}}</label>
+         <!-- <input type="text" class="form-control" placeholder="Enter Edition Name" formControlName="editionname"
+            #editionName /> -->
+      </div>
+      
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Version</h6>
+          </label>
+          <input type="text" class="form-control" placeholder="Enter your Version" formControlName="version" />
+        
+        <div class="messages text-danger" *ngIf="editionForm.controls.version.errors?.pattern">Numbers Only Allowed..
+        </div>
+      </div>
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Release Date</h6>
+          </label>
+          <input type="date" class="form-control" formControlName="releasedate" />
+        
+      </div>
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Status</h6>
+          </label>
+          <select name="status" class="form-control form-control-default" formControlName="status">
+            <option value="0">Active</option>
+            <option value="1">Inactive</option>
+          </select>
+        
+      </div>
+      
+      <!-- <div class="col-lg-4">
+        
+          <label class="form-label semibold"><h6>Edition Type</h6></label>
+          <select name="editiontype" class="form-control form-control-default" formControlName="editiontype">
+            <option value="Yearly">Yearly</option>
+            <option value="Monthly">Monthly</option>
+            <option value="Trial">Trial</option>
+          </select>
+        
+      </div> -->
+      <!-- <div class="col-lg-4">
+        
+          <label class="form-label semibold"><h6>Number-of-Days</h6></label>
+          <input type="text" class="form-control" placeholder="Number of Days" formControlName="days" />
+        
+        <div class="messages text-danger" *ngIf="editionForm.controls.days.errors?.pattern">Numbers Only Allowed..</div>
+      </div> -->
+    </div>
+   
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Client_Role</h6>
+          </label>
+          <input class="form-control" placeholder="Client Role" formControlName="clientrole"/>
+        
+      </div>
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Ranking</h6>
+          </label>
+          <select name="status" class="form-control" formControlName="ranking">
+            <option value="opt1">--Select Ranking--</option>
+            <option value="1">1 - Bronze-Trial</option>
+            <option value="2">2 - Silver-Trial</option>
+            <option value="3">3 - Gold-Trial</option>
+            <option value="4">4 - Platinum-Trial</option>
+            <option value="5">5 - Free-Edition</option>
+            <option value="6">6 - Bronze-Edition</option>
+            <option value="7">7 - Silver-Edition</option>
+            <option value="8">8 - Gold-Edition</option>
+            <option value="9">9 - Platinum-Edition</option>
+            <option value="10">10 - Other-Edition</option>
+          </select>
+          <!-- <input class="form-control" placeholder="Client Role" formControlName="clientrole"/> -->
+        
+      </div>
+      <div class="col-lg-4">
+        
+          <label class="form-label semibold">
+            <h6>Description</h6>
+          </label>
+          <textarea class="form-control" placeholder="Optional" formControlName="description"> </textarea>
+        
+      </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-lg-4">
+        
+          <button [disabled]="!editionForm.valid" type="submit" class="btn-round">Save</button>
+        
+      </div>
+    </div>
+
+    <!--Edition Popup-->
+    <ng-template #neweditionname let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <label class="form-label"> Add New Sub-Module</label>
+        <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+      </div>
+      <img src="assets/images/poptab.jpg" alt="poptablet" class="mt-4 modimg"><br>
+  
+      <div class="modal-body mx-5">
+        <input class="form-control" id="maingroupnumber" formControlName="newedition" placeholder="Enter Edition Name" />
+      </div>
+      <div class="modal-footer">
+        <label class="btn modbtn" id="typemain" (click)="SaveNewEdition(c)">Save
+        </label>
+      </div>
+    </ng-template>
+  </form>
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

@@ -1,0 +1,46 @@
+<style>
+    .shiftclass{
+        width:40%;
+        border:2px solid grey;
+        border-radius: 7px;
+        padding:2em 1em;
+    }
+</style>
+<app-card>
+    <div class="sub-title">Open Register <em class="fa fa-sign-in ficon"> </em> </div>
+    <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+        <div class="" align="right">
+            <button type="button" class="btn-round" [routerLink]="['/OpenRegister/ViewOpenRegister']">View Open Register</button>
+        </div><br>
+        <form [formGroup]="shiftOpenedForm" (ngSubmit)="onSubmit()">
+            <div class="container" align="center">
+                <div class="mx-2 shiftclass">
+                    <label class="text-secondary" style="font-weight: bold;" *ngIf="employeename!=null">User: {{employeename}}</label><br>
+                    <select  class="sign-control" formControlName="counterid">
+                        <option value="opt1" disabled>--Select Counter--</option>
+                        <option value="1">Counter1</option>
+                        <option value="2">Counter2</option>
+                        <option value="3">Counter3</option>
+                        <option value="4">Counter4</option>
+                        <option value="5">Counter5</option>
+                    </select><br><br>
+                    <input type="text" class="sign-control" placeholder="Enter Previous Closed (or) Drawer Amount" formControlName="openbalance"><br>
+                    <div class="messages text-danger" *ngIf="shiftOpenedForm.controls.openbalance.errors?.pattern">Enter Only Numbers!..</div><br>
+                    <input type="text" class="sign-control" placeholder="Enter Current Opening (or) Hand in Cash Amount" formControlName="additionalamount"><br>
+                    <div class="messages text-danger" *ngIf="shiftOpenedForm.controls.additionalamount.errors?.pattern">Enter Only Numbers!..</div><br>
+                    <textarea placeholder="Notes" rows="3" cols="65" class="sign-control" style="height:100%;" formControlName="openregdetails"></textarea><br><br>
+                    <div class="" align="center">
+                        <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                    </div><br>
+                    <button type="submit" class="btn-round" [disabled]="!shiftOpenedForm.valid">Open Register</button>    
+                </div><br><br>
+            </div>
+        </form>
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+    <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+    </div>	 
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

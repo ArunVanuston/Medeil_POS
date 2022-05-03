@@ -1,0 +1,781 @@
+<style>
+  a:hover {
+    color: white;
+  }
+
+  .btn-round {
+    margin-top: 35px;
+  }
+</style>
+<app-card>
+
+  <div class="sub-title">Stock Reports
+    <i class="fa fa-print ficon"></i>
+  </div>
+  <div class="row">
+    <div class=" col-lg-4">
+      <fieldset class="form-group">
+        <label class="form-label semibold">
+          <div class="title1">
+
+            <u>Stock Analysis</u>
+
+          </div>
+        </label>
+      </fieldset>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/stock_analysis/Stock_Analysis.rptdesign&branchid={{branchid}}&companyrefid={{companyrefid}}&loc_name={{locname}}&locrefid={{locrefid}}&from_date={{reportvar}}&to_date={{reportvar1}}&status=0"
+            class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>  -->
+        <button class="btn-round" (click)="stockAnalysis()">View </button>
+
+      </div>
+    </div>
+  </form>
+
+
+<!-- </app-card> -->
+
+
+
+<!-- <app-card> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u> Consolidated Stock </u>
+
+        </div>
+      </label>
+    </div>
+
+
+    <div class=" col-lg-7" align="right">
+      <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/consolidated_stock/consolidated_stock.rptdesign&branchid={{branchid}}&companyrefid={{companyrefid}}&locname={{locname}}&locrefid={{locrefid}}&status=0"
+      class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+   -->
+      <button class="btn-round" (click)="consolidatedStock()">View </button>
+
+    </div>
+  </div>
+
+
+<!-- </app-card> -->
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>
+
+
+
+<!-- <app-card> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <u> Current Stock </u>
+        </div>
+      </label>
+    </div>
+    <div class=" col-lg-7" align="right">
+      <button class="btn-round" (click)="CurrentStock()">View </button>
+    </div>
+  </div>
+
+
+<!-- </app-card> -->
+
+
+
+<!-- <app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <h6>3.Hq Complete Distributor StockReport</h6>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/HqCompleteDistributorStockReport/CompleteDistributorStockReport.rptdesign&branchrefid={{branchid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+</app-card>
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <h6>4.Hq Shopwise Stock</h6>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/HqShopwiseStock/ShopwiseStockReport.rptdesign&branchrefid={{branchid}}&companyrefid={{companyrefid}}&locname={{locname}}&locrefid={{locrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+</app-card>
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <h6>5.Hq Distributorwise Stock</h6>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/HqDistributorwiseStock/DistributorwiseStockReport.rptdesign&branchrefid={{branchid}}&companyrefid={{companyrefid}}&locname={{locname}}&locrefid={{locrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+</app-card>
+
+
+
+
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <h6>6.Hq Complete ShopStock</h6>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/HqCompleteShopStock/CompleteShopStockReport.rptdesign&branchrefid={{branchid}}&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+</app-card>
+
+<app-card>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <h6>7.Hq Complete Stock</h6>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control" formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/HqCompleteStock/HqCompleteStock.rptdesign&companyrefid={{companyrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn btn-success btn-round active" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+      </div>
+    </div>
+  </form>
+
+
+
+    </app-card> -->
+
+<!-- <app-card> -->
+  <div class="sub-title" style="font-size: 20px;">Fast Moving Product</div>
+
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u> Fast Moving Product </u>
+
+        </div>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/Fast Moving Product/Fast Moving Product.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+            class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+
+        <button class="btn-round" (click)="fastMovingProduct()">View </button>
+
+
+      </div>
+    </div>
+  </form>
+
+
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u> Short Expiry </u>
+
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="form-label">
+          <h6>Month:</h6>
+        </label>
+        <!-- <input type="text"  (change)="view()" class="form-control" formControlName="months"/> -->
+        <select name="select" class="form-control" (change)="view();shortExpiry()" formControlName="months">
+          <option value="0" selected disabled>---Select no of Months---</option>
+          <option value="0">0</option>
+          <option value="1">1 </option>
+          <option value="2">2 </option>
+          <option value="3">3 </option>
+          <option value="4">4 </option>
+          <option value="5">5</option>
+          <option value="6">6 </option>
+          <option value="7">7 </option>
+          <option value="8">8 </option>
+          <option value="9">9 </option>
+          <option value="10">10</option>
+          <option value="11">11 </option>
+          <option value="12">12 </option>
+
+        </select>
+      </div>
+
+
+
+      <div class=" col-lg-8" align="right">
+        <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/Short Expiry/Short Expiry Report.rptdesign&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&companyrefid={{companyrefid}}&month={{month}}&status=0"
+          class=" btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+
+
+      </div>
+    </div>
+  </form>
+
+<!-- 
+</app-card>
+
+
+<app-card> -->
+  <div class="sub-title" style="font-size: 20px;">Slow Moving Products</div>
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u>Slow Moving Product List </u>
+
+        </div>
+
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+
+      </div>
+      <div class=" col-lg-3" align="right">
+        <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/Slow Moving Product/Slow Moving Product.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}&status=0"
+          class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a>
+    -->
+        <button class="btn-round" (click)="slowMovProdList()">View </button>
+      </div>
+    </div>
+  </form>
+
+<!-- </app-card> -->
+
+<!-- <h4>Stock Register</h4> -->
+
+
+<!-- ============================================= -->
+<!-- <app-card> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <h6><B><u> Complete Stock Search</u></B></h6>
+        </div>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+      </div>
+      <div class=" col-lg-3" align="right">
+        <button class="btn-round" (click)="StockSearch()">View </button>
+          </div>
+    </div>
+  </form>
+
+
+<!-- ================================================================ -->
+
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <h6> <B><u>Batchwise Stock Search</u></B></h6>
+        </div>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="form-label">
+          <h6>Select Batch</h6>
+        </label>
+        <select name="select" class="form-control" placeholder="Select Batch" formControlName="batchname">
+          <option selected disabled value="0">---Select Batch---</option>
+          <option *ngFor="let coun of batch" value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <button class="btn-round" (click)="BatchwiseStockSearch()">View </button>
+          </div>
+    </div>
+  </form>
+<!-- </app-card> -->
+
+<!-- ========================================================= -->
+<!-- <app-card> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <h6><B><u>Immovable Stock List</u></B></h6>
+        </div>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+      </div>
+      <div class=" col-lg-3" align="right">
+        <button class="btn-round" (click)="Immovable()">View </button>
+          </div>
+    </div>
+  </form>
+
+<!-- ================================================= -->
+
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <h6> <B><u>Distributorwise Immovable Stock List</u></B></h6>                                                                                                                                                                                                                                                      
+        </div>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+      <div class="col-lg-3">
+        <label class="form-label">
+          <h6>Select Distributor</h6>
+        </label>
+        <select name="select" class="form-control" placeholder="Select Batch" formControlName="dist">
+          <option selected disabled value="0">---Select Distributor---</option>
+          <option *ngFor="let coun of dist" value={{coun[0]}}>{{coun[1]}}</option>
+        </select>
+      </div>
+
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-3'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+      </div>
+      <div class=" col-lg-2" align="right">
+        <button class="btn-round" (click)="distimmu()">View </button>
+          </div>
+    </div>
+  </form>
+<!-- </app-card>
+
+<app-card> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <u> Minimum Stock List </u>
+        </div>
+      </label>
+    </div>
+    <div class=" col-lg-7" align="right">
+      <button class="btn-round" (click)="minimumstock()">View </button>
+    </div>
+  </div>
+
+
+
+<!-- =============================================================== -->
+
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1">
+          <h6><B><u>Damaged Product List</u></B></h6>
+        </div>
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="col-form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="col-form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+      </div>
+      <div class=" col-lg-3" align="right">
+        <button class="btn-round" (click)="DamagedProduct()">View </button>
+          </div>
+    </div>
+  </form>
+</app-card>
+
+<!-- ==================================================================== -->
+  <!-- 
+      <app-card>
+        <div class="row">
+              <div class="col-md-12 col-lg-4">
+                <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/StockRegister/StockProductSearch.rptdesign">StockProductSearch</a>
+              </div>
+            </div>
+      
+          </app-card>
+
+
+
+
+
+
+
+          
+<app-card><h4>Stock Analysis</h4>
+<div class="row">
+  <div class="col-md-12 col-lg-4">
+    <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/stock_analysis/minimumstock.rptdesign">Minimum Stock</a>
+  </div>
+</div>
+
+</app-card>-->
+
+
+
+<app-card>
+
+
+
+  <div class="row">
+    <div class=" col-lg-6">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u> Out of stock </u>
+
+        </div>
+      </label>
+    </div>
+
+    <div class=" col-lg-5" align="right">
+      <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/stock_analysis/outofstock.rptdesign&BranchRefID={{branchid}}&LocName={{locname}}&LocRefID={{locrefid}}&CompanyRefID={{companyrefid}}&Status=0"
+             class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+
+      <button class="btn-round" (click)="outOfStock()">View </button>
+    </div>
+  </div>
+
+
+</app-card>
+
+<app-card>
+
+
+
+  <div class="row">
+    <div class=" col-lg-6">
+      <label class="form-label semibold">
+        <div class="title1">
+
+          <u> ABC Analysis </u>
+
+        </div>
+      </label>
+    </div>
+
+    <div class=" col-lg-5" align="right">
+      <!-- <a href="https://secure.medeil.io/birt/frameset?__report=MedeilReports/stock_analysis/outofstock.rptdesign&BranchRefID={{branchid}}&LocName={{locname}}&LocRefID={{locrefid}}&CompanyRefID={{companyrefid}}&Status=0"
+             class="btn btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+
+      <button class="btn-round" (click)="ABCAnalysis()">View </button>
+
+    </div>
+  </div>
+
+
+</app-card>

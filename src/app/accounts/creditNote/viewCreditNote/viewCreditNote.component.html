@@ -1,0 +1,102 @@
+<style>
+	.nodata {
+		text-align: center;
+		width: 100%;
+		padding: 10px;
+		font-size: 25px;
+		color: rgb(245, 50, 50);
+		font-family: Verdana, Geneva, sans-serif;
+	}
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+	
+	
+</style>
+<app-card>
+	<div class="sub-title">{{'finance.creditnotedetails'| translate}}
+		<em class="ti-receipt ficon"></em>
+	  </div>
+	<div class="searchbox" align="center">
+		<input type="search" [(ngModel)]="filterQuery" class="search" placeholder="Search CreditNote">
+	</div><br>
+	<div class="row">
+		
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6"> </div>
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6" align="right">
+			
+				<select class="form-control selectsize mr-3" [(ngModel)]="rowsOnPage">
+					<option value="opt1" disabled>Select Count</option>
+					<option [ngValue]="10">10</option>
+					<option [ngValue]="15">15</option>
+					<option [ngValue]="20">20</option>
+				</select>
+		
+		</div>
+	</div><br>
+	<div align="center">
+		<img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+	  </div>
+	  
+	<div class="dt-responsive">
+		<div style="overflow-x: scroll">
+			<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"
+				[mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+				[(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+				<thead>
+					<tr>
+						<th scope="col">S. No </th>
+						<th scope="col">{{'finance.journalno'| translate}}</th>
+						<th scope="col">{{'finance.journaldate'| translate}}</th>
+						<th scope="col">{{'finance.draccname'| translate}}</th>
+						<th scope="col">{{'finance.craccname'| translate}}</th>
+						<th scope="col">{{'finance.debitamount'| translate}}</th>
+						<th scope="col">{{'finance.creditamount'| translate}}</th>
+						<th scope="col">{{'finance.invoiceno'| translate}}</th>
+						<th scope="col">{{'finance.edit'| translate}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let item of mf.data;let i=index">
+						<td>{{i+1}} </td>
+						<td>{{item[1  ]}} </td>
+						<td>{{item[2  ]}} </td>
+						<td>{{item[5  ]}} </td>
+						<td>{{item[6  ]}} </td>
+						<td>{{item[3  ]}} </td>
+						<td>{{item[4  ]}} </td>
+						<td>{{item[7  ]}} </td>
+						<td><a [routerLink]="['/CreditNote/EditCreditNote',item[0]]"
+								class="btn viewbtn">Edit</a></td>
+					</tr>
+					<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+						<td></td>
+						<td></td>
+						<td></td>
+						<td class="nodata">No matching Records found....</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="9">
+							<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</app-card>

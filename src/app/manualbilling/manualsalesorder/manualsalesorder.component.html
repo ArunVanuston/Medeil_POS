@@ -1,0 +1,122 @@
+<style>
+  .stylebody #swidth{
+    width:345px;
+  }
+</style>
+<app-card>
+  <div class="sub-title">Manual Sales Order
+    <em class="fa fa-shopping-cart ficon"></em>
+  </div>
+  <div class="" align="right">
+    <button type="button" [routerLink]="['/ManualBilling/ManualSalesOrderList']" class="btn-round">View Sales Order</button>
+  </div><br>
+  <form [formGroup]="ManualSalesOrderForm">
+    <div class="mx-3" align="center">
+      <ng-select [options]="manualinvcustomers" class="inputstyle" id="customfocus" formControlName="customerrefid" placeholder="Search Customer Name" 
+      (change)="getinvcustomerinfo()" (click)="getinvcustomerinfo()" style="width:40%" #custfocus> 
+      </ng-select>
+    </div><br>
+    <div class="container">
+      <!-- <div class="px-2" align="right">
+        <label class="pr-2" style="font-size:17px;font-weight:bold;">Date: 
+        <span style="color:#002e86">{{ManualSalesOrderForm.controls.billdate.value}}</span></label>
+      </div> -->
+      <div class="flow mx-2" align="center">
+        <table aria-describedby="mydesc" class="table popstyletab px-2">
+            <thead class="stylehead">
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Amount</th>
+                    <!-- <th scope="col">Add/Remove</th> -->
+                </tr>
+            </thead>
+            <tbody class="stylebody">
+            <tr>
+                <td>
+                    <input value="1" readonly id="width1" />
+                </td>
+                <td>
+                    <input type="text" formControlName="productname" id="swidth" style="text-align:left" readonly/>
+                </td>
+                <td>
+                    <input type="number" formControlName="totalitems" id="width1"  readonly/>
+                </td>
+                <td>
+                  <input type="number" formControlName="totaldiscount" id="width2" (blur)="disccalc()"/>
+                </td>
+                <td>
+                    <input type="text" formControlName="planamount"  style="text-align:left" readonly/>
+                </td>
+                <!-- <td id="width3">
+                    <em class="fa fa-plus" style="color:#002e86;font-weight: bold;cursor: pointer;" (click)="insertnewrow()"></em>
+                    <em class="fa fa-close ml-3" style="color:brown;font-weight: bold;cursor: pointer;" (click)="removenewprodrow(i)"></em>
+                </td> -->
+            </tr>
+            <tr *ngFor="let item of manualprodlength; let i=index">
+              <td>
+                  <input readonly id="width1" readonly/>
+              </td>
+              <td>
+                  <input type="text" id="width5" readonly/>
+              </td>
+              <td>
+                  <input type="number" id="width1"  readonly/>
+              </td>
+              <td>
+                <input type="number" id="width1"  readonly/>
+              </td>
+              <td>
+                  <input type="text"  style="text-align:left" readonly/>
+              </td>
+              <!-- <td id="width3">
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+    </div><br>
+    <div class="row px-3">
+      <div class="col-lg-1"></div>
+      <div class="col-lg-7">
+        <textarea placeholder="Payment Link" rows="3" cols="100" class="sign-control" style="height:100%;" formControlName="paymentlink"></textarea>
+      </div>
+      <div class="col-lg-3">
+        <label class="form-label" style="color:#002e86;font-weight: bold;">Online:</label>
+        <input type="checkbox"  class="paycheck ml-2" (click)="setpaymode($event,1)"  formControlName="onlinecheck"/>
+        <label class="form-label" style="color:#002e86;font-weight: bold;" >Offline</label>
+        <input type="checkbox" class="paycheck ml-2 mt-2" (click)="setpaymode($event,2)"  formControlName="offlinecheck" />
+      </div>
+      <div class="col-lg-1"></div>
+    </div><br>
+    <div class="row" style="border-color:#002e86;border-width:2px;border-style:solid;">
+      <div class="col-lg-4" style="overflow:auto">
+        <div class="row" style="padding:0.5em 0px;background-color: #002e86;color:white">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label semibold" for="exampleInput"> Received</label><br>
+              <input type="text" class="inputstyle" formControlName="paidamount" (blur)="calbalance()" 
+              style="font-weight:bold;font-size: 18px;width:90%" autocomplete="off"/>
+          </div>
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+              <label class="form-label semibold" for="exampleInput"> Balance </label><br>
+              <input type="text" class="inputstyle" formControlName="balanceamount" 
+              style="font-weight:bold;font-size: 18px;width:90%"readonly/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3"></div>
+      <div class="col-lg-2" align="right">
+        <label class="form-label pt-4"  style="font-size: 1.4em;">Grand Total:</label>
+      </div>
+      <div class="col-lg-3" style="background-color:#002e86;color:white" align="right"> 
+        <label class="" style="font-weight:bold; font-size: 3.1em;">
+         {{ManualSalesOrderForm.controls.grandtotal.value}}</label><br>
+      </div>
+    </div><br>
+    <div class="mx-2" align="right">
+      <button type="button" class="btn-round" (click)="savesalesorder()">Save</button>
+    </div>
+    </div>
+  </form>
+</app-card>

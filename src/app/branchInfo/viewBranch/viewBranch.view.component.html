@@ -1,0 +1,141 @@
+<style>
+    .nodata {
+      text-align: center;
+      width: 100%;
+      padding: 10px;
+      font-size: 25px;
+      color: rgb(245, 50, 50);
+      font-family: Verdana, Geneva, sans-serif;
+    }
+    .action
+      {
+        font-size: 15px;
+        color: green; 
+      }
+      .action1
+      {
+        font-size: 15px;
+        color: red;
+      } 
+     
+        
+    </style>
+<app-card>    
+  <br>           
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+                <div>
+                  <label class="label-control">Show
+                    <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+                      <option [ngValue]="1">1</option>
+                      <option [ngValue]="25">25</option>
+                      <option [ngValue]="50">50</option>
+                      <option [ngValue]="100">100</option>
+                    </select>
+                    Entries
+                  </label>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-6">
+               <div class="form-inline justify-content-end" >
+	
+					<strong class="searchstyle">Search :</strong>
+					<input type="search" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Search Branch Name">
+				
+			</div>
+     </div>
+    </div><br>
+    
+    <div align="center">
+        <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+    </div><br>
+
+            <div class="dt-responsive">
+            <div style="overflow-x:auto">
+            <!-- <div class="panel-heading">User information</div>-->
+            <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" >
+              <thead>
+              <tr>
+                <th scope="col">
+                  S.No
+                </th>
+                <th scope="col">
+                 Branch Name
+                </th>
+                
+                <th scope="col">
+                  Contact Person
+                </th>
+                <th scope="col">
+                  Designation
+                </th>
+
+                <th scope="col">
+                 Mobile Number
+                </th>
+                <th scope="col">
+                   Address 1
+                </th>
+               
+                <th scope="col">
+                 Country
+                </th>
+               
+                <th scope="col">
+                  Action
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+                  <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+                      <td></td>
+                      <td class="nodata">No matching Records found....</td>
+                      
+                      <td></td> 
+                      <td></td> 
+                      <td></td>
+                      <td></td> 
+                      
+                      <td></td>     
+                     
+                      <td></td>    
+                      </tr>  	
+              <tr *ngFor="let val of data.content | paginate: { id: 'listing_pagination', itemsPerPage: size,
+              currentPage: page, totalItems: totalRec } let i = index">
+                  <td>{{i+1}}</td>
+                  <td>{{val[1]}}</td>
+                 
+                  <td>{{val[3]}}</td>  
+                  <td>{{val[4]}}</td>  
+                     
+                  <td>{{val[5]}}</td> 
+                  
+                  <td>{{val[6]}}</td>   
+                   
+                  <td>{{val[8]}}</td> 
+                  
+                      <td ngbDropdown class="text-center">
+                        <a ngbDropdownToggle class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true">
+                          <em class="icofont icofont-ui-settings"></em>
+                        </a>
+                        <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">    
+                          <a class="dropdown-item" href="javascript:;" [routerLink]="['/Registration/editBranch',val[0]]" skipLocationChange ><em class="icofont icofont-ui-edit"></em>Edit</a>
+                          <a class="dropdown-item" href="javascript:;"  (click)="deleteBranch(val[0])"><em class="icofont icofont-attachment"></em>Delete</a>                           
+                        </div>
+                      </td>
+              </tr>
+              </tbody>
+              <tfoot>              
+              <tr>
+                <td colspan="12">
+                  <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true"
+                  (pageChange)="page = $event" (pageChange)=" send(page = $event)" style="float: right;">
+                </pagination-controls>
+                </td>
+              </tr>
+              </tfoot>
+            </table>
+          </div>
+          </div>
+        </app-card>
+        <ng2-toasty [position]="position"></ng2-toasty>

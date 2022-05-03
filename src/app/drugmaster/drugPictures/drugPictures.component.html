@@ -1,0 +1,35 @@
+<style>
+.error {
+	font-size: large;
+	color: red;
+}
+</style>
+
+<app-card>
+<form [formGroup]="drugpicForm">
+	<div class="sub-title">Modify/Add DrugPictures
+		<em class="fa fa-picture-o ficon"></em>
+	</div><br>
+	
+	<div class="form-group row">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-5">
+			
+				<label class="form-label">Upload Photos</label>
+				<div class="form-inline">
+			<input type="file" formControlName="uploadpic" #fileInput
+				class="form-control" [multiple]="(maxFiles > 1)"
+				(change)="selectFile($event)" accept="image/*">
+			<em class="fa fa-upload" style="cursor:pointer" (click)="uploadPics()"></em>
+			
+			<em class="fa fa-trash ml-3" style="cursor:pointer" (click)="reset()"></em>
+			</div>	
+			<div class="error" *ngIf="errors.length > 0">
+				<ul>
+					<li *ngFor="let err of errors">{{err}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</form>
+</app-card>

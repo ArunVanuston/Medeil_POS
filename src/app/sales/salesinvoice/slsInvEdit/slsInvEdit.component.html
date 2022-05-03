@@ -1,0 +1,403 @@
+<style>
+    #autolist {
+        border: 2px solid #b3b3b3;
+        border-radius: 5px;
+        position: absolute;
+        z-index: 21;
+        background-color: #ffffff;
+        width: 38.7em;
+        max-height: 250px;
+        overflow-y: scroll;
+    }
+   
+    #autolist li input {
+        border: transparent;
+        font-family: Montserrat;
+        margin-right:4px;
+        font-size:16px;
+        width:278px;
+    }
+
+    #autolist li input:focus {
+       background-color:#b3b3b3;
+    }
+
+
+    #autolist .lhead{
+        text-align: center;
+        background-color: #0073aa;
+        font-family: Montserrat;
+        font-size: 18px;
+        font-weight: bold;
+        color: #FFFFFF;
+    }
+
+    #autolist .lbody{
+        font-family: Montserrat;
+        font-size:16px;
+    }
+   
+    #autolistnew {
+        border: 3px solid #b3b3b3 ;
+        position: absolute;
+        z-index: 21;
+        background-color: #ffffff;
+        width: 11em;
+        max-height: 200px;
+        overflow-y: scroll;
+    }
+   
+    #autolistnew li input {
+        border: transparent;
+    }
+
+    #autolistnew li input:focus {
+     
+        background-color: #b3b3b3;
+       
+    }
+   
+    .image {
+        position: absolute;
+        width: 360px;
+        height: 370px;
+        top: -50px;
+        background-color:white;
+        overflow-y: scroll;
+        overflow-x: scroll;
+    }
+  
+    .borderform {
+        border: 2px solid #b3b3b3;
+        border-radius: 5px;
+       padding:0.8em;
+    }
+  
+  .form-control:disabled,
+   .form-control[readonly] {
+                                
+      background-color: transparent ;
+      font-weight:bold;
+      font-size:18px;
+                           
+    }
+                               
+</style>
+
+<app-card>
+    <div class="sub-title">Edit Details
+        <em class="fa fa-edit ficon"></em>
+    </div><br>
+
+    <form [formGroup]="registerForm">
+
+        <div class="box-typical box-typical-padding">
+
+        <div class="borderform"> <!-- splitcolumnbefore1   start-->
+
+            <div class="row">
+                <!-- splitcolumn  start-->
+               
+                        <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='0' ">
+                            <label class="form-label semibold" for="exampleInput">Invoice No </label>
+                        
+                            <select class="form-control" (change)="viewEdit()" formControlName="id">
+                                <option *ngFor="let item of editdata; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                            </select>
+                        </div>
+
+                        <div class="col-lg-4" *ngIf="registerForm.controls.invdispflag.value=='1' ">
+                            <label class="form-label semibold" for="exampleInput">Invoice No
+                            </label>
+                      
+                            <input type="text" class="form-control" formControlName="custinvoiceno" />
+                        </div>
+
+                        <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput"> Invoice Date
+                                </label>
+                        
+                                <input type="date" class="form-control" formControlName="date" />
+                        </div>
+                   
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Cust Name
+                            </label>
+                      
+                            <input type="text" class="form-control"    formControlName="customername"/>
+                        </div>
+
+                      
+                    </div>
+             
+       
+                    <div class="row mt-3">
+
+                            <div class="col-lg-6 drugname">
+                                    <label class="form-label" for="exampleInput"> Drug Name
+                                    </label>
+                             
+                                    <input type="text" class="form-control" id="autoname" (focus)="autofocusin()" (focusout)="autofocusout()" autocomplete="off"
+                                        (keydown)="autokeyselect($event,0)" formControlName="autonamenew" />
+                                    <div id="autolist">
+                                        <ul>
+
+                                                <li *ngIf="autodata.length>0">
+                                                        <label class="lhead" style="width:278px"> Drug name </label>
+                                                        <label class="lhead" style="width:130px"> Batch No </label>
+                                                        <label class="lhead" style="width:100px">Qty </label>
+                                                    </li>
+
+                                            <li *ngFor="let address of    autodata; let i=index" [formGroupName]="i" (keydown)="autokeyselect($event,i+1)">
+                                                <input readonly value={{address[0]}} />
+                                                <label class="lbody" style="width:130px"> {{address[2]}} </label>
+                                                <label class="lbody" style="width:100px">{{address[3]}} </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col-md-5 boxname"> </div>
+                                    <div class="col-md-7 boxname">
+                                        <div id="autolistnew">
+                                            <ul>
+                                                <li (keydown)="viewStock($event, 1)">
+                                                    <input type="text" readonly value='Box' /> </li>
+                                                <li (keydown)="viewStock( $event ,2)">
+                                                    <input type="text" readonly value='Strip' /> </li>
+                                                <li (keydown)="viewStock($event ,3)">
+                                                    <input type="text" readonly value='Tab' /> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                      
+
+                        <div class="col-lg-4">
+
+                            
+                                <div class="image">
+                                        <em class="fa fa-times ficon" style="cursor:pointer" (click)="ClosePresc()"></em>
+                                        <br><br><br>
+                                      <ngx-image-viewer [src]=images></ngx-image-viewer>
+                            
+                                </div>
+
+                            <label class="form-label semibold" for="exampleInput"> Prescription View
+                            </label>
+                   
+                            <label class="btn btn-round ml-4" (click)="viewsPresc()">View Presc</label>
+                        </div>
+
+                        </div>
+                      
+                   
+            </div><br>
+            <!-- splitcolumn  end-->
+            <div class="title1"><u>Invoice Products</u></div><br>
+
+        
+            <div formArrayName="invoice" class="flow">
+                <!--. table  start-->
+             
+                    <table aria-describedby="mydesc" class="table styletab"  (keydown)="autocleartable1()">
+                        <thead class="stylehead">
+                            <tr>
+                                <th scope="col">Select  </th>  
+                                <th scope="col">
+                                   S. No
+                                </th>
+                                  <th scope="col">Prod Code</th>
+                                <th scope="col">
+                                   Prod Name 
+                                </th>
+                                <th scope="col">
+                                Batch No  
+                                </th>
+                            <!--       <th scope="col">
+                                  B/S/T 
+                                </th>  -->
+                                <th scope="col">
+                                        Expiry Date 
+                                     </th>
+                                     <th scope="col">Unit Qty</th>
+                            <!--         <th scope="col">Unit Free </th>
+                                <th scope="col">Available Free</th>   -->
+                                <th scope="col">Dis % </th>
+                                <th scope="col">Total Qty </th>
+                              <!--         <th scope="col">Total Free </th> -->
+                                <th scope="col">
+                                  Sales Price
+                                </th>
+                                <th  scope="col" *ngIf="registerForm.controls.vatdispflag.value=='0'">VAT  </th>    
+                           <th  scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">
+                                    SGST 
+                                </th>  
+                                <th scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">
+                                      CGST 
+                                </th>
+                                <th scope="col" *ngIf="registerForm.controls.vatdispflag.value=='1'">
+                                     IGST 
+                                </th> 
+                                <th scope="col">
+                                 Amount 
+                                </th>
+                             <!--      <th scope="col">
+                                   Stkqty
+                                </th>  -->
+                              
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+
+                        <tr *ngFor="let address of registerForm.controls.invoice.controls; let i=index" [formGroupName]="i">
+                       <td>
+                           <input   type="checkbox" class="tabcheck" id="width1" formControlName="delflag" /></td>
+                            <td>
+                                <input value={{i+1}} id="width2" readonly/>
+                            </td>
+                             <td><input  formControlName="drugproductid"  readonly/></td>
+                            <td>
+                                <input  id="width6"   formControlName="productname" style="text-align:left" readonly />
+                            </td>
+                            <td>
+                                <input formControlName="batchname" id="width4" style="text-align:left"  readonly/>
+                            </td>
+                         <!--      <td>
+                                <input formControlName="drgtyp" />
+                            </td>  -->
+                            <td><input  formControlName="expirydate"   /></td>  
+                            
+                            
+                            <td>
+                                <input formControlName="indvqty" (keydown)="calc($event)"  type="number"/>
+                            </td>
+                      <!--      <td>
+                                <input formControlName="indvfreeqty" (keydown)="calc($event)"  type="number"/>
+                            </td>
+                            <td>
+                                    <input formControlName="availfreeqty"    readonly/>
+                           </td>  -->
+                            <td>
+                                <input formControlName="unitdiscount"  id="width2" (keydown)="calc($event)"  type="number"/>
+                            </td>
+                            <td>
+                                <input formControlName="totalqty"   readonly/>
+                            </td>
+                        <!--    <td>
+                                <input formControlName="totalfreeqty"  readonly/>
+                            </td>  -->
+                            <td>
+                                <input formControlName="unitprice" class="right"  (keydown)="calc($event)"  type="number"/>
+                            </td>
+                      
+                           <td *ngIf="registerForm.controls.vatdispflag.value=='0'">
+                               <input  formControlName="unitvat" id="width2" /></td>
+                           
+                              <td  *ngIf="registerForm.controls.vatdispflag.value=='1'" >
+                                  <input  formControlName="unitsgst" id="width2" /></td>
+                                        
+                            <td *ngIf="registerForm.controls.vatdispflag.value=='1'" >
+                                <input formControlName="unitcgst" id="width2"/>
+                            </td>
+                            <td *ngIf="registerForm.controls.vatdispflag.value=='1'"  >
+                                <input formControlName="unitigst" id="width2"/>
+                            </td>  
+
+                            <td>
+                                <input   formControlName="subtotal" class="right"  readonly/>
+                            </td>
+                    
+                     
+                        </tr>
+                        </tbody>
+                    </table>
+            
+            </div><br>
+            <!--. table     end-->
+  
+    <div class="col-lg-3">   
+        <button  type="button" class="btn-round" (click)="remove()">Remove</button>    
+    </div>  <br>
+
+     <div class="borderform topadding"> <!-- splitcolumnbefore1   start-->
+
+                    <div class="row">
+
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Total Product
+                            </label>
+                     
+                            <input type="text" class="form-control" formControlName="totalitems" readonly />
+                        </div>
+
+                        <div class="col-lg-4">
+                                <label class="form-label semibold" for="exampleInput">Sub Total
+                                </label>
+                          
+                                <input type="text" class="form-control" formControlName="totalamount" readonly  />
+                            </div>
+
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Grand Total
+                            </label>
+                      
+                            <input type="text" class="form-control" formControlName="grandtotal"  readonly/>
+                        </div>
+
+                    </div>
+            
+         
+                    <div class="row mt-3">
+
+                            <div class="col-lg-4">
+                                    <label class="form-label semibold" for="exampleInput">Taxable Amt
+                                    </label>
+                             
+                                    <input type="text" class="form-control" formControlName="taxableamt"  readonly/>
+                                </div>
+        
+                                <div class="col-lg-4">
+                                    <label class="form-label semibold" for="exampleInput">Total Taxamt
+                                    </label>
+                             
+                                    <input type="text" class="form-control" formControlName="totaltaxamt" readonly />
+                                </div>
+
+                        <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">Total Disc
+                            </label>
+                      
+                            <input type="text" class="form-control" formControlName="totaldiscount"  readonly />
+                        </div>
+
+                    </div>
+
+                </div>
+               
+         
+          
+
+        </div>
+        <!-- box-typical-->
+        <ng2-toasty [position]="position"></ng2-toasty>
+    </form>
+    <!--addresses-->
+    <div class="row">
+        <!-- row Start-->
+        <div class="col-lg-1"></div>
+        
+        <div class="col-lg-3">
+
+            <button  type="button" class="btn-round" (click)="onSubmit()"
+            [disabled]="!registerForm.valid"  > Update  </button> 
+      
+            <button  type="button" class="btn btn-round ml-3"(click)="deleteSalesInvoice()"> Delete  </button>  
+      
+            <button  type="button" class="btn btn-round ml-3" [routerLink]="['SalesInvoice/SalesMaintenance']"> Back  </button>  
+        </div>
+
+    </div>
+    <!-- row end-->
+</app-card>

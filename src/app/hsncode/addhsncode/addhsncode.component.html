@@ -1,0 +1,154 @@
+<style>
+	.addnew{
+		background-color: #002e86;
+		color:white;
+		cursor: pointer;
+	}
+</style>
+<app-card>
+	
+	<div class="sub-title">{{'hsn.addhsndetails'| translate}}
+		<i class="fa fa-code ficon"></i>
+	</div><br>
+
+	<table style="width:100%">
+		<tbody>
+		  <tr>
+			<td style="width:95%">
+				<form  [formGroup] = "HsnaddForm" (ngSubmit)="onSubmit()" class="mx-3">
+					<div class="form-group row">
+						<div class="col-lg-4">
+							<label class="form-label semibold">
+								<h6>Select Country</h6>
+							</label>
+							<select name="select" class="form-control"  formControlName="country_id" >
+								<option value="opt1" selected disabled>---Select Country---</option>
+								<option *ngFor="let coun of country" value={{coun[0]}}> {{coun[1]}}</option>
+							  </select>
+						</div>
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold control-label">
+									<h6>{{'hsn.chapterdescription'| translate}}</h6>
+								</label>
+								<select name="select" class="form-control"  formControlName="mdescid" >
+									<option value="opt1" selected disabled>---Select Chapter Description---</option>
+									<option *ngFor="let md of mdescription" value={{md[0]}}> {{md[1]}}</option>
+								  </select>
+							   <button type="button" class="addnew" (click)="searchwithchapter('nonechapter',contenetchapter)" id="comdivision">Add Chapter List</button>
+               
+								<!-- <input type="text" class="form-control" placeholder="Enter Main Description" formControlName="main_description"/> -->
+								
+								<!-- <p class="messages text-danger" *ngIf="doctorForm.controls.doctorname.errors?.required">
+										This Field is Required*</p>
+								<p class="messages text-danger" *ngIf="doctorForm.controls.doctorname.errors?.pattern">
+												Accepts Only Text*</p> -->
+							</fieldset>
+						</div>
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold">
+									<h6>{{'hsn.hsndescription'| translate}}</h6>
+								</label>
+								<input type="text"  class="form-control" placeholder="Enter HSN Description" formControlName="hsndescription"/>
+								<!-- onkeyup="this.value = this.value.toUpperCase();" -->
+							</fieldset>
+						</div>
+					</div>
+			
+					<div class="form-group row">
+						
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold">
+									<h6>{{'hsn.hsncode'| translate}}</h6>
+								</label>
+								<input type="text" class="form-control" placeholder="Enter HSN Code" maxlength="10" formControlName="hsncode"/>
+							</fieldset>
+						</div>
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold">
+									<h6>{{'hsn.year'| translate}}</h6>
+								</label>
+								<input type="number" class="form-control" placeholder="YYYY" min="1" max="4" formControlName="year"/>
+								
+								<!-- <p class="messages text-danger" *ngIf="doctorForm.controls.docaddress1.errors?.required">
+										This Field is Required*</p> -->
+							</fieldset>
+						</div>
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold">
+									<h6>GST %</h6>
+								</label>
+								<input type="number" class="form-control" placeholder="Enter GST %" min ="0" max="100" formControlName="gst"/>
+							</fieldset>
+						</div>
+					</div>
+					<!-- <div class="form-group row">
+						
+						<div class="col-sm-4">
+							<fieldset class="form-group">
+							<label class="form-label semibold">
+								<h6>Business Type</h6>
+							</label>
+							<input type="text" class="form-control" placeholder=" " formControlName="business_type"/>
+							
+						</fieldset>
+						</div>
+						
+						<div class="col-lg-4">
+							<fieldset class="form-group">
+								<label class="form-label semibold">
+									<h6>Amendment</h6>
+								</label>
+								<input type="text" class="form-control" placeholder="Enter your Phone" formControlName="Amendment"/>
+							</fieldset>
+						</div>
+					</div> -->
+					<div class="form-group row">
+						<div class="col-lg-4">
+							<button type="submit" class="btn-round" style="margin:26px;" [disabled]="">{{'hsn.save'| translate}}</button>
+							<!-- "!doctorForm.valid" -->
+						</div>
+						<div class="col-lg-4">
+							<button type="button" class="btn-round" style="margin:26px;" (click) ="assignhsn()">{{'hsn.back'| translate}}</button>
+							<!-- "!doctorForm.valid" -->
+						</div>
+					</div>
+
+
+            <ng-template #contenetchapter let-c="close" let-d="dismiss">
+              <div class="modal-header">
+                <label class="form-label"> {{'hsn.addchapterlist'| translate}}</label>
+                <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+              </div>
+              <img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+      
+              <div class="modal-body mx-5">
+                <input class="form-control" id="maingroupnumber" formControlName="main_description" placeholder="Enter Main Group Name" />
+              </div>
+              <div class="modal-footer">
+                <label class="btn modbtn" id="typemain" (click) = "saveChapter(c)" >{{'hsn.savechapter'| translate}}
+                </label>
+      
+              </div>
+            </ng-template>		
+
+
+
+
+
+				</form>
+			</td>
+			<td style="width:5%" valign="top">
+				<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+			</td>
+		  </tr>
+		</tbody>
+	</table>
+
+</app-card>
+
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

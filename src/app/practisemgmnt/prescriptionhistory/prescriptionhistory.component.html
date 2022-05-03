@@ -1,0 +1,109 @@
+<style>
+  .nodata {
+    text-align: center;
+    width: 100%;
+    padding: 10px;
+    font-size: 25px;
+    color: rgb(245, 50, 50);
+    font-family: Verdana, Geneva, sans-serif;
+  }
+
+  .action {
+    font-size: 15px;
+    color: green;
+  }
+
+  .action1 {
+    font-size: 15px;
+    color: red;
+  }
+
+  
+</style>
+<app-card>
+  <br>
+  <!-- <div align="right">
+    <button class="btn btn-success btn-round" (click)="addOrder()" style="background-color: #5aa20c;">Add SalesOrder</button>
+  </div>
+  <br> -->
+  <div class="dt-responsive">
+    <!-- <div class="row">
+      <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+        <div>
+          <label class="label-control">Show
+            <select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+              <option [ngValue]="1">1</option>
+              <option [ngValue]="25">25</option>
+              <option [ngValue]="50">50</option>
+              <option [ngValue]="100">100</option>
+            </select>
+            Entries
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="form-inline justify-content-end">
+          <strong class="searchstyle">Search:</strong>
+            <input type="search" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Search SOL No">
+        </div>
+      </div>
+    </div><br> -->
+
+    
+	<div align="center">
+		<img src="assets/images/loading.gif" height="100px" *ngIf="gifFail">
+	  </div><br>
+
+    <div style="overflow: auto">
+      <table class="table table-striped table-bordered table-responsive full-data-table">
+        <thead>
+          <tr>
+            <th>
+              S.No
+            </th>
+            <th>
+              DrugName
+            </th>
+            <th>
+              Drug Code
+            </th>
+            <th>
+             Required Qty
+            </th>
+            <th>
+              Avail Qty
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngIf="(data?.content) == 0">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="nodata">No matching Records found....</td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let item of data?.content | paginate: { id: 'listing_pagination',
+          itemsPerPage: size, currentPage: page, totalItems: totalRec } let i = index">
+            <td>{{i+1}}</td>
+            <td>{{item.drugname}}</td>
+            <td>{{item.uniformproductcode}}</td>
+            <td>{{item.requiredquantity}}</td>
+            <td>{{item.availablequantity}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              <pagination-controls id="listing_pagination" directionLinks="true"
+                (pageChange)="page = $event" (pageChange)="searchpagechange(page = $event)" style="float: right;"></pagination-controls>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</app-card>

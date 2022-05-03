@@ -1,0 +1,21 @@
+<app-card>
+  <div class="sub-title">Other Receipt Report
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+    <label class="Title1"><u>Other Receipt</u></label><br>
+   
+    <div class="row">
+    <div class="col-lg-11" align="right">
+        <button class="btn-round" (click)="Receipt()">View </button>
+    </div>
+    </div>
+</app-card>
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:230%;">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

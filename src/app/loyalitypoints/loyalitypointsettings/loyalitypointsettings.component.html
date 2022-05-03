@@ -1,0 +1,130 @@
+<app-card>
+  <div class="sub-title">Customer Loyalty Settings
+    <em class="fa fa-cogs ficon"></em>
+  </div>
+
+
+  <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+      <div align="right">
+
+        <button  type="submit"  class="btn-round" [routerLink]="['/Loyalty/ViewLoyaltyPoints']">View Loyalty
+          Points</button>
+
+      </div>
+    
+      <form [formGroup]="LoyalityForm" (ngSubmit)="onSubmit()">
+
+
+        <!-- <div class="form-group row">
+        <label class="form-label"><h6><strong>&nbsp; &nbsp; &nbsp;Select Loyality Scheme :</strong></h6></label>
+      <div class="radio">  
+        <label>  
+            <input type="radio"  style="color: #002e86;" name="gender" value="Points" (click)="setradio('Points')" [checked]='true' ngModel>  
+          Points  
+        </label>  
+      </div>  
+      <div class="radio">  
+        <label>  
+            <input type="radio" name="gender" value="Gift" (click)="setradio('Gift')" ngModel>  
+            Gifts  
+        </label>  
+      </div>  
+      </div> -->
+
+        <div class="form-group row">
+          <!-- <div class="col-lg-4">
+          
+            <label class="form-label">
+              <h6>Loyalty Scheme</h6>
+            </label>
+            <input type="text" class="form-control" placeholder="Enter Loyalty Scheme" formControlName="loyality_type"
+              autofocus>
+           <div class="messages text-danger" *ngIf="hospitalForm.controls.hospitalname.errors?.required">Enter Hospital Name*</div> 
+          
+        </div> -->
+          <div class="col-lg-4">
+            
+              <label class="form-label" style="font-weight:bold">Validate From Date<span
+                  style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="from_date">
+            
+          </div>
+
+          <!-- <div class="col-lg-4">
+          
+          <label class="form-label"><h6>Validate From Date</h6></label>
+          <input type="datetime" class="form-control " required="true"  placeholder="Enter From Date" formControlName="from_date">
+           <div class="messages text-danger" *ngIf="hospitalForm.controls.registrationno.errors?.required">Enter Registration No*</div> 
+          
+        </div> 
+        <div class="col-lg-4">
+          
+          <label class="form-label"><h6>Validate To Date</h6></label>
+          <input type="datetime" class="form-control " required="true" placeholder="Enter To Date"formControlName="to_date">
+          
+       
+      </div> -->
+          <div class="col-lg-4">
+              <label class="form-label" style="font-weight:bold">Validate To Date<span
+                  style="color: red;">*</span></label>
+              <input type="date" class="form-control" formControlName="to_date">
+            
+          </div>
+          <div class="col-lg-4">
+            <label class="form-label">
+              <h6>Minimum Loyalty<span style="color: red;">*</span></h6>
+            </label>
+            <input type="number" class="form-control" placeholder="Enter the Minimum " formControlName="minimum_points">
+          </div>
+        </div><br>
+        <div class="bbform">
+          <div style="text-align: center; color: white;">
+            <h3><strong>Earning Loyalty</strong></h3>
+          </div><br>
+          <div class="form-group row pl-5">
+            <div class="col-lg-5">
+              <label class="form-label">
+                <h6>Amount</h6>
+              </label>
+              <input type="number" class="form-control" placeholder="Enter the Amount" (change) ="getcurrency()"
+                formControlName="price_equivalentto_points">
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.hospitalname.errors?.required">Enter Hospital Name*</div> -->
+            </div>
+            <h2 style="padding-top:1em"> = </h2>
+            <div class="col-lg-5">
+              <label class="form-label">
+                <h6>Equivalent Loyalty</h6>
+              </label>
+              <input type="number" class="form-control" placeholder="Enter the Loyalty" (change)="getvalue()" 
+                formControlName="equivalent_points">
+              <!-- <div class="messages text-danger" *ngIf="hospitalForm.controls.registrationno.errors?.required">Enter Registration No*</div> -->
+            </div>
+          </div>
+        </div>
+
+        <h6 style="margin-left: 20pc;"> * Spending {{logo}} {{spendvalue}} earns {{equilantloyality}} loyalty Points. </h6>
+        <br>
+
+        <div align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-1"></div>
+          <div class="col-lg-5">
+            <div class="form-group">
+              <button type="submit" class="btn-round">Submit</button>
+              <button type="button" class="btn-round ml-3" [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+      <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+  </div>
+
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

@@ -1,0 +1,58 @@
+<app-card>
+	<div class="container bform">
+	<form [formGroup]="domainForm">
+		<div class="mr-3" style="float: right;">
+			<input type="button" class="btn-round" (click)="viewDomain()" value="View Domain">
+		</div><br><br>
+		<div class="form-group row">
+			<div class="col-sm-4">
+				<label class="form-label semibold"><h6>Country Name</h6></label>
+				<select name="select" class="form-control" formControlName="countryid" (change)="getproduct()">
+					<option value="opt1" selected disabled>---Select Country---</option>
+					<option *ngFor="let coun of country " value={{coun[0]}}>{{coun[1]}}</option>
+				</select>
+			</div>
+			<div class="col-sm-4">
+				<label class="form-label semibold"><h6>Product Name</h6></label>
+				<select name="select" class="form-control" formControlName="productid" (change)="getdomain()">
+					<option value="opt1" selected disabled>---Select Product---</option>
+					<option *ngFor="let coun of product" value={{coun[0]}}>{{coun[1]}}</option>
+				</select>
+			</div>
+			<div class="col-lg-4">
+				
+					<label class="form-label semibold"><h6>Domain Name</h6></label>
+					<select name="select" class="form-control" (change)="searchwithcodeformain($event.target.value, contenetmain)" formControlName="domainname">
+						<option value="opt1" selected disabled>---Select Domain---</option>
+						<option value="nonemain" style="background-color: #002e86;color:white"> Add Domain</option>
+						<option *ngFor="let coun of domain" value={{coun[1]}}>{{coun[1]}}</option>
+					</select>
+				
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-lg-4">
+				<button (click)="SaveDomain(c)" class="btn-round">Save</button>
+			</div>
+		</div>
+
+	<ng-template #contenetmain let-c="close" let-d="dismiss">
+		<div class="modal-header">
+			<label class="form-label"> Add Domain</label>
+			<em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer"></em>
+		</div>
+		<img src="assets/images/poptab.jpg" alt="poptab" class="mt-4 modimg"><br>
+
+		<div class="modal-body mx-5">
+			<input class="form-control" id="maingroupnumber" formControlName="domainname" placeholder="Enter Domain Name" />
+		</div>
+		<div class="modal-footer">
+			<label class="btn modbtn" id="typemain" (click)="SaveDomain(c)">Save
+			</label>
+
+		</div>
+	</ng-template>
+</form>
+</div>
+<ng2-toasty [position]="position"></ng2-toasty>
+</app-card>

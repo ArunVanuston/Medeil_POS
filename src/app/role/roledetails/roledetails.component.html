@@ -1,0 +1,137 @@
+<style>
+  .table td, .table th {
+    padding: 0.4em 1.75rem;
+    vertical-align: top;
+    border-top:none !important;
+  }
+
+  .blurtext{
+    color: transparent;
+    text-shadow: 0 0 1px #868e96;
+  }
+</style>
+<app-card>
+  <div class="sub-title">{{'roll.roleassign'| translate}}
+    <em class="fa fa-tasks ficon"></em>
+  </div>
+  <div class="panels">
+  <div class="panel1" style="width:95%;float:left">
+    <div align="right">
+      <button type="button" class="btn-round" (click)="viewRole()">{{'roll.viewrole'| translate}}</button>
+    </div>
+    <form [formGroup]="roleAssignForm">
+      <!-- <div class="form-group row">
+        <div class="col-lg-4">
+         
+            <label class="form-label semibold"><h6>Role Name</h6></label>
+            <input type="text" class="form-control" formControlName="rolename" readonly style="background-color: white" />
+         
+        </div>
+        <div class="col-sm-4">
+          <label class="form-label semibold"><h6>Module Name</h6></label>
+          <angular2-multiselect class="form-control multi-select" [data]="modulelist" [settings]="dropdownSettings1" [(ngModel)]="selectmodulelist" formControlName="moduleid"
+          (onSelect)="getSubmodule()" (onSelectAll)="getSubmodule()" (onDeSelect)="getSubmodule()"(onDeSelectAll)="getSubmodule()">
+          </angular2-multiselect>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <label (click)="removedup()"><h6>Sub Modules</h6></label>
+            <angular2-multiselect class="form-control multi-select" [data]="submodulelist" [settings]="dropdownSettings1" [(ngModel)]="selectsubmodulelist" formControlName="submoduleid"
+            (onSelect)="removeFoodOrder()" (onSelectAll)="getSubmodule($event)" (onDeSelect)="getDeSubmodule($event)"(onDeSelectAll)="getDeSubmodule($event)">
+            </angular2-multiselect>
+          </div>
+        </div>
+      </div><br> --
+
+      <h4 (click)="getroles()">Get Roles</h4><br>-->
+      <table aria-describedby="mydesc" class="table" style="width:100%">
+        <ul *ngFor="let address of roleAssignForm.controls.labelsample.controls; let i=index" [formGroupName]="i">
+          <label class="text-secondary">Label:{{roleAssignForm.controls.labelsample.controls[i].controls.labelname.value}}</label>
+        <ul *ngFor="let address of roleAssignForm.controls.modulesample.controls; let i=index" [formGroupName]="i">
+          <label class="text-secondary ml-2">Module:{{roleAssignForm.controls.modulesample.controls[i].controls.modulename.value}}</label>
+        <ul *ngFor="let address of roleAssignForm.controls.submodulesample.controls; let i=index" [formGroupName]="i">
+          <label class="text-secondary ml-4">SubModule:{{roleAssignForm.controls.submodulesample.controls[i].controls.submodulename.value}}</label>
+        </ul></ul></ul>
+      </table>
+      <div class="container">
+        <div class="" align="center">
+          <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+        </div>
+        
+      <h4 class="text-secondary" style="text-align:center">{{'roll.rolename'| translate}}: <span style="font-weight:bold">{{roleAssignForm.controls.rolename.value}}</span></h4><br>
+      <div class="flow" style="max-height:650px;border:none">
+      <table aria-describedby="mydesc" class="table" style="width:100%">
+        <tr>
+          <td style="width:30%;border-right: 1px solid #b3b3b3">
+            <h4 class="text-secondary px-3" style="font-weight:bold;text-align: center;"><u>Labels List</u></h4><br>
+            <div class="" align="left">
+              <input type="checkbox" formControlName="lableallcheck" id="width1" class="ml-3" (click)="loadAllModules($event)" 
+              *ngIf="roleAssignForm.controls.lablearray.controls.length>0"/>
+              <label class="text-secondary pl-2" style="font-weight:bold"  *ngIf="roleAssignForm.controls.lablearray.controls.length>0">Select All</label>
+            </div>
+            <div class="" formArrayName="lablearray">
+              <tr *ngFor="let address of roleAssignForm.controls.lablearray.controls; let i=index" [formGroupName]="i">
+                <td>
+                  <input type="checkbox" formControlName="lablecheck" id="width1" (click)="loadModules(i)"/>
+                  <input type="text" class="ml-2" formControlName="lablename" id="width5" style="text-align: left;border:none" readonly/>
+                </td>
+              </tr>
+            </div><br>
+          </td>
+          <td style="width:35%;border-right: 1px solid #b3b3b3">
+            <h4 class="text-secondary px-3" style="font-weight:bold;text-align: center;"><u>{{'roll.moduleslist'| translate}}</u></h4><br>
+            <div class="" align="left">
+              <input type="checkbox" formControlName="moduleallcheck" id="width1" class="ml-3" (click)="loadallsubmodules($event)"
+              *ngIf="roleAssignForm.controls.modulearray.controls.length>0"/>
+              <label class="text-secondary pl-2" style="font-weight:bold" *ngIf="roleAssignForm.controls.modulearray.controls.length>0">Select All</label>
+            </div>
+            <div class="" formArrayName="modulearray">
+              <tr *ngFor="let address of roleAssignForm.controls.modulearray.controls; let i=index" [formGroupName]="i">
+                <td class="ml-2">
+                  <div *ngIf="labelnames[i].lindex==1" align="left">
+                  <label style="font-weight:bold;color:#002e86"><u>{{labelnames[i].lname}}</u></label><br>
+                  </div>
+                  <input type="checkbox" class="ml-4" formControlName="modulecheck" id="width1" (click)="loadsubmodules(i)"/>
+                  <input type="text" class="ml-2" formControlName="modulename" id="width5" style="text-align: left;border:none" readonly/>
+                </td>
+              </tr>
+            </div><br>
+          </td>
+          <td style="width:35%">
+            <h4 class="text-secondary px-3" style="font-weight:bold;text-align: center;"><u>{{'roll.submodulest'| translate}}</u></h4><br>
+            <div class="" align="left">
+              <input type="checkbox" formControlName="submoduleallcheck" id="width1" class="ml-3" (click)="selectallsubmodules($event)"
+              *ngIf="roleAssignForm.controls.submodulearray.controls.length>0"/>
+              <label class="text-secondary pl-2" style="font-weight:bold" *ngIf="roleAssignForm.controls.submodulearray.controls.length>0">Select All</label>
+            </div>
+            <div class="" formArrayName="submodulearray">
+              <tr *ngFor="let address of roleAssignForm.controls.submodulearray.controls; let i=index" [formGroupName]="i">
+                <td class="ml-2">
+                  <div *ngIf="modulenames[i].mindex==1"  align="left">
+                    <label style="font-weight:bold;color:#002e86"><u>{{modulenames[i].mname}}</u></label><br>
+                  </div>
+                  <input type="checkbox" class="ml-4" formControlName="submodulecheck" id="width1" [attr.disabled]="roleAssignForm.controls.submodulearray.controls[i].controls.disablevalue.value==1?'':null"/>
+                  <input type="text" class="ml-2" formControlName="submodulename" id="width5" style="text-align: left;border:none"
+                  [ngClass]="roleAssignForm.controls.submodulearray.controls[i].controls.disablevalue.value==1?'blurtext':''" readonly/>
+                </td>
+              </tr>
+            </div>
+          </td>
+        </tr>
+      </table>
+      </div><br>
+      <!-- <div class="mr-2" align="right">
+        <button (click)="saveroles()" class="btn-round">Save</button>
+      </div> -->
+      <div align="right">
+        <button (click)="saveroles()" class="btn-round">{{'common.save'| translate}}</button>
+      </div>
+      </div>
+    </form>
+  </div>
+  <div class="panel2" style="width:5%;float:right">
+  <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+  </div>
+  </div>	
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

@@ -1,0 +1,41 @@
+<!-- Doctor List -->
+<app-card>
+  <div class="sub-title">Doctor Reports
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+  <label class="title1"><u>Doctor List</u></label><br>
+  <div class="row">
+    <div class=" col-lg-11" align="right">
+      <button class="btn-round" (click)="doctorlist()">View </button>
+    </div>
+  </div>
+  <br>
+  <br>
+  
+
+
+
+<!-- Hospital List -->
+
+  <!-- <div class="sub-title">Hospital Reports
+    
+  </div><br> -->
+  <label class="title1"><u>Hospital List</u></label><br>
+  <div class="row">
+    <div class=" col-lg-11" align="right">
+      <button class="btn-round" (click)="hospitallist()">View </button>
+    </div>
+  </div>
+</app-card>
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

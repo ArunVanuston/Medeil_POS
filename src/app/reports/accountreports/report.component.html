@@ -1,0 +1,361 @@
+<app-card>
+
+  <div class="sub-title">Account Reports
+    <em class="fa fa-print ficon"></em>
+  </div><br>
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    
+    <label class="Title1"><u>Receipt</u></label><br>
+    
+    <div class="row">
+    <div class="col-lg-11" align="right">
+      <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/Receipt/receipt.rptdesign&LocName={{locname}}&LocRefId={{locrefid}}"
+        class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+        <button class="btn-round" (click)="receipt()">View </button>
+      </div>
+</div>
+  </form>
+</app-card>
+
+<app-card>
+
+
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    
+
+    <label class="Title1"><u>Payment</u></label><br>
+   
+    <div class="row">
+    <div class="col-lg-11" align="right">
+      <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/Payment/payment.rptdesign&LocName={{locname}}&Locrefid={{locrefid}}"
+        class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+
+        <button class="btn-round" (click)="payment()">View </button>
+
+    </div>
+    </div>
+  </form>
+</app-card>
+
+
+<app-card>
+  <!-- <div class="sub-title">Sales Return</div> -->
+  
+    
+      <label class="form-label semibold">
+        <div class="title1"><u>Balance sheet</u></div>
+
+
+      </label>
+ 
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+
+      </div>
+    </div>
+      <div class="row">
+      <div class=" col-lg-11" align="right">
+        
+          <button class="btn-round" (click)="balancesheet()">View </button>
+
+      </div>
+    </div>
+  </form>
+
+</app-card>
+
+<app-card>
+
+  <label class="title1"><u>Daily Cash book</u></label><br>
+
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/DailyCashReport.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}0"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="daybook()">View </button>
+
+  </div>
+</div>
+</app-card>
+
+<app-card>
+  <!-- <div class="sub-title">Sales Return</div> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1"><u>Profit & Loss Report</u></div>
+
+
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+
+      </div>
+    </div>
+      <div class="row">
+      <div class=" col-lg-11" align="right">
+        <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/ProfitLossReport.rptdesign&locname={{locname}}&locrefid={{locrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+          <button class="btn-round" (click)="plstatement()">View </button>
+        </div>
+    </div>
+  </form>
+
+</app-card>
+
+
+<app-card>
+  <!-- <div class="sub-title">Sales Return</div> -->
+  <div class="row">
+    <div class=" col-lg-4">
+      <label class="form-label semibold">
+        <div class="title1"><u>Trial Balance Report</u></div>
+
+
+      </label>
+    </div>
+  </div>
+  <form [formGroup]="myForm">
+    <div class="row">
+
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker6'>
+          <label class="form-label">
+            <h6>From Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="from_date" />
+        </div>
+
+      </div>
+      <div class='col-lg-4'>
+        <div class='date' id='datetimepicker7'>
+          <label class="form-label">
+            <h6>To Date:</h6>
+          </label>
+          <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+            formControlName="to_date" />
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <div class=" col-lg-11" align="right">
+        <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/TrialBalanceReport.rptdesign&locname={{locname}}&locrefid={{locrefid}}&fromdate={{reportvar}}&todate={{reportvar1}}"
+          class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+          <button class="btn-round" (click)="trialstatement()">View </button>
+        </div>
+    </div>
+  </form>
+
+</app-card>
+
+<app-card>
+
+  <label class="title1"><u>Debitnote Report</u></label><br>
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/DebitNote/debitnote.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="debitamount()">View </button>
+    </div>
+</div>
+</app-card>
+
+
+<app-card>
+
+  <label class="title1"><u>Creditnote Report</u></label><br>
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/CredtNote/creditnote.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="creditamount()">View </button>
+    </div>
+</div>
+</app-card>
+
+<app-card>
+
+  <label class="title1"><u>Cash Movement Report</u></label><br>
+  <form [formGroup]="myForm">
+  <div class="row">
+
+    <div class='col-lg-4'>
+      <div class='date' id='datetimepicker6'>
+        <label class="form-label">
+          <h6>From Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="from_date" />
+      </div>
+
+    </div>
+    <div class='col-lg-4'>
+      <div class='date' id='datetimepicker7'>
+        <label class="form-label">
+          <h6>To Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="to_date" />
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/cashmovement.rptdesign&fromdate={{reportvar}}&todate={{reportvar1}}&locname={{locname}}&locrefid={{locrefid}}"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="cashmovement()">View </button>
+    </div>
+  </div>
+</form>
+</app-card>
+
+<app-card>
+
+  <label class="title1"><u>Customer Ledger Report</u></label><br>
+  <form [formGroup]="myForm">
+  <div class="row">
+
+    <div class='col-lg-4'>
+      <div class='date' id='datetimepicker6'>
+        <label class="form-label">
+          <h6>From Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="from_date" />
+      </div>
+
+    </div>
+    <div class='col-lg-4'>
+      <div class='date' id='datetimepicker7'>
+        <label class="form-label">
+          <h6>To Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="to_date" />
+      </div>
+
+    </div>
+    <div class="col-lg-4" >
+      <label class="form-label" for="exampleInput">Customer Name</label>
+      <ng-select [options]="customers" class="inputstyle" placeholder="Search Customer"   formControlName="customerid"></ng-select>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/customerledger.rptdesign&fromdate={{reportvar}}&todate={{reportvar1}}&locname={{locname}}&locrefid={{locrefid}}"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="customerledger()">View </button>
+    </div>
+  </div>
+</form>
+</app-card>
+
+<app-card>
+
+  <label class="title1"><u>Distributor Ledger Report</u></label><br>
+  <form [formGroup]="myForm">
+  <div class="row">
+
+    <div class='col-lg-4'>
+      <div class='date' id='datetimepicker6'>
+        <label class="form-label">
+          <h6>From Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="from_date" />
+      </div>
+
+    </div>
+    <div class='col-lg-4'>
+      <div class='date' id='datetimepicker7'>
+        <label class="form-label">
+          <h6>To Date:</h6>
+        </label>
+        <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+          formControlName="to_date" />
+      </div>
+
+    </div>
+    <div class="col-lg-4" >
+      <label class="form-label" for="exampleInput">Distributor Name</label>
+      <ng-select [options]="distributors" class="inputstyle" placeholder="Search Customer"   formControlName="distributors"></ng-select>
+    </div>
+  </div>
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/customerledger.rptdesign&fromdate={{reportvar}}&todate={{reportvar1}}&locname={{locname}}&locrefid={{locrefid}}"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="distributorledger()">View </button>
+    </div>
+  </div>
+</form>
+</app-card>
+
+<app-card>
+
+  <label class="title1"><u>Opening & Closing Report</u></label><br>
+  <div class="row">
+  <div class="col-lg-11" align="right">
+    <!-- <a href="http://164.52.207.77:7777/birt/frameset?__report=MedeilReports/AccountsReports/openclosereport.rptdesign&companyrefid={{companyrefid}}&branchrefid={{branchid}}&locname={{locname}}&locrefid={{locrefid}}"
+      class="btn-round" role="submit" aria-pressed="true" routerLinkActive="active" target="_blank">View</a> -->
+      <button class="btn-round" (click)="openclosing()">View </button>
+    </div> 
+ 
+</div>
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <em class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></em>
+  </div><br>
+  <div class="px-4">
+    <iframe title="report" height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

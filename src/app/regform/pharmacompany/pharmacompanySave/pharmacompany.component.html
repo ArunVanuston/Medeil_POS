@@ -1,0 +1,382 @@
+<style>
+  .sdruglabel {
+    border: 2px solid grey;
+    border-radius: 8px;
+    background-color: white;
+    position: absolute;
+    z-index: 1;
+    overflow-y: auto;
+    max-height: 310px;
+    }  
+</style>
+<app-card>
+    <div class="sub-title">{{'productmaster.manufacturerdetails'| translate}}
+        <em class="fa fa-user ficon"></em>
+    </div>
+    <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="mx-3">
+            <div class="mr-2" align="right">
+                <button type="button" class="btn-round" [routerLink]="['/Manufacturer/ViewManufacturer']">{{'pharmacompany.viewmanufacturer'| translate}}</button>
+            </div><br>
+    
+            <div class="box-typical box-typical-padding">
+    
+                <div class="row">
+                    <div class="col-lg-4"> 
+                            <label class="form-label" for="exampleInput">{{'pharmacompany.manufacturercompanyname'| translate}}
+                                <span class="fontlangifbel">*</span></label> 
+                            <input type="text" (input)="searchmanufacture($event.target.value)"class="form-control" id="docregistrationid" placeholder=" "
+                                formControlName="pcompanyname" />
+                            <!--<p class="messages text-danger" *ngIf="registerForm.controls.pcompanyname.errors?.required">This
+                                Field is
+                                Required*</p> -->
+                            <p class="messages text-danger" *ngIf="registerForm.controls.pcompanyname.errors?.pattern">
+                            Accepts Only Text!</p>
+                            <div class="sdruglabel mt-1" *ngIf="manufacturelist.length>0">
+								<table aria-describedby="mydesc" class="table">
+									<tbody class="lbody">
+									<tr *ngFor="let pdata of manufacturelist; let i=index" class="selectrow">
+									   <td><label style="width:280px;overflow: hidden;padding: 6px 5px;"> {{pdata[1]}} </label></td> 
+									</tr>
+									</tbody>
+								</table>
+							</div> 
+                    </div>
+    
+    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput"> {{'pharmacompany.companyshortname'| translate}}</label> <input type="text" class="form-control" id="docname" placeholder=" "
+                                formControlName="pshortname" />
+    
+                            <p class="messages text-danger" *ngIf="registerForm.controls.pshortname.errors?.pattern">
+                                Accepts Text & Numbers!</p>
+    
+                        
+                    </div>
+    
+    
+                    <div class="col-lg-4">
+                        <!--<span class="fontlangifbel">*</span>-->
+                            <label class="form-label" for="exampleInput">{{'pharmacompany.druglicenseno'| translate}}</label> 
+                            <input type="text" class="form-control" id="docregistrationid" onkeyup="this.value = this.value.toUpperCase();" 
+                                formControlName="dlno" maxlength="20"/>
+    
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.dlno.errors?.required">This
+                                Field is Required*</p> -->
+                            <p class="messages text-danger" *ngIf="registerForm.controls.dlno.errors?.pattern">
+                                    Accepts Text & Numbers!</p>
+                        
+                    </div>
+    
+                </div>
+    
+                <div class="form-group row">
+    
+                    <div class="col-lg-3">
+                        <label class="form-label">{{'productmaster.selecttype'| translate}} </label>
+                        <select class="form-control" formControlName="pcompanytype" (click)="viewState()">
+                            <option value="opt1">--Select Type--</option>
+                            <option *ngFor="let item of compnytypeList; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                        </select>
+                        <!-- <angular2-multiselect [data]="compnytypemulList" [settings]="compnytypeSettings"
+                            [(ngModel)]="selectedItems" formControlName="pcompanytype">
+                        </angular2-multiselect> -->
+    
+                    </div>
+    
+                    <div class="col-lg-1">
+                        <button type="button" class="viewbtn" style="margin-top:32px;" (click)="open(content)"
+                            id="comtype">{{'common.add'| translate}} </button>
+                    </div>
+    
+    
+    
+                    <div class="col-lg-3">
+                        <label class="form-label">{{'pharmacompany.selectdivision'| translate}}</label>
+                        <angular2-multiselect [data]="divisionmulList" [settings]="divisionSettings"
+                            [(ngModel)]="selectedItems1" formControlName="pcompanysubtype">
+                        </angular2-multiselect>
+    
+                    </div>
+    
+                    <div class="col-lg-1">
+                        <button type="button" class="viewbtn" style="margin-top:32px" (click)="open(content)"
+                            id="comdivision">{{'common.add'| translate}}</button>
+                    </div>
+    
+                </div>
+                <!--.row1end-->
+    
+    
+                <div class="sub-title">{{'formtitle.contact'| translate}}</div><br>
+    
+                <div class="form-group row">
+                    <!--.row2start-->
+    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">{{'pharmacompany.contactperson'| translate}}</label>
+                            <!-- <span class="fontlangifbel">*</span> -->
+                            <input type="text" class="form-control" id="docpincode" placeholder="  "
+                                formControlName="pcontactperson" />
+                                <!-- <p class="messages text-danger" *ngIf="registerForm.controls.pcontactperson.errors?.required">This
+                                    Field is Required*</p> -->
+                                <p class="messages text-danger" *ngIf="registerForm.controls.pcontactperson.errors?.pattern">
+                                    Accepts Text Only!</p>
+                        
+                    </div>
+    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label semibold" for="exampleInput">{{'pharmacompany.designation'| translate}}
+                            </label> <input class="form-control" id="docphonenumber" placeholder="  "
+                                formControlName="pdesignationid" />
+                            <p class="messages text-danger" *ngIf="registerForm.controls.pdesignationid.errors?.pattern">
+                                    Accepts Text Only!</p>
+                        
+                    </div>
+    
+    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">{{'common.address'| translate}}</label>
+                            <!-- <span class="fontlangifbel">*</span> -->
+                            <input type="text" class="form-control" id="doc_address1" placeholder=" "
+                                formControlName="paddress1" />
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.paddress1.errors?.required">This
+                                Field is Required*</p> -->
+                        
+                    </div>
+                </div>
+    
+                <div class="form-group row">
+                    <div class="col-lg-4" id="country">
+                        <label class="form-label" for="country">{{'common.country'| translate}}
+                        <span class="fontlangifbel">*</span></label>
+                        <select class="form-control" formControlName="pcountry" (click)="viewState()">
+                            <option value="0">--Select Country--</option>
+                            <option *ngFor="let item of countries; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4" id="state">
+                        <label class="form-label" for="state">  {{'common.state'| translate}}</label>
+                        <!-- <span class="fontlangifbel">*</span> -->
+                        <select class="select2" id="docstate" class="form-control" (click)="viewCity()"
+                        formControlName="pstate">
+                        <option value="0">--Select State--</option>
+                        <option *ngFor="let item of states; let i = index" value={{item[0]}}>{{item[2]}}
+                        </option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4" id="state">
+                        <label class="form-label" for="state">{{'common.city'| translate}}</label>
+                        <!-- <span class="fontlangifbel">*</span> -->
+                        <select class="select2" id="docstate" class="form-control" formControlName="pcity">
+                            <option value="0">--Select State--</option>
+                            <option *ngFor="let item of cities; let i = index" value={{item[0]}}>{{item[2]}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">  {{'common.pincode'| translate}}</label>
+                            <input type="text" onkeyup="this.value = this.value.toUpperCase();" maxlength="10" class="form-control"
+                                id="docpincode" placeholder="  " formControlName="ppincode" />
+                        
+                    </div>
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label semibold" for="exampleInput"> {{'common.mobile'| translate}}</label>
+                            <!-- <span class="fontlangifbel">*</span> -->
+                            <input
+                            oninput="javacript:if(this.value > this.maxLength) this.value=this.value.slice(0,this.maxLength);"
+                            type="number" maxlength="15" class="form-control" id="docphonenumber"
+                            placeholder="  " formControlName="pmobileno" maxlength="15"/>
+                            <!-- <p class="messages text-danger" *ngIf="registerForm.controls.pmobileno.errors?.required">This
+                                Field is Required*</p> -->
+                            <p class="messages text-danger" *ngIf="registerForm.controls.pmobileno.errors?.pattern">This
+                                Numerical Only Allowed!..</p>
+                    </div>
+                    <div class="col-lg-4">
+                            <label class="form-label" for="exampleInput">  {{'common.phone'| translate}}</label> 
+                            <input oninput="javascript:if(this.value>this.maxLength) this.value=this.value.slice(0,this.maxLength)"
+                            class="form-control"  id="docmobile" type="number" maxlength=15 placeholder="  " formControlName="pphoneno" />
+                            <p class="messages text-danger" *ngIf="registerForm.controls.pphoneno.errors?.pattern">This
+                                    Numerical Only Allowed!..</p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInputEmail1">{{'common.email'| translate}}
+                                </label> <input type="text" class="form-control" id="docemail" placeholder="  "
+                                formControlName="pemail" />
+                            <p class="messages text-danger" *ngIf="registerForm.controls.pemail.errors?.pattern">Enter
+                                Correct Mail!</p>
+                    </div>
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label semibold" for="exampleInput"> {{'common.tinno'| translate}}
+                            </label> <input type="number" class="form-control" id="docphonenumber" placeholder="  "
+                                formControlName="ptinno" />
+                        
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="country">{{'common.countryoforigin'| translate}}</label>
+                            <select class="form-control" formControlName="countryoforigin">
+                                <option value="0">--Select Country--</option>
+                                <option *ngFor="let item of countries; let i = index" value={{item[0]}}>{{item[1]}}</option>
+                            </select>
+                        
+                    </div>
+                </div>
+                   
+    
+                    <!-- <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">PAN Number</label> <input
+                                type="text" class="form-control" id="docpincode"
+                                placeholder="  " formControlName="ppanno" />
+        
+        
+                        
+                    </div> -->
+    
+                    
+    
+    
+                    <!-- <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">GST Number</label> <input
+                                type="text" class="form-control" id="docpincode"
+                                placeholder="  " formControlName="pgstno" />
+        
+        
+                        
+                    </div> -->
+    
+    
+    
+    
+    
+    
+    
+                    <!-- <div class="col-lg-4">
+                        
+                            <label class="form-label semibold" for="exampleInput">IEC Code
+                                </label> <input  class="form-control" id="docphonenumber"
+                                placeholder="  " formControlName="pieccode" />
+        
+        
+                        
+                    </div>
+                     -->
+    
+                <div class="sub-title">{{'formtitle.bankdetails'| translate}}</div><br>
+    
+                <div class="form-group row">
+                    <!--.row3start-->
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput"> {{'common.bankname'| translate}}</label> <input type="text"
+                                class="form-control" id="docpincode" placeholder="  " formControlName="bankname" maxlength="100" />
+                        <p class="messages text-danger" *ngIf="registerForm.controls.bankname.errors?.pattern">Accepts Text Only..!</p>
+                    </div>
+    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label semibold" for="exampleInput">{{'common.bankbranch'| translate}}
+                            </label> <input class="form-control" id="docphonenumber" placeholder="  " maxlength="100"
+                                formControlName="bankbranch" />
+                                <p class="messages text-danger" *ngIf="registerForm.controls.bankbranch.errors?.pattern">Accepts Text Only..!</p>
+                    </div>
+    
+    
+    
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">  {{'common.accountnumber'| translate}}</label> <input   type="number"
+                            oninput="javascript:if(this.value>this.maxLength) this.value=this.value.slice(0,this.maxLength)"                          
+                                class="form-control" id="docpincode" placeholder="  " maxlength="30"  formControlName="accountnumber" />
+    
+    
+                        
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label semibold" for="exampleInput">{{'common.ifsccode'| translate}}
+                                </label> <input class="form-control" id="docphonenumber"
+                                placeholder="  " formControlName="ifsccode" maxlength="50" onkeyup="this.value = this.value.toUpperCase();"/>
+                                <p class="messages text-danger"  *ngIf="registerForm.controls.ifsccode.errors?.pattern">Accepts Text Only..!</p>
+        
+                        
+                    </div>
+        
+                    <div class="col-lg-4">
+                        
+                            <label class="form-label" for="exampleInput">{{'common.swiftcode'| translate}}</label> <input
+                                type="text" class="form-control" id="docpincode"
+                                placeholder="  " formControlName="swiftcode" maxlength="50" />
+                                <p class="messages text-danger" *ngIf="registerForm.controls.swiftcode.errors?.pattern">Accepts Text Only..!</p>
+        
+                        
+                    </div>
+                    <div class="col-lg-4">
+                            <label class="form-label semibold" for="exampleInput">{{'common.micrcode'| translate}}
+                                </label> <input class="form-control" id="docphonenumber"
+                                placeholder="  " formControlName="misccode" maxlength="50" />
+                                <p class="messages text-danger" *ngIf="registerForm.controls.misccode.errors?.pattern">Accepts Text Only..!</p>
+                    </div>
+                </div>
+    
+                <div class="" align="center">
+                    <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                </div>
+                <div class="form-group row">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <button type="submit" [disabled]="!registerForm.valid" class="btn-round">{{'common.submit'| translate}}</button>
+                        </div>
+                    </div>
+                </div>
+                <!--.row4 end-->
+    
+    
+                <ng2-toasty [position]="'center-center'"></ng2-toasty>
+    
+                <ng-template #content let-c="close" let-d="dismiss">
+    
+                    <div class="modal-header">
+                        <label class="form-label">Add New</label>
+                        <!-- <label class="form-label" id="division" >Add Division</label> -->
+                        <em class="fa fa-times" (click)="c('Close click')" style="cursor:pointer;color:white"></em>
+                    </div>
+                    <img src="assets/images/potab1.jpg" class="mt-4 modimg"><br>
+    
+                    <div class="modal-body">
+                        <input class="form-control" id="docphonenumber" formControlName="phindvdivision" placeholder="Enter Value" />
+                    </div>
+    
+                    <div class="modal-footer">
+                        <label class="btn modbtn" id="type" (click)="saveIndvComptype(c)">Save</label>
+                        <label class="btn modbtn" id="division" (click)="saveIndvDivision(c)">Save</label>
+                    </div>
+                </ng-template>
+    
+            </div>
+            <!-- box-typical-->
+        </form>    
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+    <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+    </div>
+</app-card>

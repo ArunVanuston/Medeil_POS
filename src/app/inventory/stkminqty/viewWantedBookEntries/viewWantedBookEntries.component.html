@@ -1,0 +1,119 @@
+<style>
+    .nodata {
+      text-align: center;
+      width: 100%;
+      padding: 10px;
+      font-size: 25px;
+      color: rgb(245, 50, 50);
+      font-family: Verdana, Geneva, sans-serif;
+    }
+  
+    .action {
+      font-size: 15px;
+      color: green;
+    }
+  
+    .action1 {
+      font-size: 15px;
+      color: red;
+    }
+  </style>
+  <app-card>
+    <br>
+    <div class="dt-responsive">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+          <div class="form-inline">
+            <strong class="searchstyle">Search:</strong>
+              <input type="search" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Search Product Name">
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6" style="text-align: right;">
+          <button class="btn-round" (click)="goBack()">Go Back</button>
+        </div>
+      </div><br>
+      <div style="overflow: auto">
+        <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"  [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+          [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th scope="col">
+               S.No
+              </th>
+              <th  scope="col" *ngIf="tabId==1">
+                Product code
+              </th>
+              <th  >
+                Product Name
+              </th>
+              <th  scope="col" *ngIf="tabId==1">
+                Available Qty
+              </th>
+              <th  scope="col" *ngIf="tabId==1">
+                Last Received Qty
+              </th>
+              <th  scope="col" *ngIf="tabId==1">
+               Min Qty
+              </th>
+              <th  >
+               Required Qty
+              </th>
+
+              <th scope="col">
+               Remarks
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="nodata">No matching Records found....</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let val of mf.data; let i=index"> 
+
+            <!-- | paginate: 
+            
+             { id: 'listing_pagination',
+            itemsPerPage: 10,
+            currentPage: page,
+            totalItems: totalRec } 
+            
+             let i=index"> -->
+
+              <td> {{i+1}}</td>
+              
+              <td *ngIf="tabId==1">{{val[4]}}</td>
+
+              <td *ngIf="tabId==2">{{val[0]}} </td>
+              <td *ngIf="tabId==1">{{val[5]}}</td>
+              <td *ngIf="tabId==1">{{val[6]}}</td>
+              <td *ngIf="tabId==1">{{val[7]}}</td>
+
+              <td *ngIf="tabId==1">{{val[8]}}</td>
+              <td *ngIf="tabId==1">{{val[9]}}</td>
+              <td *ngIf="tabId==2">{{val[1]}} </td>
+              <td *ngIf="tabId==1">{{val[11]}}</td>
+              <td *ngIf="tabId==2">{{val[2]}} </td>
+
+
+              <!-- <td>{{val[11]}}</td> -->
+              
+          </tbody>
+          <tfoot>
+            <tr>
+              <!-- <pagination-controls id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page = $event"></pagination-controls> -->
+              <td colspan="4" style="text-align: right;">
+                  <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+                </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </app-card>

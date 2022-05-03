@@ -1,0 +1,93 @@
+<app-card>
+  <div class="sub-title">{{'user.userdetails'| translate}}
+    <em class="fa fa-user ficon"></em>
+  </div>
+  <table aria-describedby="mydesc" style="width:100%">
+    <tbody>
+      <tr>
+        <td style="width:95%">
+          <div align="right">
+            <button type="button" class="btn-round" (click)="viewUserinfo()" >{{'user.viewuser'| translate}}</button>
+          </div><br>
+          <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="mx-2">
+              <div class="form-group row">
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-label semibold"><h6>{{'user.employeename'| translate}}</h6></label>
+                  <select class="form-control" formControlName="employeeid" (change)="getUserList()">
+                    <option value="opt1" selected disabled>---Select Employee---</option>
+                    <option *ngFor="let emp of employeelist" value={{emp[1]}}>{{emp[0]}} </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group">
+                  <label class="form-label semibold"><h6>{{'user.rolename'| translate}}</h6></label>
+                  <select type="text" class="form-control" formControlName="rolerefid" (change)="roleexistvalidate($event.target.value)">
+                    <option value="opt1" disabled>---Select Role---</option>
+                    <option *ngFor="let rol of rolelist;let i=index" value={{rol[0]}}>{{rol[4]}}</option>
+                  </select>
+                </div>
+              </div> 
+              <div class="col-lg-4">
+                
+                  <label class="form-label semibold"><h6>{{'user.emailidusername'| translate}}</h6></label>
+                  <input type="text" class="form-control" formControlName="emailid" placeholder="Enter Email Id" (blur)="emailexistvalidate($event.target.value)"/>
+                
+                <div class="messages text-danger" *ngIf="userForm.controls.emailid.errors?.pattern">Invalid Email Address..</div>
+              </div>
+              
+            <!-- <div class="col-lg-4">
+              
+                <label class="form-label semibold"><h6>Password</h6></label>
+                <input type="password" class="form-control" minlength="8" formControlName="password" placeholder="*****************" />
+              
+            </div> -->
+            </div><br>
+
+            <div class="form-group row">
+             
+
+              <div class="col-lg-4">
+                
+                  <label class="form-label semibold"><h6>{{'user.phonenumber'| translate}}</h6></label>
+                  <input type="number" class="form-control" formControlName="phoneno1" placeholder="Enter Phone Number" />
+                
+              </div>
+
+              <div class="col-lg-4">
+                
+                  <label class="form-label semibold"><h6>{{'user.isadmin'| translate}}</h6></label>
+                  <select name="select" required="true" class="form-control form-control-default" formControlName="isadmin">
+                    <option value="1">Yes</option>
+                    <option value="0">No</option>
+                  </select>
+                
+              </div>
+              <div class="col-lg-4">
+                
+                  <label class="form-label semibold"><h6>{{'user.isactive'| translate}}</h6></label>
+                  <select name="select" class="form-control form-control-default" formControlName="isactive">
+                    <option value="1">Active</option>
+                    <option value="0">In-Active</option>
+                  </select>
+                
+              </div>
+            </div>
+         
+            <div class="from-group row">
+              <div class="col-lg-1"></div>
+              <div class="col-lg-2">
+                <button type="submit" class="btn-round">{{'user.save'| translate}}</button>
+              </div>
+            </div>
+          </form>
+        </td>
+        <td style="width:5%"  valign="top">
+          <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </td>
+      </tr>
+    </tbody>
+  </table><br>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

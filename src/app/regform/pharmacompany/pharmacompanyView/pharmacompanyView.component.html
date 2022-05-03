@@ -1,0 +1,154 @@
+<style>
+	.action {
+		font-size: 15px;
+		color: green;
+	}
+
+	.action1 {
+		font-size: 15px;
+		color: red;
+	}
+</style>
+
+<app-card>
+	<div class="sub-title">{{'pharmacompany.viewmanufacturer'| translate}}
+		<em class="fa fa-eye ficon"></em>
+	</div>
+	<div class="panels">
+	<div class="panel1" style="width:95%;float:left">
+		<div class="mr-2" align="right">
+			<button type="button" class="btn-round" [routerLink]="['/Manufacturer/AddManufacturer']">{{'pharmacompany.addmanufacturer'| translate}}</button>
+		</div>
+		<div class="searchbox" align="center">
+			<input type="search" [(ngModel)]="filterQuery" class="search" placeholder="Search Manufacturer Company Name">
+		</div>
+		<div align="center">
+			<img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+		</div>
+		<div class="mr-2" align="right">
+			<select class="form-control countwidth" [(ngModel)]="rowsOnPage">
+				<option [ngValue]="10">10</option>
+				<option [ngValue]="25">25</option>
+				<option [ngValue]="50">50</option>
+				<option [ngValue]="100">100</option>
+			</select>
+		</div><br>
+		<div class="dt-responsive">
+			<div style="overflow-x:auto">
+				<table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table"
+					[mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+					[(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+					<thead>
+						<tr>
+							<th scope="col">{{'common.sno'| translate}}</th>
+							<!-- <th scope="col">MFR Company Id</th> -->
+							<th scope="col">{{'pharmacompany.mfrcompanyname'| translate}}</th>
+							<th scope="col">{{'pharmacompany.mfrshortname'| translate}}</th>
+							<!-- <th scope="col">MFR Company Type</th> -->
+							<th scope="col">{{'common.address'| translate}}</th>
+	
+	
+	
+	
+	
+							<th scope="col">{{'common.mobile'| translate}}</th>
+	
+	
+							<th scope="col">{{'common.action'| translate}}</th>
+	
+						</tr>
+					</thead>
+					<tbody>
+	
+						<tr *ngFor="let item  of mf.data;let i=index">
+							<td>{{i+1}}</td>
+	
+	
+							<!-- <td>{{item[0  ]}} </td> -->
+	
+	
+	
+							<td>{{item[1  ]}} </td>
+							<td>{{item[2  ]}} </td>
+							<!-- <td>{{item[3  ]}} </td> -->
+							<td>{{item[7   ]}} </td>
+	
+							<td>{{item[16  ]}} </td>
+	
+	
+	
+							<td>
+								<div ngbDropdown class="dropdown-secondary dropdown">
+									<button style="color:deepskyblue;" ngbDropdownToggle
+										class="btn btn-mini dropdown-toggle waves-light b-none txt-muted dropDownbutton"
+										type="button" id="dropdown10" data-toggle="dropdown" aria-haspopup="true"
+										aria-expanded="false"><i class="icofont icofont-navigation-menu"></i></button>
+									<div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown10"
+										data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+										<a class="dropdown-item waves-light waves-effect" href="javascript:;"
+											[routerLink]="['/Manufacturer/phcompanyedit',item[0]]" skipLocationChange> <i
+												class="icofont icofont-ui-edit action" title="Edit Company">&nbsp;<span
+													class="tdspan">	{{'common.edit'| translate}}</span></i></a>
+										<!-- <a class="dropdown-item waves-light waves-effect" href="javascript:;"
+											(click)="deleteDistributor(item[0])"><i class="icofont icofont-delete-alt action1"
+												title="Delete">&nbsp;<span class="tdspan">	{{'common.delete'| translate}}</span></i></a> -->
+									</div>	
+								</div>
+								
+								<!-- <span [routerLink]="['/Manufacturer/phcompanyedit',item[0]]" class="btn viewbtn" skipLocationChange>Edit</span> -->
+							</td>
+						</tr>
+	
+						<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+							<td></td>
+	
+							<td></td>
+							<td></td>
+							<!-- <td></td> -->
+							<td class="nodata">No Data Available</td>
+							<td></td>
+							<td> </td>
+	
+						</tr>
+	
+	
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="8">
+								<mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+							</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="panel2" style="width:5%;float:right">
+	<app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+	</div>
+	</div>
+	<!-- <div class="row">
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+			<div>
+				<label class="label-control">Show
+					<select class="form-control input-sm full-data-show-entry" [(ngModel)]="rowsOnPage">
+						<option [ngValue]="1">1</option>
+						<option [ngValue]="25">25</option>
+						<option [ngValue]="50">50</option>
+						<option [ngValue]="100">100</option>
+					</select>
+					Entries
+				</label>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-sm-12 col-md-6">
+			<div class="form-inline justify-content-end">
+				<strong class="searchstyle">Search : </strong>
+				<input type="search" [(ngModel)]="filterQuery" class="form-control w-50"
+					placeholder="Enter Manufacturer Company Name">
+			</div>
+		</div>
+	</div><br> -->
+
+</app-card>

@@ -1,0 +1,121 @@
+   
+    <style>
+        #swidth{
+            width:245px;
+        }
+    </style>
+
+    <app-card>
+        <div class="sub-title">Folder Ranking
+            <em class="fa fa-star ficon"></em>
+        </div>
+        <div class="panels">
+        <div class="panel1" style="width:95%;float:left">
+            <div class="container">
+                <div class="" align="right">
+                <button type="button" class="btn-round" [routerLink]="['/GeneralSettings/GeneralSettings']">Back</button>
+                </div><br>
+                <div class="conditions">
+        
+                    <h5 style="font-weight: bold;font-family: Montserrat;">Conditions for Give Ranking:</h5><br><br>
+                    <ol style="font-size: 16px;font-family: Montserrat;">
+                            <li>Ranking Value Not to be Empty (or) Null</li>
+                            <li>Ranking Value Not to be Zero</li>
+                            <li>Ranking Value Not to be Higher than your Module Count (eg: If S.No 15 Value Must be 15 or Below)</li>
+                            <li>Ranking Value Not to be Occur Duplicate</li>
+                    </ol> 
+        
+                </div><br>
+            <div class="row">
+        
+                <div class="col-lg-3"></div> 
+                
+            <div class="col-lg-6">
+            <form [formGroup]="folderrankForm" (ngSubmit)="onSubmit()">
+             
+                <div class="flow" formArrayName="folderDetails" style="max-height:680px">
+                    <table aria-describedby="mydesc" rz-table class="table styletab">
+                        <thead class="stylehead">
+                            <tr>
+                            
+                                <th scope="col">S.No</th>
+                                <th scope="col">Folder Name</th>
+                                <th scope="col">Ranking</th>
+                            </tr>
+                        </thead>
+                        <tbody class="stylebody">
+                
+                            <tr *ngFor="let rank of folderrankForm.controls.folderDetails.controls; let i = index"
+                            [formGroupName]="i">
+                            
+                                <td id="width2">{{i+1}}</td>
+                                <td>
+                                    <input formControlName="label" style="text-align:left" id="width6" readonly>
+                                    
+                                </td>
+        
+                                <td>
+                                    <input formControlName="ranking" id="width2">
+                                </td>
+                
+                
+                            </tr>
+                            
+                            
+                        
+                            <tr *ngFor="let item of itemlength; let i = index">
+                            
+                                <td>
+                                    <input type="text" id="width2" >
+                                </td>
+                                <td>
+                                    <input type="text" id="swidth">
+                                </td>
+                                <td>
+                                    <input type="text" id="width2" >
+                                </td>
+                
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                        </tfoot>
+                    </table>      
+                </div><br>
+                <div class="" align="center">
+                    <img src="assets/images/saveload.gif" alt="loading" class="mt-2" *ngIf="saveprocess">
+                </div><br>
+                        
+                <div class="ml-4">
+                    <button type="submit" class="btn-round">Save</button>
+                </div>           
+                     
+                </form>
+                </div><!--Col-lg-6 End-->
+                <div class="col-lg-3"></div>
+        
+                </div><!--Row Complete-->
+             </div><!---Container Complete-->
+        </div>
+        <div class="panel2" style="width:5%;float:right">
+        <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </div>
+        </div>	
+    </app-card>
+    <ng2-toasty [position]="'center-center'"></ng2-toasty>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,89 @@
+<style>
+.label-info {
+    background-color: #3498DB;
+    color: white;
+}
+
+
+</style>
+
+
+<app-card>
+  <div class="sub-title">View User Task
+    <em  class="fa fa-cog ficon"></em>
+  </div>
+<div class="col-xs-12 col-sm-12 col-md-12">
+  <div style="text-align: right;">
+    <label>Search:
+      <input type="search" [(ngModel)]="filterQuery" class="form-control input-sm full-data-search" placeholder="Search Usertask">
+    </label>
+  </div>
+</div>
+
+
+<div style="overflow: auto">
+<table class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery"
+#mf="mfDataTable" [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+<thead>
+<tr>
+  <th scope="col">Task Number</th>  
+   <th scope="col">Task Title</th>
+  <th scope="col">Priority</th>
+ 
+  <th scope="col">Assigned By</th>
+  <th scope="col">Assigned To</th>
+  <th scope="col">Task Start Date</th>
+  <th scope="col">Task Due Date</th>
+  <th scope="col">Completed Date</th>
+  <th scope="col">Task Status</th>
+  <!-- <th scope="col">Action</th> -->
+  <th scope="col">Task Details</th>
+
+</tr>
+<tr>
+</tr>
+</thead>
+<tbody>
+<tr *ngIf="(data | dataFilter : filterQuery) == 0">
+  <td></td>
+  <td class="nodata">No matching Records found....</td>
+  <td></td>
+</tr>
+<tr *ngFor="let val of mf.data;let i=index">
+  
+  <td>{{val[0]}}</td>
+  <td>{{val[1]}}</td>
+  <td> <span [ngClass]="{'label label-info':val[2]=='Medium','label label-success':val[2]=='Low'}">{{val[2]}}</span>  </td>
+ 
+  <td>{{val[4]}}</td>
+  <td>{{val[5]}}</td>
+  <td>{{val[6]}}</td>
+  <td>{{val[7]}}</td>
+  <td>{{val[8]}}</td>
+  <td>{{val[3]}}</td>
+  <!-- <td ngbDropdown class="text-center">
+    <a ngbDropdownToggle class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true">
+      <em  class="icofont icofont-ui-settings"></em>
+    </a>
+    <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+      <a class="dropdown-item" href="javascript:;" [routerLink]="['/usertask/Usertaskdetails',val[0]]"><em
+          class="icofont icofont-ui-edit"></em>Edit</a>
+      <a class="dropdown-item" href="javascript:;"  (click)="usertask(val[0])"><em  class="icofont icofont-attachment"></em>Delete</a>                           
+    </div>
+  </td> -->
+	<td >
+    <span [routerLink]="['/UserTask/Usertaskdetail',val[9]]"
+      class="btn viewbtn">View Usertask</span>
+  </td>
+
+</tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

@@ -1,0 +1,120 @@
+<!-- <style>
+   .inputstyle{
+    width:100%;
+    height:35px;
+    border:1px solid lightgray;
+    background-color: #F8F8F8;
+    border-radius: 5px;
+    outline: none;
+  }
+
+  .inputstyle:focus{
+      border: 2px solid gray;
+  }
+
+  .card1 {
+    border-radius: 13px;
+    border: none;
+    margin-bottom: 30px;
+    background-color: whitesmoke;
+  }
+  /* .card1:hover {
+      visibility: hidden;
+      box-shadow: 0 2px 40px 0 rgba(205, 205, 205, 0.55); 
+      -webkit-transform: translateY(-10px);
+              transform: translateY(-10px);
+  } */
+
+  .pricing-plan-title {
+    font-size: 21px;
+    color: #000;
+    margin-bottom: 4px;
+    font-weight: bold; 
+  }
+
+  .pricing-plan-cost {
+    font-size: 35px;
+    color: #000;
+    font-weight: bold;
+    margin-bottom: 29px; 
+  }
+
+  .pricing-plan-features {
+    list-style: none;
+    font-size: 14px;
+    line-height: 2.14;
+    margin-bottom: 35px;
+    color: #303132; 
+  }
+
+  .pricing-plan-purchase-btn {
+      background-color: #10bb87;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      width: 145px;
+      height: 45px;
+      border-radius: 22.5px;
+      border:none;
+      cursor: pointer;
+  }
+
+  .pricing-plan-purchase-btn:hover .card1 {
+      background-color: #10bb87;
+      box-shadow: 0 2px 40px 0 rgba(205, 205, 205, 0.55); 
+      -webkit-transform: translateY(-10px);
+              transform: translateY(-10px);
+  }
+</style>
+<div class="container pt-5 pb-2" style="background-color:white;">
+  <form [formGroup]="pricingForm">
+    <div class="mx-2 mt-3" align="center">
+      <img class="img-fluid" src="assets/images/cloudlogo.png" alt="Theme-Logo" style="width:280px"/><br><br>
+      <h3 class="text-center" style="font-weight:bold">Pricing Table</h3><br>
+      <select placeholder="Select Country" class="inputstyle" formControlName="country">
+        <option value="opt">Select Country</option>
+        <option *ngFor = "let val of country" value="{{val[0]}}">{{val[1]}}</option>
+      </select><br>
+      <div class="mt-1">
+        <input type="radio" [value]="1"  formControlName="selectcheck" (click)="selectcheck($event,1)" class="">
+        <label class="form-label mr-3">Trial</label>
+        <input type="radio" [value]="2" formControlName="selectcheck" (click)="selectcheck($event,2)" class="">
+        <label class="form-label">Paid</label>
+      </div>
+      <div class="my-3 row">
+        <div class="col-xs-12 col-sm-3 col-lg-3 col-xl-3"></div>
+        <div class="col-xs-12 col-sm-3 col-lg-3 col-xl-3">
+          <div class="card1 py-5 px-2">
+            <p class="pricing-plan-title">Silver</p>
+            <h3 class="pricing-plan-cost" *ngIf="!trial">₹1,000</h3>
+            <ul class="pricing-plan-features px-2">
+              <li>Unlimited conferences</li>
+              <li>100 participants max</li>
+              <li>Custom Hold Music</li>
+              <li>10 participants max</li>
+            </ul>
+            <button class="pricing-plan-purchase-btn" (click)="getSignup(2)" *ngIf="trial">Start Trial</button>
+            <button class="pricing-plan-purchase-btn" (click)="getSignup(7)" *ngIf="!trial">Buy</button>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3 col-xl-3">
+          <div class="card1 py-5 px-2">
+            <p class="pricing-plan-title">Gold</p>
+            <h3 class="pricing-plan-cost" *ngIf="!trial">₹1,200</h3>
+            <ul class="pricing-plan-features px-2">
+              <li>Unlimited conferences</li>
+              <li>100 participants max</li>
+              <li>Custom Hold Music</li>
+              <li>10 participants max</li>
+            </ul>
+            <button class="pricing-plan-purchase-btn" (click)="getSignup(3)" *ngIf="trial">Start Trial</button>
+            <button class="pricing-plan-purchase-btn" (click)="getSignup(8)" *ngIf="!trial">Buy</button>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3 col-xl-3"></div>
+      </div>
+    </div>
+  </form>
+  <ng2-toasty [position]="'center-center'"></ng2-toasty>
+</div>
+ -->

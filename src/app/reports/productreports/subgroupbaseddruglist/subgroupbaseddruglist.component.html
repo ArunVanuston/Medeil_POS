@@ -1,0 +1,81 @@
+<app-card>
+  <div class="sub-title">Vertical Based Product Reports
+    <i class="fa fa-print ficon"></i>
+  </div><br>
+
+<div class="row">
+ 
+ 
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label">Vertcial
+        <font color="red" class="fontlangifbel">*</font>
+      </label>
+      <select name="select" class="form-control" formControlName="verticalid" placeholder="" (change) = "getmaingrp($event.target.value)">
+        <option value="opt1" selected disabled>---Select Vertical---</option>
+        <option *ngFor="let vertical of verticallist" value={{vertical[0]}}>{{vertical[1]}}</option>
+      </select>
+    </fieldset>
+  </div>
+	
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label">Main Group <font color="red" class="fontlangifbel">*</font>
+      </label>
+      <select name="select" class="form-control" placeholder="Select Main Group"
+        formControlName="maingroupid" (change)="getsubgrp1($event.target.value)">
+        <option selected disabled value="0">---Select Main Group---</option>
+        <option *ngFor="let main of maingroup" value={{main[0]}}>{{main[1]}}</option>
+      </select>
+    </fieldset>
+  </div>
+
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label">Sub Group 1 <font color="red" class="fontlangifbel">*</font>
+      </label>
+      <select name="select" class="form-control" placeholder="Select Sub Group 1"
+        formControlName="subgroupid1" (change) ="getsubgrp2($event.target.value)">
+        <option selected disabled value="0">---Select Sub Group 1---</option>
+        <option *ngFor="let sub1 of subgroup1" value={{sub1[0]}}>{{sub1[1]}}</option>
+      </select>
+    </fieldset>
+  </div>
+
+  <div class="col-lg-4">
+    <fieldset class="form-group">
+      <label class="form-label">Sub Group 2 <font color="red" class="fontlangifbel">*</font>
+      </label>
+      <select name="select" class="form-control" placeholder="Select Sub Group 2"
+        formControlName="subgroupid2" (change) = "getid($event.target.value)"     >
+        <option selected disabled value="opt1">---Select Sub Group 2---</option>
+        <option *ngFor="let sub2 of subgroup2" value={{sub2[0]}}> {{sub2[1]}} </option>
+      </select>
+ 
+    </fieldset>
+   
+  </div>
+
+  
+  <div class=" col-lg-11" align="right">
+    <button class="btn btn-round" (click)="grpwiseproduct()">View </button>
+  </div>
+</div>
+
+
+
+</app-card>
+
+
+
+
+<div [ngClass]="reportshow?'showtop':'hidetop'" style="height:205%">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>

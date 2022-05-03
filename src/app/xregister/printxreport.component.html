@@ -1,0 +1,78 @@
+<app-card>
+  <div class="sub-title">View Open Register 
+       <em class="fa fa-eye ficon"></em>
+  </div>
+  <div class="panels">
+  <div class="panel1" style="width:95%;float:left">
+    <div class="" align="right">
+      <button type="button" class="btn-round" [routerLink]="['/OpenRegister/OpenRegister']">Open Register</button>
+    </div>
+    <div class="searchbox" align="center">
+      <input type="text" class="search mt-1" placeholder="Search Employee"
+      (input)="searchemployee($event.target.value)" autocomplete="off"/>
+    </div>
+    <div align="center">
+      <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+    </div>
+    <div class="mr-2" align="right">
+      <select class="form-control countwidth" [(ngModel)]="rowsOnPage">
+        <option [ngValue]="10">10</option>
+        <option [ngValue]="25">25</option>
+        <option [ngValue]="50">50</option>
+        <option [ngValue]="100">100</option>
+      </select>
+    </div><br>
+    <div class="dt-responsive" style="overflow: auto;">
+      <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table">
+        <thead>
+          <tr>
+            <th scope="col">S.No</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Counter No</th>
+            <th scope="col">Login Date</th>
+            <th scope="col">Login Time</th>
+            <th scope="col">Opening Amount</th>
+            <th scope="col">Additional Amount</th>
+            <th scope="col">Opening Details</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="openregisterdata.length == 0">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="nodata">No Data Available</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr *ngFor="let item of openregisterdata | paginate: { id: 'listing_pagination',
+          itemsPerPage: rowsOnPage, currentPage: page }  let i=index">
+              <td>{{i+1}}</td>
+              <td style="text-align: center !important;">{{item[2]}} </td>
+              <td style="text-align: center !important;">{{item[3]}}</td>
+              <td style="text-align: center !important;">{{item[4]}}</td>
+              <td style="text-align: center !important;">{{item[5]}}</td>
+              <td style="text-align:right !important">{{item[6]}}.00</td>
+              <td style="text-align:right !important">{{item[7]}}.00</td>
+              <td style="text-align:center !important">{{item[8]}}</td>
+           </tr>
+        </tbody>  
+        <tfoot>
+          <tr>
+            <td colspan="8">
+              <pagination-controls id="listing_pagination" directionLinks="true"
+              (pageChange)="page = $event" style="float: right;"></pagination-controls>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div> 
+  </div>
+  <div class="panel2" style="width:5%;float:right">
+  <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+  </div>
+  </div>
+</app-card>
+  

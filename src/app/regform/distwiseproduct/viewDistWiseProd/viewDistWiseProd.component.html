@@ -1,0 +1,134 @@
+<style>
+    #swidth{
+        width:350px;
+    }
+</style>
+<app-card>   
+    <div class="sub-title">View Vendorwise Product
+        <em class="fa fa-eye ficon"></em>
+    </div>
+    <div class="panels">
+    <div class="panel1" style="width:95%;float:left">
+        <div class="mr-2" align="right">
+            <button  type="button" class="btn-round" [routerLink]="['/VendorwiseProduct/AddVendorwiseProduct']"> Add Vendor Product</button> 
+         </div><br>
+         <form [formGroup]="registerForm"  >
+                   
+            <div class="box-typical box-typical-padding">
+            
+                    <div class="row"> <!--.row1start--> 
+                                
+                        <div class="col-lg-1"></div>
+
+                        <div class="col-lg-3">
+                                                
+                            <label class="form-label semibold" for="exampleInput"> {{'distributor.vendorname'| translate}}
+                            </label>
+                                            
+                                <select  class="form-control" (change)="viewDistProdWhole()"  formControlName="distributor">
+                                    <option value="opt1" disabled>--Select Distributors--</option>
+                                    <option *ngFor="let item of distributors; let i = index"
+                                        value={{item[0]}}>{{item[1]}}</option>
+                                </select>
+                          
+                        
+                        </div>                        
+                            
+                        <div class="col-lg-8"></div>
+        
+                    </div><br>  <!-- rrghghf 1-->
+           
+                    <div align="center">
+                        <img src="assets/images/loading.gif" alt="loading" height="100px" *ngIf="gifFail">
+                    </div><br>
+                    <div formArrayName="distprod" class="flow">  <!--. table  start--> 
+                        <table aria-describedby="mydesc" class="table styletab">
+                            <thead class="stylehead">
+                                 <tr>
+                                    <th scope="col">{{'common.sno'| translate}}</th>
+                                    <th scope="col">{{'distwiseproduct.productcode'| translate}}</th>
+                                    <th scope="col">{{'distwiseproduct.productname'| translate}}</th>
+                                    <th scope="col">{{'distwiseproduct.vendorprice'| translate}}</th>
+                                    <th scope="col">Manufacture Name</th>
+                                    <th scope="col">Remarks</th>
+                                     <th scope="col">{{'common.action'| translate}}</th>
+                                 </tr>
+                             </thead>
+                            <tbody class="stylebody">
+                             <tr *ngFor="let address of registerForm.controls.distprod.controls; let i=index" [formGroupName]="i">
+                            <td><input   value={{i+1}} id="width2" readonly/></td>
+                            <td><input   readonly   formControlName="drugprdid" id="width4"/></td>
+                            <td><input   readonly   formControlName="productname" id="swidth" style="text-align:left"/></td>
+                            <td><input   readonly formControlName="distprice" style="text-align:right"/></td>
+                            <td><input   readonly formControlName="manufname" id="swidth" style="text-align:left"/></td>
+                            <td><input   readonly formControlName="remarks" id="width6" style="text-align:left"/></td>
+                            <td><em class="fa fa-edit text-secondary" style="cursor: pointer;" (click)="getdetails(i)"></em></td>
+                            </tr>
+                            <tr *ngFor="let item of itemlength; let i=index">
+                                <td><input id="width1" readonly/></td>
+                                <td><input id="width1" readonly/></td>
+                                <td><input id="width1" readonly/></td>
+                                <td><input id="width1" readonly/></td>
+                                <td><input id="width1" readonly/></td>
+                                <td><input id="width1" readonly/></td>
+                                <td><em></em></td>
+                            </tr>
+                            </tbody>
+                        </table>     
+                    </div><br>
+                    <!-- <div class="row">
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-10">
+
+                      
+                    </div>  
+
+                    <div class="col-lg-1"></div>
+
+                    </div> -->
+                                        
+              </div>
+                <!-- box-typical-->
+                <div [ngClass]="distflag?'showtop':'hidetop'">
+                    <br>
+                    <div class="mr-2" align="right">
+                        <em class="fa fa-close fa-2x mr-2" (click)="distflag=false" style="cursor:pointer;color:white"></em>
+                    </div>
+                    <div class="container pt-3" style="overflow:auto;background-color:white;max-height:580px;border-radius: 12px;">
+                        <br><br>
+                        <div class="px-2" align="center">
+                            <h4><u>Update Vendor Price</u></h4>
+                        </div><br>
+                        <label><span style="font-weight:bold;">Note: </span>Remarks not more 100 Characters</label>
+                        <div class="row">
+                            <div class="col-lg-2"></div>
+                            <div class="col-lg-4">
+                                <label class="form-label">{{'distwiseproduct.vendorprice'| translate}}</label>
+                                <input class="sign-control" formControlName="distprice" id="width6" placeholder="Vendor Price" />
+                            </div>
+                            <div class="col-lg-4">
+                                <label class="form-label">Remarks</label>
+                                <input class="sign-control" formControlName="remarks" id="width6" placeholder="Remarks"/>
+                            </div>
+                            <div class="col-lg-2"></div>
+                        </div><br>
+                        <div class="ml-2" align="center">
+                            <button class="btn-round" type="button" (click)="UpdatePrice()">Update</button>             
+                        </div>
+                        <br><br>
+                    </div>
+                </div>
+            
+            </form>
+    
+    </div>
+    <div class="panel2" style="width:5%;float:right">
+    <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+    </div>
+    </div>         
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>   
+        
+    

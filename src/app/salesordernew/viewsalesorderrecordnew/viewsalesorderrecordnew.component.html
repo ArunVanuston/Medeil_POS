@@ -1,0 +1,109 @@
+<style>
+    .action {
+      font-size: 15px;
+      color: green;
+    }
+  
+    .action1 {
+      font-size: 15px;
+      color: red;
+    }
+  </style>
+  <app-card>
+    <div class="sub-title">View Sales Order Record
+      <em class="fa fa-eye ficon"></em>
+    </div><br>
+    <form [formGroup] = "productRecord">
+           <div class="row">
+              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-4">
+                  <div class="form-inline">
+                    <label class="searchstyle">Customer Name:</label>
+                      <input type="text" class="form-control w-50" placeholder="Search Product"  formControlName="customername">
+                    
+                  </div>
+              </div>
+          
+              <div class="col-xs-12 col-sm-12 col-sm-12 col-md-4">
+                  <div class="form-inline">
+                    <label class="searchstyle">Order Date:</label>
+                      <input type="date" class="form-control w-50" formControlName="orderdate">
+                    
+                  </div>
+              </div>
+
+        <div class="col-xs-12 col-sm-12 col-sm-12 col-md-4">
+          <div class="form-inline justify-content-end">
+            <strong class="searchstyle">Search:</strong>
+              <input type="search" [(ngModel)]="filterQuery" class="form-control w-50" placeholder="Search Product">
+            
+          </div>
+        </div>
+      </div><br>
+
+      <div class="dt-responsive">
+
+      <div style="overflow: auto">
+        <table aria-describedby="mydesc" class="table table-striped table-bordered table-responsive full-data-table" [mfData]="data | dataFilter : filterQuery" #mf="mfDataTable" [mfRowsOnPage]="rowsOnPage"
+          [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+          <thead>
+            <tr>
+              <th scope="col">
+                S.No
+              </th>
+              <th scope="col">
+               Product Name
+              </th>
+              <th scope="col">
+               Dosage Value
+              </th>
+              <th scope="col">
+               Formulation
+              </th>
+              <!-- <th scope="col">
+                <mfDefaultSorter by="pp">Patient Name</mfDefaultSorter>
+              </th>
+              <th scope="col">
+                <mfDefaultSorter by="pp">Order Date</mfDefaultSorter>
+              </th> -->
+              <th scope="col">
+               Total Quantity
+              </th>
+            </tr>
+            <tr>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngIf="(data | dataFilter : filterQuery) == 0">
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="nodata">No Data Available</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr *ngFor="let val of mf.data;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{val[0]}}</td>
+              <td>{{val[1]}}</td>
+              <td>{{val[2]}}</td>
+              <!-- <td>{{val[3]}}</td>
+              <td>{{val[4]}}</td> -->
+              <td>{{val[5]}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="7">
+                <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="col-lg-12" style="text-align: right;">
+        <button type="button" class="btn-round" (click)="goBack()" >Go Back</button>
+      </div>
+    </div>
+</form>
+  </app-card>

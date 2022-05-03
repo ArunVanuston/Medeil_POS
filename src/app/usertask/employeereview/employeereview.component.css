@@ -1,0 +1,99 @@
+.lab {
+  padding-top: 7px;
+}
+
+ol {
+  width: 650px;
+}
+
+li {
+  list-style-type: none;
+  padding-left: 1.28571429em;
+  text-indent: -1.28571429em;
+  word-break: break-all;
+  text-size-adjust: auto;
+}
+
+div>ol>li.lialgn {
+  word-break: break-all;
+}
+
+.border {
+  border-radius: 1em;
+  border: 1px solid lightgrey !important;
+}
+
+input.checkbox-inline {
+  width: 17px;
+  height: 17px;
+  margin: 0px 100px 0px 3px;
+}
+
+.alignLabel {
+  padding-right: 120px;
+}
+
+.alignLabelW {
+  padding-right: 134px;
+}
+
+.alignLabelA {
+  padding-right: 148px;
+}
+
+.alignLabelC {
+  padding-right: 120px;
+}
+
+.alignLabelD {
+  padding-right: 135px;
+}
+
+.garage-title {
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 2em;
+  padding-left: 17px;
+}
+
+.garage-titlef {
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 15px;
+  padding-left: 35px;
+}
+
+h5 {
+  /* background-color: #002e86; */
+  background-image: linear-gradient(to right, #002e86, yellow);
+  /* background-color: grey; */
+  width: 100%;
+  color: white;
+}
+
+.alignitem {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+}
+
+h6 {
+  text-align: center;
+}
+
+.backc {
+  padding: 0;
+  background-color: #F0F8FF;
+  margin: 0;
+  margin-top: -26px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+ .alignRating {
+  padding-left: 9em;
+}

@@ -1,0 +1,138 @@
+<style>
+  .label-info {
+    background-color: #3498DB;
+    color: white;
+  }
+</style>
+
+
+<app-card>
+  <div class="sub-title">View Task Based Performance Report
+    <em  class="fa fa-cog ficon"></em>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <select name="select" #selwdt class="form-control" placeholder="Select Main Group" (change)="reviewPeriod($event.target.value)">
+        <option value="0" disabled>---Select Review Period---</option>
+        <option value="Weekly">Weekly </option>
+        <option value="Monthly"> Monthly </option>
+        <option value="Annually"> Annually </option>
+        <option value="none"> None of Above </option>
+      </select>
+    </div>
+
+    <div class="col-sm-5">
+      <!-- <label>Search:  </label> -->
+      <input type="search" [(ngModel)]="filterQuery" class="form-control" placeholder="Search Employee Code">
+      <!-- /Employee Name -->
+    </div>
+
+    <div class="col-sm-4">
+      <!-- <label>Search: -->
+      <input type="search" [(ngModel)]="filterQuery1" class="form-control" placeholder="Search Department">
+      <!-- </label> -->
+    </div>
+  </div>
+
+  <br>
+
+  <div style="overflow: auto">
+    <table class="table table-striped table-bordered table-responsive full-data-table"
+      [mfData]="data | dataFilter : filterQuery| dataFilter1 :filterQuery1" #mf="mfDataTable"
+      [mfRowsOnPage]="rowsOnPage" [(mfSortBy)]="sortBy" [(mfSortOrder)]="sortOrder">
+      <thead>
+        <tr>
+
+          <th scope="col"> Employee Code</th>
+          <th scope="col">Employee Name</th>
+          <th scope="col">Department</th>
+          <th scope="col"> Assigned Total Task</th>
+          <!-- <th scope="col">Task Status Wise</th> -->
+          <!-- <th scope="col">Action</th> -->
+
+        </tr>
+        <tr>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="(data | dataFilter : filterQuery| dataFilter1 :filterQuery1) == 0">
+          <td></td>
+          <td class="nodata">No matching Records found....</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr *ngFor="let val of mf.data;let i=index">
+
+          <td>{{val[0]}}</td>
+          <td>{{val[1]}}</td>
+          <td>{{val[2]}} </td>
+          <td> {{val[3]}} </td>
+          <!-- <td>{{val[4]}}</td> -->
+
+
+          <!-- <td ngbDropdown class="text-center">
+            <div class="row togglealign">
+              <a ngbDropdownToggle class="dropdown-toggle addon-btn" data-toggle="dropdown" aria-expanded="true">
+                <em  class="icofont icofont-ui-settings"></em>
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="javascript:;" [routerLink]="['/UserTask/Usertaskdetail',val[10]]">
+                  <em  class="icofont icofont-list"></em>View</a>
+                  <a class="dropdown-item" href="javascript:;" (click)="usertask(val[0])">
+                  <em  class="icofont icofont-attachment"></em>Delete</a> 
+                <a class="dropdown-item" href="javascript:;" (click)="openRemarksModal($event.target, openRemModal)">
+                  <em  class="icofont icofont-attachment"></em>Remarks</a>
+              </div>
+            </div>
+          </td>
+        -->
+
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr>
+          <td colspan="11">
+            <mfBootstrapPaginator class="pagination-main f-right"></mfBootstrapPaginator>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+
+
+    <ng2-toasty [position]="position"></ng2-toasty>
+
+    <ng-template #openRemModal let-c="close" let-d="dismiss">
+      <div class="modal-header">
+        <label class="form-label"> Add Remarks</label>
+        <em  class="fa fa-times" (click)="closeMod(c)" style="cursor:pointer"></em>
+      </div>
+      <img src="assets/images/poptab.jpg" class="mt-4 modimg"><br>
+
+      <div class="modal-body mx-5">
+        <input class="form-control" [(ngModel)]="remar" maxlength="300" (keydown)="maxlength($event.target.value)"
+          placeholder="Please enter remarks...." />
+
+      </div>
+      <div class="modal-footer">
+
+        <label class="btn modbtn" id="type" (click)="saveRemarks(c)">Save Remarks</label>
+
+      </div>
+    </ng-template>
+
+
+
+
+
+
+  </div>
+
+  <!-- <div class="row">
+    <pre> {{mf.data |json}}</pre>
+  </div> -->
+
+
+</app-card>
+<ng2-toasty [position]="position"></ng2-toasty>

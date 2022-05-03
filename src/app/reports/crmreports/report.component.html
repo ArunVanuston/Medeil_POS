@@ -1,0 +1,124 @@
+<app-card>
+  <div class="sub-title">Customer Reports
+    <i class="fa fa-print ficon"></i>
+  </div><br>
+  <table style="width:100%">
+    <tbody>
+      <tr>
+        <td style="width:95%">
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+              <div class=" col-lg-4">
+                <label class="title1"><u>Customer Receipt</u></label>
+              </div>
+            </div><br>
+
+            <div class="row">
+
+              <div class="col-lg-3">
+
+                <label class="form-label">Customer Name</label>
+                <select name="select" class="form-control" formControlName="custname" (change)="getCustomer()">
+                  <option value="opt1">---Select Customer Name---</option>
+                  <option *ngFor="let cust of patientid" value={{cust[0]}}>{{cust[1]}}</option>
+                </select>
+
+              </div>
+
+
+              <div class='col-lg-3'>
+
+
+                <div class='date' id='datetimepicker6'>
+
+                  <label class="form-label">From Date:</label>
+
+                  <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                    formControlName="from_date" />
+
+                </div>
+
+              </div>
+
+              <div class='col-lg-3'>
+
+                <div class='date' id='datetimepicker7'>
+
+                  <label class="form-label">To Date:</label>
+
+                  <input type="date" (click)="datefetch()" (change)="datefetch()" class="form-control"
+                    formControlName="to_date" />
+
+
+                </div>
+
+              </div>
+
+              <div class=" col-lg-2" align="right">
+
+                <button class="btn btn-round" (click)="customerreceipt()">View </button>
+
+              </div>
+            </div>
+          </form><br><br>
+          <app-card>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="title1"><u>Customer List</u></label>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class=" col-lg-11" align="right">
+
+                <button class="btn btn-round" (click)="customerlist()">View </button>
+             </div>
+            </div>
+          </app-card>
+
+          <app-card>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="title1"><u>PWD Customer List</u></label>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class=" col-lg-11" align="right">
+                    <button class="btn btn-round" (click)="pwdCustomerList()">View </button>
+
+              </div>
+            </div>
+          </app-card>
+
+
+          <app-card>
+            <div class="row">
+              <div class="col-lg-4">
+                <label class="title1"><u>SCD Customer List</u></label>
+              </div>
+            </div><br>
+            <div class="row">
+              <div class=" col-lg-11" align="right">
+            
+                <button class="btn btn-round" (click)="scdCustomerList()">View </button>
+
+              </div>
+            </div>
+          </app-card>
+        </td>
+        <td style="width:5%" valign="top">
+          <app-rightpanel [rightpanelData]="parentMessage"></app-rightpanel>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>
+
+<div [ngClass]="reportshow?'showtop':'hidetop'">
+  <br>
+  <div class="mr-2" align="right">
+    <i class="fa fa-close fa-2x mr-2" (click)="reportshow=false" style="cursor:pointer;color:white"></i>
+  </div><br>
+  <div class="px-4">
+    <iframe height="97%" width="100%" [src]="reportlink"></iframe>
+  </div>
+</div>

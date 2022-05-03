@@ -1,0 +1,48 @@
+<app-card>
+  <form [formGroup]="currencysettingForm" (ngSubmit)='onSubmit()'>
+    <div class="sub-title" style="font-size: 20px;">Add CurrencySetting
+      <em style="float:right" class="ti-money" aria-hidden="true"></em>
+    </div>
+
+    <h4 style="text-align: center;">You was already select <u>{{selectedcurr}}</u> Currency Type</h4><br>
+    <div class="form-group row">
+      <!-- <div class="col-lg-4">
+        <label class="col-form-label labal">Country Name</label>
+        <select name="select" class="form-control inputline" formControlName="countryrefid"
+          (change)="getCurrenySymbol()">
+          <option value="opt1" selected disabled>---Select Country Name---</option>
+        <option *ngFor="let Country of country" value={{Country[0]}}>{{Country[1]}}</option> 
+        </select>
+      </div> -->
+       <div class="col-lg-4">
+        <label class="col-form-label labal">Currency Name</label>
+        <select name="select" class="form-control inputline" formControlName="currencyrefid">
+          <option value="opt1" selected disabled>---Select Currency Name---</option>
+          <option *ngFor="let Currency of currsts" value={{Currency[0]}}>{{Currency[1]}}</option>
+        </select>
+      </div> 
+      <!-- <div class="col-lg-4">
+				<label class="form-label">Currency</label>
+				<input type="text" class="form-control inputline" placeholder="Currency"
+					formControlName="currencysymbol" disabled />
+      </div> -->
+     <!-- <em class="fa fa-edit"></em> -->
+    </div>
+    
+      <!-- <div class="mr-4" align="right">
+        <button type="submit" class="btn-round">Save</button>
+      </div> -->
+    
+      <div class="form-group row">
+        <div class="col-lg-4">
+          <button type="submit" class="btn-round" style="margin:26px;">Save</button>
+        </div>
+        <div class="col-lg-2">
+          <button type="button" class="btn-round" style="margin:26px;" [routerLink]="['/GeneralSettings/GeneralSettings']"
+        >Back</button>
+        </div>
+      </div>
+  
+  </form>
+</app-card>
+<ng2-toasty [position]="'center-center'"></ng2-toasty>
