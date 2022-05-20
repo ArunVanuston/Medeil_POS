@@ -112,10 +112,10 @@
 		"finance": "Configuración del año financiero",
 		"decimal": "Decimal y redondeo",
 		"setup": "Coste de configuración del negocio",
-		"loyalty": "Configuración de lealtad",
-		"gift": "Configuración del producto de regalo",
+		"loyalty": "loyauté",
+		"gift": "cadeau",
 		"custtype": "Tipo de cliente",
-		"currency": "Configuración de moneda"
+		"currency": "devise"
 	},
 	"distributor": {
 		"viewvendorproducts": "Ver productos del proveedor",
@@ -156,26 +156,26 @@
 		"maritalstatus": "Estado civil"
 	},
 	"pharmacompany": {
-		"viewmanufacturer": "Ver fabricante",
+		"viewmanufacturer": "Afficher le fabricant",
 		"pharmacompanyid": "Identificación de la compañía farmacéutica",
-		"manufacturercompanyid": "Identificación de la compañía del fabricante",
-		"manufacturercompanyname": "Nombre de la compañía del fabricante",
-		"companyshortname": "Nombre corto de la compañía del fabricante",
-		"druglicenseno": "Número de licencia de medicamento",
-		"selectdivision": "División seleccionada",
+		"manufacturercompanyid": "fabricant companyid",
+		"manufacturercompanyname": "Nom de l'entreprise du fabricant",
+		"companyshortname": "Nom court de l'entreprise",
+		"druglicenseno": "pharmaclé non",
+		"selectdivision": "Sélection de division",
 		"contactperson": "Persona de contacto",
 		"designation": "Designación",
 		"bankname": "Nombre del banco",
 		"bankbranch": "Sucursal bancaria",
 		"accountnumber": "Número de cuenta",
 		"addnew": "Agregar nuevo",
-		"addmanufacturer": "Agregar fabricante",
-		"mfrcompanyname": "Nombre de la empresa de MFR",
-		"mfrshortname": "Nombre corto de MFR"
+		"addmanufacturer": "Ajouter le fabricant",
+		"mfrcompanyname": "Fabrication d'entreprise",
+		"mfrshortname": "Fabriquer le nom court"
 	},
 	"salesinvoice": {
 		"si": "SI Product No",
-		"cancelinvoice": "Cancelar factura",
+		"cancelinvoice": "Annuler la facture",
 		"add": "Agregar / quitar",
 		"addpresc": "Agregar Presc",
 		"newproduct": "Nuevo producto",
@@ -1437,7 +1437,7 @@
 		"save": "Guardar"
 	},
 	"gatepass": {
-		"stocktransfergatepass": "Pase de puerta de transferencia de stock",
+		"stocktransfergatepass": "Passe de porte de transfert d'origine",
 		"entrdetails": "Detalles de entrada",
 		"locationtype": "Tipo de ubicación",
 		"locationname": "Nombre de ubicación",
